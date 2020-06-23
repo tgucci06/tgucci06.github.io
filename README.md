@@ -1,1 +1,1 @@
-## TomoyaTaniguchiホームページ
+## TomoyaTaniguchiのホームページ
