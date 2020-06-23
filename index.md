@@ -1,12 +1,3 @@
----
-title: "TomoyaTaniguchiのホームページ"
-date: "`r format(Sys.time(),'%Y/%m/%d')`"
-output:
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
----
-
 # Contents
 
 ## 輪読
