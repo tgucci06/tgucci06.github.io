@@ -1,14 +1,16 @@
 ---
-title: TomoyaTaniguchiのホームページ
+title: "TomoyaTaniguchiのホームページ"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 
-# Contents
+# Contents  
 
-## 輪読
+## 輪読  
 
-### 黒木学. 構造的因果モデルの基礎
-
-スライド形式でのまとめ
+### 黒木学. 構造的因果モデルの基礎  
 
 
 ## 論文和訳
@@ -22,5 +24,3 @@ title: TomoyaTaniguchiのホームページ
 
 # 更新履歴
 
-* 2020/06/18
-  * 開設
