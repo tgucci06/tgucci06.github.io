@@ -2,8 +2,8 @@ name: "TomoyaTaniguchiのホームページ"
 navbar:
   title: "TomoyaTaniguchiのホームページ"
   left:
-    - text:"ホーム"
-    　href: index.html
+    text: "ホーム"
+    href: index.html
   
 output:
   html_document:

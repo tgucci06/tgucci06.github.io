@@ -1,7 +1,5 @@
 ---
 title: "TomoyaTaniguchiのホームページ"
-date: "`r format(Sys.time(),'%Y/%m/%d')`"
-
 ---
 
 # Contents
