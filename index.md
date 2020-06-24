@@ -1,11 +1,3 @@
----
-title: "TomoyaTaniguchiのホームページ"
-output:
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
----
-
 # Contents  
 
 ## 輪読  
