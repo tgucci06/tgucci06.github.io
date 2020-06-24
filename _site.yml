@@ -1,0 +1,15 @@
+name: "TomoyaTaniguchiのホームページ"
+navbar:
+  title: "TomoyaTaniguchiのホームページ"
+  left:
+  
+output:
+  html_document:
+    theme: cosmo
+    highlight: textmate
+    toc: true
+    toc_float:
+      collapse: false
+    df_print: "kable"
+    css: site_style.css
+output_dir: "docs"
