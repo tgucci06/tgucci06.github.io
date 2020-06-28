@@ -9,21 +9,28 @@ output:
       slideNumber: 'c/t'
       center: false
     #pandoc_args: [
-    #  '--from', 'markdown+autolink_bare_uris+tex_math_single_backslash-implicit_figures'
+      #'--from', 'markdown+autolink_bare_uris+tex_math_single_backslash-implicit_figures'
     #]
     self_contained: true
     theme: sky
     css: "for-revealjs.css"
+    reveal_options:
+      slideNumber: true
 ---
 
-## 1章のまとめ
+## 1章のまとめ {#summary}
+
 
 
 
 # 1.1 背景
 
+## 現実社会において
 
-
+* 興味ある現象の因果関係を明らかにし、それに従い行動を選択する場面にしばしば遭遇
+* この時実質科学の諸分野のニーズに応え得る記述表現で十分
+* 例えば、興味ある行動をとったときの実際に取ったときにどのような結果が生じるか(因果効果 : causal effect)を知りたいなら,そのことが定量的かつ合理的に評価できるもので十分
+* ゆえに、時には過剰なほど慎重な態度で因果関係の解析に臨み、大胆な態度で因果関係を簡略化して記述しようとする
 
 
 # 1.2 有効グラフを用いた因果推論

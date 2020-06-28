@@ -1888,10 +1888,18 @@ document.getElementsByTagName('head')[0].appendChild(style);
     <h3 class="date">2020/06/28</h3>
 </section>
 
-<section id="章のまとめ" class="slide level2">
+<section id="summary" class="slide level2">
 <h2>1章のまとめ</h2>
 </section>
-<section id="背景" class="title-slide slide level1"><h1>1.1 背景</h1></section>
+<section><section id="背景" class="title-slide slide level1"><h1>1.1 背景</h1></section><section id="現実社会において" class="slide level2">
+<h2>現実社会において</h2>
+<ul>
+<li>興味ある現象の因果関係を明らかにし、それに従い行動を選択する場面にしばしば遭遇</li>
+<li>この時実質科学の諸分野のニーズに応え得る記述表現で十分</li>
+<li>例えば、興味ある行動をとったときの実際に取ったときにどのような結果が生じるか(因果効果 : causal effect)を知りたいなら,そのことが定量的かつ合理的に評価できるもので十分</li>
+<li>ゆえに、時には過剰なほど慎重な態度で因果関係の解析に臨み、大胆な態度で因果関係を簡略化して記述しようとする</li>
+</ul>
+</section></section>
 <section id="有効グラフを用いた因果推論" class="title-slide slide level1"><h1>1.2 有効グラフを用いた因果推論</h1></section>
 <section id="neyman-rubinの因果モデル" class="title-slide slide level1"><h1>1.3 Neyman-Rubinの因果モデル</h1></section>
 <section><section id="相関関係か因果関係か" class="title-slide slide level1"><h1>1.4 相関関係か？因果関係か？</h1></section><section id="チョコレートとノーベル賞" class="slide level2">
@@ -6662,7 +6670,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: true,
         // Push each slide change to the browser history
         history: true,
         // Vertical centering of slides
