@@ -1,0 +1,56 @@
+---
+title: "構造的因果モデルの基礎 輪読 ＃1"
+subtitle: "第1章 はじめに"
+author: "谷口友哉"
+date: "`r format(Sys.time(),'%Y/%m/%d')`"
+output:
+  revealjs::revealjs_presentation:
+    reveal_option:
+      slideNumber: 'c/t'
+      center: false
+    #pandoc_args: [
+    #  '--from', 'markdown+autolink_bare_uris+tex_math_single_backslash-implicit_figures'
+    #]
+    self_contained: true
+    theme: sky
+    css: "for-revealjs.css"
+---
+
+## 1章のまとめ
+
+- 因果関係を解析するにあたって、確率論（主にベイズ）の考え方を導入
+  - 条件付き確率、条件付き独立、ベイズ規則、グラフォイド原理
+- 確率変数間の関係性を表現するため、グラフ（DAG）を導入
+  - マルコフ的、有向分離基準
+  - Zが有向分離しているなら、確率分布でZを与えたとき、XとYは条件付き独立
+- DAGは必ずしも因果を意味しないので、因果ベイジアンネットワークを導入
+
+(ここまでが確率モデルの話)
+
+- 反事実を議論するために、関数因果モデルを導入
+  - 予測・介入・反事実という3つの階層について、それぞれ説明
+
+# 1.1 背景
+
+
+
+
+
+# 1.2 有効グラフを用いた因果推論
+
+
+
+# 1.3 Neyman-Rubinの因果モデル
+
+
+
+
+# 1.4 相関関係か？因果関係か？
+
+## 1.4.1 チョコレートとノーベル賞
+
+# 1.5 問題意識
+
+
+
+
