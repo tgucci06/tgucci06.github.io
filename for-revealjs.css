@@ -15,14 +15,22 @@
 .reveal h5,
 .reveal h6 {
   text-transform: none;
+  font-family:Avenir , "Open Sans" , "Helvetica Neue" , Helvetica , Arial , Verdana , Roboto , "游ゴシック" , "Yu Gothic" , "游ゴシック体" , "YuGothic" , "ヒラギノ角ゴ Pro W3" , "Hiragino Kaku Gothic Pro" , "Meiryo UI" , "メイリオ" , Meiryo , "ＭＳ Ｐゴシック" , "MS PGothic" , sans-serif;
+
 }
 
 .reveal .slide {
-  text-align:left;
+    text-align:left;
+    height: 750px;
+    overflow-y: auto;
 }
 
 /* slide-title settint */
 
+.reveal section.slide>h1 {
+    color: #0f3a77;
+    font-weight: bold;
+}
 
 .level1>h1 {
   margin-top: 25%;
@@ -41,6 +49,10 @@ span.header-section-number {
 /* image setting */
 .reveal img {
   max-height: 500px;
+}
+
+.reveal .slide img {
+  border: 0;
 }
 
 /* table setting */
@@ -66,15 +78,6 @@ span.header-section-number {
 .reveal .slides section .column2 {
   float: right;
   width: 48%;
-}
-.reveal .slides section .column3 {
-  float: left;
-  width: 70%;
-}
-
-.reveal .slides section .column4 {
-  float: right;
-  width: 26%;
 }
 
 /* for htmlwidgets to iframe */
@@ -103,50 +106,27 @@ span.header-section-number {
   font-size: 18px;
   padding: 5px 20px 5px;
 }
+
+/* add */
+.reveal pre code {
+  font-size: 1.5em;
+  line-height: 0.85;
+}
+
 .reveal h2 {
-    padding: 0 1.5vw;
-    margin: 0.0vw 0 2.0vw -2.0vw;
+    margin: 0.0vw 0.0vw 1.0vw 0.0vw;
+    padding: 0vw;
     border-bottom: solid 0.4vw #2980b9;
 }
+
 .reveal .box {
-  margin: 0.5vw 1.5vw 1.5vw 1.5vw; 
-  padding: 0.1vw 1.5vw 0.1vw 1.5vw; 
+  margin: 1.0vw 1.0vw 1.0vw 1.0vw; 
+  padding: 0.1vw 1.0vw 0.1vw 1.0vw; 
   background: #EEE; 
-  border-radius: 1.5vw;
+  border-radius: 1.0vw;
 }
 
 .reveal .slides img {
   border: #00000000;
   text-align:center;
 }
-
-/* botsu */
-/*
-.reveal .slides section .column {
-   position: fixed;
-   width: 48%;
-   top: 3em;
-   bottom: 0;
-}
-.reveal .slides section .column1 {
-   left:  0;
-}
-.reveal .slides section .column2 {
-   right: 0;
-}
-*/
-
-/*
-.reveal .slides section .column img {
-   max-width: 190%;
-   max-height: 190%;
-   height: auto; 
-}
-*/
-
-/* other */
-/*
-.section .reveal .state-background {
-  background: #002b36;
-}
-*/
