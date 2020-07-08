@@ -5,22 +5,15 @@ author: "谷口友哉"
 date: "`r format(Sys.time(),'%Y/%m/%d')`"
 output:
   revealjs::revealjs_presentation:
-    df_print: "paged"
-    css: "for-revealjs.css"
-    self_contained: false
-#    transition: convex
-    theme: sky
-    highlight: kate
-    center: false
-    reveal_plugins: ['chalkboard']
-    
-    reveal_options:
+    reveal_option:
       slideNumber: 'c/t'
-      chalkboard:
-        theme: whiteboard
-pandoc_args: [
-      '--from', 'markdown+autolink_bare_uris+tex_math_single_backslash-implicit_figures'
-    ]
+      center: false
+    #pandoc_args: [
+    #  '--from', 'markdown+autolink_bare_uris+tex_math_single_backslash-implicit_figures'
+    #]
+    self_contained: true
+    theme: sky
+    css: "for-revealjs.css"
 ---
 
 # 1.1 背景
