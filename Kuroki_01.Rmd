@@ -472,7 +472,12 @@ Dr.Messerli reports regular daily chocolate consumption, mostly but not exclusiv
 * 興味ある変数集合を処理変数、反応変数、共変量、  
 中間変数に区別することが因果推論を成功させる  
 一つの鍵となる（宮川,2004a）
-  * 奥野他（1986）による事例を参考に考える
+
+## 変数の分類指針
+
+![Guideline](Guideline.jpg) 
+  
+* 奥野他（1986）による事例を参考に考える
 
 
 ## 奥野他（1986）の概略 {#about_Okuno}
@@ -559,8 +564,12 @@ Dr.Messerli reports regular daily chocolate consumption, mostly but not exclusiv
   * 真のデータ生成過程の解明や因果効果の評価を  
   目的としていない
 
-
 ## 有効グラフで記述
+
+* 自動車のボディ塗装に関するデータ生成過程
+![car_dag](car_dag.jpg) 
+
+## 有効グラフからわかること
 
 * 希釈率と塗着率に関して、湿度がバックドア基準を  
 満たすことを確認（詳細は第3.7.2項）
