@@ -1887,7 +1887,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
     <h1 class="title">構造的因果モデルの基礎 輪読 ＃1</h1>
   <h1 class="subtitle">第1章 はじめに</h1>
     <h2 class="author">谷口友哉</h2>
-    <h3 class="date">2020/07/09</h3>
+    <h3 class="date">2020/07/16</h3>
 </section>
 
 <section><section id="背景" class="title-slide slide level1"><h1>1.1 背景</h1></section><section id="現実社会において" class="slide level2">
@@ -2002,12 +2002,12 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section><section id="パス解析と構造的因果モデル" class="slide level2">
 <h2>パス解析と構造的因果モデル</h2>
 </section><section id="生成generationとは" class="slide level2">
-<h2>生成(generation)とは</h2>
+<h2>生成（generation）とは</h2>
 </section><section id="データ生成の例" class="slide level2">
 <h2>データ生成の例</h2>
 </section></section>
 <section><section id="neyman-rubinの因果モデル" class="title-slide slide level1"><h1>1.3 Neyman-Rubinの因果モデル</h1></section><section id="潜在反応モデルpotential-outcome-model" class="slide level2">
-<h2>潜在反応モデル(potential outcome model)</h2>
+<h2>潜在反応モデル（potential outcome model）</h2>
 <ul>
 <li>Neymanによる潜在反応モデル
 <ul>
@@ -2038,7 +2038,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 因果効果（population level causal effect）を評価</li>
 </ul>
 </section><section id="sutvastable-unit-treatment-value-assumption" class="slide level2">
-<h2>SUTVA(Stable Unit Treatment Value Assumption)</h2>
+<h2>SUTVA（Stable Unit Treatment Value Assumption）</h2>
 <ul>
 <li>集団レベルの因果効果の定量的評価は<strong>SUTVA</strong>という<br />
 仮定（Runbin,1980,1986）に基づいて議論</li>
@@ -2153,7 +2153,7 @@ No Multiple Versions of Treatmentの仮定が<br />
 治療の質による違いが考慮されない</li>
 </ul>
 </section><section id="一致性consistency" class="slide level2">
-<h2>一致性(consistency)</h2>
+<h2>一致性（consistency）</h2>
 <div class="box">
 <p>個体が興味ある処理を受けたときに生じるであろう<br />
 反応が、実際に処理を受けたときに観測されることを<br />
@@ -2162,7 +2162,12 @@ No Multiple Versions of Treatmentの仮定が<br />
 結びつける重要な鍵</p>
 </div>
 <ul>
-<li>SUTVAに基づいて定義される概念</li>
+<li><p>伝統的な潜在反応モデルに基づく因果推論では、<br />
+SUTVAに基づいて定義される概念</p></li>
+<li><p>数式で表現すると<br />
+<span class="math display">\[
+Y_i = X_iY_i^1 + (1 - X_i)Y_i^0
+\]</span></p></li>
 </ul>
 </section><section id="scmと比較した潜在反応モデル" class="slide level2">
 <h2>SCMと比較した潜在反応モデル</h2>
@@ -2189,7 +2194,7 @@ No Multiple Versions of Treatmentの仮定が<br />
 </section><section id="潜在反応モデルと比較したscm" class="slide level2">
 <h2>潜在反応モデルと比較したSCM</h2>
 <ul>
-<li>一方SCMのフレームワークの場合、潜在的な反応は<br />
+<li>一方SCMのフレームワークのにおいて、潜在的な反応は<br />
 データ生成過程と結びつけて定式化
 <ul>
 <li>No Multiple Versions of Treatmentや一致性について仮定する必要なし</li>
@@ -2201,7 +2206,7 @@ No Multiple Versions of Treatmentの仮定が<br />
 <ul>
 <li>SCMと潜在反応モデルの立場は異なる
 <ul>
-<li>どちらの立場でも、因果効果を定量的に評価するために適切な共変量を選択されることが重要視</li>
+<li>どちらの立場でも、因果効果を定量的に評価するために適切な共変量を選択することを重要視</li>
 </ul></li>
 <li>潜在反応モデルでは、
 <ul>
@@ -2259,7 +2264,7 @@ No Multiple Versions of Treatmentの仮定が<br />
 </section><section id="筆者が考えるmesserli2012の警告" class="slide level2">
 <h2>筆者が考えるMesserli（2012）の警告</h2>
 <ul>
-<li>因果推論に関して筆者は次の２点の警告がされていると考えた</li>
+<li>因果推論に関して次の2点の警告がされていると考えた</li>
 </ul>
 <div class="box">
 <ol type="1">
@@ -2278,7 +2283,7 @@ No Multiple Versions of Treatmentの仮定が<br />
 </ol>
 <ul>
 <li>これらの可能性を検討するためにランダム化実験を<br />
-すべきと主張</li>
+すべきと主張（Messerli,2012）</li>
 </ul>
 </section><section id="相関と因果" class="slide level2">
 <h2>相関と因果</h2>

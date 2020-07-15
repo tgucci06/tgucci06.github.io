@@ -109,13 +109,13 @@ Yの影響を受けない変数のうちXを除いたものを外的操作によ
 
 ## パス解析と構造的因果モデル
 
-## 生成(generation)とは
+## 生成（generation）とは
 
 ## データ生成の例
 
 # 1.3 Neyman-Rubinの因果モデル
 
-## 潜在反応モデル(potential outcome model) 
+## 潜在反応モデル（potential outcome model）
 
 * Neymanによる潜在反応モデル
   * パス解析と同時期に提案
@@ -141,7 +141,7 @@ Yの影響を受けない変数のうちXを除いたものを外的操作によ
 * 原則個体レベルの因果効果を評価せず、集団レベルの  
 因果効果（population level causal effect）を評価
 
-## SUTVA(Stable Unit Treatment Value Assumption)
+## SUTVA（Stable Unit Treatment Value Assumption）
 
 * 集団レベルの因果効果の定量的評価は**SUTVA**という  
 仮定（Runbin,1980,1986）に基づいて議論
@@ -224,7 +224,7 @@ No Multiple Versions of Treatmentの仮定が
 仮定すると、全て「治療」という一言で定義され、  
 治療の質による違いが考慮されない
 
-## 一致性(consistency)
+## 一致性（consistency）
 
 <div class="box">
 個体が興味ある処理を受けたときに生じるであろう  
@@ -234,7 +234,13 @@ No Multiple Versions of Treatmentの仮定が
 結びつける重要な鍵
 </div>
 
-* SUTVAに基づいて定義される概念
+* 伝統的な潜在反応モデルに基づく因果推論では、  
+SUTVAに基づいて定義される概念
+
+* 数式で表現すると  
+$$
+Y_i = X_iY_i^1 + (1 - X_i)Y_i^0
+$$
 
 ## SCMと比較した潜在反応モデル
 
@@ -253,7 +259,7 @@ No Multiple Versions of Treatmentの仮定が
 
 ## 潜在反応モデルと比較したSCM
 
-* 一方SCMのフレームワークの場合、潜在的な反応は  
+* 一方SCMのフレームワークのにおいて、潜在的な反応は  
 データ生成過程と結びつけて定式化
     * No Multiple Versions of Treatmentや一致性について仮定する必要なし
     * むしろデータ生成過程が持つ性質として導かれる
@@ -261,7 +267,7 @@ No Multiple Versions of Treatmentの仮定が
 ## 因果効果の定量的評価問題
 
 * SCMと潜在反応モデルの立場は異なる
-  * どちらの立場でも、因果効果を定量的に評価するために適切な共変量を選択されることが重要視
+  * どちらの立場でも、因果効果を定量的に評価するために適切な共変量を選択することを重要視
 * 潜在反応モデルでは、
   * 要因間の因果関係をモデル化することを極力避ける工夫
   * 共変量選択問題が詳細に議論されることは少ない
@@ -307,7 +313,7 @@ Dr.Messerli reports regular daily chocolate consumption, mostly but not exclusiv
 
 ## 筆者が考えるMesserli（2012）の警告
 
-* 因果推論に関して筆者は次の２点の警告がされていると考えた
+* 因果推論に関して次の2点の警告がされていると考えた
 
 <div class="box">
 1. 2つの項目どうしに強い相関があると言っても、  
@@ -323,7 +329,8 @@ Dr.Messerli reports regular daily chocolate consumption, mostly but not exclusiv
 (3) チョコ消費量とノーベル賞受賞者数の間に共通の原因が存在
 
 * これらの可能性を検討するためにランダム化実験を  
-すべきと主張
+すべきと主張（Messerli,2012）
+
 
 ## 相関と因果
 
