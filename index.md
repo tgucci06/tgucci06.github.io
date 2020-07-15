@@ -6,7 +6,7 @@
 
 スライド形式でのまとめ
 
-- 1章: [はじめに](https://tgucci06.github.io/Kuroki_01.html)
+- 1章:
 
 ## 論文和訳
 
