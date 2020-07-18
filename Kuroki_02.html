@@ -2192,6 +2192,7 @@ Judea Pearl本人がベイジアンネットワークの体系を構築 ➡︎�
 </div>
 </section><section id="親parentと子child" class="slide level2">
 <h2>親（parent）と子（child）</h2>
+<div class="box">
 <ul>
 <li><span class="math inline">\(\alpha\)</span> から <span class="math inline">\(\beta\)</span> への矢線 <span class="math inline">\(\alpha \rightarrow \beta\)</span> が 存在する時、<br />
 <span class="math inline">\(\alpha\)</span> は <span class="math inline">\(\beta\)</span> の親（先祖・非子孫）であるといい、<br />
@@ -2206,6 +2207,7 @@ Judea Pearl本人がベイジアンネットワークの体系を構築 ➡︎�
 <li><span class="math inline">\(\beta\)</span> は根、<span class="math inline">\(\alpha,\gamma\)</span> は葉</li>
 </ul></li>
 </ul>
+</div>
 </section><section id="道pathと有向道directed-path" class="slide level2">
 <h2>道（path）と有向道（directed path）</h2>
 <div class="box">
@@ -2219,7 +2221,7 @@ Judea Pearl本人がベイジアンネットワークの体系を構築 ➡︎�
 つまり</li>
 </ul>
 <p><span class="math display">\[
-\alpha_0 \rightarrow \alpha_1 \rightarrow \cdots \rightarrow\alpha_{n-1} \rightarrow \alpha_n
+\alpha_0 \rightarrow \alpha_1 \rightarrow \cdots \rightarrow\alpha_{n-1} \rightarrow \alpha_n\tag{2.52}
 \]</span> <span class="math inline">\(\;\;\:\)</span>を<span class="math inline">\(\alpha_0\)</span> から <span class="math inline">\(\alpha_n\)</span> への<strong>有向道</strong>という</p>
 </div>
 </section><section id="バックドアパスback-door-path" class="slide level2">
@@ -2232,6 +2234,89 @@ Judea Pearl本人がベイジアンネットワークの体系を構築 ➡︎�
 <li>双方向矢線はバックドアパスの例の一つ</li>
 <li>見方を変えれば、<span class="math inline">\(\alpha_0\)</span> から <span class="math inline">\(\alpha_n\)</span> への有向道も<br />
 <span class="math inline">\(\alpha_n\)</span> からのバックドアパス</li>
+</ul>
+</div>
+</section><section id="巡回閉路と非巡回有向グラフ" class="slide level2">
+<h2>巡回閉路と非巡回有向グラフ</h2>
+<div class="box">
+<ul>
+<li>有向道 <span class="math inline">\(\alpha_0,\alpha_1,\cdots,\alpha_n\)</span> で <span class="math inline">\(\alpha_0 = \alpha_n\)</span> を許す、つまり、</li>
+</ul>
+<p><span class="math display">\[
+\alpha_0 \rightarrow \alpha_1 \rightarrow \cdots \rightarrow\alpha_{n-1} \rightarrow \alpha_0 \tag{2.53}
+\]</span></p>
+<p><span class="math inline">\(\;\;\:\)</span>を<strong>巡回閉路</strong>（cycle）という</p>
+<ul>
+<li>巡回閉路の存在しない有効グラフを<strong>非巡回的</strong>（acyclic）といい、<br />
+<strong>非巡回有向グラフ</strong>（directed acyclic graph;<strong>DAG</strong>）と<br />
+いう</li>
+</ul>
+</div>
+</section><section id="DAG_1" class="slide level2">
+<h2>DAGで登場する用語1</h2>
+<ul>
+<li><span class="math inline">\(\alpha\)</span> から <span class="math inline">\(\beta\)</span> へ有向道が存在する時</li>
+</ul>
+<div class="box">
+<ul>
+<li><span class="math inline">\(\alpha\)</span> は <span class="math inline">\(\beta\)</span> の<strong>先祖</strong>（ancestor）</li>
+<li><span class="math inline">\(\beta\)</span> は <span class="math inline">\(\alpha\)</span> の<strong>子孫</strong>（descendant）</li>
+</ul>
+</div>
+<ul>
+<li><span class="math inline">\(\alpha\)</span> と <span class="math inline">\(\beta\)</span> が先祖と子孫の関係である時</li>
+</ul>
+<div class="box">
+<ul>
+<li><span class="math inline">\(\alpha\)</span> は <span class="math inline">\(\beta\)</span> よりも<strong>上流</strong>（upstream）にある</li>
+<li><span class="math inline">\(\beta\)</span> は <span class="math inline">\(\alpha\)</span> よりも<strong>下流</strong>（downstream）にある</li>
+<li><span class="math inline">\(de(\alpha)\)</span> を <span class="math inline">\(\alpha\)</span> の子孫からなる集合とした時、<br />
+<span class="math inline">\(\bf V\)</span><span class="math inline">\(\backslash \bigl(de(\alpha) \cup \{a\} \bigr)\)</span> の要素を <span class="math inline">\(\alpha\)</span> の<br />
+<strong>非子孫</strong>（non-descendant）</li>
+<li><span class="math inline">\(nd(\alpha)\)</span> を<span class="math inline">\(\alpha\)</span> の非子孫からなる集合とした時、<br />
+<span class="math inline">\(nd(\alpha) = \bf V\)</span><span class="math inline">\(\backslash \bigl(de(\alpha) \cup \{a\} \bigr)\)</span>である</li>
+</ul>
+</div>
+</section><section id="DAG_2" class="slide level2">
+<h2>DAGで登場する用語2</h2>
+<ul>
+<li><span class="math inline">\(an(\beta)\)</span> を<span class="math inline">\(\beta\)</span> の先祖からなる集合とした時</li>
+</ul>
+<div class="box">
+<ul>
+<li>頂点集合<span class="math inline">\(\bf V\)</span> の部分集合<span class="math inline">\(\bf V^*\)</span>おいて、<br />
+<span class="math inline">\(\bf V^*\)</span> に含まれる任意の頂点 <span class="math inline">\(\alpha\)</span> に対して、<br />
+<span class="math inline">\(\alpha\)</span> の先祖からなる集合 <span class="math inline">\(an(\alpha)\)</span> が<span class="math inline">\(\bf V^*\)</span> に含まれる時、<br />
+<span class="math inline">\(\bf V^*\)</span> を<strong>先祖集合</strong>（ancestral set）という</li>
+<li><span class="math inline">\(\bf V\)</span> の部分集合<span class="math inline">\(\bf V^*\)</span> に対して、<span class="math inline">\(\bf V^*\)</span> を含む最小の<br />
+先祖集合を<strong>最小先祖集合</strong>（smallest ancestral set）といい、<span class="math inline">\(An(\bf V^*\)</span><span class="math inline">\()\)</span> で表す</li>
+</ul>
+</div>
+</section><section id="DAG_3" class="slide level2">
+<h2>DAGで登場する用語3</h2>
+<div class="box">
+<ul>
+<li>道 <span class="math inline">\(\alpha_0,\alpha_1,\cdots,\alpha_n\)</span> で <span class="math inline">\(\alpha_{i-1}\circ\!\!\rightarrow\alpha_i\)</span> かつ <span class="math inline">\(\alpha_{i+1}\circ\!\!\rightarrow\alpha_i\)</span><br />
+つまり</li>
+</ul>
+<p><span class="math display">\[
+\alpha_{i-1}\circ\!\!\rightarrow\alpha_i\leftarrow\!\!\circ\:\alpha_{i+1}
+\tag{2.54}
+\]</span></p>
+<p>であるとき<span class="math inline">\(\alpha_i\)</span> を<strong>合流点</strong>（collider）<br />
+そうでないとき、<span class="math inline">\(\alpha_i\)</span> を<strong>非合流点</strong>（non-collider）という</p>
+<ul>
+<li><span class="math inline">\(\circ\!\!\rightarrow\)</span> は <span class="math inline">\(\rightarrow\)</span> または <span class="math inline">\(\leftrightarrow\)</span> のどちらでもよい<br />
+</li>
+<li>（2.54）式において、<span class="math inline">\(\alpha_{i-1}\)</span> と <span class="math inline">\(\alpha_{i+1}\)</span> の間に矢線のないグラフ構造を<strong>V字構造</strong>（V-structure）という</li>
+</ul>
+</div>
+<div class="box">
+<ul>
+<li><strong>双方向道</strong>（bidirected path）: <span class="math inline">\(\alpha_0\)</span> と <span class="math inline">\(\alpha_n\)</span> のそれぞれへ向かう矢線を含む道
+<ul>
+<li>双方向矢線は双方向道の1つ</li>
+</ul></li>
 </ul>
 </div>
 </section></section>
