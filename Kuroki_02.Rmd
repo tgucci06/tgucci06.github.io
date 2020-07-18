@@ -1,0 +1,434 @@
+---
+title: "構造的因果モデルの基礎 輪読 ＃2"
+subtitle: "第2章 準備"
+author: "谷口友哉"
+date: "`r format(Sys.time(),'%Y/%m/%d')`"
+output:
+  revealjs::revealjs_presentation:
+    reveal_option:
+      slideNumber: 'c/t'
+      center: false
+    #pandoc_args: [
+    #  '--from', 'markdown+autolink_bare_uris+tex_math_single_backslash-implicit_figures'
+    #]
+    self_contained: true
+    theme: sky
+    css: "for-revealjs.css"
+---
+
+# 2.1 因果推論における確率的考え方
+
+## 構造的因果モデルのフレームワーク
+\newcommand{\indep}{\mathop{\,\perp\!\!\!\!\!\perp\,}}
+\newcommand{\notindep}{\mathop{\,\perp\!\!\!\!\!/\!\!\!\!\!\perp\,}}
+\newcommand{\mat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+
+* 仮定
+<div class="box">
+データは何らかの物理的なデータ生成過程に  
+従って生成
+  * 変数間に客観的な関数関係（構造方程式モデル）が存在
+  * 関数関係：「原因と呼ばれる変数に値を代入すると結果と  
+  呼ばれる変数に1つの値が出力されるが、  
+  結果に値を代入しても原因に対する値は得られない」
+</div>
+* 自然科学分野だけでなく、医学・工学・社会科学・  
+人文科学的現象も議論の対象
+* データ生成過程の存在を仮定  
+➡︎直接的・間接的な因果関係や**共通原因の原理**を  
+ 確率モデルに反映させる第1ステップ
+
+## 共通原因の原理（common cause principle）
+
+<div class="box">
+No correlation without causation  
+因果なく相関なし
+</div>
+$\quad$
+<div class="box">
+If an improbable coincidence has occurred, there must exist a common cause (Reichenbach,1956,p.157)  
+ありえない偶然の一致が起こった場合、  
+共通の原因が存在しなければならない
+</div>
+
+## 因果関係の解明を拒む壁
+
+* **不確実性**が存在
+  * データが大量に得られても、そのデータから推測された  
+  統計モデルが物理的なデータ生成過程を適切に記述したものであることを、データだけを用いて保証する術を我々が持たない
+  * 本来決定論的に解明したい因果関係を決定論的に  
+  評価することが困難
+* 構造的因果モデルのフレームワークでは  
+不確実性を評価するために、  
+データ生成過程と確率・統計的な考え方が融合
+
+# 2.2 事象の確率
+
+## 試行と事象の定義
+
+* 試行（trial）
+<div class="box">
+母集団からデータを採取するために行う実験や観測
+</div>
+
+* 確率試行（stochastic trial）
+<div class="box">
+データを採取する際、起こりうる結果の全体は  
+概ね分かるが、その中のどれが観測できるのかを  
+あらかじめ知ることができない実験や観測
+</div>
+
+* 標本空間（sample space）,全事象（certain event）
+<div class="box">
+確率試行を行った時に起こりうる結果（要素）の  
+全体：$\Omega$ で表記
+</div>
+
+* 事象（event）
+<div class="box">
+標本空間の部分集合:  
+A,B,C...のように大文字アルファベットで表記
+</div>
+
+## 事象の種類
+
+<div class="box">
+和事象（union of events）：$A\cup B$  
+・事象A,Bの両方に含まれる要素を全て合わせたもの
+</div>
+
+<div class="box">
+積事象（intersection of events）：$A\cap B$  
+・事象A,Bの両方に含まれる要素全てからなる  
+$\;\:\:$標本空間$\Omega$ の部分集合
+</div>
+
+<div class="box">
+差事象（difference of events）：$A\backslash B$  
+・事象Aから事象Bに含まれる要素全てを取り除いた後に  
+$\;\:\:$残ったAの要素全体からなる集合
+</div>
+
+<div class="box">
+余事象（complement of an events）：$A^{c}$  
+・$\Omega\backslash A$ を意味する
+</div>
+
+<div class="box">
+空集合（empty events）：$\phi$  
+・$\Omega$ の要素を全く持たない集合
+</div>
+
+<div class="box">
+排反（disjoint,exclusive）  
+・$A\cap B$ が空集合である時
+</div>
+
+## 例題：事象
+
+* 標本空間:a,b,c,dを要素とする$\Omega=\bigl\{a,b,c,d\bigr\}$
+* $\Omega$ の部分集合$A=\bigl\{a,b\bigr\}$,$B=\bigl\{b,c\bigr\}$
+* 和事象、積事象、差事象、余事象は
+
+$$
+A\cup B=\bigl\{a,b,c\bigr\},A\cap B=\bigl\{b\bigr\},\\
+A\backslash B=\bigl\{a\bigr\},A^{c}=\bigl\{c,d\bigr\}
+\tag{2.1}
+$$
+
+## 確率（probability）
+
+<div class="box">
+確率とは標本空間$\Omega$の部分集合で定義された関数$pr(\cdot)$ 
+</div>
+
+* ある事象Aが起こる（Aの要素が観測される）確率を$pr(A)$と表記
+* 次の3つを満たす
+
+$$
+0\leq pr(A)\leq1,\quad A\subset \Omega\tag{2.2}
+$$
+
+$$
+pr(\Omega)=1\tag{2.3}
+$$
+
+$$
+A\cap B = \phi\Rightarrow pr(A\cup B) = pr(A) + pr(B) \tag{2.4}
+$$
+
+* 積事象$A\cap B,A\cap B^c$ は排反であることから、
+
+$$
+\begin{aligned}
+pr(A) &=pr\bigl((A\cap B)\cup (A\cap B^c)\bigr)\\
+&=pr(A\cap B) + pr(A\cap B^c) 
+\end{aligned}
+\tag{2.5}
+$$
+
+## 全確率の公式（law of total probability）
+
+* より一般に、$B_i(i=1,\:_\cdots,n)$ を互いに排反で標本空間$\Omega$ を完全に分割する事象、つまり$\Omega = B_1\cup_\cdots\cup B_n$で  
+かつ$i ≠j\:(i,j = 1,_\cdots,n)$ に対して積事象$B_i\cap B_j$ が  
+空集合となる事象のある集まりとする。このとき
+
+$$
+\begin{aligned}
+A &= A\cap\Omega\\
+&= A\cap( B_1\cup_\cdots\cup B_n)\\
+&= (A\cap B_1)\cup_\cdots\cup(A\cap B_n)
+\end{aligned}
+\tag{2.6}
+$$
+
+* つまり$pr(A)$は$pr(A\cap B_i)\:(i=1,_\cdots n)$ を用いて
+
+$$
+\begin{aligned}
+pr(A) &= pr(A\cap\Omega)\\
+&= pr\bigl((A\cap B_1)\cup_\cdots\cup(A\cap B_n)\bigr)\\
+&= \sum_{i=1}^{n}pr(A\cap B_i)
+\end{aligned}
+\tag{2.7}
+$$
+
+* (2.7)式を**全確率の公式**という
+
+## 周辺確率（marginal probability）
+
+<div class="box">
+(2.7)式において、積事象$A\cap B_i$ に対する確率$pr(A\cap B_i)$が与えられた時、全ての$B_i$ について確率を  
+足し合わせることで得られる確率$pr(A)$ をAの**周辺確率**という
+</div>
+
+(cf) 事象$A$とその余事象$A^c$のどちらか1つは必ず起きることから(2.5)式の$A,B$ を$\Omega,A$と置き直すことにより、
+
+$$
+pr(A) + pr(A^c) = 1 \tag{2.8}
+$$
+
+## 条件付き確率（conditional probability）
+
+<div class="box">
+ある事象$B$ が起こるという条件の下でもう1つの事象$A$ が起こる確率：$pr(A|B)$
+</div>
+
+* $pr(B)>0$ であるとき、$pr(A|B)$を事象$B$ を与えた時の事象$A$ の条件付き確率という
+
+$$
+pr(A|B) = \frac{pr(A\cap B)}{pr(B)} \tag{2.9}
+$$
+
+## 乗法公式（product rule）{#2_2}
+
+
+
+## 連鎖公式（chain rule）
+
+
+
+## 事象の（周辺）独立性（(marginal) independence）
+
+$$
+A \indep B
+$$
+
+
+## 事象の条件付き独立性（conditional independence）
+
+
+
+# 2.3 確率変数
+
+## 離散型確率変数
+
+$$
+pr(X = x)\geq0,\quad\sum_{x}pr(X = x)=1\tag{2.19}
+$$
+
+
+
+## 連続型確率変数
+
+
+
+## 期待値（expectation）
+
+
+
+# 2.4 確率変数ベクトル
+
+## 多次元確率変数ベクトルへ拡張
+
+
+## 確率変数の集合
+
+
+
+## 同時（確率）密度関数（joint probability density function）
+
+
+
+## （累積）同時分布関数（joint cumulative distribution function）
+
+
+
+## 周辺分布関数と周辺確率密度関数
+
+
+
+## 条件付き確率密度関数（conditional probability density function）
+
+
+
+## 乗法公式 {#2_4}
+
+
+
+## 乗法公式の拡張 {#product_rule_Expansion}
+
+* 逐次的因数分解（recursive factorization）,連鎖公式
+
+
+## 確率変数どうしの（周辺）独立性
+
+
+## 確率変数どうしの条件付き独立性
+
+
+## 条件付き期待値と条件付き分散
+
+
+## 共分散と条件付き共分散
+
+
+## 相関係数と条件付き相関係数
+
+* 線形構造方程式モデルにおいては  
+偏相関係数（partial correlation coefficient）と呼ばれる
+
+## 相関係数の基本的な性質
+
+
+## 共分散行列、相関行列、相互共分散行列
+
+
+# 2.5 グラフォイド原理
+
+## グラフォイド原理（graphoid axioms）
+
+
+## 条件付き独立関係のルール
+
+
+## ルールを視覚化
+
+
+
+
+# 2.6 グラフ用語
+
+## 構造的因果モデルでグラフを使う意義
+
+* 構造的因果モデルに基づいた因果推論では、必ずしも  
+グラフを使わなければならないわけではない（第1.2節）
+* パス解析が源泉
+* 構造的因果モデルのフレームワークを構築した  
+Judea Pearl本人がベイジアンネットワークの体系を構築
+➡︎構造的因果モデルを扱った文献のほとんどで
+有向グラフによる解釈
+
+## グラフ用語の定義
+
+<div class="box">
+グラフ $G$（graph）は頂点（vertex,node）集合 $\bf V$ と  
+その直積集合$\bf V \times \bf V$の部分集合である矢線（arrow）  
+あるいは有向辺（directed edge）の集合$\bf E$ によって、
+$\bf G = (\bf V,\bf E)$ と表現される
+</div>
+
+## 割り当てられる矢線の種類
+
+* 異なる2つの頂点 $\alpha,\beta\in \bf V$ $(\alpha \neq \beta)$ に対して、$(\alpha,\beta)$ と $(\beta,\alpha)$ を同一視し、$(\alpha,\beta) \in \bf E$ であるとき、以下の  
+3つのうちの少なくとも1つを割り当てる  
+
+1. $\alpha$ から $\beta$ への矢線: $\alpha \rightarrow \beta$
+2. $\alpha$ と $\beta$ の双方向矢線（bidirected arrow）: $\alpha \leftrightarrow \beta$
+3. $\beta$ から $\alpha$ への矢線: $\beta \rightarrow \alpha$
+
+* ただし$(\alpha,\beta) \in \bf E$に割り当てられる矢線の数は最大で3つ
+  * 同じタイプの矢線は割り当てない
+  * $\alpha$ から $\alpha$ 自身に向かう矢線は考えない
+  
+## 部分グラフ（subgraph）
+
+<div class="box">
+頂点集合 $\bf V$ の部分集合$\bf V^*$と  
+矢線の集合$\bf E$ の部分集合$\bf E^*$に対して、  
+$\bf E^*$ に属する矢線の両端が $\bf V^*$ に属する時、  
+グラフ $G^* = (\bf V^*,\bf E^*)$ を$\bf V^*$ から生成される  
+$G$ の部分グラフという
+</div>
+
+## 親（parent）と子（child）
+
+* $\alpha$ から $\beta$ への矢線 $\alpha \rightarrow \beta$ が  存在する時、  
+$\alpha$ は $\beta$ の親（先祖・非子孫）であるといい、  
+$\beta$ は $\alpha$ の子（子孫）であるという
+* $pa(\beta)$ : $\beta$ の親の集合
+* $ch(\alpha)$ : $\alpha$ の子の集合
+* 配偶者（spouse）: 双方向矢線が存在
+* 根（root）,源点（source）: グラフ$\bf G$ の頂点でそれに向かう矢線がない
+* 葉（leaf）,沈点（sink）: それから出る矢線を持たない
+* 例　$\alpha \leftarrow \beta \rightarrow \gamma$ では  
+  * $\beta$ は根、$\alpha,\gamma$ は葉
+
+## 道（path）と有向道（directed path）
+
+<div class="box">
+* 異なる頂点の列 $\alpha_0,\alpha_1,\cdots,\alpha_n$ において全ての $i = 1,_\cdots,n$ で $(\alpha_{i-1},\alpha_i) \in \bf E$ であるとき、頂点の列 $\alpha_0,\alpha_1,\cdots,\alpha_n$ を  
+$\alpha_0$ と $\alpha_n$ の間の**道**という  
+このとき、$\alpha_0$ と $\alpha_n$ を**端点**（endpoint）という  
+$\alpha_0$ と $\alpha_n$ の間に道があるとき$\alpha_0$ と $\alpha_n$ は**連結している**（connect）という  
+* $\alpha_0$ と $\alpha_n$ の間の道において、全ての $i = 1,_\cdots,n$ に対して$\alpha_{i-1} \rightarrow \alpha_i$ であって $\alpha_i \rightarrow \alpha_{i-1}$ や $\alpha_i \leftrightarrow \alpha_{i-1}$でないとき、  
+つまり
+
+$$
+\alpha_0 \rightarrow \alpha_1 \rightarrow \cdots \rightarrow\alpha_{n-1} \rightarrow \alpha_n
+$$
+$\;\;\:$を$\alpha_0$ から $\alpha_n$ への**有向道**という
+</div>
+
+## バックドアパス（back door path）
+
+<div class="box">
+* $\alpha_0$ と $\alpha_n$ の間の道で$\alpha_0$ へ向かう矢線を含むものを  
+( $\alpha_0$ からの）**バックドアパス**という  
+* 双方向矢線はバックドアパスの例の一つ
+* 見方を変えれば、$\alpha_0$ から $\alpha_n$ への有向道も  
+$\alpha_n$ からのバックドアパス
+</div>
+
+
+
+# 2.7 有効分離基準
+
+
+
+# 2.8 ベイジアンネットワーク
+
+
+# 2.9 ランダム化
+
+
+
+
+
+
+
+
+
+
+
+
