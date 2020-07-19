@@ -1887,7 +1887,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
     <h1 class="title">構造的因果モデルの基礎 輪読 ＃2</h1>
   <h1 class="subtitle">第2章 準備</h1>
     <h2 class="author">谷口友哉</h2>
-    <h3 class="date">2020/07/19</h3>
+    <h3 class="date">2020/07/20</h3>
 </section>
 
 <section><section id="因果推論における確率的考え方" class="title-slide slide level1"><h1>2.1 因果推論における確率的考え方</h1></section><section id="構造的因果モデルのフレームワーク" class="slide level2">
@@ -2154,7 +2154,8 @@ pr(X = x)\geq0,\quad\sum_{x}pr(X = x)=1\tag{2.19}
 グラフを使わなければならないわけではない（第1.2節）</li>
 <li>パス解析が源泉</li>
 <li>構造的因果モデルのフレームワークを構築した<br />
-Judea Pearl本人がベイジアンネットワークの体系を構築 ➡︎構造的因果モデルを扱った文献のほとんどで 有向グラフによる解釈</li>
+Judea Pearl本人がベイジアンネットワークの体系を構築 ➡︎構造的因果モデルを扱った文献のほとんどで<br />
+有向グラフによる解釈</li>
 </ul>
 </section><section id="グラフ用語の定義" class="slide level2">
 <h2>グラフ用語の定義</h2>
@@ -2248,7 +2249,7 @@ Judea Pearl本人がベイジアンネットワークの体系を構築 ➡︎�
 <p><span class="math inline">\(\;\;\:\)</span>を<strong>巡回閉路</strong>（cycle）という</p>
 <ul>
 <li>巡回閉路の存在しない有効グラフを<strong>非巡回的</strong>（acyclic）といい、<br />
-<strong>非巡回有向グラフ</strong>（directed acyclic graph;<strong>DAG</strong>）と<br />
+<strong>非巡回的有向グラフ</strong>（directed acyclic graph;<strong>DAG</strong>）と<br />
 いう</li>
 </ul>
 </div>
@@ -2320,8 +2321,423 @@ Judea Pearl本人がベイジアンネットワークの体系を構築 ➡︎�
 </ul>
 </div>
 </section></section>
-<section id="有効分離基準" class="title-slide slide level1"><h1>2.7 有効分離基準</h1></section>
-<section id="ベイジアンネットワーク" class="title-slide slide level1"><h1>2.8 ベイジアンネットワーク</h1></section>
+<section><section id="有向分離基準" class="title-slide slide level1"><h1>2.7 有向分離基準</h1></section><section id="d_sepa" class="slide level2">
+<h2>定義2-5 有向分離基準 (d-separation criterion)</h2>
+<div class="box">
+<p>DAG <span class="math inline">\(G\)</span> において、頂点集合 <span class="math inline">\(\bf X\)</span> の任意の要素 <span class="math inline">\(X\)</span> と<br />
+<span class="math inline">\(\bf Y\)</span> の任意の要素 <span class="math inline">\(Y\)</span> を結ぶ全ての道のそれぞれについて、<br />
+<span class="math inline">\(\bf X \cup Y\)</span> と排反な頂点集合 <span class="math inline">\(\bf Z\)</span> が次のいずれかを満たす時<br />
+<span class="math inline">\(\bf Z\)</span> は <span class="math inline">\(\bf X\)</span> と <span class="math inline">\(\bf Y\)</span> を<strong>有向分離する</strong>という</p>
+<ol type="1">
+<li><span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> を結ぶ道上の合流点で、<br />
+その合流点とその子孫が <span class="math inline">\(\bf Z\)</span> に含まれないものがある<br />
+</li>
+<li><span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> を結ぶ道に非合流点で、<br />
+<span class="math inline">\(\bf Z\)</span> に含まれるものがある</li>
+</ol>
+</div>
+<ul>
+<li>特に <span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> を結ぶ道が存在しない場合、 <span class="math inline">\(\bf X \cup Y\)</span> と<br />
+排反な任意の頂点集合が <span class="math inline">\(\bf X\)</span> と <span class="math inline">\(\bf Y\)</span> を有向分離する</li>
+</ul>
+</section><section id="有向分離の概念" class="slide level2">
+<h2>有向分離の概念</h2>
+<ul>
+<li>有向分離の概念は頂点間について定義されたもので、<br />
+道に対して定義されたものでない
+<ul>
+<li>因果推論の教科書ではこの区別なしに用いられることが多い</li>
+<li><span class="math inline">\(\bf X\)</span> と <span class="math inline">\(\bf Y\)</span> の有向分離関係を調べる際、任意の要素 <span class="math inline">\(X\)</span> と<br />
+任意の要素 <span class="math inline">\(Y\)</span> を結ぶ全ての道「それぞれ」について定義2-5の<br />
+条件1または条件2のどちらを満たすのかを確認</li>
+</ul></li>
+</ul>
+<div class="box">
+<ul>
+<li>DAG <span class="math inline">\(G\)</span> において、<span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> を結ぶ道のうち興味のある<br />
+ものについて、<span class="math inline">\(\{X,Y\}\)</span> と排反な頂点集合 <span class="math inline">\(\bf Z\)</span> が、<br />
+定義2-5の条件1と条件2のいずれかを満たす時、<br />
+<span class="math inline">\(\bf Z\)</span> はその道を<strong>有向分離する</strong>（ブロックする）<br />
+</li>
+<li>有向分離されている<span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> の道のうち興味あるものについて、<span class="math inline">\(\bf Z\)</span> によってこの道が有向分離されなくなる時、<span class="math inline">\(\bf Z\)</span> はその道を<strong>開く</strong>
+<ul>
+<li><span class="math inline">\(\bf X\)</span> と <span class="math inline">\(\bf Y\)</span> の間の道が有向分離されていない時、<br />
+<span class="math inline">\(\bf X\)</span> と <span class="math inline">\(\bf Y\)</span> の間の道は<strong>開かれている</strong><br />
+</li>
+</ul></li>
+</ul>
+</div>
+</section><section id="W-structure1" class="slide level2">
+<h2>W字構造（W-structure）の例-1</h2>
+<ul>
+<li>有向グラフにおいて、<span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> を結ぶ道は次の1つのみ</li>
+<li>合流点である <span class="math inline">\(Z_1,Z_3\)</span> は子孫を持たない</li>
+<li><span class="math inline">\(Z_2\)</span> は非合流点</li>
+</ul>
+<p><span class="math display">\[
+X \rightarrow Z_1 \leftarrow Z_2 \rightarrow Z_3 \leftarrow Y \tag{2.55}
+\]</span></p>
+<ul>
+<li>興味ある頂点集合 <span class="math inline">\(\bf Z\)</span> が定義2-5の条件1と条件2の<br />
+いずれか1つを満たしていれば、<br />
+<span class="math inline">\(\bf Z\)</span> は<span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> を有向分離する</li>
+</ul>
+</section><section id="W-structure2" class="slide level2">
+<h2>W字構造（W-structure）の例-2</h2>
+<ul>
+<li>まずは空集合を考える
+<ul>
+<li>非合流点 <span class="math inline">\(Z_2\)</span> は空集合に含まれないため、条件2を満たさない</li>
+<li>空集合は合流点 <span class="math inline">\(Z_1,Z_3\)</span> も含んでいないため、条件1を満たす</li>
+</ul></li>
+</ul>
+<div class="box">
+<p>空集合は <span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> を有向分離する</p>
+</div>
+<ul>
+<li><span class="math inline">\(Z_2\)</span> を含む頂点集合 <span class="math inline">\(\{Z_2\},\{Z_1,Z_2\},\{Z_2,Z_3\},\{Z_1,Z_2,Z_3\}\)</span> を考える
+<ul>
+<li>非合流点 <span class="math inline">\(Z_2\)</span> を含むため、条件2を満たす</li>
+</ul></li>
+</ul>
+<div class="box">
+<p>条件1を満たすかどうかに関係なく、<br />
+<span class="math inline">\(Z_2\)</span> を含む頂点集合は <span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> を有向分離する</p>
+</div>
+</section><section id="W-structure3" class="slide level2">
+<h2>W字構造（W-structure）の例-3</h2>
+<ul>
+<li><span class="math inline">\(\{Z_1\}\)</span> を考える
+<ul>
+<li><span class="math inline">\(Z_1\)</span> は合流点であり非合流点 <span class="math inline">\(Z_2\)</span> を含まないため、<br />
+条件2を満たさない</li>
+<li>もう1つの合流点 <span class="math inline">\(Z_3\)</span> は <span class="math inline">\(\{Z_1\}\)</span> に含まれないため、<br />
+条件1を満たす</li>
+</ul></li>
+</ul>
+<div class="box">
+<p><span class="math inline">\(\{Z_1\}\)</span> は <span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> を有向分離する<br />
+同様に <span class="math inline">\(\{Z_3\}\)</span> も <span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> を有向分離する</p>
+</div>
+<ul>
+<li>興味ある2つの頂点集合の間の道のそれぞれについて、<br />
+定義2-5の片方の条件を満たすことが分かれば、<br />
+もう1つの条件を満たすかどうかとは無関係に<br />
+<span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> を有向分離すると主張可能</li>
+</ul>
+</section><section id="W-structure4" class="slide level2">
+<h2>W字構造（W-structure）の例-4</h2>
+<ul>
+<li><span class="math inline">\(\{Z_1,Z_3\}\)</span> を考える
+<ul>
+<li>非合流点 <span class="math inline">\(Z_2\)</span> を含まないため、条件2を満たさない<br />
+</li>
+<li>集合に含まれる <span class="math inline">\(Z_1,Z_3\)</span> は合流点であるため、<br />
+条件1を満たさない</li>
+</ul></li>
+</ul>
+<div class="box">
+<p><span class="math inline">\(\{Z_1,Z_3\}\)</span> は <span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> を有向分離しない<br />
+<span class="math inline">\(\{Z_1,Z_3\}\)</span> は (2.55) 式で与えられる道を開いている</p>
+</div>
+</section><section id="有向分離基準の直感的理解のために" class="slide level2">
+<h2>有向分離基準の直感的理解のために</h2>
+<ul>
+<li>グラフを1次関数に基づくデータ伝達過程と結びつけて<br />
+考える</li>
+<li>有向グラフ上の2つの頂点 <span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> について、</li>
+</ul>
+<p><span class="math display">\[
+Y = \alpha_{yx}X \tag{2.56}
+\]</span></p>
+<p>のように <span class="math inline">\(Y\)</span> の出力情報が生成される状況を示すとする</p>
+</section><section id="連鎖経路chain" class="slide level2">
+<h2>連鎖経路（chain）</h2>
+<p><span class="math display">\[
+X \rightarrow Z \rightarrow Y \;\; (Y = \alpha_{yx}Z,Z = \alpha_{zx}X)
+\]</span></p>
+<p>は <span class="math inline">\(Z\)</span> が <span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> を有向分離しているケース</p>
+<ul>
+<li><span class="math inline">\(Y\)</span> の出力情報は <span class="math inline">\(Z\)</span> の入力情報だけで決まり、<br />
+<span class="math inline">\(X\)</span> の入力情報とは無関係</li>
+</ul>
+</section><section id="分岐経路fork" class="slide level2">
+<h2>分岐経路（fork）</h2>
+<p><span class="math display">\[
+X \leftarrow Z \rightarrow Y \;\; (Y = \alpha_{yx}Z,X = \alpha_{xz}Z)
+\]</span></p>
+<p>は <span class="math inline">\(Z\)</span> が <span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> を有向分離しているケース</p>
+<ul>
+<li><span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> の出力情報は <span class="math inline">\(Z\)</span> の入力情報だけで決まる<br />
+</li>
+<li><span class="math inline">\(Z\)</span> に情報が入力されると、<span class="math inline">\(Y\)</span> の出力情報は<br />
+<span class="math inline">\(X\)</span> の出力情報とは無関係</li>
+</ul>
+</section><section id="合流経路inverted-fork" class="slide level2">
+<h2>合流経路（inverted fork）</h2>
+<p><span class="math display">\[
+X \rightarrow Z \leftarrow Y \;\; (Z = \alpha_{zy}Y + \alpha_{zx}X)
+\]</span></p>
+<p>は空集合が<span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> を有向分離しているが、<br />
+<span class="math inline">\(Z\)</span> は <span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> を有向分離しないケース</p>
+<ul>
+<li><span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> の2つの入力情報に基づいて <span class="math inline">\(Z\)</span> の出力情報が生成されるが、<span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> は無関係<br />
+</li>
+<li><span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> の両方の情報から生成された <span class="math inline">\(Z\)</span> の出力情報が <span class="math inline">\(z\)</span> であるとき、次の関数関係を得る</li>
+</ul>
+<p><span class="math display">\[
+Y = \frac{z}{\alpha_{zy}}-\frac{\alpha_{zx}X}{\alpha_{zy}} \tag{2.57}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(Z\)</span> の出力情報を考慮することで <span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> は関係を持つ</li>
+</ul>
+</section><section id="difficult_1" class="slide level2">
+<h2>有向分離基準の直感的理解の難しさ1</h2>
+<ul>
+<li><span class="math inline">\(Y\)</span> 字構造（Y-structure）を例に考える</li>
+<li><span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> の間に <span class="math inline">\(Z_1\)</span> を通る道は存在しないため、<br />
+<span class="math inline">\(Z_1\)</span> は <span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> を有向分離するように見える<br />
+</li>
+<li>しかし定義2-5を適用すると、<span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> は空集合によって<br />
+有向分離されるが、<span class="math inline">\(Z_1\)</span> によって有向分離されなくなる<br />
+</li>
+<li>データ伝達過程で考えたとき、<br />
+<span class="math inline">\(Z_1\)</span> の出力情報が<span class="math inline">\(Z_1=z_1\)</span> とわかると<span class="math inline">\(Z_2\)</span> は、</li>
+</ul>
+<p><span class="math display">\[
+Z_2 = \frac{z_1}{\alpha_{z_1z_2}} \tag{2.58}
+\]</span></p>
+</section><section id="difficult_2" class="slide level2">
+<h2>有向分離基準の直感的理解の難しさ2</h2>
+<ul>
+<li>ここで、</li>
+</ul>
+<p><span class="math display">\[
+Z_2 = \alpha_{z_2x}X + \alpha_{z_2y}Y \tag{2.59}
+\]</span></p>
+<p>であることより、</p>
+<p><span class="math display">\[
+\frac{z_1}{\alpha_{z_1z_2}} = \alpha_{z_2x}X + \alpha_{z_2y}Y \tag{2.60}
+\]</span></p>
+<p>となる</p>
+<ul>
+<li>合流点と同様の議論より、<span class="math inline">\(Z_1\)</span>の出力情報が与えられれば<br />
+その情報が<span class="math inline">\(Z_2\)</span>に引き継がれ、その結果 <span class="math inline">\(X\)</span> と <span class="math inline">\(Y\)</span> は<br />
+<span class="math inline">\(Z_1\)</span> によって有向分離されなくなる</li>
+</ul>
+</section></section>
+<section><section id="ベイジアンネットワーク" class="title-slide slide level1"><h1>2.8 ベイジアンネットワーク</h1></section><section id="ベイジアンネットワークの定義" class="slide level2">
+<h2>ベイジアンネットワークの定義</h2>
+<div class="box">
+<p>双方向矢線のないDAG <span class="math inline">\(G =\)</span><span class="math inline">\(\bf(\bf V,\bf E)\)</span> が<br />
+<span class="math inline">\(\bf V =\)</span><span class="math inline">\(\{X_1,_\cdots,X_p\}\)</span> の同時分布をグラフ<span class="math inline">\(G\)</span> に従う<br />
+逐次的因数分解の形、つまり</p>
+<p><span class="math display">\[
+pr(x_1,_\cdots,x_p) = \prod^p_{i=1}pr(x_i|pa(x_i)) \tag{2.61}
+\]</span></p>
+<p>の形に規定する時、グラフ<span class="math inline">\(G\)</span>を<strong>ベイジアンネットワーク</strong>（有向独立グラフ）という<br />
+<span class="math inline">\(pr(x_i|pa(x_i))\)</span>は<span class="math inline">\(X_i\)</span>の親集合<span class="math inline">\(pa(X_i) = pa(x_i)\)</span>を<br />
+与えた時の<span class="math inline">\(X_i\)</span>の確率分布であり、<br />
+<span class="math inline">\(pa(X_i)\)</span>が空集合の時は<span class="math inline">\(X_i\)</span>の周辺分布<span class="math inline">\(pr(x_i)\)</span>を表す</p>
+</div>
+</section><section id="因果ダイアグラムとの比較" class="slide level2">
+<h2>因果ダイアグラムとの比較</h2>
+<ul>
+<li>ベイジアンネットワーク
+<ul>
+<li>DAGを条件付き独立関係の視覚的表現あるいは同時分布の近似的表現とみなす</li>
+</ul></li>
+<li>因果ダイアグラム（詳細は第3章）
+<ul>
+<li>DAGをデータ生成過程の視覚的表現とみなす</li>
+<li>同時分布の良い近似を与えているとは限らない</li>
+</ul></li>
+</ul>
+</section><section id="making_1" class="slide level2">
+<h2>ベイジアンネットワークの構成方法1</h2>
+<ul>
+<li>連鎖公式(2.36) 式より、<span class="math inline">\(p\)</span>次元同時分布<span class="math inline">\(pr(x_1,_\cdots,x_p)\)</span>は任意の順序で逐次的因数分解でき、それぞれに対応するベイジアンネットワークを構成可能
+<ul>
+<li>やみくもに同時分布を逐次的因数分解し、ベイジアンネット<br />
+ワークを構成しても統計的独立関係に関する表現能力は低く、<br />
+視覚的表現は理論的、実用的ともにあまり役に立つものでない <span class="math inline">\(\quad\)</span><br />
+</li>
+</ul></li>
+<li>まず、<span class="math inline">\(X_i\)</span>の条件付き確率分布<span class="math inline">\(pr(x_i|x_1,_\cdots,x_{i-1})\)</span>が<br />
+<span class="math inline">\(X_1,_\cdots,X_{i-1} \;(i=1,_\cdots,p)\)</span> 全てではなく、 ある変数集合<span class="math inline">\(pa(X_i)\)</span>によって規定されているとする
+<ul>
+<li>ここに<span class="math inline">\(pa(x_i)\)</span>は<span class="math inline">\(X_i\)</span>と<span class="math inline">\(pa(X_i)\)</span>以外の変数集合<br />
+<span class="math inline">\(\{X_1,_\cdots,X_{i-1}\}\backslash pa(X_i)\)</span>と条件付き独立とするような極小集合</li>
+</ul></li>
+</ul>
+</section><section id="making_2" class="slide level2">
+<h2>ベイジアンネットワークの構成方法2</h2>
+<ul>
+<li>(2.36) 式の積より、条件付き確率分布はそれぞれ、</li>
+</ul>
+<p><span class="math display">\[
+pr(x_i|x_1,_\cdots,x_{i-1}) = pr(x_i|pa(x_i)) \; i=1,_\cdots,p \tag{2.62}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(X_1,_\cdots,X_{i-1}\)</span>を与えたときの<span class="math inline">\(X_i\)</span>の確率分布ではなく、 <span class="math inline">\(pa(X_i)\)</span>を与えた時の<span class="math inline">\(X_i\)</span>の確率分布のみに注目<br />
+</li>
+<li><span class="math inline">\(pa(X_i)\)</span>をDAGにおける親集合とみなし<br />
+その各要素から<span class="math inline">\(X_i\)</span>へ矢線を引く<br />
+<span class="math inline">\(\quad\)</span><br />
+</li>
+<li>ベイジアンネットワークの構成方法により<br />
+次の2つの定理が成立
+<ul>
+<li>局所的有向マルコフ性（local directed Markov property）<br />
+</li>
+<li>大域的有向マルコフ性（global directed Markov property）</li>
+</ul></li>
+</ul>
+</section><section id="local_Markov" class="slide level2">
+<h2>定理2-2 局所的有向マルコフ性</h2>
+<div class="box">
+<p>ベイジアンネットワーク<span class="math inline">\(G\)</span>において、<br />
+任意の変数<span class="math inline">\(X\)</span>に対して、その親集合<span class="math inline">\(pa(X)\)</span>を与えた時、<br />
+<span class="math inline">\(X\)</span>の親以外の非子孫からなる集合<span class="math inline">\(nd(X)\)</span>と<span class="math inline">\(X\)</span>は<br />
+条件付き独立<br />
+つまり(2.63) 式の<strong>局所的有向マルコフ性</strong>が成り立つ</p>
+<p><span class="math display">\[
+X\mathop{\,\perp\!\!\!\!\!\perp\,}\bigl(nd(X)\backslash pa(X)\bigr)|pa(X) \tag{2.63}
+\]</span></p>
+<p><span class="math inline">\(pa(X)\)</span>が空集合の時は<span class="math inline">\(X\mathop{\,\perp\!\!\!\!\!\perp\,}nd(X)\)</span></p>
+</div>
+<ul>
+<li>同時分布の条件付き独立関係が局所的有向マルコフ性<br />
+のみで即座にわかるわけではない（M字構造の例）</li>
+</ul>
+</section><section id="M-structure" class="slide level2">
+<h2>M字構造（M-structure）の例</h2>
+<ul>
+<li>図2-4のM字構造をもつ有向グラフをベイジアン<br />
+ネットワークとみなすと、対応する同時分布の<br />
+逐次的因数分解は</li>
+</ul>
+<p><span class="math display">\[
+pr(x,y,z_1,z_2,z_3) = pr(y|z_3)pr(z_2|z_1,z_3)pr(x|z_1)pr(z_1)pr(z_3) \tag{2.64}
+\]</span></p>
+<ul>
+<li>このとき、局所的有向マルコフ性により</li>
+</ul>
+<p><span class="math display">\[
+X\mathop{\,\perp\!\!\!\!\!\perp\,}\{Z_2,Z_3,Y\}|Z_1,\; Y\mathop{\,\perp\!\!\!\!\!\perp\,}\{Z_1,Z_2,X\}|Z_3\\
+Z_2\mathop{\,\perp\!\!\!\!\!\perp\,}\{X,,Y\}|\{Z_1,Z_3\},\; Z_1\mathop{\,\perp\!\!\!\!\!\perp\,}Z_3 \tag{2.65}
+\]</span></p>
+<ul>
+<li>しかし、</li>
+</ul>
+<p><span class="math display">\[
+X \mathop{\,\perp\!\!\!\!\!\perp\,}Y \tag{2.66}
+\]</span></p>
+<p>が成立することを直接確かめられず、グラフォイド原理を<br />
+繰り返し適用することで（2.66）式を導く</p>
+</section><section id="global_Markov" class="slide level2">
+<h2>定理2-3 大域的有向マルコフ性</h2>
+<div class="box">
+<p>ベイジアンネットワーク<span class="math inline">\(G\)</span>において、<span class="math inline">\(\bf Z\)</span>が<span class="math inline">\(\bf X\)</span>と<span class="math inline">\(\bf Y\)</span>を<br />
+有向分離するなら、頂点に対応する確率変数において、<br />
+<span class="math inline">\(\bf Z\)</span>を与えた時、<span class="math inline">\(\bf X\)</span>と<span class="math inline">\(\bf Y\)</span>は条件付き独立<br />
+つまり(2.67) 式の<strong>大域的有向マルコフ性</strong>が成り立つ</p>
+<p><span class="math display">\[
+\bf X \mathop{\,\perp\!\!\!\!\!\perp\,}Y|Z \tag{2.67}
+\]</span></p>
+</div>
+<ul>
+<li>ベイジアンネットワーク<span class="math inline">\(G\)</span>において<span class="math inline">\(\bf Z\)</span>が<span class="math inline">\(\bf X\)</span>と<span class="math inline">\(\bf Y\)</span>を<br />
+有向分離しない時、<span class="math inline">\(\bf X \mathop{\,\perp\!\!\!\!\!/\!\!\!\!\!\perp\,}Y|Z\)</span>が成り立つことを<br />
+述べているわけではない
+<ul>
+<li>一般に<span class="math inline">\(\bf X \mathop{\,\perp\!\!\!\!\!/\!\!\!\!\!\perp\,}Y|Z\)</span>が成り立つかどうかをグラフ構造からは<br />
+判断できない</li>
+</ul></li>
+</ul>
+</section><section id="Y-structure1" class="slide level2">
+<h2>Y字構造のベイジアンネットワーク1</h2>
+<ul>
+<li>同時分布の逐次的因数分解は</li>
+</ul>
+<p><span class="math display">\[
+pr(x,y,z_1,z_2) = pr(z_1|z_2)pr(z_2|x,y)pr(x)pr(y) \tag{2.68}
+\]</span></p>
+<ul>
+<li>この式より</li>
+</ul>
+<p><span class="math display">\[
+Z_1 \mathop{\,\perp\!\!\!\!\!\perp\,}\{X,Y\}|Z_2,\; X \mathop{\,\perp\!\!\!\!\!\perp\,}Y \tag{2.69}
+\]</span></p>
+<ul>
+<li>図を見れば上記の逐次的因数分解を行わなくても
+<ul>
+<li><span class="math inline">\(Z_2\)</span>は<span class="math inline">\(Z_1\)</span>と<span class="math inline">\(\{X,Y\}\)</span>を有向分離</li>
+<li>空集合が<span class="math inline">\(X\)</span>と<span class="math inline">\(Y\)</span>を有向分離</li>
+</ul></li>
+<li>定理2-3より
+<ul>
+<li><span class="math inline">\(Z_2\)</span>を与えた時、<span class="math inline">\(Z_1\)</span>と<span class="math inline">\(\{X,Y\}\)</span>は条件付き独立</li>
+<li>空集合<span class="math inline">\(\phi\)</span>を与えた時、<span class="math inline">\(X\)</span>と<span class="math inline">\(Y\)</span>は条件付き独立</li>
+</ul></li>
+</ul>
+</section><section id="Y-structure2" class="slide level2">
+<h2>Y字構造のベイジアンネットワーク2</h2>
+<ul>
+<li>連鎖公式(2.36)式は任意の変数順序に対して<br />
+適用可能であることを利用<br />
+</li>
+<li>(2.68)式の左辺をあえて以下のように逐次的因数分解</li>
+</ul>
+<p><span class="math display">\[
+pr(x,y,z_1,z_2) = pr(x|y,z_1,z_2)pr(y|z_1,z_2)pr(z_2|z_1)pr(z_1) \tag{2.70}
+\]</span></p>
+<ul>
+<li>(2.69)式より定理2-1の弱結合性を用いて</li>
+</ul>
+<p><span class="math display">\[
+Z_1\mathop{\,\perp\!\!\!\!\!\perp\,}X|\{Y,Z_2\} \tag{2.71}
+\]</span></p>
+<ul>
+<li>定理2-1の分解性を用いて</li>
+</ul>
+<p><span class="math display">\[
+Z_1\mathop{\,\perp\!\!\!\!\!\perp\,}Y|Z_2 \tag{2.72}
+\]</span></p>
+<ul>
+<li>これらより、 (2.70)式は以下のように書き直せる</li>
+</ul>
+<p><span class="math display">\[
+pr(x,y,z_1,z_2) = pr(x|y,z_2)pr(y|z_2)pr(z_2|z_1)pr(z_1) \tag{2.73}
+\]</span></p>
+</section><section id="Y-structure3" class="slide level2">
+<h2>Y字構造のベイジアンネットワーク3</h2>
+<ul>
+<li>(2.73)式よりベイジアンネットワークとみなせる</li>
+<li><span class="math inline">\(Z_2\)</span>が<span class="math inline">\(Z_1\)</span>と<span class="math inline">\(\{X,Y\}\)</span>を有向分離しているため</li>
+</ul>
+<p><span class="math display">\[
+Z_1 \mathop{\,\perp\!\!\!\!\!\perp\,}\{X,Y\}|Z_2 \tag{2.74}
+\]</span></p>
+<p>は成り立つが、(2.75)式をグラフから読み取れない</p>
+<p><span class="math display">\[
+X \mathop{\,\perp\!\!\!\!\!\perp\,}Y \tag{2.75}
+\]</span></p>
+<ul>
+<li>ベイジアンネットワークから導かれる有向分離関係のみ<br />
+では確率分布によって規定される条件付き独立関係を<br />
+十分に記述できないケースが存在<br />
+➡「︎ベイジアンネットワークを用いて因果関係を<br />
+記述する際に引き起こされる問題」</li>
+</ul>
+</section><section id="ex_2_1" class="slide level2">
+<h2>例：表2-1の同時確率</h2>
+<ul>
+<li>グラフを用いて条件付き独立関係を過度に<br />
+記述することでデータ生成過程とは異なった<br />
+変数順序をもつ有向グラフが得られる例</li>
+</ul>
+</section></section>
 <section id="ランダム化" class="title-slide slide level1"><h1>2.9 ランダム化</h1></section>
     </div>
   </div>
