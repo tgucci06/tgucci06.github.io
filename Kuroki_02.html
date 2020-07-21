@@ -1887,7 +1887,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
     <h1 class="title">構造的因果モデルの基礎 輪読 ＃2</h1>
   <h1 class="subtitle">第2章 準備</h1>
     <h2 class="author">谷口友哉</h2>
-    <h3 class="date">2020/07/20</h3>
+    <h3 class="date">2020/07/21</h3>
 </section>
 
 <section><section id="因果推論における確率的考え方" class="title-slide slide level1"><h1>2.1 因果推論における確率的考え方</h1></section><section id="構造的因果モデルのフレームワーク" class="slide level2">
@@ -2730,12 +2730,29 @@ X \mathop{\,\perp\!\!\!\!\!\perp\,}Y \tag{2.75}
 ➡「︎ベイジアンネットワークを用いて因果関係を<br />
 記述する際に引き起こされる問題」</li>
 </ul>
-</section><section id="ex_2_1" class="slide level2">
-<h2>例：表2-1の同時確率</h2>
+</section><section id="ex_2_1_1" class="slide level2">
+<h2>例：表2-1の例1</h2>
 <ul>
-<li>グラフを用いて条件付き独立関係を過度に<br />
+<li><p>グラフを用いて条件付き独立関係を過度に<br />
 記述することでデータ生成過程とは異なった<br />
-変数順序をもつ有向グラフが得られる例</li>
+変数順序をもつ有向グラフが得られる例</p></li>
+<li><p>確率的関係を視覚化：図2-6(a)の有向グラフになる</p></li>
+<li><p>一方、表2-1において(2.77)式が成り立つ</p></li>
+</ul>
+<p><span class="math display">\[
+Y \mathop{\,\perp\!\!\!\!\!\perp\,}Z \tag{2.77}
+\]</span></p>
+<ul>
+<li>有向分離性を踏まえて、表2-1の条件付き独立関係(2.77)式を反映させたベイジアンネットワークを構成：図2-6(b)</li>
+</ul>
+</section><section id="ex_2_1_2" class="slide level2">
+<h2>例：表2-1の例2</h2>
+<ul>
+<li>図2-6(a)では<span class="math inline">\(Z\)</span>から<span class="math inline">\(Y\)</span>へ向かう矢線<span class="math inline">\((Z \rightarrow Y)\)</span>が存在</li>
+<li>図2-6(b)では<span class="math inline">\(Y\)</span>と<span class="math inline">\(Z\)</span>は矢線や双方向矢線で結ばれていない
+<ul>
+<li>表2-1から導かれる統計的独立関係を出来る限り視覚的に表現</li>
+</ul></li>
 </ul>
 </section></section>
 <section id="ランダム化" class="title-slide slide level1"><h1>2.9 ランダム化</h1></section>
