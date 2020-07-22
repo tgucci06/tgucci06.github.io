@@ -1887,7 +1887,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
     <h1 class="title">構造的因果モデルの基礎 輪読 ＃2</h1>
   <h1 class="subtitle">第2章 準備</h1>
     <h2 class="author">谷口友哉</h2>
-    <h3 class="date">2020/07/21</h3>
+    <h3 class="date">2020/07/22</h3>
 </section>
 
 <section><section id="因果推論における確率的考え方" class="title-slide slide level1"><h1>2.1 因果推論における確率的考え方</h1></section><section id="構造的因果モデルのフレームワーク" class="slide level2">
@@ -2748,11 +2748,78 @@ Y \mathop{\,\perp\!\!\!\!\!\perp\,}Z \tag{2.77}
 </section><section id="ex_2_1_2" class="slide level2">
 <h2>例：表2-1の例2</h2>
 <ul>
-<li>図2-6(a)では<span class="math inline">\(Z\)</span>から<span class="math inline">\(Y\)</span>へ向かう矢線<span class="math inline">\((Z \rightarrow Y)\)</span>が存在</li>
-<li>図2-6(b)では<span class="math inline">\(Y\)</span>と<span class="math inline">\(Z\)</span>は矢線や双方向矢線で結ばれていない
+<li>図2-6(a)：データ生成過程
 <ul>
-<li>表2-1から導かれる統計的独立関係を出来る限り視覚的に表現</li>
+<li><span class="math inline">\(Z\)</span>から<span class="math inline">\(Y\)</span>へ向かう矢線<span class="math inline">\((Z \rightarrow Y)\)</span>が存在</li>
+<li>(2.77)式の条件付き独立関係を読み取れない</li>
+<li>因果関係の解明という観点から有用な知見<br />
+<span class="math inline">\(\quad\)</span><br />
+</li>
 </ul></li>
+<li>図2-6(b)：ベイジアンネットワーク
+<ul>
+<li><span class="math inline">\(Y\)</span>と<span class="math inline">\(Z\)</span>は矢線や双方向矢線で結ばれていない</li>
+<li>表2-1から導かれる統計的独立関係を出来る限り視覚的に表現</li>
+<li>(2.77)式の条件付き独立関係を読み取れる</li>
+<li>意図するデータ生成過程を視覚的に表現していない<br />
+➡︎ベイジアンネットワークを因果関係と結びつけて考えると、<br />
+<span class="math inline">\(Y\)</span>と<span class="math inline">\(Z\)</span>の2つの入力情報に基づいて<span class="math inline">\(X\)</span>の出力情報が生成される<br />
+という誤った解釈</li>
+</ul></li>
+</ul>
+</section><section id="因果推論を目的としたデータ解析への警告" class="slide level2">
+<h2>因果推論を目的としたデータ解析への警告</h2>
+<div class="box">
+<ol type="1">
+<li>有効グラフによる条件付き独立関係の表現能力に<br />
+固執してしまうと、因果推論を行うのに役立たない<br />
+ばかりか、誤った解釈を与えるような有向グラフが<br />
+得られる可能性がある<br />
+</li>
+<li>データ生成過程に基づいた有向グラフからは<br />
+読み取れない条件付き独立関係が存在する可能性が<br />
+あるため、それに固執してしまうと同時分布の<br />
+最良近似が得られないケースが起こりうる</li>
+</ol>
+</div>
+<ul>
+<li>このトレードオフの問題を回避するために<br />
+<strong>忠実性</strong>（faithfulness）という概念を導入</li>
+</ul>
+</section><section id="忠実性" class="slide level2">
+<h2>忠実性</h2>
+<div class="box">
+<p>同時分布<span class="math inline">\(pr(x_1,_\cdots,x_p)\)</span>について、<br />
+ベイジアンネットワーク<span class="math inline">\(G\)</span>によって規定される<br />
+有向分離関係以外のいかなる統計的独立関係も<br />
+付加的に成り立っていない時、<br />
+<span class="math inline">\(pr(x_1,_\cdots,x_p)\)</span>はグラフ<span class="math inline">\(G\)</span>に<strong>忠実</strong>であるという</p>
+</div>
+<ul>
+<li>因果構造探索問題を議論する際のほとんどで使用<br />
+</li>
+<li>因果効果の識別可能性問題（第3章以降）の<br />
+議論にも暗黙に使用</li>
+</ul>
+</section><section id="忠実性の例" class="slide level2">
+<h2>忠実性の例</h2>
+<ul>
+<li>(2.68)式で与えられる同時分布<span class="math inline">\(pr(x,y,z_1,z_2)\)</span>から<br />
+導かれる条件付き独立関係が(2.78)式のみとする</li>
+</ul>
+<p><span class="math display">\[
+Z_1 \mathop{\,\perp\!\!\!\!\!\perp\,}\{X,Y\}|Z_2,\;X \mathop{\,\perp\!\!\!\!\!\perp\,}Y \tag{2.78}
+\]</span></p>
+<ul>
+<li>図2-3から得られる有向分離関係
+<ul>
+<li><span class="math inline">\(Z_2\)</span>が<span class="math inline">\(Z_1\)</span>と<span class="math inline">\(\{X,Y\}\)</span>を有向分離</li>
+<li>空集合が<span class="math inline">\(X\)</span>と<span class="math inline">\(Y\)</span>を有向分離</li>
+</ul></li>
+<li><span class="math inline">\(pr(x,y,z_1,z_2)\)</span>において、図2-3から得られる<br />
+有向分離関係以外の統計的独立関係が付加的に<br />
+成り立っていないため、<br />
+<span class="math inline">\(pr(x,y,z_1,z_2)\)</span>は図2-3の有向グラフに忠実</li>
 </ul>
 </section></section>
 <section id="ランダム化" class="title-slide slide level1"><h1>2.9 ランダム化</h1></section>
