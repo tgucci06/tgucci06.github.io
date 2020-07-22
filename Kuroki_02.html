@@ -2152,7 +2152,8 @@ pr(X = x)\geq0,\quad\sum_{x}pr(X = x)=1\tag{2.19}
 <ul>
 <li>構造的因果モデルに基づいた因果推論では、必ずしも<br />
 グラフを使わなければならないわけではない（第1.2節）</li>
-<li>パス解析が源泉</li>
+<li>パス解析が源泉<br />
+</li>
 <li>構造的因果モデルのフレームワークを構築した<br />
 Judea Pearl本人がベイジアンネットワークの体系を構築 ➡︎構造的因果モデルを扱った文献のほとんどで<br />
 有向グラフによる解釈</li>
@@ -2176,7 +2177,8 @@ Judea Pearl本人がベイジアンネットワークの体系を構築 ➡︎�
 <li><span class="math inline">\(\beta\)</span> から <span class="math inline">\(\alpha\)</span> への矢線: <span class="math inline">\(\beta \rightarrow \alpha\)</span></li>
 </ol>
 <ul>
-<li>ただし<span class="math inline">\((\alpha,\beta) \in \bf E\)</span>に割り当てられる矢線の数は最大で3つ
+<li>ただし<span class="math inline">\((\alpha,\beta) \in \bf E\)</span>に割り当てられる矢線の数は最大で<br />
+3つ
 <ul>
 <li>同じタイプの矢線は割り当てない</li>
 <li><span class="math inline">\(\alpha\)</span> から <span class="math inline">\(\alpha\)</span> 自身に向かう矢線は考えない</li>
@@ -2196,13 +2198,17 @@ Judea Pearl本人がベイジアンネットワークの体系を構築 ➡︎�
 <div class="box">
 <ul>
 <li><span class="math inline">\(\alpha\)</span> から <span class="math inline">\(\beta\)</span> への矢線 <span class="math inline">\(\alpha \rightarrow \beta\)</span> が 存在する時、<br />
-<span class="math inline">\(\alpha\)</span> は <span class="math inline">\(\beta\)</span> の親（先祖・非子孫）であるといい、<br />
-<span class="math inline">\(\beta\)</span> は <span class="math inline">\(\alpha\)</span> の子（子孫）であるという</li>
+<span class="math inline">\(\alpha\)</span> は <span class="math inline">\(\beta\)</span> の<strong>親</strong>（先祖・非子孫）であるといい、<br />
+<span class="math inline">\(\beta\)</span> は <span class="math inline">\(\alpha\)</span> の<strong>子</strong>（子孫）であるという
+<ul>
 <li><span class="math inline">\(pa(\beta)\)</span> : <span class="math inline">\(\beta\)</span> の親の集合</li>
 <li><span class="math inline">\(ch(\alpha)\)</span> : <span class="math inline">\(\alpha\)</span> の子の集合</li>
-<li>配偶者（spouse）: 双方向矢線が存在</li>
-<li>根（root）,源点（source）: グラフ<span class="math inline">\(\bf G\)</span> の頂点でそれに向かう矢線がない</li>
-<li>葉（leaf）,沈点（sink）: それから出る矢線を持たない</li>
+</ul></li>
+<li><strong>配偶者</strong>（spouse）: 双方向矢線が存在</li>
+<li>根（root）,源点（source）: グラフ<span class="math inline">\(\bf G\)</span> の頂点で<br />
+それに向かう矢線がない</li>
+<li>葉（leaf）,沈点（sink）: それから出る矢線を<br />
+持たない</li>
 <li>例　<span class="math inline">\(\alpha \leftarrow \beta \rightarrow \gamma\)</span> では
 <ul>
 <li><span class="math inline">\(\beta\)</span> は根、<span class="math inline">\(\alpha,\gamma\)</span> は葉</li>

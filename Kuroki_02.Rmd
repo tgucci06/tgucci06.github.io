@@ -333,7 +333,7 @@ $$
 
 * 構造的因果モデルに基づいた因果推論では、必ずしも  
 グラフを使わなければならないわけではない（第1.2節）
-* パス解析が源泉
+* パス解析が源泉  
 * 構造的因果モデルのフレームワークを構築した  
 Judea Pearl本人がベイジアンネットワークの体系を構築
 ➡︎構造的因果モデルを扱った文献のほとんどで  
@@ -357,7 +357,8 @@ $\bf G = (\bf V,\bf E)$ と表現される
 2. $\alpha$ と $\beta$ の双方向矢線（bidirected arrow）: $\alpha \leftrightarrow \beta$
 3. $\beta$ から $\alpha$ への矢線: $\beta \rightarrow \alpha$
 
-* ただし$(\alpha,\beta) \in \bf E$に割り当てられる矢線の数は最大で3つ
+* ただし$(\alpha,\beta) \in \bf E$に割り当てられる矢線の数は最大で  
+3つ
   * 同じタイプの矢線は割り当てない
   * $\alpha$ から $\alpha$ 自身に向かう矢線は考えない
   
@@ -375,13 +376,15 @@ $G$ の部分グラフという
 
 <div class="box">
 * $\alpha$ から $\beta$ への矢線 $\alpha \rightarrow \beta$ が  存在する時、  
-$\alpha$ は $\beta$ の親（先祖・非子孫）であるといい、  
-$\beta$ は $\alpha$ の子（子孫）であるという
-* $pa(\beta)$ : $\beta$ の親の集合
-* $ch(\alpha)$ : $\alpha$ の子の集合
-* 配偶者（spouse）: 双方向矢線が存在
-* 根（root）,源点（source）: グラフ$\bf G$ の頂点でそれに向かう矢線がない
-* 葉（leaf）,沈点（sink）: それから出る矢線を持たない
+$\alpha$ は $\beta$ の**親**（先祖・非子孫）であるといい、  
+$\beta$ は $\alpha$ の**子**（子孫）であるという
+  * $pa(\beta)$ : $\beta$ の親の集合
+  * $ch(\alpha)$ : $\alpha$ の子の集合
+* **配偶者**（spouse）: 双方向矢線が存在
+* 根（root）,源点（source）: グラフ$\bf G$ の頂点で  
+それに向かう矢線がない
+* 葉（leaf）,沈点（sink）: それから出る矢線を  
+持たない
 * 例　$\alpha \leftarrow \beta \rightarrow \gamma$ では  
   * $\beta$ は根、$\alpha,\gamma$ は葉
 </div>
