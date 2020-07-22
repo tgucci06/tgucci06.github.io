@@ -1887,7 +1887,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
     <h1 class="title">構造的因果モデルの基礎 輪読 ＃2</h1>
   <h1 class="subtitle">第2章 準備</h1>
     <h2 class="author">谷口友哉</h2>
-    <h3 class="date">2020/07/22</h3>
+    <h3 class="date">2020/07/23</h3>
 </section>
 
 <section><section id="因果推論における確率的考え方" class="title-slide slide level1"><h1>2.1 因果推論における確率的考え方</h1></section><section id="構造的因果モデルのフレームワーク" class="slide level2">
@@ -2219,12 +2219,13 @@ Judea Pearl本人がベイジアンネットワークの体系を構築 ➡︎�
 <h2>道（path）と有向道（directed path）</h2>
 <div class="box">
 <ul>
-<li>異なる頂点の列 <span class="math inline">\(\alpha_0,\alpha_1,\cdots,\alpha_n\)</span> において全ての <span class="math inline">\(i = 1,_\cdots,n\)</span> で <span class="math inline">\((\alpha_{i-1},\alpha_i) \in \bf E\)</span> であるとき、頂点の列 <span class="math inline">\(\alpha_0,\alpha_1,\cdots,\alpha_n\)</span> を<br />
-<span class="math inline">\(\alpha_0\)</span> と <span class="math inline">\(\alpha_n\)</span> の間の<strong>道</strong>という<br />
-このとき、<span class="math inline">\(\alpha_0\)</span> と <span class="math inline">\(\alpha_n\)</span> を<strong>端点</strong>（endpoint）という<br />
-<span class="math inline">\(\alpha_0\)</span> と <span class="math inline">\(\alpha_n\)</span> の間に道があるとき<span class="math inline">\(\alpha_0\)</span> と <span class="math inline">\(\alpha_n\)</span> は<strong>連結している</strong>（connect）という<br />
+<li>異なる頂点の列<span class="math inline">\(\alpha_0,\alpha_1,\cdots,\alpha_n\)</span>において全ての<br />
+<span class="math inline">\(i = 1,_\cdots,n\)</span>で<span class="math inline">\((\alpha_{i-1},\alpha_i) \in \bf E\)</span>であるとき、頂点の列<br />
+<span class="math inline">\(\alpha_0,\alpha_1,\cdots,\alpha_n\)</span> を<span class="math inline">\(\alpha_0\)</span>と<span class="math inline">\(\alpha_n\)</span> の間の<strong>道</strong>という<br />
+このとき、<span class="math inline">\(\alpha_0\)</span>と<span class="math inline">\(\alpha_n\)</span>を<strong>端点</strong>（endpoint）という<br />
+<span class="math inline">\(\alpha_0\)</span>と<span class="math inline">\(\alpha_n\)</span>の間に道があるとき<span class="math inline">\(\alpha_0\)</span>と<span class="math inline">\(\alpha_n\)</span>は<strong>連結している</strong>（connect）という<br />
 </li>
-<li><span class="math inline">\(\alpha_0\)</span> と <span class="math inline">\(\alpha_n\)</span> の間の道において、全ての <span class="math inline">\(i = 1,_\cdots,n\)</span> に対して<span class="math inline">\(\alpha_{i-1} \rightarrow \alpha_i\)</span> であって <span class="math inline">\(\alpha_i \rightarrow \alpha_{i-1}\)</span> や <span class="math inline">\(\alpha_i \leftrightarrow \alpha_{i-1}\)</span>でないとき、<br />
+<li><span class="math inline">\(\alpha_0\)</span>と<span class="math inline">\(\alpha_n\)</span>の間の道において、全ての<span class="math inline">\(i = 1,_\cdots,n\)</span> に対して<span class="math inline">\(\alpha_{i-1} \rightarrow \alpha_i\)</span>であって<span class="math inline">\(\alpha_i \rightarrow \alpha_{i-1}\)</span>や<span class="math inline">\(\alpha_i \leftrightarrow \alpha_{i-1}\)</span>でないとき、<br />
 つまり</li>
 </ul>
 <p><span class="math display">\[

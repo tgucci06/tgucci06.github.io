@@ -392,11 +392,12 @@ $\beta$ は $\alpha$ の**子**（子孫）であるという
 ## 道（path）と有向道（directed path）
 
 <div class="box">
-* 異なる頂点の列 $\alpha_0,\alpha_1,\cdots,\alpha_n$ において全ての $i = 1,_\cdots,n$ で $(\alpha_{i-1},\alpha_i) \in \bf E$ であるとき、頂点の列 $\alpha_0,\alpha_1,\cdots,\alpha_n$ を  
-$\alpha_0$ と $\alpha_n$ の間の**道**という  
-このとき、$\alpha_0$ と $\alpha_n$ を**端点**（endpoint）という  
-$\alpha_0$ と $\alpha_n$ の間に道があるとき$\alpha_0$ と $\alpha_n$ は**連結している**（connect）という  
-* $\alpha_0$ と $\alpha_n$ の間の道において、全ての $i = 1,_\cdots,n$ に対して$\alpha_{i-1} \rightarrow \alpha_i$ であって $\alpha_i \rightarrow \alpha_{i-1}$ や $\alpha_i \leftrightarrow \alpha_{i-1}$でないとき、  
+* 異なる頂点の列$\alpha_0,\alpha_1,\cdots,\alpha_n$において全ての  
+$i = 1,_\cdots,n$で$(\alpha_{i-1},\alpha_i) \in \bf E$であるとき、頂点の列  
+$\alpha_0,\alpha_1,\cdots,\alpha_n$ を$\alpha_0$と$\alpha_n$ の間の**道**という  
+このとき、$\alpha_0$と$\alpha_n$を**端点**（endpoint）という  
+$\alpha_0$と$\alpha_n$の間に道があるとき$\alpha_0$と$\alpha_n$は**連結している**（connect）という  
+* $\alpha_0$と$\alpha_n$の間の道において、全ての$i = 1,_\cdots,n$ に対して$\alpha_{i-1} \rightarrow \alpha_i$であって$\alpha_i \rightarrow \alpha_{i-1}$や$\alpha_i \leftrightarrow \alpha_{i-1}$でないとき、  
 つまり
 
 $$
