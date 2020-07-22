@@ -397,8 +397,9 @@ $i = 1,_\cdots,n$で$(\alpha_{i-1},\alpha_i) \in \bf E$であるとき、頂点�
 $\alpha_0,\alpha_1,\cdots,\alpha_n$ を$\alpha_0$と$\alpha_n$ の間の**道**という  
 このとき、$\alpha_0$と$\alpha_n$を**端点**（endpoint）という  
 $\alpha_0$と$\alpha_n$の間に道があるとき$\alpha_0$と$\alpha_n$は**連結している**（connect）という  
-* $\alpha_0$と$\alpha_n$の間の道において、全ての$i = 1,_\cdots,n$ に対して$\alpha_{i-1} \rightarrow \alpha_i$であって$\alpha_i \rightarrow \alpha_{i-1}$や$\alpha_i \leftrightarrow \alpha_{i-1}$でないとき、  
-つまり
+* $\alpha_0$と$\alpha_n$の間の道において、全ての$i = 1,_\cdots,n$ に  
+対して$\alpha_{i-1} \rightarrow \alpha_i$であって$\alpha_i \rightarrow \alpha_{i-1}$や$\alpha_i \leftrightarrow \alpha_{i-1}$で  
+ないとき、つまり  
 
 $$
 \alpha_0 \rightarrow \alpha_1 \rightarrow \cdots \rightarrow\alpha_{n-1} \rightarrow \alpha_n\tag{2.52}
