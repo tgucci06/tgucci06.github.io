@@ -2822,7 +2822,159 @@ Z_1 \mathop{\,\perp\!\!\!\!\!\perp\,}\{X,Y\}|Z_2,\;X \mathop{\,\perp\!\!\!\!\!\p
 <span class="math inline">\(pr(x,y,z_1,z_2)\)</span>は図2-3の有向グラフに忠実</li>
 </ul>
 </section></section>
-<section id="ランダム化" class="title-slide slide level1"><h1>2.9 ランダム化</h1></section>
+<section><section id="ランダム化" class="title-slide slide level1"><h1>2.9 ランダム化</h1></section><section id="実験を行う目的" class="slide level2">
+<h2>実験を行う目的</h2>
+<div class="box">
+<p>竹内他（1989）『統計学辞典』<br />
+「一言でいえば、<br />
+諸<strong>原因</strong>系が<strong>結果</strong>の特製地に及ぼす<strong>影響</strong>を解明すること」</p>
+</div>
+<ul>
+<li>実験は因果関係を解明する有力な方法論の1つ</li>
+</ul>
+</section><section id="偶然誤差と系統誤差" class="slide level2">
+<h2>偶然誤差と系統誤差</h2>
+<div class="box">
+<ul>
+<li>系統誤差（systematic error）：<br />
+何らかの傾向をもった生成メカニズムに基づいて<br />
+生成される誤差</li>
+<li>偶然誤差（random error）：<br />
+系統誤差のような傾向を持たず、処理変数の<br />
+挙動とは無関係に、偶発的に生成された誤差</li>
+</ul>
+</div>
+<ul>
+<li>介入を伴わない観察研究において、
+<ul>
+<li>共変量が反応変数のみにしか影響を与えない<br />
+➡︎<strong>偶然誤差</strong>とみなし因果効果を評価</li>
+<li>共変量が処理変数にも反応変数にも影響を与え、<br />
+全て観測されているわけではない（1.5節自動車塗装の例）<br />
+➡︎<strong>系統誤差</strong>とみなし因果効果の解明が困難</li>
+</ul></li>
+</ul>
+</section><section id="実験計画法" class="slide level2">
+<h2>実験計画法</h2>
+<div class="box">
+<p>取り上げた実験因子が反応変数に与える影響を<br />
+解明するために、効率的で精度の高い実験方法を<br />
+設計し、そのもとで採取されたデータを適切に<br />
+解析する統計解析法の1つ</p>
+</div>
+</section><section id="fisherの3原則" class="slide level2">
+<h2>Fisherの3原則</h2>
+<div class="box">
+<ol type="1">
+<li>ランダム化（randomization）<br />
+共変量の変動を偶然誤差に転化させるために、<br />
+処理条件を確率的に割り当てる(ランダム割り付け)<br />
+</li>
+<li>反復（replication）<br />
+データの変動を実験に起因する誤差による部分と<br />
+それ以外の要因に起因する部分に分離し、誤差分散を 定量的に評価するために、同じ条件下で複数回実験<br />
+</li>
+<li>局所管理（local control）<br />
+実験の精度向上のため、実験の場を<br />
+できる限り均一な区間になるように分割</li>
+</ol>
+</div>
+</section><section id="randomization" class="slide level2">
+<h2>完全ランダム化 (complete randomixation)</h2>
+<ul>
+<li>興味の対象となる集団 <span class="math inline">\(n\)</span>人</li>
+<li>処理変数<span class="math inline">\(X\)</span>:興味ある<span class="math inline">\(k\)</span>個の値（処理条件）<span class="math inline">\(x_1,_\cdots,x_k\)</span>
+<ul>
+<li><span class="math inline">\(k^n\)</span>通りの割り付け（因果関係の解明には不要なものも）<br />
+</li>
+</ul></li>
+<li><span class="math inline">\(n_j\)</span>人の個体に処理条件<span class="math inline">\(x_j\)</span>を割り当てると<span class="math inline">\((j=1,\cdots,k_)\)</span><span class="math inline">\(M\)</span>通り</li>
+</ul>
+<p><span class="math display">\[
+M = \frac{n!}{n_1!\cdots n_k!},\; n = \sum^k_{i=1}n_j \tag{2.81}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(M\)</span>個の割り付け方から<span class="math inline">\(1/M\)</span>の等確率で1つを選択し、<br />
+各個体に対して<span class="math inline">\(k\)</span>個の処理条件のうちのいずれか1つを<br />
+与える手続き：<strong>完全ランダム化</strong>
+<ul>
+<li><span class="math inline">\(X\)</span>と共変量は独立とみなす</li>
+</ul></li>
+</ul>
+</section><section id="ランダム化実験の例" class="slide level2">
+<h2>ランダム化実験の例</h2>
+<ul>
+<li><span class="math inline">\(n=4\)</span>の集団に対して、<span class="math inline">\(X=x_1,X=x_2\)</span>それぞれに<br />
+対して2人ずつ割り当てる</li>
+<li>このとき<span class="math inline">\(M=4!/2!2!=6\)</span>通り(2.82)、つまり</li>
+</ul>
+<p><span class="math display">\[
+(x_1,x_1,x_2,x_2),(x_1,x_2,x_1,x_2),(x_1,x_2,x_2,x_1)\\
+(x_2,x_1,x_1,x_2),(x_2,x_1,x_2,x_1),(x_2,x_2,x_1,x_1) \tag{2.83}
+\]</span></p>
+<ul>
+<li>このうち1つが1/6の確率で選択され、<br />
+処理条件が割り当てられる</li>
+</ul>
+</section><section id="完全ランダム化の適用可能な場合と欠点" class="slide level2">
+<h2>完全ランダム化の適用可能な場合と欠点</h2>
+<ul>
+<li>完全ランダム化
+<ul>
+<li><span class="math inline">\(X=x_j\)</span>を割り当てる個体の数があらかじめ決まっている場合に適用可能</li>
+<li>最後の1人に割り当てられる値は一意に決まるという欠点
+<ul>
+<li>割り付けの予見不能性が崩れることによる恣意的な個体選択</li>
+<li>交絡バイアスが生じる可能性</li>
+</ul></li>
+</ul></li>
+<li>割り付けの予見不能性を担保することが<br />
+ランダム化の役割の1つ
+<ul>
+<li>完全ランダム化がランダム化としての役割を果たさない</li>
+</ul></li>
+</ul>
+</section><section id="単純ランダム化simple-randomization" class="slide level2">
+<h2>単純ランダム化（simple randomization）</h2>
+<ul>
+<li>個体のそれぞれについて、あらかじめ与えられた確率に<br />
+従って、処理条件を割り当て</li>
+<li>処理変数<span class="math inline">\(X\)</span>の値は個体が持つ共変量情報とは無関係に<br />
+割り当て（完全ランダム化と同様）<br />
+➡︎処理変数と共変量は独立とみなす</li>
+<li>本書では主に単純ランダム化を想定</li>
+<li>サンプルサイズが
+<ul>
+<li>十分に大きければ、処理変数と共変量は独立になることが期待</li>
+<li>小さい場合、偶然性によって、個体の属性（年齢・性別など）や各群に割り当てられる人数に偏りが生じることも</li>
+</ul></li>
+</ul>
+</section><section id="ランダムな交絡random-confounding" class="slide level2">
+<h2>ランダムな交絡（random confounding）</h2>
+<ul>
+<li>偶然性によるランダム化の失敗を<strong>ランダムな交絡</strong>に<br />
+よる失敗という</li>
+<li>ランダム化の失敗➡︎因果効果の適切な評価が困難</li>
+<li>ランダムな交絡➡︎起こる可能性小さいことが起こった
+<ul>
+<li>「ランダムな交絡が生じている場合には、因果効果を適切に評価することが難しい」という立場が大勢</li>
+</ul></li>
+<li>本書では断りのない限り、ランダムな交絡は<br />
+起こっていないとする</li>
+</ul>
+</section><section id="層別ランダム化stratified-randomization" class="slide level2">
+<h2>層別ランダム化(stratified randomization)</h2>
+<ol type="1">
+<li>解析結果に影響を与えると考える共変量を取り上げる</li>
+<li>それに基づき集団をいくつかの部分集団に分割<br />
+（層別:stratification）</li>
+<li>部分集団ごとに完全ランダム化や単縦ランダム化を実施</li>
+</ol>
+<ul>
+<li>とり上げた共変量が偏った状態でそれぞれの処理条件に<br />
+取り入れられることのないように工夫</li>
+</ul>
+</section></section>
     </div>
   </div>
 
