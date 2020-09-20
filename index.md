@@ -15,7 +15,7 @@
 ## 論文レビュー
 
 
-- [How Are Small Businesses Adjusting to COVID-19? Early Evidence from a Survey](https://tgucci06.github.io/peper_review_Bartik_2020.html)
+- Bartik, A. W.,et al(2020) [How Are Small Businesses Adjusting to COVID-19? Early Evidence from a Survey](https://tgucci06.github.io/peper_review_Bartik_2020.html)
 
 ## 実装
 
