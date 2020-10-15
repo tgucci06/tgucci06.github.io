@@ -1,0 +1,2163 @@
+---
+title: "論文和訳メモ"
+author: '谷口友哉'
+date: "`r format(Sys.time(), '%Y/%m/%d')`"
+output:
+  html_document:
+    df_print: paged
+    toc: TRUE
+    toc_depth: 5
+    toc_gloat: TRUE
+    toc_float: TRUE
+  pdf_document:
+    latex_engine: xelatex
+header-includes:
+- \usepackage{zxjatype}
+- \usepackage[ipa]{zxjafont}
+subtitle: ''
+documentclass: bxjsarticle
+---
+
+**Recursive partitioning for heterogeneous causal effects**
+
+**異質な因果効果のための再帰的な分割**  
+Susan Atheya, and Guido Imbens
+
+
+
+### 単語メモ  
+#### タイトル  
+* Recursive:再帰的な
+* partitioninng:分割
+* heterogeneous:不均一な、異質な
+
+#### Abst 
+1.
+* hyterogeneity:異質性
+* causal effect:因果効果
+* experimental studies:実験研究
+* observational studies:観察研究
+* subset:部分集合
+* treatment effect:処置効果
+* magnitude:大きさ
+* hypothesis tests:仮説検定
+
+2.
+* data-driven:
+* subpopulation:部分集団
+* differ in : 異なる
+
+3.
+* construction : 構成、構築、建築
+* valid : 確かな、正当な、妥当な、有効な
+* confidence intervals : 信頼区間
+* covariates : 共変数、共変量
+* relative to : 〜の割に、〜と比較すると
+
+4.
+* whereby: (それによって)...する
+
+5.
+* builds on : 基にする
+* goodness of fit : 適合度
+* account for : 説明する、考慮する
+
+6.
+* model selection criterion : モデル選択基準
+* anticipate　： 予期する
+* eliminate : 除く、除去する
+* variance : 相違、分散
+
+8.
+* prefer : より好ましい
+* whereas : …であるのに、ところが(事実は)、…に反して、…でみると、であるがゆえに
+* nominal coverage : 名目上の被覆
+* ground truth : 正解(正解ラベルや教師データのこと)
+  * (https://www.atmarkit.co.jp/ait/articles/1901/06/news040.html)
+
+9.
+* in terms of : …の言葉で、…に関して、…の点から
+* mean squared error : 平均二乗誤差
+
+#### Intro
+1. 
+* features : 特徴量
+* conducting　inference : 推論を行う
+
+2. 
+* comparison : 比較
+* potential outcome : 潜在的結果変数
+* counterfactual outcomes : 反事実結果変数
+* regime : 制度
+
+4. 
+* identify : 識別する
+* specify : (…を)いちいち明示する、明細に言う、明示する
+* invalidating : 無効にする
+* concern about : 心配する
+
+5. 
+* is tailored for : 適合させる、合うようにする
+* applications : 適用、応用
+* attributes : 属性
+
+6. 
+* supervised machine learning : 教師あり機械学習
+
+7. 
+* entail : 必要とする
+  
+10. 
+* analogous : (...に)類似して
+  
+11. 
+* derive : 導出する
+* desirable : 望ましい、好ましい
+* settings : 状況、設定
+
+12. 
+* reduces latency : 待ち時間、遅延低減
+* lookup table　: ルックアップテーブル
+  * https://ja.wikipedia.org/wiki/%E3%83%AB%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB
+  
+13. 
+* attractive：魅力的な  
+* modest : あまり多くない、控えめな
+
+14. 
+* clinical trials of drugs : 医薬品の臨床試験
+* applicability : 適用可能である
+* characteristics : 特徴
+  
+15. 
+* subgroups : サブグループ(特定の集団のさらに細かいグループのこと)
+  * 参考：https://note.com/medengwriter/n/n8f1263ec7e4b
+* preanalysis plans : 事前分析計画(PAP)
+  * 影響評価の設計段階で作成される文書で、研究者がデータを分析する方法を事前に設定  
+  * PAPの主な目的は、データマイニングと仕様検索を防ぐこと。調査担当者がアンケートの設計を検討し、データが収集されたら、データ分析をより迅速かつ簡単にすることもできる。  
+  * 参考:https://dimewiki.worldbank.org/wiki/Pre-Analysis_Plan
+
+16. 
+* validity : 妥当性
+
+18. 
+* spurious correlations:擬似相関  
+
+20. 
+* restriction : 制限
+
+23. 
+* implication : 含み、裏の意味、暗に意味していること
+* exogenously : 外生的に
+
+24. 
+* precision : 精度、精密
+* offsets : 相殺(そうさい)する
+
+25. 
+* criteria : criterionの複数形。標準、 基準
+* anticipate : 想定する、予期する
+
+27. 
+* crucially : 重大なことに、重要なのは
+
+28. 
+* systematic bias : 系統的な偏り(=バイアス、系統誤差)↔️ validity(妥当性)
+  * 参考：バイアスと交絡：医療情報データベースを使った薬剤疫学研究
+    * https://www.jstage.jst.go.jp/article/yakushi/135/6/135_15-00006/_pdf
+
+29. 
+* off-the-shelf : 既製の
+* fundamental challenge : 根本的な課題
+* regularization approaches : 正則化アプローチ
+
+31. 
+* unbiased estimates : 不偏推定値
+  
+32. 
+* theoretical arguments : 理論的な議論
+
+33. 
+* relative : 比較して
+
+
+#### Problem  
+##### 1.setup
+1. 
+* setup : 設定
+* indexed : インデックスのついた
+
+2. 
+* postulate : 仮定する
+
+3. 
+* binary indicator : 二値指標
+
+6. 
+* independent and identically distributed sample : 独立同一分布の標本
+
+7. 
+* induce : 誘発・誘導する
+* random assignment : 無作為割り付け
+* expectation　：期待値
+   
+8. 
+* exchangeable : 交換可能である
+  * exchangeability : 交換可能性(観測と反事実の条件を交換しても結果が同じであることが期待されること)
+* interference : 干渉
+
+9. 
+* violate : 破る、違反する
+
+10. 
+* marginal treatment probability : 周辺処置確率
+  * marginal probability distribution : 周辺確率分布
+
+11. 
+* treatment assignment probabilities : 処置割り当て確率
+
+##### 2.Unconfoundedness
+1. 
+* unconfoundedness : 交絡因子に関連する仮定のこと。重要メモに詳しく記述
+    * unconfounded : 交絡のない
+
+##### 3.Conditional Average Treatment Effects and Partitioning
+3. 
+* accurate : 正確な
+
+#### Honest Inference for Population Averages (Words)
+4. 
+* refer to as :…を…と呼ぶ
+
+##### Setup(Honest Inference;Words)
+9. 
+* and so : ということで、であるので
+
+11. 
+* threshold : 閾値
+
+13. 
+* condition on : 要件とする、制約する
+* analog : 類似物
+
+15. 
+* step-function : ステップ関数
+* approximation : 近似
+
+16. 
+* counterpart : 対応するもの 
+
+##### The Honest Target(Words)
+7. 
+* For brevity : 簡潔にするために
+* henceforth : 今後は、これからは
+* abuse : 乱用する
+* terminology : (専門)用語
+* slightly : わずかに、少し
+
+9. 
+* expressions : 式
+
+##### The Adaptive Target(Words)
+2. 
+* respectively : それぞれ
+
+4. 
+* In practice : 実際問題として
+
+6. 
+* spurious : 見かけ上の
+* extreme values : 極値
+
+##### The Implementation of CART(Words)
+0. 
+* Implementation : 実装
+
+1. 
+* complexity parameter : 複雑(度)パラメータ
+
+5. 
+* goodness-of-fit : 適合度
+  
+8. 
+* higher-variance : ばらつきの大きい
+
+9. 
+* constant times : 定数倍
+
+16. 
+* implicitly : 暗に
+* incorporate : 組み入れる
+
+##### Honest Splitting(Words)
+3. 
+* incorporate : 組み込む
+
+4. 
+* explicitly : 明示的に
+
+5. 
+* exploit : 開発する
+
+16. 
+* proportional : 比例する
+
+##### Honest Cross-Validation(Words)
+4. 
+* although perhaps less so than : ~ほどではないかもしれないが
+
+7. 
+* replace A with B : AをBに置き換える
+
+#### Honest Inference for Treatment Effects(Words)
+7. 
+* cardinality : (集合論において)濃度
+  * 有限集団における「元の個数」を一般の集合に拡張したもの。集合の濃度は基数 (cardinal number) と呼ばれる数によって表される。
+  * 参考：https://ja.wikipedia.org/wiki/%E6%BF%83%E5%BA%A6_(%E6%95%B0%E5%AD%A6)
+
+* respectively : それぞれ
+* share of : 割り当て、取り分
+
+14.  
+* workhorse : 働き者、耐久力のある機械、馬車車、主力製品
+* infeasible : 実行・実現不可能な
+
+##### Modifying Conventional CART for Treatment Effects(Words)
+
+
+##### Modifying the Honest Approach(Words)
+4. 
+* expression : 式
+5. 
+* criteria : 基準、criterionの複数形
+* analogous : 類似した
+10. 
+* pronounced : 明白な、顕著な
+
+#### Four Partitioning Estimators for Causal Effects(Words)
+1. 
+* briefly : 簡単に、手短に
+
+2. 
+* theoretically : 理論的に
+
+
+##### CTs(Words)
+2. 
+* objective : 目標、目的物
+3. 
+* namely : すなわち
+
+
+##### Transformed Outcome Trees(Words)
+1. 
+* off-the-shelf : 既製の、市販の
+4. 
+* ease : 手軽な
+* application : 適用性
+5. 
+* relative to : ~に関連して、**~と相対的な**
+6. 
+* fraction : 比・割合、断片
+7. 
+* benchmark : ベンチマーク(コンピューターやプログラムの性能や信頼性などを測定するときの基準となるものまたはその評価テストを指す)、(他のものと比較するときの)基準・標準
+
+##### Fit-Based Trees(Words)  
+3. 
+* of course : もちろん、言うまでもなく
+4. 
+* regressor : リグレッサー
+  * 回帰における独立変数・説明変数のこと
+  * 従属変数・被説明変数のことは regressand という
+  * 参考：https://www.weblio.jp/content/%E7%8B%AC%E7%AB%8B%E5%A4%89%E6%95%B0
+
+##### Squared T-Statistic Trees(Words)
+1. 
+* null hypothesis : 帰無仮説
+
+5. 
+* successive : 連続する
+
+10.  
+* undermine : 損なう、台無しにする
+
+##### Comparison of the CTs, the F Criterion, and the TS Criterion(Words)
+6. 
+* identical : 同一の
+* valid : 有効な、正当な
+* via : 〜によって
+
+
+#### Inference(Words)
+3. 
+* therefore : 結果として
+
+#### A Simulation Study(Words)
+6. 
+* sampling variance : 標本分散
+
+15. 
+* shallow : 浅い
+* recall : 思い出す
+18. 
+* prone to : する傾向がある。しがちである。
+21. 
+* the ratio of A to B : AのBに対する比率
+
+22. 
+* suffer : 苦しむ、問題がある
+23. 
+* noticeable : 著しい
+
+31. 
+* compressed : 圧縮された、簡潔な 
+
+35. 
+* complement : 補数、補集合
+40. 
+* substantially : 大幅に
+* nominal rates : 名目率
+* 
+42. 
+* bear out : 実証する
+* in exchange for : 〜と引き換えに、〜の代わりに
+
+#### Observational Studies with Unconfoundedness(Words)
+6. 
+* Efficiency : 効率
+
+#### The Literature(Words)
+7. 
+* Bayesian additive regression trees(BART) : 従属変数を，回帰木の和として表現したモデル
+11. 
+* policy function : 政策関数
+14. 
+* exhaustively : 網羅的に
+
+#### Conclusion(Words)
+6. 
+* development economics : 開発経済学
+
+
+
+### 重要メモ  
+* “sparsity” assumptionsとは？ここで議論されているスパース性のこと？
+  * (http://ide-research.net/papers/2016_Iwanami_Ide.pdf)
+  * 3つのスパース性  
+        1. 少ない変数だけでモデルを表す  
+        2. 少ない標本だけでモデルを表す  
+        3. 少ない関係だけに割り切る  
+* coverage probability...被覆確率
+  * The "nominal coverage probability" is often set at 0.95.
+* partitionは分割と訳すよりはパーティションと訳した方が良さそう。
+* fundamental problem of causal inference : 因果推論の根本問題
+  
+* '**honest**':提案されている決定木の手法:トレーニングデータで木の学習(to min **modified** MSE)
+* 普通の決定木は'**adaptive**':トレーニングデータで木の学習(to min MSE(Mean Squared Error))
+
+* costの訳出がひっかかる
+* pruning : 枝刈り、剪定、プルーニング
+* unconfoundedness : 交絡因子に関連する仮定のこと。  
+  * 潜在的目的変数と介入割り当ては、共変量で条件付ければ独立であるということ。「介入割り当ては共変量にのみ依存し、潜在的目的変数には依存しない」ということを要求している。
+  * 参考：https://qiita.com/usaito/items/995bb9b6833f7d9e2178
+* Conditional Average Treatment Effects : 条件付き平均処置効果(CATE)
+* cp(complexity parameter)は、木のサイズとあてはまりの良さをトレードオフする指標。木がある大きさのときのモデルの複雑さの指標のようなものと考えられる。小さく指定すると細かく分岐が行われる。
+* $\#$ : ナンバーサイン(集合の個数)
+
+### 和訳  
+#### Abstract  
+1. In this paper we propose methods for estimating heterogeneity in causal effects in experimental and observational studies and for conducting hypothesis tests about the magnitude of differences in treatment effects across subsets of the population.   
+
+    本論文では、実験研究および観察研究における因果効果の異質性を推定する方法、および母集団の部分集合間の処置効果の差の大きさに関する仮説検定を行う方法を提案する。  
+$\quad$
+2. We provide a data-driven approach to partition the data into subpopulations that differ in the magnitude of their treatment effects.  
+
+    我々は処置効果の大きさが異なる部分集団にデータを分割するデータ駆動型なアプローチを提供する。  
+$\quad$
+3. The approach enables the construction of valid confidence intervals for treatment effects, even with many covariates relative to the sample size, and without “sparsity” assumptions.  
+
+    このアプローチにより、サンプルサイズと比較して多くの共変量があり、「スパース(性)」の仮定がない場合でも処置効果の有効な信頼区間を構築できる。  
+$\quad$
+
+4. We propose an “honest” approach to estimation, whereby one sample is used to construct the partition and another to estimate treatment effects for each subpopulation.  
+
+    我々は、1つの標本を用いてパーティションを構築し、別の標本を用いて各部分集団の処置効果を推定するという "honest"推定アプローチを提案する。  
+$\quad$
+
+5. Our approach builds on regression tree methods, modified to optimize for goodness of fit in treatment effects and to account for honest estimation.   
+    
+    我々のアプローチは、処置効果の適合度を最適化し、honest推定を考慮するために修正した回帰木を基にしている[ベースにしている]。  
+$\quad$
+
+6. Our model selection criterion anticipates that bias will be eliminated by honest estimation and also accounts for the effect of making additional splits on the variance of treatment effect estimates within each subpopulation.
+    
+    我々のモデル選択基準は、honest推定によってバイアスが取り除かれると予測し、また同様にそれぞれの部分母集団の中での処置効果の推定値の分散を追加で分割することの影響も考慮している。  
+$\quad$
+
+7. We address the challenge that the “ground truth” for a causal effect is not observed for any individual unit, so that standard approaches to cross-validation must be modified. 
+
+    我々は、因果効果の「**正解[正解ラベルや教師データ]**」が個々のユニット[1つの部分集団のこと？]では観測されない、そのため標準的なクロスバリデーションのアプローチを修正しなければならないという課題に取り組んでいる。  
+$\quad$
+
+8. Through a simulation study, we show that for our preferred method honest estimation results in nominal coverage for 90% confidence intervals, whereas coverage ranges between 74% and 84% for nonhonest approaches. 
+
+    シミュレーション研究を通じて、我々の好ましい方法であるhonest推定では信頼区間90％の**名目上の被覆**が得られるのに対し、nonhonestアプローチでは74％から84％の範囲で名目上の被覆が得られることを示した。  
+$\quad$
+
+9. Honest estimation requires estimating the model with a smaller sample size; the cost in terms of mean squared error of treatment effects for our preferred method ranges between 7–22$\%$.
+
+    Honest推定ではより小さなサンプルサイズでモデルを推定する必要がある。我々の好ましい手法の処置効果の平均二乗誤差に関してのコストは7~22$\%$の間である。
+
+#### Introduction  
+1. In this paper we study two closely related problems: first, estimating heterogeneity by covariates or features in causal effects in experimental or observational studies, and second, conducting　inference about the magnitude of the differences in treatment　effects across subsets of the population.
+   
+    本論文で我々は、親密に関連した2つの問題を研究する[学ぶ]。1つ目は実験研究や観察研究において、因果効果の共変量や特徴量によって異質性を推定する。2つ目は母集団の部分集合間での処置効果の差の大きさに関する推論を行う。  
+$\quad$
+
+2. Causal effects, in the Rubin causal model or potential outcome framework we use here(1–3), are comparisons between outcomes we observe and counterfactual outcomes we would have observed under a different regime or treatment.
+
+    我々がここで使用するルービン因果モデルや潜在的アウトカムフレームワーク(1-3)における因果効果は、我々が観測するアウトカムと異なる制度や処置のもとで観察していたであろう反事実アウトカムとの比較である。  
+$\quad$
+
+3. We introduce data-driven methods that select subpopulations to estimate treatment effect heterogeneity and to test hypotheses about the differences between the effects in different subpopulations.
+
+    処置効果の異質性を推定し、異なる部分集団における効果の違いについての仮説を検定するために部分集団を選択するデータ駆動型の手法を導入する。  
+$\quad$
+
+4. For experiments, our method allows researchers to identify heterogeneity in treatment effects that was not specified in a preanalysis plan, without concern about invalidating inference due to searching over many possible partitions.
+
+    実験において、研究者は我々の方法を用いることで、多くの可能性のあるパーティションを探索することによる推論の無効化を心配することなく、分析前の計画において明示しない処置効果における異質性を識別可能になる。  
+$\quad$
+
+5. Our approach is tailored for applications where there may be many attributes of a unit relative to the number of units observed, and where the functional form of the relationship between treatment effects and the attributes of units is not known.
+
+    我々のアプローチは、観測されたユニットの数に対してユニットの属性が多く存在する可能性があり、処置効果とユニットの属性との間の関係の関数形がわからないようなところでの適用に合わせている。  
+$\quad$
+
+6. The supervised machine learning literature (e.g., ref. 4) has developed a variety of effective methods for a closely related problem , the problem of predicting outcomes as a function of covariates in similar environments.
+
+    教師あり機械学習の文献(例えば、文献4)では、類似した環境における共変量の関数としてアウトカムを予測する問題と密接に関連した問題に対して、様々な有効な手法が開発されてきた。  
+$\quad$
+
+7. The most popular approaches [e.g., regression trees (5), random forests (6), LASSO (7), support vector machines (8), etc.] entail building a model of the relationship between attributes and outcomes, with a penalty parameter that penalizes model complexity.
+
+    最も一般的なアプローチ[例えば回帰木(5),ランダムフォレスト(6),LASSO(7),サポートベクターマシン(8)など]はモデルの複雑さにペナルティ[罰則]を与える罰則パラメータ[罰則項]を用いて、属性とアウトカムの関係のモデルを構築することを必要とする。  
+$\quad$
+
+8. Cross-validation is often used to select the optimal level of complexity (the one that maximizes predictive power without “overfitting”).
+
+    クロスバリデーション(交差検証法)は最適な複雑さの度合い(「オーバーフィッティング[過適合]」せずに予測力を最大化するもの)を選択するためによく使われる。  
+$\quad$
+
+9. Within the prediction-based machine learning literature, regression trees differ from most other methods in that they produce a partition of the population according to covariates , whereby all units in a partition receive the same prediction.
+
+    予測に基づいた機械学習の文献の中で、回帰木は共変量に応じて母集団の分割を生成するという点で他の手法とは異なるが、それによって分割内の全てのユニット[1個体]が同じ予測を受けることになる。  
+$\quad$
+
+10. In this paper , we focus on the analogous goal of deriving a partition of the population according to treatment effect heterogeneity ,building on standard regression trees (5, 6)
+
+    本論文で、我々は標準的な回帰木(5, 6)に基づいて，処置効果の異質性に応じた母集団の分割を導出するという類似した目標に焦点を当てる。  
+$\quad$
+
+11. Whether the ultimate goal in an application is to derive a partition or fully personalized treatment effect estimates depends on the setting ; settings where partitions may be desirable include those where decision rules must be remembered, applied, or interpreted by human beings or computers with limited processing power or memory.
+
+    適用における最終的な目標がパーティションを導出することか、完全に個別化された処置効果の推定値を導出することかは、状況に依存する。分割が望ましいと思われる状況には、決定ルールを人や、限られた処理能力やメモリを持つコンピュータによって記憶、適用、解釈しなければならない場合も含まれる。  
+$\quad$
+
+12. Examples include treatment guidelines to be used by physicians or even online personalization applications where having a simple lookup table reduces latency for the user.
+
+    例としては、医師が使用する治療ガイドラインやシンプルなルックアップテーブルを持つことでユーザーの待ち時間[遅延時間]が短縮されるオンラインの個人化されたアプリケーションなどがある。  
+$\quad$
+
+13. We show that an attractive feature of focusing on partitions is that we can achieve nominal coverage of confidence intervals for estimated treatment effects even in settings with a modest number of observations and many covariates.
+
+    パーティションに焦点を当てることの魅力的な特徴は、観測値の数が少なく[あまり多くなく]、多くの共変量を持つ状況においても、推定された処置効果の信頼区間の名目上の被覆を達成できることであることを示す。  
+$\quad$
+
+14. Our approach has applicability even for settings such as clinical trials of drugs with only a few hundred patients, where the number of patient characteristics is potentially quite large.
+
+    我々のアプローチは、患者が数百人しかいない医薬品の臨床試験のように、患者の特性の数が非常に大きくなる可能性のある状況でさえも適用可能である。  
+$\quad$
+
+15. Our method may also be viewed as a complement to the use of “ preanalysis plans ” where the researcher must commit in advance to the subgroups that will be considered.
+
+    我々の方法は、研究者が検討するサブグループ[特定の集団のさらに細かいグループのこと]を事前に約束しなければならない「事前分析計画」の使用を補完するものと考えることもできる。  
+$\quad$
+
+
+16. It enables researchers to let the data discover relevant subgroups while preserving the validity of confidence intervals constructed on treatment effects within subgroups.
+
+    これにより、研究者は、サブグループ内の処置効果について構築された信頼区間の妥当性を維持しながら、データから関連するサブグループを発見することができる。  
+$\quad$
+
+17. A first challenge for our goal of finding a partition and then testing hypotheses about treatment effects is that many existing machine learning methods cannot be used directly for constructing confidence intervals. 
+
+    パーティションを見つけて、処置効果についての仮説を検定するという我々の目標に対する最初の課題は、多くの既存の機械学習手法が信頼区間を構築するために直接使用できないということである。  
+$\quad$
+
+18. This is because the methods are “ adaptive ”:They use the training data for model selection, so that spurious correlations between covariates and outcomes affect the selected model, leading to biases that disappear only slowly as the sample size grows. 
+
+    これは、手法が "adaptive[適応的]"であるためである。: モデル選択のために訓練データを使用するので、共変量とアウトカムの間の擬似相関が選択されたモデルに影響を与え、サンプルサイズが大きくなるにつれてゆっくりとしか消えないバイアスを導く。  
+$\quad$
+
+19. In some contexts, additional assumptions such as“sparsity”(only a few covariates affect the outcomes) can be applied to guarantee consistency or asymptotic(large sample) normality of predictions (9).
+
+    いくつかの文脈では、予測値の一貫性や漸近的（大標本）な正規性を保証するために、"sparsity(スパース)"（結果に影響を与える共変量が少ない）のような追加の仮定を適用することができる(9)  
+$\quad$
+
+20. In this paper, we use an alternative approach that places no restrictions on model complexity, which we refer to as “ honesty. ”
+
+    この論文では、モデルの複雑さに制限をかけない代替的なアプローチ,私たちが言うところの "honesty"を用いている。  
+$\quad$
+
+21. We say that a model is “honest” if it does not use the same information for selecting the model structure (in our case, the partition of the covariate space) as for estimation given a model structure.
+
+    我々は、モデルがモデル構造（我々のアプローチでは共変量空間の分割）を選択する際に、モデル構造が与えられた推定と同じ情報を使わない場合、モデルは「honest」であると言う。  
+$\quad$
+
+22. We accomplish this by splitting the training sample into two parts, one for constructing the tree (including the cross-validation step) and a second for estimating treatment effects within leaves of the tree.
+
+    我々は，学習サンプルを2つの部分に分割し，1つは木を構築するための部分（交差検証ステップを含む）と，もう１つは木の葉の中の処置効果を推定するための部分に分割することによって，これ[honestモデル？]を完成する。  
+$\quad$
+
+23. Honesty has the implication that the asymptotic properties of treatment effect estimates within the partitions are the same as if the partition had been exogenously given.
+
+    honestyは、パーティション内の処置効果推定値の漸近性質が、(まるで)パーティションが外生的に与えられた時と同じであるという含みを持つ。  
+$\quad$
+
+24. Although there is a loss of precision due to sample splitting (which reduces sample size in each step of estimation), there is a benefit in terms of eliminating bias that offsets at least part of the cost.
+
+    サンプル分割(推定の各ステップでサンプルサイズを小さくする)による精度の低下はあるが、コストの少なくとも一部を相殺するバイアスを取り除くという点ではメリットがある。  
+$\quad$
+
+25. A key contribution of this paper is to show that criteria for both constructing the partition and cross-validation change when we anticipate honest estimation. 
+
+    本論文の主な貢献は、honest推定を想定した場合に、パーティションの構成とクロスバリデーションの両方の基準が変化することを示すことである。  
+$\quad$
+
+26. In the first stage of estimation, the criterion is the expectation of the mean squared error (MSE) when treatment effects are reestimated in the second stage.
+
+    推定の第1段階では、第2段階で処置効果を再推定したときの平均二乗誤差（MSE）の期待値が基準となる。  
+$\quad$
+
+27. Crucially, we anticipate that second-stage estimates of treatment effects will be unbiased in each leaf, because they will be performed on an independent sample. 
+
+    重大なことに、処置効果の第2段階の推定値は独立した標本で行われる[推定される]ので、それぞれの葉では偏りがない[不偏になる]と予想される。  
+$\quad$
+
+28. In that case, splitting and cross-validation criteria are adjusted to ignore systematic bias in estimation and focus instead on the tradeoff between more tailored prediction (smaller leaf size) and the variance that will arise in the second (honest estimation) stage due to noisy estimation within small leaves.
+
+    その場合、分割とクロスバリデーションの基準は推定における系統的なバイアスを無視し、その代わりに、より適合した予測（葉のサイズが小さい）と小さな葉の中でノイズの多い推定が原因で、第2段階（honest推定）で発生する分散との間のトレードオフに焦点を当てるよう調整される。  
+$\quad$
+
+29. A second and perhaps more fundamental challenge to applying machine learning methods such as regression trees (5) off-the-shelf to the problem of causal inference is that regularization approaches based on cross-validation typically rely on observing the “ ground truth,” that is , actual outcomes in a cross-validation sample. 
+
+    回帰木(5)のような既製の機械学習手法を因果推論の問題に適用するための第二の、そしておそらくより根本的な課題は、クロスバリデーションに基づく正則化アプローチは一般的にクロスバリデーション標本内の実際の結果、つまり「正解(正解ラベルや教師データ)」の観察に依存しているということである。  
+$\quad$
+
+30. However, if our goal is to minimize the MSE of treatment effects, we encounter what Holland (2) calls the“ fundamental problem of causal inference”: The causal effect is not observed for any individual unit, and so we do not directly have a ground truth.
+
+    しかし、処置効果のMSE(平均二乗誤差)を最小化することを目的とする場合、Holland(2)が「因果推論の根本問題」と呼ぶものに遭遇する。因果効果は、どの個体についても観察されないので、直接には正解をもっていない。
+    * :以下はfundamental problem of causal inferenceの説明。  
+$\quad$
+
+31. We address this by proposing approaches for constructing unbiased estimates of the MSE of the causal effect of the treatment.
+
+    我々は処置における因果効果のMSEの不偏推定値を構築するためのアプローチを提案することで、この問題に対処する。  
+$\quad$
+
+32. Using theoretical arguments and a simulation exercise, we compare our approach with previously proposed **ones**.
+
+    理論的な議論とシミュレーション演習を用いて、我々のアプローチと以前に提案されたものと比較する。  
+$\quad$
+
+33. Relative to approaches that focus on goodness of fit in model selection, our approach yields substantial improvements in the MSE of treatment effects (ranging from 43$\%$ to 210$\%$).
+
+    モデル選択における適合性に焦点を当てたアプローチと比較して、我々のアプローチは処置効果のMSEで実質的な改善をもたらす。(43$\%$~210$\%$の範囲)  
+$\quad$
+
+34. We also examine the costs and benefits of honest estimation relative to adaptive estimation.
+
+    またadaptive推定と比較して、honest推定のコスト[損失]と利点を検討する。  
+$\quad$
+
+35. In the settings we consider, honest estimation leads to approximately nominal coverage of confidence intervals across estimation methods and settings, whereas for adaptive estimation approaches coverage can be as low as 69$\%$. 
+
+    我々が検討している状況では、honest推定は推定手法と状況の間で信頼区間の名目上の被覆がほぼ得られるのに対し、adaptive推定アプローチでは被覆が69$\%$と低くなることがある。  
+$\quad$
+
+36. The cost of honest estimation in terms of MSE of treatment effects (where for adaptive estimation, we have a larger sample size available for training) ranges from 7% to 22% for our preferred model.
+
+    **処置効果のMSE(adaptive推定では訓練に利用できるサンプルサイズが大きい)の観点から見たhonest推定のコストは、我々の好ましいモデルでは7~22%の範囲である。**
+* 清水先生のメモ：pruning to minimize MSE to treatment effect?
+  * 処置効果のMSEを最小化するための枝刈り？
+
+
+#### The Problem  
+##### Setup
+1. We consider a setup where there are N units, indexed by i=1,...,N. 
+
+    ここでは i=1,...,NでインデックスをつけたN個のユニットが存在する設定を考える。  
+$\quad$
+
+2. We postulate the existence of a pair of potential outcomes for each unit ,($Y_{i}(0),Y_{i}(1)$), following the potential outcome or Rubin causal model (1–3), with the unit-level causal effect defined as the difference in potential outcomes, $\tau_{i}=Y_{i}(1)−Y_{i}(0)$.
+
+    ここでは潜在的結果変数またはルービン因果モデル(1–3)に従って、各ユニットの潜在的アウトカム[結果変数]のペア($Y_{i}(0),Y_{i}(1)$)が存在し、
+    ユニットレベルの因果効果は潜在的アウトカムの差として定義され、$\tau_{i}=Y_{i}(1)−Y_{i}(0)$となることを仮定する。  
+$\quad$
+
+3. Let $W_{i}∈(0,1)$ be the binary indicator for the treatment, with $W_{i}=0$ indicating that unit $i$ received the control treatment and $W_{i}=1$ indicating that unit $i$ received the active treatment.
+
+    $W_{i}∈(0,1)$ を処置の二値指標とし、$W_{i}=0$ はユニット$i$ がコントロール処置[対照処置]を受けたことを示し[対照群]、$W_{i}=1$ はユニット$i$ が積極的処置を受けたことを示す[処置群]。  
+$\quad$
+
+4. The realized outcome for unit $i$ is the potential outcome corresponding to the treatment received:
+
+    ユニット $i$ の実現アウトカム(観測変数?)は受けた処置に対応する潜在的アウトカムである。  
+
+$$Y_i^{obs}=Y_i(W_i)=\left\{\begin{array}{ll}Y_i(0) & if\; W_i=0 \\Y_i(1) & if\; W_i=1\end{array}\right.$$  
+
+
+5. Let $X_i$ be a $K$-component vector of features, covariates, or pretreatment variables, known not to be affected by the treatment.
+
+    $X_i$を処置の影響を受けないことが知られている特徴量、共変量、処置前変数の$K$成分ベクトルとする。  
+$\quad$
+
+6. Our data consist of the triple $(Y_i^{obs},W_i,X_i)$ , for $i=1,...,N$ ,which are regarded as an independent and identically distributed sample drawn from a large population.
+
+    我々のデータは$i=1,...,N$で $(Y_i^{obs},W_i,X_i)$ の三項からなり、大きな母集団から抽出された独立同一分布の標本であるとみなされる。  
+$\quad$
+
+7. Expectations and probabilities will refer to the distribution induced by the random sampling, or by the (conditional) random assignment of the treatment. 
+
+    期待値と確率は無作為サンプリングによって、または処置の(条件つきの)無作為割り付けによって誘導[誘発]された分布を参照する。  
+$\quad$
+
+8. We assume that observations are exchangeable, and that there is no interference [the stable unit treatment value assumption (10)].
+
+    観測値が交換可能であり、干渉がないことを前提としている。[安定したユニット処置値の仮定(10)] 
+    (exchangeabilityの仮定のこと?)  
+$\quad$
+
+9. This assumption may be violated in settings where some units are connected through networks.
+
+    一部のユニットがネットワークを介して接続されている状況では、この仮定を破るかもしれない。  
+$\quad$
+
+10. Let $p=pr(W_i=1)$ be the marginal treatment probability, and let $e(x)=pr(W_i=1|X_i=x)$ be the conditional treatment probability (the “propensity score” as defined by ref. 11). 
+
+    $p=pr(W_i=1)$を周辺処置確率とし、$e(x)=pr(W_i=1|X_i=x)$を条件付き処置確率(文献11で定義されている「傾向スコア」)とする。  
+$\quad$
+
+11. In a randomized experiment with constant treatment assignment probabilities $e(x)=p$ for all values of $x$.
+
+    無作為化実験において、全ての$x$の値について一定の処置割り当て確率 $e(x)=p$をもつ。
+
+##### Unconfoundedness  
+条件付き独立, (強く無視できる割り当て条件) 
+
+1. Throughout the paper, we maintain the assumption of randomization conditional on the covariates, or “unconfoundedness” (11), formalized as given below.
+
+    本論文では共変量を条件とした無作為化、すなわち「unconfoundedness」(11)の仮定を維持し、以下のように形式化[定式化]する。  
+$\quad$
+
+2. **Assumption 1 (Unconfoundedness).**   
+*using  the  symbol $\mathop{\perp\!\!\!\!\perp}$ to  denote  (conditional)  independence  of  two random variables.
+This assumption is satisfied in a randomized experiment without conditioning on covariates but also may be justified in observational studies if the researcher is able to observe all of the variables that affect the unit’s receipt of treatment and are associated with the potential outcomes.*  
+
+    記号$\mathop{\perp\!\!\!\!\perp}$を使用して2つのランダム変数の(条件付き)独立性を表す。
+    この仮定は共変量に条件付けをしない無作為化実験では満たされるが、研究者がユニットの処置を受けることに影響を与え潜在的アウトカムに関連する全ての変数を観測することができれば、観察研究でも正当化されるかもしれない。  
+     * the variables that~はaffectとare associatedが並列  
+$$W_i\mathop{\perp\!\!\!\!\perp}(Y_i(0),Y_i(1))|X_i$$ 
+
+3. To simplify exposition, in the main body of the paper we maintain the stronger assumption of complete randomization,whereby $W_i\mathop{\perp\!\!\!\!\perp}(Y_i(0),Y_i(1))|X_i$. 
+
+    説明を簡単にするために、論文の本文では完全無作為化と言う、より強い仮定を維持している。これにより$W_i\mathop{\perp\!\!\!\!\perp}(Y_i(0),Y_i(1))|X_i$.   
+$\quad$
+
+4. Later, we show that by using propensity score weighting (1) we can adapt all of the methods to **that case**.
+
+    後に、傾向スコアの重み付け(1)を利用することで、全ての手法を**その場合**[共変量を条件とした無作為化のこと？]に適用できることを示す。
+
+
+##### Conditional Average Treatment Effects and Partitioning 
+
+1. Define the conditional average treatment effect $\tau(x)≡\mathbb{E}[Y_i(1)−Y_i(0)|X_i=x]$
+
+    条件付き平均処置効果を定義する。
+    $$\tau(x)≡\mathbb{E}[Y_i(1)−Y_i(0)|X_i=x]$$
+
+2. A large part of the causal inference literature (e.g., refs. 3 and 12–14) is focused on estimating the population (marginal) average treatment effect $\mathbb{E}[Y_i(1)−Y_i(0)]$. 
+
+    因果推論の文献(例えば文献3と12-14)の大部分は母集団(周辺)平均処置効果 $\mathbb{E}[Y_i(1)−Y_i(0)]$ の推定に焦点を当てている。  
+$\quad$
+
+3. The main focus of the current paper is on obtaining accurate estimates of and inferences for the conditional average treatment effect $\tau(x)$. 
+
+    本論文では条件付き平均処置効果$\tau(x)$の正確な推定値と推論を得ることに焦点を当てている。  
+$\quad$
+
+4. We are interested in estimators $\hat{\tau}(.)$ [in general we use the $\hat{.}$ symbol to denote estimators for a population quantity —- in this case $\tau(x)$] that are based on partitioning the feature space and do not vary within the partitions.
+
+    我々は特徴空間の分割に準拠し、パーティションの中で変化しない推定量$\hat{\tau}(.)$[一般的には母集団の推定量を表すために$\hat{.}$記号を使う—-この場合は$\tau(x)$]に興味がある。
+
+#### Honest Inference for Population Averages　
+母集団平均のhonest推論
+
+1. Our approach departs from conventional classification and regression trees (CART) in two fundamental ways. 
+
+    我々のアプローチは、従来の分類木と回帰木（CART）とは根本的に2つの点で異なる。  
+$\quad$
+
+2. First, we focus on estimating conditional average treatment effects rather than predicting outcomes. 
+
+    第一に、我々はアウトカムを予測するのではなく、条件付き平均処置効果を推定することに焦点を当てる。  
+$\quad$
+
+3. Conventional regression tree methods are therefore not directly applicable because we do not observe unit-level causal effects for any unit. 
+
+    従来の回帰木手法は、どのユニットについてもユニットレベルの因果効果を観察しないため、直接適用できない。  
+$\quad$
+
+4. Second, we impose a separation between constructing the partition and estimating effects within leaves of the partition, using separate samples for the two tasks, in what we refer to as honest estimation. 
+
+    第二に、我々は、パーティションの構築とパーティションの葉の中の効果の推定を分離し、2つのタスクに対して別々のサンプルを使用して、honest推定と呼んでいる。  
+$\quad$
+
+5. We contrast honest estimation with adaptive estimation used in conventional CART, where the same data are used to build the partition and estimate leaf effects. 
+
+    同じデータを用いてパーティションを構築し、葉の効果を推定する、従来のCARTで用いられるadaptive推定とhonest推定を対比させている。  
+$\quad$
+
+6. In this section we introduce the changes induced by honest estimation in the context of the conventional prediction setting; in the next section we consider causal effects.
+
+    本節では従来の予測状況の文脈でのhonest推定による変化を紹介し、次節では因果効果を考察する。  
+$\quad$
+
+7. In the discussion in this section we observe for each unit $i$ a pair of variables $(Y_i,X_i)$, with the interest in the conditional expectation $\mu(x)≡\mathbb{E}[Y_i|X_i=x]$.
+
+    この節の議論では、各ユニット$i$について条件付き期待値$\mu(x)≡\mathbb{E}[Y_i|X_i=x]$に興味を持って、変数$(Y_i,X_i)$のペアを観察する。
+
+
+##### Setup(Honest Inference)
+
+1. We begin by defining key concepts and functions. 
+
+    まず重要な概念と関数[機能？]を定義することから始める。  
+$\quad$
+
+2. First, a tree or partitioning $\Pi$ corresponds to a partitioning of the feature space $\mathbb{X}$ , with $\#(\Pi)$ the number of elements in the partition. 
+
+    まず、木やパーティショニング$\Pi$は特徴空間 $\mathbb{X}$ のパーティショニングに対応し、$(\#\Pi)$の要素数である。  
+$\quad$
+
+3. We write  
+$\Pi=\bigl\{\ell_1,...,\ell_{\#(\Pi)}\bigr\},$ with $\cup_{j=1}^{\#(\Pi)}\ell_j=\mathbb{X}.$  
+
+    パーティショニングを$\Pi=\bigl\{\ell_1,...,\ell_{\#(\Pi)}\bigr\},$  $\cup_{j=1}^{\#(\Pi)}\ell_j=\mathbb{X}.$と記述する。  
+$\quad$
+
+4. Let $\mathbb{P}$ denote the space of partitions.
+
+    パーティションの空間を$\mathbb{P}$とする。  
+$\quad$
+
+5. Let $\ell(x;\Pi)$ denote the leaf $\ell\in\Pi$ such that $x\in\ell$. 
+
+    $x\in\ell$のような葉$\ell\in\Pi$を$\ell(x;\Pi)$とする。  
+$\quad$
+
+6. Let $\mathbb{S}$ be the space of data samples from a population.
+
+    母集団からのデータ標本の空間を$\mathbb{S}$とする。  
+$\quad$
+
+7. Let $\pi:\mathbb{S}\mapsto\mathbb{P}$ be an algorithm that on the basis of a sample $S\in\mathbb{S}$ constructs a partition. 
+
+    標本$S\in\mathbb{S}$に基づいてパーティションを構成するアルゴリズムを$\pi:\mathbb{S}\mapsto\mathbb{P}$とする。  
+$\quad$
+
+8. As a very simple example, suppose the feature space is $\mathbb{X}=\bigl\{L,R\bigr\}.$
+
+    簡単な例として、特徴空間が$\mathbb{X}=\bigl\{L,R\bigr\}$だとする。  
+$\quad$
+
+9. In this case there are two possible partitions,$\Pi_N=\bigl\{L,R\bigr\}$ (no split) or $\Pi_S=\bigl\{\bigl\{L\bigr\},\bigl\{R\bigr\}\bigr\}$ (full split), and so the space of trees is $\mathbb{P}=\bigl\{\Pi_N,\Pi_S\bigr\}=\bigl\{\bigl\{L,R\bigr\},\bigl\{L\bigr\},\bigl\{R\bigr\}\bigr\}\bigr\}$.
+
+    この場合2つの可能性のあるパーティション$\Pi_N=\bigl\{L,R\bigr\}$(分割なし)または、$\Pi_S=\bigl\{\bigl\{L\bigr\},\bigl\{R\bigr\}\bigr\}$(完全分割)が存在する、ということで木の空間は$\mathbb{P}=\bigl\{\Pi_N,\Pi_S\bigr\}=\bigl\{\bigl\{L,R\bigr\},\bigl\{L\bigr\},\bigl\{R\bigr\}\bigr\}\bigr\}$である。  
+$\quad$
+
+10. Given a sample $S$, the average outcomes in the two subsamples are$\bar{Y_L}$ and $\bar{Y_R}$. 
+
+    ある標本$S$が与えられると、2つの部分標本の平均アウトカムは$\bar{Y_L}$ と $\bar{Y_R}$になる。  
+$\quad$
+
+11. A simple example of an algorithm is one that splits if the difference in average outcomes exceeds a threshold $c$: 
+     
+    アルゴリズムの簡単な例としては、平均アウトカムの差が閾値$c$を超えた場合に分割するものがある。
+
+
+$$\pi(S)=\left\{
+\begin{array}{ll}
+\bigl\{\bigl\{L,R\bigr\}\bigr\}& if\;\; \bar{Y_L} - \bar{Y_R}\leq c  \\
+\bigl\{\bigl\{L\bigr\},\bigl\{R\bigr\}\bigr\}& if\;\; \bar{Y_L} - \bar{Y_R} > c
+\end{array}
+\right.$$
+
+
+12. The potential bias in leaf estimates from adaptive estimation can be seen in this simple example.
+
+    **adaptive推定による葉の推定値の潜在的なバイアスは、この単純な例で見ることができる。**  
+$\quad$
+
+13. Whereas $\bar{Y_L}-\bar{Y_R}$ is in general an unbiased estimator for the difference in the population conditional means $\mu(L)−\mu(R)$, if we condition on finding that$\bar{Y_L}-\bar{Y_R}\geq c$ in a particular sample, we expect that$\bar{Y_L}-\bar{Y_R}$ is larger than the population analog.
+
+    一方$\bar{Y_L}-\bar{Y_R}$は一般的に母集団の条件付き平均の差$\mu(L)−\mu(R)$の不偏推定量であるが、ある特定の標本で$\bar{Y_L}-\bar{Y_R}\geq c$を見つけることを制約とすると、$\bar{Y_L}-\bar{Y_R}$が母集団の類似物よりも大きいことが予想される。  
+$\quad$
+
+14. Given a partition $\Pi$, define the conditional mean function $\mu(x;\Pi)$ as  
+    
+$$\mu(x;\Pi)\equiv\mathbb{E}[Y_i|X_i\in\ell(x;\Pi)=\mathbb{E}[\mu(X_i)|X_i\in\ell(x;\Pi)],$$
+
+
+15. which can be viewed as a step-function approximation to $\mu(x)$.
+
+    14,15: パーティション$\Pi$が与えられた時、$\mu(x)$に対するステップ関数近似として見ることができる条件付き平均関数$\mu(x;\Pi)$を定義されたい。  
+$\quad$
+
+16. Given a sample $S$ the estimated counterpart is
+
+$$\hat{\mu}(x;S,\Pi)\equiv\frac{1}{\#(i\in S:X_i\in\ell(x;\Pi))}\sum_{i\in S:X_i\in\ell(x;\Pi)}Y_i,$$
+
+
+17. which is unbiased for $\mu(x;\Pi)$. 
+
+    16,17:標本$S$が与えられると、推定された対応するものは$\mu(x;\Pi)$に対して不偏である$\hat{\mu}(x;S,\Pi)$である。  
+    * $\ell$:leaf(葉)  
+$\quad$
+
+18. We index this estimator by the sample because we need to be precise about which sample is used for estimation of the regression function.
+
+    回帰関数の推定にどの標本が使用されるかを正確に把握する必要があるため、**この推定量を標本で索引付けします**。
+
+
+##### The Honest Target  
+Honestの目標   
+
+1. A central concern in this paper is the criterion used to compare alternative estimators; 
+following much of the literature, we focus on MSE criteria, but we will modify these criteria in a variety of ways.
+ 
+    この論文の中心的な関心事は、代替推定量を比較するために使用される基準である。
+    多くの文献に倣って、我々はMSE基準に焦点を当てているが、これらの基準を様々な方法で修正する予定である。  
+$\quad$
+
+2. For the prediction case, we adjust the MSE by $\mathbb{E}[Y^2_i]$; because this does not depend on an estimator, subtracting it does not affect how the criterion ranks estimators.
+
+    予測の場合は、MSEを$\mathbb{E}[Y^2_i]$で調整する。
+    これは推定量に依存しないので、これを差し引いても、基準が推定量をどのようにランク付けするかには影響しない。  
+$\quad$
+
+3. Given a partition $\Pi$, define the MSE, where we average over a test sample $S^{te}$ and the conditional mean is estimated on an estimation sample $S^{est}$,as  
+
+    パーティション$\Pi$が与えられたとき、検定標本$S^{te}$を平均し、条件付き平均が推定標本$S^{est}$で推定されるMSEを定義する。
+
+$$MSE_\mu(S^{te},S^{est},\Pi)\equiv\frac{1}{\#(S^{te})}\sum_{i\in S^{te}}\bigl\{(Y_i-\hat{\mu}(X_i;S^{est},\Pi))^2-Y_i^2\bigr\}.$$ 
+
+
+4. The (adjusted) expected MSE is the expectation of $MSE_\mu(S^{te},S^{est},\Pi)$ over test and estimation samples:
+
+$$EMSE_\mu(\Pi)\equiv\mathbb{E}_{S^{te},S^{est}}[MSE_\mu(S^{te},S^{est},\Pi)],$$  
+
+5. where the test and estimation samples are independent.
+
+    4,5:(調整済み)期待MSE[$EMSE_\mu(\Pi)$]は、検定標本と推定標本が独立である場合の検定標本と推定標本に対する$MSE_\mu(S^{te},S^{est},\Pi)$の期待値である。  
+$\quad$
+
+6. In the algorithms we consider, we will consider a variety of estimators for the (adjusted) EMSE, all of which take the form of MSE estimators $MSE_\mu(S^{te},S^{est},\Pi)$, evaluated at the units in sample $S^{te}$, with the estimates based on sample $S^{est}$ and the tree $\Pi$. 
+
+    我々が考えるアルゴリズムでは、(調整された)EMSEに対する様々な推定量を考慮する予定だが、それら全てはMSE推定量$MSE_\mu(S^{te},S^{est},\Pi)$の形をとっており、標本$S^{te}$の単位で評価され、標本$S^{est}$と木$\Pi$に基づいて推定される。  
+$\quad$
+
+7. For brevity in this paper we will henceforth omit the term “adjusted” and abuse terminology slightly by referring to these objects as MSE functions.
+
+    簡潔にするためにこの論文では「adjusted:調整された」という用語を今後は省略し、これらのオブジェクトをMSE関数と呼ぶことで用語の乱用を減らすこととする。  
+$\quad$
+
+
+8. Our ultimate goal is to construct and assess algorithms $\pi(.)$ that maximize the honest criterion 
+
+    我々の最終的な目標は、honest基準$Q^H$を最大化するアルゴリズム$\pi(.)$を構築し評価することである。
+
+$$Q^H\equiv-\mathbb{E}_{S^{est},S^{est},S^{tr}}[MSE_\mu(S^{te},S^{est},\pi(S^{tr}))].$$  
+
+
+9. Note that throughout the paper we focus on maximizing criterion functions, which typically involve the negative of MSE expressions.
+
+    本論文では、一般的にMSE式の負の値を含む基準関数の最大化に焦点を当てていることに注意されたい。
+
+##### The Adaptive Target
+
+1. In the conventional CART approach the target is slightly different : where the same training sample is used to construct and estimate the tree. 
+
+    従来のCARTアプローチでは、同じ学習標本を使用して木を構成し推定すると言う点で、ターゲット($Q^C(\pi)$)は少し異なる。
+
+$$Q^C(\pi)\equiv-\mathbb{E}_{S^{te},S^{tr}}[MSE_\mu(S^{te},S^{tr},\pi(S^{tr}))]$$
+
+2. Compared with our target $Q^H(\pi)$ the difference is that in our approach different samples $S^{tr}$ and $S^{est}$ are used for construction of the tree and estimation of the conditional means, respectively.
+
+    我々のターゲット$Q^H(\pi)$との違いは、我々のアプローチでは、木の構築と条件付き平均の推定にそれぞれ、異なる標本$S^{tr}$と$S^{est}$が使用されていることである。  
+$\quad$
+
+3. We refer to the conventional CART approach as adaptive and to our approach as honest.
+
+    ここでは、従来の CART アプローチをadaptive、我々のアプローチをhonestと呼ぶことにする。  
+$\quad$
+
+4. In practice there will be costs and benefits of the honest approach relative to the adaptive approach.
+
+    実際には、adaptiveアプローチと比べてhonestアプローチにはコストと利点があるだろう。  
+$\quad$
+
+5. The cost is sample size; given a dataset, putting some data in the estimation sample leaves fewer units for the training dataset, leading to higher expected MSE. 
+
+    コストはサンプルサイズである。あるデータセットが与えられた場合、推定標本にいくつかのデータを入れると、学習データセットの単位が少なくなり、期待されるMSEが高くなる。  
+$\quad$
+
+6. The advantage of honest estimation is that it avoids a problem of adaptive estimation, which is that spurious extreme values of $Y_i$ are likely to be placed into the same leaf as other extreme values by the algorithm $\pi(.)$, and thus the sample means (in sample $S^{tr}$) of the elements of $\pi(S^{tr})$ are more extreme than they would be in an independent sample. 
+
+    honest推定の利点は、アルゴリズム$\pi(.)$によって見かけ上の極値$Y_i$が他の極値と同じ葉に配置される可能性が高く、その結果、$\pi(S^{tr})$の要素の（標本$S^{tr}$内の）標本平均が独立したサンプルよりも極値[極端な値]になるというadaptive推定の問題を回避できることである。  
+$\quad$
+
+7. This shows up in the poor coverage properties of confidence intervals for adaptive estimation methods relative to the honest methods.
+
+    これは、adaptive推定手法の信頼区間の被覆[カバレッジ]性質がhonest手法に比べて劣っていることに現れている。
+
+
+##### The Implementation of CART  
+CARTの実装
+
+1. There are two distinct parts of the conventional CART algorithm, initial tree building and crossvalidation to select a complexity parameter used for pruning. 
+
+    従来のCARTアルゴリズムには初期木の構築と枝刈り[剪定]に使用する複雑度パラメータを選択するためのクロスバリデーションの2つのパートがある。  
+$\quad$
+
+2. Each part of the algorithm relies on a **criterion function** based on MSE.
+
+    アルゴリズムの各部分はMSEに基づく基準関数に依存している。  
+$\quad$
+
+3. In this paper we will take as given the overall structure of the CART algorithm (e.g., refs. 4 and 5), and our focus will be on modifying the criteria.
+
+    本論文ではCARTアルゴリズムの全体的な構造(例：参考文献4,5)を前提とし、その基準を修正することに焦点を当てている。  
+$\quad$
+
+4. In the tree-building phase, CART recursively partitions the observations of the training sample. 
+
+    木を構築する段階では、CARTは学習標本の観測値を再帰的に分割する。  
+$\quad$
+
+5. For each leaf, the algorithm evaluates all candidate splits of that leaf (which induce alternative partitions $\Pi$) using a “splitting”criterion that we refer to as the “in-sample” goodness-of-fit criterion $-MSE_\mu(S^{te},S^{est},\Pi).$
+
+    各葉について、アルゴリズムは、我々が "サンプル内" の適合度基準$-MSE_\mu(S^{te},S^{est},\Pi)$と表す "分割(splitting)" 基準を用いて、その葉のすべての分割候補を評価する（代替的なパーティション$\Pi$を引き起こす）。  
+$\quad$
+
+6. It is well understood that the conventional criterion leads to overfitting, a problem that is solved by cross-validation to select a penalty on tree depth.
+
+    従来の基準では、木の深さに対するペナルティ[罰則]を選択するためのクロスバリデーションによって解決される問題である過適合につながることがよく知られている。  
+$\quad$
+
+7. The in-sample goodness-of-fit criterion will always improve with additional splits, even though additional refinements of a partition $\Pi$ might in fact increase the expected MSE, especially when the leaf sizes become small. 
+
+    特に葉の大きさが小さくなった時に、パーティション$\Pi$の追加の改良は実際に期待されるMSEを増加させるかもしれないが、サンプル内の適合度基準は分割を追加すると常に改善されるだろう。  
+$\quad$
+
+8. The reason is that the criterion ignores the fact that smaller leaves lead to higher-variance estimates of leaf means.
+
+    その理由はサンプル内の適合度基準が、葉が小さいほど葉の平均値の推定値の分散が大きくなると言う事実を無視しているからである。  
+$\quad$
+
+9. To account for this factor, the conventional approach to avoiding overfitting is to add a penalty term to the criterion that is equal to a constant times the number of splits, so that essentially we only consider splits where the improvement in a goodness-of-fit criterion is above some threshold.
+
+    この要因を考慮し、過適合を回避するための従来のアプローチは、分割数の定数倍に等しい罰則項を基準に追加することである。これにより、基本的には適合度基準の改善がいくつかの閾値を超えている場合の分割のみを考慮する。  
+$\quad$
+
+10. The penalty term is chosen to maximize a goodness-of-fit criterion in cross-validation samples.
+
+    **罰則項はクロスバリデーション標本における適合度基準を最大化するように選択される**。  
+$\quad$
+
+11. In the conventional cross-validation the training sample is repeatedly split into two subsamples, the $S^{tr,tr}$ ,sample that is used to build a new tree as well as estimate the conditional means and the $S^{tr,cv}$ sample that is used to evaluate the estimates.
+
+    従来のクロスバリデーションでは、訓練標本は繰り返し2つのサブサンプルに分割される。標本$S^{tr,tr}$は新しい木を構成し、木は条件付き平均を推定するために使用され、標本$S^{tr,cv}$は推定値を評価するために使用される。  
+$\quad$
+
+12. We “prune” the tree using a penalty parameter that represents the cost of a leaf. 
+
+    葉のコストを表す罰則項を使って木を「枝刈り[剪定]」する。  
+$\quad$
+
+13. We choose the optimal penalty parameter by evaluating the trees associated with each value of the penalty parameter. 
+
+    罰則パラメータの各値に関連づけられた木を評価することで、最適な罰則パラメータを選択する。  
+$\quad$
+
+14. The goodness-of-fit criterion for cross-validation can be written as $-MSE_\mu(S^{tr,cv},S^{tr,tr},\Pi).$
+
+    クロスバリデーションのための適合度基準は$-MSE_\mu(S^{tr,cv},S^{tr,tr},\Pi)$と書くことができる。  
+$\quad$
+
+15. Note that the cross-validation criterion directly addresses the issue we highlighted with the in-sample goodness-of-fit criterion, because $S^{tr,cv}$ is independent of $S^{tr,tr}$, and thus too-extreme estimates of leaf means will be penalized. 
+
+    $S^{tr,cv}$ が $S^{tr,tr}$に依存せず、したがって葉の平均の過度な推定値は罰則を受けるので、クロスバリデーション基準は我々が標本内適合度基準で強調した問題に直接対処することに注意されたい。  
+$\quad$
+
+16. The issue that smaller leaves lead to noisier estimates of leaf means is implicitly incorporated by the fact that a smaller leaf penalty will lead to deeper trees and thus smaller leaves, and the noisier estimates will lead to larger average MSE across the cross-validation samples.
+
+    葉が小さいと葉の平均値の推定値がノイズになると言う問題は、葉の罰則が小さいと木が深くなり、結果として葉が小さくなると言う事実によって暗に組み込まれており、ノイズの大きい推定値はクロスバリデーション標本全体の平均MSEが大きくなる。
+
+##### Honest Splitting  
+Honest分割  
+
+1. In our honest estimation algorithm, we modify CART in two ways. 
+
+    我々のhonest推定アルゴリズムでは、2つの方法でCARTを修正する。  
+$\quad$
+
+2. First, we use an independent sample $S^{est}$ instead of $S^{tr}$ to estimate leaf means.
+
+    まず、葉の平均を推定するために$S^{tr}$の代わりに独立標本$S^{est}$を用いる。  
+$\quad$
+
+3. Second (and closely related), we modify our splitting and cross-validation criteria to incorporate the fact that we will generate unbiased estimates using $S^{est}$ for leaf estimation (eliminating one aspect of overfitting), where $S^{est}$ is treated as a random variable in the tree building phase.
+
+    第二に(密接に関連している)、我々は葉の推定に$S^{est}$を使用して不偏推定値を生成するという事実を組み込むために、分割とクロスバリデーションの基準を修正する(過適合の1つの側面を排除する)。ここで$S^{est}$は木の構築段階ではランダム変数として扱われる。  
+$\quad$
+
+4. We explicitly incorporate the fact that finer partitions generate greater variance in leaf estimates.
+
+    我々はより細かいパーティションが葉の推定値の分散を大きくすると言う事実を明示的に取り入れている。  
+$\quad$
+
+5. To begin developing our criteria, let us expand $EMSE_\mu(\Pi)$: where we exploit the equality $\mathbb{E}_S[\hat{\mu}(x;S,\Pi)]=\mu(x;\Pi).$  
+
+
+    我々の基準の構築を始めるために、$EMSE_\mu(\Pi)$を展開してみる。ここで我々は等式$\mathbb{E}_S[\hat{\mu}(x;S,\Pi)]=\mu(x;\Pi).$を利用する。
+
+$$
+\begin{aligned}
+-EMSE_\mu(\Pi)&=\mathbb{E}_{(Y_i,X_i),S^{est}}[(Y_i-\mu(X_i;\Pi))^2-Y_i^2]-\mathbb{E}_{X_i,S^{est}}[(\hat{\mu}(X_i;S^{est},\Pi)-\mu(X_i;\Pi))^2]\\
+&=\mathbb{E}_{X_i}[\mu^2(X_i;\Pi)]-\mathbb{E}_{S^{est},X_i}[\mathbb{V}(\hat{\mu}^2(X_i;S^{est},\Pi)]
+\end{aligned}
+$$
+
+6. We wish to estimate $−EMSE_\mu(\Pi)$ on the basis of the training sample $S^{tr}$ and knowledge of the sample size of the estimation sample $N^{est}.$
+
+    訓練標本$S^{tr}$と推定標本のサンプルサイズ$N^{est}$の知識に基づいて$−EMSE_\mu(\Pi)$を推定したい。  
+$\quad$
+
+7. To construct an estimator for the second term, observe that within each leaf of the tree there is an unbiased estimator for the variance of the estimated mean in that leaf. 
+
+    **第2項の推定量**[$(\hat{\mu}(X_i;S^{est},\Pi)$?]を構築するには、木の各葉の中にその葉で推定された平均の分散に対する不偏な推定量が存在することを観察する。  
+$\quad$
+
+8. Specifically, to estimate the variance of $\hat{\mu}(x;S^{est},\Pi)$ on the training sample we can use  
+
+    具体的には、訓練標本上の$\hat{\mu}(x;S^{est},\Pi)$の分散を推定するには次のようにする。
+
+$$\mathbb{\hat{V}}(\hat{\mu}(x;S^{est},\Pi))\equiv\frac{S_{S^{tr}}^2(\ell(x;\Pi))}{N^{est}(\ell(x;\Pi))}$$
+
+9. where $S^2_{S^{tr}}(\ell)$ is the within-leaf variance, to estimate the variance.
+
+    ここで、$S^2_{S^{tr}}(\ell)$は葉の中の分散であり、分散を推定する。  
+$\quad$
+
+10. We then weight this by the leaf shares $p_{\ell}$ to estimate the expected variance. 
+
+    次にこれをリーフシェア$p_{\ell}$で重み付けし、期待分散を推定する。  
+$\quad$
+
+11. Assuming the leaf shares are approximately equal in the estimation and training samples,we can approximate this variance estimator by
+
+    推定標本と学習標本のリーフシェアはほぼ等しいと仮定すると、この分散推定量は次のように近似できる。
+
+
+$$\mathbb{\hat{E}}[\mathbb{V}(\hat{\mu}^2(X_i;S^{est},\Pi))|i\in S^{te}]\equiv\frac{1}{N^{est}}･\sum_{\ell\in\Pi}S_{S^{tr}}^2(\ell)$$
+
+
+12. To estimate the average of the squared outcome $\mu^2(x;\Pi)$ (the first term of the target criterion), we can use the square of the estimated means in the training sample $\hat{\mu}^2(x;S^{tr},\Pi)$, minus an estimate of its variance,
+
+    二乗アウトカムの平均$\mu^2(x;\Pi)$(目標基準[$-EMSE_\mu(\Pi)$?]の第1項)を推定するには、訓練アウトカムの推定された平均の二乗$\hat{\mu}^2(x;S^{tr},\Pi)$から分散の推定値を差し引いたものを使用できる。
+
+
+
+$$\mathbb{\hat{E}}[\mu^2(x;\Pi)]=\hat{\mu}^2(x;S^{tr},\Pi)-\frac{S_{S^{tr}}^2(\ell(x;\Pi))}{N^{tr}(\ell(x;\Pi))}$$
+
+13. Combining these estimators leads to the following unbiased estimator for $EMSE_\mu(\Pi)$:
+
+
+    これらの推定量を組み合わせることで、以下の$EMSE_\mu(\Pi)$ような不偏推定量が得られる。
+
+$$-\hat{EMSE}_\mu(S^{tr},N^{est},\Pi)\equiv\frac{1}{N^{tr}}\sum_{i\in S^{tr}}\hat{\mu}^2(X_i;S^{tr},\Pi)-(\frac{1}{N^{tr}}+\frac{1}{N^{est}})・\sum_{\ell\in \Pi}S_{S^{tr}}^2(\ell(x;\Pi))$$
+
+14. Comparing this to the criterion used in the conventional CART algorithm, which can be written as
+
+$$-MSE\mu(S^{tr},S^{tr},\Pi)=\frac{1}{N^{tr}}\sum_{i\in S^{tr}}\hat{\mu}^2(X_i;S^{tr},\Pi)$$
+
+15. the difference comes from the terms involving the variance.
+
+    14,15:これを従来のCARTアルゴリズムで用いられていた$-MSE\mu(S^{tr},S^{tr},\Pi)$と書ける基準と比較すると、その違いは分散を含む項にある。  
+$\quad$
+
+16. For a given $x,S_{S^{tr}}^2(\ell(x;\Pi))$ is proportional to the MSE within the associated leaf; thus, the difference between the adaptive and honest criteria is how the within-leaf MSE is weighted, where the honest criterion penalizes small leaf size.
+
+    与えられた$x,S_{S^{tr}}^2(\ell(x;\Pi))$は、関連する葉の中のMSEに比例する。したがって、adaptive基準とhonest基準の違いは、葉の中のMSEがどのように重み付けされるかである。ここでhonest基準は小さな葉の大きさをペナルティとする。
+
+
+##### Honest Cross-Validation  
+Honest交差検証  
+
+1. Even though $\hat{EMSE}_\mu(S^{tr},N^{est},\Pi)$ is approximately unbiased as an estimator of our ideal criterion $EMSE_\mu(\Pi)$ for a fixed $\Pi$, it is not unbiased when we use it repeatedly to evaluate splits using recursive partitioning on the training data $S^{tr}$.
+
+    $\hat{EMSE}_\mu(S^{tr},N^{est},\Pi)$は、固定された$\Pi$に対する我々の理想的な基準である$EMSE_\mu(\Pi)$の推定値としてはほぼ不偏だが、学習データ$S^{tr}$に対して再帰的分割を用いて分割を評価するために繰り返し使用すると不偏にならない。  
+$\quad$
+
+2. The reason is that initial splits tend to group together observations with similar, extreme outcomes.
+
+    理由は、最初[初期]の分割は、類似した極端な結果を持つ観測値をグループ化する傾向があるからである。  
+$\quad$
+
+3. So, after the training data have been divided once, the sample variance of observations in the training data within a given leaf is on average lower than the sample variance would be in a new, independent sample. 
+
+    したがって、訓練データが一度分割された後、与えられた葉の中の訓練データの観測値の標本分散は、新しい独立した標本の標本分散よりも平均的に低くなる。  
+$\quad$
+
+4. Thus,$\hat{EMSE}_\mu(S^{tr},N^{est},\Pi)$ is likely to overstate goodness of fit as we grow a deeper and deeper tree, implying that cross-validation can still play an important role with our honest estimation approach, although perhaps less so than in the conventional CART.
+
+    したがって$\hat{EMSE}_\mu(S^{tr},N^{est},\Pi)$は木が深くなるにつれて適合度が過大評価される可能性があり、クロスバリデーションは従来のCARTアプローチほどではないかもしれないが、我々のhonest推定アプローチで重要な役割を果たすことができることを示唆している。  
+$\quad$
+
+5. Because the conventional CART cross-validation criterion does not account for honest estimation we consider the analog of our unbiased estimate of the criterion, which accounts for honest estimation by evaluating a partition $\Pi$ using only outcomes for units from the cross-validation sample $S^{tr,cv}$:
+
+    従来のCARTクロスバリデーション基準は、我々の基準の不偏推定値の類似性を考慮するhonest推定を考慮しないので、我々の基準はクロスバリデーション標本$S^{tr,cv}$のユニットのアウトカムのみを用いてパーティション$\Pi$を評価することで、honest推定を考慮する。
+
+$$\hat{EMSE}_\mu(S^{tr,cv},N^{est},\Pi).$$
+
+6. This estimator for the honest criterion is unbiased for fixed $\Pi$,although it may have higher variance than $MSE_\mu(S^{tr,cv},S^{tr,tr},\Pi)$ due to the small sample size of the cross-validation sample.
+
+    このhonest基準の推定量はクロスバリデーション標本のサンプルサイズが小さいため$MSE_\mu(S^{tr,cv},S^{tr,tr},\Pi)$より分散が大きいかもしれないが、固定された$\Pi$に対しては不偏である。  
+$\quad$
+
+7. Note that when we apply the formula for $\hat{EMSE}_\mu$ in this case, we replace $N^{tr}$ with $N^{tr,cv}$.
+
+    ここで$\hat{EMSE}_\mu$の式を適用する時、$N^{tr}$ を $N^{tr,cv}$に置き換えることに注意されたい。
+
+
+#### Honest Inference for Treatment Effects
+処置効果のHonestな推論
+
+1. In this section we change the focus to estimating conditional average treatment effects instead of estimating conditional population means. 
+
+    本節では、条件付き母集団平均の推定ではなく、条件付き平均処置効果の推定に焦点を移す。  
+$\quad$
+
+2. We refer to the estimators developed in this section as　“causal tree”(CT) estimators.
+
+    本節で開発された推定量を「causal tree」(CT)推定量と呼ぶ。  
+$\quad$
+
+
+3. The setting with treatment effects creates some specific problems because we do not observe the value of the treatment effect whose conditional mean we wish to estimate.
+
+    我々が推定したい条件付き平均の処置効果の値が観測されないため、処置効果を持つ設定[状況]では、いくつかの特別な問題が生じる。  
+$\quad$
+
+4. This complicates the calculation of the criteria we introduced in the previous section. 
+
+    これでは前節で紹介した基準の計算が複雑になってしまう。  
+$\quad$
+
+5. However, a key point of this paper is that we can estimate these criteria and use those estimates for splitting and cross-validation.
+
+    しかしこの論文の重要な点はこれらの基準を推定し、それらの推定値を分割やクロスバリデーションに利用できることである。  
+$\quad$
+
+6. We now observe in each sample the triple $(Y^{obs}_i,X_i,W_i)$. 
+
+    ここで各標本で3項$(Y^{obs}_i,X_i,W_i)$を観測する。  
+$\quad$
+
+7. For a sample $S$ let $S_{treat}$ and $S_{control}$ denote the subsamples of treated and control units,respectively, with cardinality $N_{treat}$ and $N_{control}$,respectively, and let $p=N_{treat}/N$ be the share of treated units.
+
+    標本$S$について、$S_{treat}$と$S_{control}$をそれぞれ濃度$N_{treat}$と$N_{control}$の介入ユニットと観察[非介入]ユニットの部分集合とし、$p=N_{treat}/N$を介入ユニットの割り当て[取り分]とする。  
+$\quad$
+
+8. The concept of a tree remains the same as in the previous section. 
+
+    木の概念は前節のままである。  
+$\quad$
+
+9. Given a tree $\Pi$, define for all $x$ and both treatment levels $w$ the population average outcome
+
+$$\mu(w,x;\Pi)\equiv\mathbb{E}[Y_i(w)|X_i\in\ell(x;\Pi)],$$
+
+10. and the average causal effect
+
+    9,10:木 $\Pi$ が与えられた時、すべての$x$と両方の処置水準$w$について母集団の平均アウトカム $\mu(w,x;\Pi)$ と平均因果効果 $\tau(x;\Pi)$ を定義する。
+
+$$\tau(x;\Pi)\equiv\mathbb{E}[Y_i(1)-Y_i(0)|X_i\in\ell(x;\Pi)]=\mu(1,x;\Pi)-\mu(0,x;\Pi).$$
+
+
+11. The estimated counterparts are
+
+    それぞれに対応する推定されたものは以下の通りである。
+
+$$\hat{\mu}(w,x;S,\Pi)\equiv\frac{1}{\#(\bigl\{i\in S_w:X_i\in\ell(x;\Pi)\bigr\})}\sum_{i\in S_w:X_i\in\ell(x;\Pi)}Y_i^{obs}$$
+
+$$\hat{\tau}(x;S,\Pi)\equiv\hat{\mu}(1,x;S,\Pi)-\hat{\mu}(0,x;S,\Pi).$$
+
+12. Define the MSE for treatment effects as
+
+$$MSE_\tau(S^{te},S^{est},\Pi)\equiv\frac{1}{\#(S^{te})}\sum_{i\in S^{te}}\bigl\{(\tau_i-\hat{\tau}(X_i;S^{est},\Pi))^2-\tau_i^2\bigr\}$$
+
+13. and define $EMSE_\tau(\Pi)$ to be its expectation over the estimation and **test samples**,
+
+    12,13:処置効果のMSEを$MSE_\tau(S^{te},S^{est},\Pi)$ と定義し、$EMSE_\tau(\Pi)$ を推定標本と検定標本の期待値と定義する。
+
+$$EMSE_\tau(\Pi)\equiv\mathbb{E}_{S^{te},S^{est}}[MSE_\tau(S^{te},S^{est},\Pi)].$$
+
+
+14. A key challenge is that, in contrast to $MSE_\mu(S^{te},S^{est},\Pi)$, the workhorse MSE function $MSE_\tau(S^{te},S^{est},\Pi)$ is infeasible, because we do not observe $\tau_i$.
+
+    重要な課題は$MSE_\mu(S^{te},S^{est},\Pi)$とは対照的に、この論文の売りである[特徴である]MSE関数$MSE_\tau(S^{te},S^{est},\Pi)$は、$\tau_i$が観測されないので実現不可能であることである。  
+    * ここでのworkhorseは「この論文で主に使用する」というニュアンス。主力製品という訳に近い。  
+$\quad$
+
+15. However, we show below that we can estimate it.
+
+    しかし、それを推定することができることを以下に示す。
+
+
+##### Modifying Conventional CART for Treatment Effects
+従来のCARTを処置効果のために修正する
+
+1. Consider first modifying conventional (adaptive) CART to estimate heterogeneous treatment effects. 
+
+    異質な処置効果を推定するために、まず従来の(adaptive)CARTを修正することを検討されたい。  
+$\quad$
+
+2. Note that in the prediction case, using the fact that $\hat{\mu}$ is constant within each leaf, we can write
+
+    予測の場合、$\hat{\mu}$が各葉の中で一定であることを利用して、次のように書けることに注意されたい。
+
+$$
+MSE_{\mu}(S^{te},S^{tr},\Pi)
+=-\frac{2}{N^{tr}}\sum_{i\in S^{te}}\hat{\mu}(X_i;S^{te},\Pi)・
+\hat{\mu}(X_i;S^{tr},\Pi)+
+\frac{1}{N^{tr}}\sum_{i\in S}
+\hat{\mu}^2(X_i;S^{tr},\Pi).
+$$
+
+3. In the treatment effect case we can use the fact that
+
+$$
+\mathbb{E}_{S^{te}}[\tau_i|i\in S^{te}:i\in\ell(x,\Pi)]
+=\mathbb{E}_{S^{te}}[\hat{\tau}(x;S^{te},\Pi)]
+$$
+
+4. to construct an unbiased estimator of $MSE_{\tau}(S^{te},S^{tr},\Pi)$:
+
+    3,4:処置効果の場合は、$\mathbb{E}_{S^{te}}[\tau_i|i\in S^{te}:i\in\ell(x,\Pi)]=\mathbb{E}_{S^{te}}[\hat{\tau}(x;S^{te},\Pi)]$という事実を利用して、$MSE_{\tau}(S^{te},S^{tr},\Pi)$の不偏推定量を構築することができる。
+
+$$
+\hat{MSE}_{\tau}(S^{te},S^{tr},\Pi)\equiv-\frac{2}{N^{tr}}\sum_{i\in S^{te}}\hat{\tau}(X_i;S^{te},\Pi)・
+\hat{\tau}(X_i;S^{tr},\Pi)+
+\frac{1}{N^{tr}}\sum_{i\in S^{te}}
+\hat{\tau}^2(X_i;S^{tr},\Pi).
+$$
+
+5. This leads us to propose, by analogy to CART’s in-sample MSE criterion $-MSE_{\mu}(S^{tr},S^{tr},\Pi),$
+
+$$
+\hat{-MSE}_{\tau}(S^{tr},S^{tr},\Pi)
+=\frac{1}{N^{tr}}\sum_{i\in S^{tr}}
+\hat{\tau}^2(X_i;S^{tr},\Pi),
+$$
+
+6. as an estimator for the infeasible in-sample goodness-of-fit criterion.
+
+    5,6:これはCARTの標本内MSE基準$-MSE_{\mu}(S^{tr},S^{tr},\Pi)$に類似して、実現不可能な標本内適合度基準の推定量を提案することにつながる。  
+$\quad$
+
+7. For cross-validation we used in the prediction case $-MSE_{\mu}(S^{tr,cv},S^{tr,tr},\Pi)$. 
+
+    クロスバリデーションには予測ケースに$-MSE_{\mu}(S^{tr,cv},S^{tr,tr},\Pi)$を用いた。  
+$\quad$
+
+8. Again, the treatment effect analog is infeasible, but we can use an unbiased estimate of it, which leads to $\hat{-MSE}_{\tau}(S^{tr,cv},S^{tr,tr},\Pi).$
+
+    繰り返しになるが、処置効果の類推は不可能だが、処置効果の不偏推定量を使用することができ、$\hat{-MSE}_{\tau}(S^{tr,cv},S^{tr,tr},\Pi)$を導く。
+
+##### Modifying the Honest Approach
+honestアプローチの修正  
+
+1. The honest approach described in the previous section for prediction problems also needs to be modified for the treatment effect setting.  
+
+    前節で説明した予測問題についてのhonestアプローチも処置効果の設定を修正する必要がある。  
+$\quad$
+
+2. Using the same expansion as before, now applied to the treatment effect setting, we find
+
+    先ほどと同じ展開を用いて、処置効果の設定に適用すると、以下の式を得る。
+
+$$
+-EMSE_{\tau}(S^{tr},N^{est},\Pi)
+=\mathbb{E}_{X_i}[\tau^2(X_i;\Pi)]
+-\mathbb{E}_{S^{est},X_i}
+[\mathbb{V}(\hat{\tau}^2(X_i;S^{est},\Pi))].
+$$
+
+3. For splitting we can estimate both components of this expectation using only the training sample, yielding an estimator for **the infeasible criterion** that depends only on $S^{tr}$ and $N^{est}$:
+
+    分割については、学習標本のみを用いてこの期待値の両方$(\mathbb{E}_{X_i}[\tau^2(X_i;\Pi)]-\mathbb{E}_{S^{est},X_i}[\mathbb{V}(\hat{\tau}^2(X_i;S^{est},\Pi))])$の成分を推定することができ、$S^{tr}$ と $N^{est}$にのみ依存する実現不可能な基準の推定量$-\hat{EMSE}_\tau(S^{tr},N^{est},\Pi)$を得ることができる。
+
+$$
+-\hat{EMSE}_\tau(S^{tr},N^{est},\Pi)\equiv\frac{1}{N^{tr}}\sum_{i\in S^{tr}}\hat{\tau}^2(X_i;S^{tr},\Pi)
+-(\frac{1}{N^{tr}}+\frac{1}{N^{est}})・
+\sum_{\ell\in\Pi}(\frac{S_{S^{tr}_{treat}}^2(\ell)}{p}+
+\frac{S_{S^{tr}_{control}}^2(\ell)}{1-p}).
+$$
+
+4. For cross-validation we use the same expression, now with the cross-validation sample : $-\hat{EMSE}_\tau(S^{tr,cv},N^{est},\Pi).$
+
+    クロスバリデーションにはクロスバリデーション標本と同じ式$-\hat{EMSE}_\tau(S^{tr,cv},N^{est},\Pi)$を使用する。  
+$\quad$
+
+5. These expressions are directly analogous to the criteria we proposed for the honest version of CART in the prediction case.
+
+    これらの式は予測のケースにおけるCARTのhonest版について我々が提案した基準と直接的に類似している。  
+$\quad$
+
+6. The criteria reward a partition for finding strong heterogeneity in treatment effects and penalize a partition that creates variance in leaf estimates.
+
+    これらの基準[$-\hat{EMSE}_\tau(S^{tr},N^{est},\Pi)$と$-\hat{EMSE}_\tau(S^{tr,cv},N^{est},\Pi)$?]は処置効果で強い異質性を発見したパーティションに報酬を与え、葉の推定値に分散[ばらつき]をつくるパーティションに罰則を与える。  
+$\quad$
+
+7. One difference is that in the prediction case the two terms both tend to select features that predict heterogeneity in outcomes, whereas for the treatment effect case the two terms reward different types of features. 
+
+    1つの違いは予測の場合に2つの項は共にアウトカムの異質性を予測する特徴を選択する傾向があるのに対し、処置効果の場合には2つの項は異なる種類の特徴量に報酬を与えると言うことである。  
+$\quad$
+
+8. It is possible to reduce the variance of a treatment effect estimator by introducing a split, even if both child leaves have the same average treatment effect, if a covariate affects the mean outcome but not treatment effects.
+
+    共変量が平均アウトカムには影響するが、処置効果には影響しない場合、両方の子の葉が同じ平均処置効果を持っていても、分割を導入することで処置効果の推定量の分散を減らすことが可能である。  
+$\quad$
+
+9. In such a case, the split results in more homogeneous leaves, and thus lower-variance estimates of the means of the treatment group and control group outcomes. 
+
+    そのような場合、分割によってより均質な葉を得ることができ、その結果、処置群と対照群のアウトカムの平均値の分散が低い推定値が得られる。  
+$\quad$
+
+10. **Thus, the distinction between adaptive and honest splitting criterion will be more pronounced for treatment effect estimation.** 
+
+    従って、adaptive分割基準とhonest分割基準の区別は処置効果の推定においてより顕著になるだろう。  
+$\quad$
+
+11. As in the prediction case, the cross-validation criterion estimates treatment effects within leaves using the **$S^{tr,cv}$ sample rather than $S^{tr,tr}$**.
+
+    予測の場合と同様に、クロスバリデーション基準は$S^{tr,tr}$ではなく$S^{tr,cv}$標本を用いて葉の中の処置効果を推定する。
+
+#### Four Partitioning Estimators for Causal Effects
+因果効果に対する4つの分割推定量
+
+1. In this section we briefly summarize our CT estimator and then describe three alternative types of estimators. 
+
+    この節ではCT推定量を簡単に要約し、3種類の代替的な推定量について説明する。  
+$\quad$
+
+2. We compare CT to the alternatives theoretically and through simulations.
+
+    我々は理論的に、またシミュレーションを通じてCT(推定量)を代替案と比較する。  
+$\quad$
+
+3. For each of the four types there is an adaptive version and an honest version, where the latter takes into account that estimation will be done on a sample separate from the sample used for constructing the partition, leading to a total of eight estimators.
+
+    4つのタイプにはそれぞれadaptive型とhonest型があり、後者[honest型]はパーティションの構築に使用された標本とは別の標本で推定が行われることを考慮しており、合計8つの推定量が得られる。  
+$\quad$
+
+4. Note that further variations are possible; one could use adaptive splitting and cross-validation methods to construct a tree but still perform honest estimation on a separate sample.
+
+    さらなるバリエーションが可能であることに注意されたい。adaptive分割とクロスバリデーションの手法を用いて木を構築することはできるが、それでも別の標本でhonest推定を行うことができる。  
+$\quad$
+
+5. We do not consider such variations.
+
+    そのようなバリエーション[変化]は考慮していない。
+
+##### CTs
+1. The discussion above developed our preferred estimator, CTs.
+
+    上記の議論では我々の好ましい推定量であるCTsを開発した。  
+$\quad$
+
+2. To summarize, for the adaptive version of CTs, denoted CT-A, we use for splitting the objective $\hat{-MSE}_{\tau}(S^{tr},S^{tr},\Pi)$.
+
+    要約すると、CTsのadaptive版であるCT-Aでは、目標を分割するのに$\hat{-MSE}_{\tau}(S^{tr},S^{tr},\Pi)$を使う。  
+$\quad$
+
+3. For cross-validation we use the same objective function, but evaluated at the samples $S^{tr,cv}$ and $S^{tr,tr}$ ,namely $\hat{-MSE}_{\tau}(S^{tr,cv},S^{tr,tr},\Pi)$.
+
+    クロスバリデーションには同じ目的関数、すなわち$\hat{-MSE}_{\tau}(S^{tr,cv},S^{tr,tr},\Pi)$を使用するが、$S^{tr,cv}$と$S^{tr,tr}$の標本で評価する。  
+$\quad$
+
+4. For the honest version, CT-H, the splitting objective function is $-\hat{EMSE}_\tau(S^{tr},N^{est},\Pi)$.
+
+    honest版であるCT-Hの場合、分割目的関数は$-\hat{EMSE}_\tau(S^{tr},N^{est},\Pi)$である。  
+$\quad$
+
+5. For cross-validation we use the same objective function, but now evaluated at the cross-validation sample , $-\hat{EMSE}_\tau(S^{tr,cv},N^{est},\Pi).$
+
+    クロスバリデーションには同じ目的関数を用いるが、クロスバリデーション標本で評価する。$-\hat{EMSE}_\tau(S^{tr,cv},N^{est},\Pi).$
+
+##### Transformed Outcome Trees
+変形したアウトカム木
+
+1. Our first alternative method is based on the insight that by using a transformed version of the outcome $Y_i^*=Y_i·(W_i−p)/(p·(1−p))$ it is possible to use off-the-shelf regression tree methods to focus splitting and cross-validation on treatment effects rather than outcomes.
+
+    我々の最初の代替手法は、アウトカムの変換されたバージョン$Y_i^*=Y_i·(W_i−p)/(p·(1−p))$を使用することで、アウトカムではなく処置効果に焦点を当てて分割とクロスバリデーションを行うために既製の回帰木手法を使用することが可能であるという洞察に基づいている。  
+$\quad$
+
+2. Similar approaches are used in refs. 15–18. 
+
+    同様のアプローチは参考文献15~18で使用されている。
+
+3. Because $\mathbb{E}[Y_i^*|X_i=x]=\tau(x)$, off-the-shelf CART methods can be used directly, where estimates of the sample average of $Y_i^*$ within each leaf can be interpreted as estimates of treatment effects.
+
+    $\mathbb{E}[Y_i^*|X_i=x]=\tau(x)$であるため、既製のCART手法を直接使うことができ、各葉の中の$Y_i^*$ の標本平均の推定値を処置効果の推定値として解釈することができる。  
+$\quad$
+
+4. This ease of application is the key attraction of this method.
+
+    この適用性の手軽さがこの手法の大きな魅力である。  
+$\quad$
+
+5. The main drawback (relative to CT-A) is that in general it is not efficient because it does not use the information in the treatment indicator beyond the construction of the transformed outcome.
+
+    (CT-Aとの相対的な)主な欠点は、一般的には変換されたアウトカムの構築の範囲を超えて処置指標の情報を使用しないため、効率的ではないと言うことである。  
+$\quad$
+
+6. For example, the sample average in $S$ of $Y_i^*$ within a given leaf $\ell(x;\Pi)$ will only be equal to $\hat{\tau}(x;\Pi,S)$ if the fraction of treated observations within the leaf is exactly equal to $p$.
+
+    例えば、与えられた葉 $\ell(x;\Pi)$ の中の$Y_i^*$の標本$S$平均は、その葉の中の処置された観測値の割合が正確に$p$に等しい場合にのみ$\hat{\tau}(x;\Pi,S)$に等しくなる。  
+$\quad$
+
+7. Because this method is primarily considered as a benchmark, in simulations we focus only on an adaptive version that can use existing learning methods entirely off-the-shelf.
+
+    この手法は主にベンチマークとして考えられているので、シミュレーションでは既存の学習手法を完全に既製のものに使用できるadaptive版のみに焦点を当てている。  
+$\quad$
+
+8. The adaptive version of the transformed outcome tree (TOT) estimator we consider, TOT-A, uses the conventional CART algorithm with the transformed outcome replacing the original outcome.
+
+    我々が考える変換したアウトカム木(TOT)推定量のadaptive版であるTOT-Aは変換したアウトカムを元のアウトカムに置き換えた従来のCARTアルゴリズムを使用している。  
+$\quad$
+
+9. The honest version, TOT-H, uses the same splitting and cross-validation criteria, so that it builds the same trees; it differs only in that a separate estimation sample is used to construct the leaf estimates.
+
+    honest版であるTOT-Hは(adaptiveと)同じ分割基準とクロスバリデーション基準を用いて、同じ木を構築する。葉の推定値を構築するために別の標本が使用される点が(adaptiveと)異なる。  
+$\quad$
+
+10. The treatment effect estimator within a leaf is the same as the adaptive method, that is, the sample mean of $Y_i^*$ within the leaf.
+
+    葉の中の処置効果推定値はadaptive手法と同じ、つまり、葉の中の$Y_i^*$ の標本平均である。
+
+##### Fit-Based Trees
+適合に基づいた木
+
+1. We consider two additional alternative methods for constructing trees, based on suggestions in the literature. 
+
+    文献からの提案に基づいて、木を構築するための追加の2つの代替手法を検討する。  
+$\quad$
+
+2. In the first of these alternatives the choice of which feature to split on, and at what value of the feature to split, is based on comparisons of the goodness of fit (F) of the outcome rather than the treatment effect.
+
+    これらの代替案の最初のもの、どの特徴に分割するか、およびどの特徴の値で分割するかという選択は、処置効果ではなくアウトカムの適合度(F)の比較に基づいている。  
+$\quad$
+
+3. In standard CART of course goodness of fit of outcomes is also the split criterion, but here we estimate a model for treatment effects within each leaf.
+
+    標準的なCARTではもちろんアウトカムの適合度も分割基準だが、ここではそれぞれの葉の中での処置効果のモデルを推定している。  
+$\quad$
+
+4. Specifically, we have a linear model with an intercept and an indicator for the treatment as the regressors, rather than only an intercept as in standard CART.
+
+    具体的には、標準的なCARTのように切片だけでなく、切片と処置の指標をリグレッサー[独立変数・説明変数のこと]とする線形モデルを採用している。  
+$\quad$
+
+5. This approach is used in Zeileis et al. (19), who consider building general models at the leaves of the trees.
+
+    このアプローチはZeileisら(19)で使用されており、木の葉で一般的なモデルを構築することを考慮している。  
+$\quad$
+
+6. Treatment effect estimation is a special case of their framework.
+
+    処置効果の推定は彼ら(Zeileisら(19))のフレームワークの特殊なケースである。  
+$\quad$
+
+7. Zeileis et al. (19) propose using statistical tests based on improvements in goodness of fit to determine when to stop growing the tree, rather than relying on cross-validation, but for ease of comparison with CART, in this paper we will stay closer to traditional CART in terms of growing deep trees and pruning them.
+
+    Zeileisら(19)はクロスバリデーションに頼るのではなく、適合度の向上に基づく統計的検定を用いて木の成長[木の深さのこと？]を止める時を決定することを提案しているが、CARTとの比較を容易にするために本論文では、深い木を成長させ、それらを枝刈り(剪定)するという点で伝統的なCARTに近づけている。  
+$\quad$
+
+8. We modify the MSE function:
+
+    MSE関数を以下のように修正する。
+
+$$
+MSE_{\mu,W}(S^{te},S^{est},\Pi)
+\equiv\sum_{i\in S^{te}}((Y_i^{obs}-\hat{\mu}_W(W_i,X_i;S^{est},\Pi))^2
+-Y^2_i).
+$$
+
+9. For the adaptive version F-A we follow conventional CART, using the criterion $−MSE_{\mu,W}$ in place of $−MSE_{\mu}$ (that is, using $MSE_{\mu,W}(S^{tr},S^{tr},\Pi)$ for splitting and $MSE_{\mu,W}(S^{tr,cv},S^{tr,tr},\Pi)$ for cross-validation).
+
+    adaptive版 F-A について、従来のCARTに従い、基準$−MSE_{\mu,W}$を$−MSE_{\mu}$の代わりに用いる。(つまり分割には$MSE_{\mu,W}(S^{tr},S^{tr},\Pi)$を用い、クロスバリデーションには$MSE_{\mu,W}(S^{tr,cv},S^{tr,tr},\Pi)$を用いる。)  
+$\quad$
+
+10. For the honest version we use the analog of $-\hat{EMSE}_\mu(S^{tr},N^{est},\Pi)$, with $\hat{\mu}_W$ in place of $\hat{\mu}$, for training, and the same function evaluated at $(S^{tr,cv},N^{est},\Pi)$ for cross-validation.
+
+    honest版では類似した$-\hat{EMSE}_\mu(S^{tr},N^{est},\Pi)$を用い、訓練には$\hat{\mu}$の代わりに$\hat{\mu}_W$を用い、クロスバリデーションには同じ関数$(S^{tr,cv},N^{est},\Pi)$で評価する。  
+$\quad$
+
+11. To highlight the disadvantages of the F approach, consider a case where two splits improve the fit to an equal degree.
+
+    Fアプローチの欠点を強調するために、2つの分割が等しい程度に適合を改善する場合を検討されたい。  
+$\quad$
+
+12. In one case , the split leads to variation in average treatment effects, and in the other case it does not.
+
+    一方のケースでは、分割は平均的処置効果のばらつきをもたらし、他方のケースでは分割は平均的処置効果のばらつきをもたらさない。  
+$\quad$
+
+13. The first split would be better from the perspective of estimating heterogeneous treatment effects , but the fit criterion would view the two splits as equally attractive.
+
+    **異質な処置効果を推定すると言う観点からは1つ目分割の方が良いだろうが、適合基準では2つの分割が等しく魅力的であるとみなすであろう？。**
+
+##### Squared T-Statistic Trees  
+２乗したT統計量の木  
+
+1. For the last estimator we look for splits with the largest value for the square of the t-statistic (TS) for testing the null hypothesis that the average treatment effect is the same in the two potential leaves.
+
+    最後の推定量では2つの潜在的な葉において平均処置効果が等しいという帰無仮説を検定するために、t統計量(TS)の2乗の最大値を持つ分割を探す。  
+$\quad$
+
+2. This estimator was proposed by Su et al. (20). 
+
+    この推定量はSuら(20)によって提案された。  
+$\quad$
+
+3. If the two leaves are denoted $L$ (Left) and $R$ (Right), the square of the t-statistic is
+
+$$
+T^2\equiv N・\frac{(\bar{Y_L}-\bar{Y_R})^2}{S^2/N_L+S^2/N_R}
+$$
+
+4. where $S^2$ is the conditional sample variance given the split.
+
+    3,4:2つの葉を$L$(左)と$R$(右)とすると、t-統計量の2乗は$T^2$である。ここで$S^2$は分割が与えられたときの条件付き標本分散である。  
+$\quad$
+
+5. At each leaf, successive splits are determined by selecting the split that maximizes $T^2$.
+
+    それぞれの葉では、連続した分割は$T^2$を最大にする分割を選択することで決定される。  
+$\quad$
+
+6. The concern with this criterion is that it places no value on splits that improve the fit, even though our characterization of $EMSE_\tau$ shows that improving fit has value through reduction of the variance of leaf estimates.
+
+    この基準で懸念されるのは、$EMSE_\tau$の特徴づけは葉の推定値の分散を減らすことで適合を改善することに価値を示しているにもかかわらず、適合を改善する分割に価値を置かないことである。  
+$\quad$
+
+7. Both the adaptive and honest versions of the TS approach use $T^2$ as the splitting criterion.
+
+    TSアプローチのadaptive版とhonest版の両方とも分割基準として$T^2$を使用する。  
+$\quad$
+
+8. For cross-validation and pruning, it is less obvious how to proceed.
+
+    クロスバリデーションや枝刈りに対しては、どのように進めれば良いかが分かりにくくなる。  
+$\quad$
+
+9. Zeileis et al. (19) suggest that when using a statistical test for splitting, if it is desirable to grow deep trees and then cross-validate to determine depth, then one can use a standard goodness-of-fit measure for pruning and cross-validation.
+
+    Zeileisら(19)は、分割のために統計的検定を使用する場合、深い木を育ててから深さを決定するためにクロスバリデーションをすることが望ましいのであれば、枝刈りとクロスバリデーションのために標準的な適合度の尺度を使用することができることを示唆している。  
+$\quad$
+
+10. However, this could undermine the key advantage of TS, to focus on heterogeneous treatment effects.
+
+    しかしながら、このことは異質な処置効果に焦点を当てると言うTSの主な利点を損なう可能性がある。  
+$\quad$
+
+11. For this reason, we instead propose to use the CT-A and CT-H criteria for cross-validation for TS-A and TS-H, respectively.
+
+    このため、TS-A と TS-H のクロスバリデーションには、CT-A と CT-H の基準を用いることを代わりに提案する。
+
+##### Comparison of the CTs, the F Criterion, and the TS Criterion
+CT,F基準,TS基準の比較
+
+1. It is useful to compare our proposed criterion to the F and TS criteria in a simple setting to gain insight into the relative merits of the three approaches.
+
+    3つのアプローチの相対的なメリットについて洞察を得るために、単純な設定で我々が提案した基準をF基準やTS基準と比較することは有用である。  
+$\quad$
+
+2. We do so here focusing on a decision whether to proceed with a single possible split, based on a binary covariate $X_i\in\bigl\{L,R\bigr\}$.
+
+    ここでは2値の共変量$X_i\in\bigl\{L,R\bigr\}$に基づいて、1つの可能な分割を進めるかどうかの決定に焦点を当てている。  
+$\quad$
+
+3. Let $\Pi_N$ and $\Pi_S$ denote the trees without and with the split, and let $\hat{Y}_W,\hat{Y}_{LW}$ and $\hat{Y}_{RW}$ denote the average outcomes for units with treatment status $W_i=w$.
+
+    分割[枝分かれ？]のない木を$\Pi_N$、分割のある木を$\Pi_S$とし、処置状態$W_i=w$のユニットの平均アウトカムを$\hat{Y}_W,\hat{Y}_{LW},\hat{Y}_{RW}$とする。  
+$\quad$
+
+4. Let $N_W,N_{LW}$,and $N_{RW}$ be the sample sizes for the corresponding subsamples.
+
+    $N_W,N_{LW},N_{RW}$を(それぞれ$\hat{Y}_W,\hat{Y}_{LW},\hat{Y}_{RW}$)対応する部分標本の標本サイズとする。  
+$\quad$
+
+5. Let $S^2$ be the sample variance of the outcomes given a split, and let $\tilde{S}^2$ be the sample variance without a split. 
+
+    $S^2$を分割が与えられたアウトカムの標本分散とし、$\tilde{S}^2$を分割なしの標本分散とする。  
+$\quad$
+
+6. Define the squared t-statistics for testing that the average outcomes for control (treated) units in both leaves are identical:
+
+    両方の葉の対照(処置)単位の平均アウトカムが同一であることを検定するための2乗t-統計量を以下に定義する。
+
+$$
+T^2_0\equiv\frac{(\bar{Y_{L0}}-\bar{Y_{R0}})^2}{S^2/N_{L0}+S^2/N_{R0}}
+$$
+
+$$
+T^2_1\equiv\frac{(\bar{Y_{L1}}-\bar{Y_{R1}})^2}{S^2/N_{L1}+S^2/N_{R1}}.
+$$
+
+7. Then, we can write the improvement in goodness of fit from splitting the single leaf into two leaves as
+
+    そうすると、1枚の葉を2枚の葉に分割した時の適合度の向上を以下のように書ける。
+
+$$
+F=\tilde{S}^2·\frac{2·(T^2_0+T^2_1)}
+{1+2·(T^2_0+T^2_1)/N}
+$$
+
+8. Ignoring degrees-of-freedom corrections, the change in our proposed criterion for the honest version of the CT in this simple setting can be written as a combination of the F and TS criteria:
+
+    自由度補正を無視して、この単純な設定でのCTのhonest版のために我々が提案した基準の変化は、F基準とTS基準を組み合わせて以下のように書くことができる。
+
+$$
+\hat{EMSE}_\tau(S,\Pi_N)
+-\hat{EMSE}_\tau(S,\Pi_S)
+=\frac{(T^2-4)(\tilde{S}^2-F/N)+2\tilde{S}^2}{p·(1-p)}
+$$
+
+9. The CT-H criterion focuses primarily on $T^2$. 
+
+    CT-H基準は主に$T^2$に焦点を当てている。  
+$\quad$
+
+10. Unlike TS, however, it incorporates the benefits of improving fit.
+
+    **しかしながらTSとは異なり、適合を向上させる利点を取り入れている。**
+
+#### Inference  
+推論  
+
+1. Given the estimated conditional average treatment effect we also would like to do inference.
+
+    推定された条件付き平均処置効果が与えられると、推論もしたいところである。  
+$\quad$
+
+2. Once constructed, the tree is a function of covariates, and if we use a distinct sample to conduct inference, then **the problem** reduces to that of estimating treatment effects in each **member** of a partition of the covariate space.
+
+    一度構築された木は共変量の関数であり、推論を行うために別個の標本を使用する場合、問題は共変量空間のパーティションの**各メンバー[パーティション内の各要素のこと？]**の処置効果を推定することに軽減される。  
+$\quad$
+
+3. **For this problem, standard approaches are therefore valid for the estimates obtained via honest estimation** and, in particular, no assumptions about model complexity are required.
+
+    この問題については、標準的なアプローチは結果としてhonest推定によって得られた推定値に対して有効であり、特にモデルの複雑さについての仮定は必要としない。  
+$\quad$
+
+4. As our simulations below illustrate, for the adaptive methods standard approaches to confidence intervals are not generally valid for the reasons discussed above.
+
+    以下のシミュレーションが示すように、信頼区間に対するadaptive手法での標準的なアプローチは、上記で議論した理由から一般的には有効ではない。
+
+#### A Simulation Study  
+シミュレーション研究  
+
+1. To assess the relative performance of the proposed algorithms we carried out a small simulation study with three distinct designs.
+
+    提案されたアルゴリズムの相対的な性能を評価するために、3つの異なるデザインを用いた小規模なシミュレーション研究を実施した。  
+$\quad$
+
+2. In Table 1 we report a number of summary statistics from the simulations.
+
+    表1ではシミュレーションからのいくつかの要約統計量を報告する。  
+$\quad$
+
+3. We report averages; results for medians are similar.
+
+    平均値を報告するが[平均値だけを報告しているが]中央値の結果は類似している。  
+$\quad$
+
+4. We report results for $N^{tr}=N^{est}$ with either $500$ or $1,000$ observations.
+
+    我々は$500$ または $1,000$ の観測値で$N^{tr}=N^{est}$ の結果を報告する。  
+$\quad$
+
+5.  When comparing adaptive to honest approaches, we report the ratio of the $MSE_\tau$ for adaptive estimation with $N^{tr}=1,000$ to $MSE_\tau$ for honest estimation with $N^{tr}=N^{est}=500$, to highlight the tradeoff between sample size and bias reduction that arises with honest estimation.
+
+    adaptive推定とhonest推定を比較する際に、$N^{tr}=1,000$でのadaptive推定の$MSE_\tau$と、$N^{tr}=N^{est}=500$でのhonest推定の$MSE_\tau$の比を報告し、honest推定で生じるサンプルサイズとバイアス低減の間のトレードオフを強調している。  
+$\quad$
+
+6. We evaluate $MSE\tau$ using a test sample with $N^{te}= 8,000$ observations to minimize the sampling variance.
+
+    標本分散を最小化するために、$N^{te}= 8,000$の観測値をもつ検定標本を用いて$MSE\tau$を評価する。  
+$\quad$
+
+7. In all designs the marginal treatment probability is $P=0.5$,$K$ denotes the number of features, we have a model $\eta(x)$ for the mean effect and $\kappa(x)$ for the treatment effect, and the potential outcomes are written, for $w=0,1$,
+
+$$
+Y_i(w)=\eta(X_i)+\frac{1}{2}·(2w-1)·
+\kappa(X_i)+\epsilon_i
+$$
+
+8. where $\epsilon_i∼N(0,.01)$, and the $X_i$ are independent of $\epsilon_i$ and one another, and $X_i∼N(0,1)$.
+
+    7,8:全ての(シミュレーション)デザインにおいて、周辺処置確率は$P=0.5$ であり、$K$を特徴数とし、平均効果$\eta(x)$、処置効果$\kappa(x)$とするモデルを持ち、$w=0,1$に対して潜在的アウトカムは$Y_i(w)=\eta(X_i)+\frac{1}{2}·(2w-1)·\kappa(X_i)+\epsilon_i$と書ける。ここで$\epsilon_i∼N(0,.01)$と$X_i$は$\epsilon_i$と互いに独立であり、$X_i∼N(0,1)$である。  
+$\quad$
+
+9. The designs follow:
+    
+    シミュレーションデザインは次の通り。
+$$
+1:K=2; \eta(x)=\frac{1}{2}x_1+x_2 ; \kappa(x)=\frac{1}{2}x_1
+$$
+
+$$
+2:K=10; \eta(x)=\frac{1}{2}\sum_{k=1}^2x_k+\sum_{k=3}^6x_k ; \kappa(x)=\sum_{k=1}^21\bigl\{x_k>0\bigr\}·x_k
+$$
+
+$$
+3:K=20; \eta(x)=\frac{1}{2}\sum_{k=1}^4x_k+\sum_{k=5}^8x_k ; \kappa(x)=\sum_{k=1}^41\bigl\{x_k>0\bigr\}·x_k
+$$
+
+10. In each design, there are some covariates that affect treatment effects $(\kappa)$ and mean outcomes $(\eta)$, some covariates that enter $\eta$ but not $\kappa$; and some covariates that do not affect outcomes at all (“noise” covariates).
+
+    各デザインにおいて、処置効果$(\kappa)$と平均アウトカム$(\eta)$に影響を与える共変量、$\eta$には入るが$\kappa$には入らない共変量、およびアウトカムに全く影響を与えない共変量(「**ノイズ**」共変量)がある。  
+$\quad$
+
+11. Design 1 does not have noise covariates.
+
+    デザイン1はノイズ共変量を持たない。  
+$\quad$
+
+12. In designs 2 and 3, the first few covariates enter $\kappa$, but only when their signs are positive, whereas they affect $\eta$ throughout their range.
+
+    デザイン2と3では、その符号が正の時のみ最初のいくつかの共変量が$\kappa$に入るが、一方で最初のいくつかの共変量はその範囲内[最初のいくつかの共変量の範囲?]で$\eta$に影響を与える。  
+$\quad$
+
+13. Different criterion will thus lead to different optimal splits, even within a covariate; F will focus more on splits when the covariates are negative.
+
+    　このように共変量の中でも異なる基準では異なる最適な分割が得られる。Fは共変量が負の場合により多くの分割に焦点を当てる。  
+$\quad$
+
+14. The first section of Table 1 compares the number of leaves in different designs and different values of $N^{tr}=N^{est}$.
+
+    表1の最初の欄[節]では異なるデザインの葉の数と、$N^{tr}=N^{est}$の異なる値での葉の数を比較している。  
+$\quad$
+
+15. Recalling that TOT-A and TOT-H have the same splitting method, we see that it tends to build shallow trees.
+
+    TOT-A と TOT-H の分割方法が同じであることを思い出してみると、浅い木を構築する傾向があることがわかる。  
+$\quad$
+
+16. The failure to control for the realized value of $W_i$ leads to additional noise in estimates, which tends to lead to aggressive pruning.
+
+    $W_i$の実現値を制御できないと、推定値に追加のノイズが発生し、積極的な枝刈りにつながる傾向がある。  
+$\quad$
+
+17. For the TS and CT estimators, the adaptive versions lead to shallower trees than the honest versions, because the honest versions anticipate correcting for bias in leaf estimates and thus prune less; the main cost of small leaf size is high variance in leaf estimates.
+
+    TS推定量とCT推定量についてはadaptive版はhonest版よりも木が浅くなる。なぜならhonest版は葉の推定値のバイアスを補正することを想定しているため、剪定量が少なくなるためである。葉の大きさが小さいことの主なコストは、葉の推定値の分散が大きいことである。  
+$\quad$
+
+18. F-A and F-H are very similar; the splitting criteria are similar, and further, the F estimators are less prone to overfitting treatment effects, because they split based upon overall model fit.
+
+    F-AとF-Hは分割基準が非常に類似しており、さらに、F推定量は全体的なモデル適合性に基づいて分割されるため、処置効果を過適合させる傾向が少ない。  
+$\quad$
+
+19. We also observe that the F estimators build the deepest trees; they reward splitting on covariates that affect mean outcomes as well as treatment effects.
+
+    また、F推定量は最も深い木を構築していることが観察され、平均アウトカムと処置効果に影響を与える共変量の分割に**報酬を与える。**  
+$\quad$
+
+20. The second section of Table 1 examines the performance of the alternative honest estimators, as evaluated by the infeasible criterion $MSE_\tau$.
+
+    表1の2つ目の欄では、実現不可能な基準$MSE_\tau$で評価された代替honest推定量の性能を検討する。  
+$\quad$
+
+21. We report the ratio of the average of $MSE_\tau$ for a given estimator to $MSE_\tau$ for our preferred estimator, CT-H.
+
+    与えられた推定量の$MSE_\tau$の平均に対する、我々の好ましい推定量であるCT-Hの$MSE_\tau$の比率を報告する。  
+$\quad$
+
+22. The TOT-H estimator performance is within $10\%$ of CT in designs 2 and 3 but suffers in design 1.
+
+    TOT-H推定量の性能はデザイン2と3ではCTの$10\%$以内に収まっているが、デザイン1では問題がある[苦しむ]。  
+$\quad$
+
+23. In design 1, the variance of $Y_i$ conditional on $(W_i,X_i)$ is very low at 0.01, and so the failure of TOT to account for the realization of $W_i$ results in a noticeable loss of performance.
+
+    デザイン1では$(W_i,X_i)$を条件とする$Y_i$の分散は0.01と非常に低い、したがってTOTが$W_i$の実現を考慮しないと、性能の著しい低下につながる。  
+$\quad$
+
+24. The F-H estimator suffers in all three designs; all designs give the F-H criterion attractive opportunities to split based on covariates that do not enter $\kappa$.
+
+    F-H推定量は3つのデザイン全てで苦しんでいる;全てのデザインは$\kappa$に入らない共変量に基づいて分割する**魅力的な機会[今後改善していくための課題を表した言い回し？？]？**をF-H基準に与えている。  
+$\quad$
+
+25. F-H would perform better in alternative designs where $\eta(x)=\kappa(x)$; F-H also does well at avoiding splits on noise covariates.
+
+    F-Hは$\eta(x)=\kappa(x)$のような代替デザインではよりよい性能を示すだろう;F-Hはまた、ノイズ共変量の分割を回避するのに適している。  
+$\quad$
+
+26. The TS-H estimator performs well in design 1, where $x_1$ affects $\eta$ and $\kappa$ the same way, so that the CT-H criterion is aligned with TS-H.
+
+    TS-H推定量は$x_1$が$\eta$ と $\kappa$ に同じように影響を与えるので、CT-H基準がTS-Hとと一致するようなデザイン1で良好な結果を得ることができる。  
+$\quad$
+
+27. Designs 2 and 3 are more complex, and the ideal splits from the perspective of balancing overall MSE of treatment effects (including variance reduction) are different from those favored by TS-H.
+
+    デザイン2と3はより複雑であり、処置効果の全体的なMSEのバランス(分散の減少を含む)の観点からの理想的な分割はTS-Hで好まれているものとは異なる。  
+$\quad$
+
+28. Thus, TS performs worse, and the difference is exacerbated with larger sample size in design 3, where there are more opportunities for the estimators to build deeper trees and thus to make different choices.
+
+    このようにTSの性能は悪く、その差はデザイン3のサンプルサイズが大きくなるにつれて悪化する。推定量がより深い木を構築する機会が多く、その結果異なる選択をする機会が多くなる。  
+$\quad$
+
+29. We also calculate comparisons based on a feasible criterion, the average squared difference between the transformed outcome $Y_i^*$ and the estimated treatment effect $\hat{\tau}_i$.
+
+    また、変換されたアウトカム$Y_i^*$と推定された処置効果$\hat{\tau}_i$の平均二乗差に基づいた実現可能な基準に基づいて比較を計算する。  
+$\quad$
+
+30. For details see ***SI Appendix***.
+
+    詳細は***SI Appendix***を参照されたい。  
+$\quad$
+
+31. The results are consistent with those from the infeasible criterion, but the feasible criterion compresses the performance differences.
+
+    実現不可能な基準の結果と一致しているが、実現可能な基準は性能差を圧縮している。  
+$\quad$
+
+32. The third section of Table 1 explores the costs and benefits to honest estimation.
+
+    表1の3つ目の欄では、honest推定のコストと利点を探っている。  
+$\quad$
+
+33. The table reports the ratio of $MSE_\tau(S^{te},S^{est}\cup S^{tr},\pi^{Estimator−A}(S^{est}\cup S^{tr}))$ to $MSE_\tau(S^{te},S^{est},\pi^{Estimator−H}(S^{tr}))$ for each estimator.
+
+    この表は各推定量における$MSE_\tau(S^{te},S^{est},\pi^{Estimator−H}(S^{tr}))$に対する$MSE_\tau(S^{te},S^{est}\cup S^{tr},\pi^{Estimator−A}(S^{est}\cup S^{tr}))$の比率を報告している。  
+$\quad$
+
+34. The adaptive version uses the union of the training and estimation samples for tree building, cross-validation, and leaf estimation, yielding double the sample size (1,000 observations) at each step.
+
+    adaptive版は木の構築、クロスバリデーション、および葉の推定のために訓練標本と推定標本の和を使用し、各ステップで2倍のサンプルサイズ(1000個の観測値)をもたらす。  
+$\quad$
+
+35. The honest version uses 500 of the observations in training and cross-validation, with the complement used for estimating treatment effects within leaves.
+
+    honest版は訓練とクロスバリデーションで500個の観測値を使用し、葉の中での処置効果の推定には補数を使用する。  
+$\quad$
+
+36. The results show that in most cases there is a cost to honest estimation in terms of $MSE_\tau$, varying by design and estimator.
+
+    その結果、ほとんどの場合デザインや推定量によって異なる$MSE_\tau$の観点から、honest推定にはコストがかかることが示された。  
+$\quad$
+
+37. The cost is large for the fit estimator in design 1; with a smaller sample size it largely ignores treatment effect heterogeneity in splitting.
+
+    デザイン1の適合推定量が大きく、サンプルサイズが小さいと分割における処置効果の異質性をほとんど無視してしまう。  
+$\quad$
+
+38. For CT, the cost ranges from 6.8 to 21.5$\%$.
+
+    CTの場合、コストは6.8~21.5$\%$である。  
+$\quad$
+
+39. The final two sections of Table 1 show the coverage rate for $90\%$ confidence intervals.
+
+    最後の2つの欄は、$90\%$信頼区間の被覆率を示している。  
+$\quad$
+
+40. We achieve nominal coverage rates for honest methods in all designs, where, in contrast, the adaptive methods have coverage rates substantially below nominal rates.
+
+    我々は全てのデザインでhonest手法の名目被覆率を達成しているが、対照的にadaptive手法の被覆率は名目率を大幅に下回っている。  
+$\quad$
+
+41. The fit estimator has the highest adaptive coverage rates; it does not focus on treatment effects and thus is less prone to overstating that heterogeneity through adaptive estimation.
+
+    適合推定量はadaptive被覆率が最も高い;処置効果に焦点を当てていないため、adaptive推定による異質性を誇張することが少ない。  
+$\quad$
+
+42. Thus, our simulations bear out the tradeoff that honest estimation sacrifices some goodness of fit (of treatment effects) in exchange for valid confidence intervals.
+
+    このように我々のシミュレーションでは妥当な信頼区間と引き換えに、honest推定では(処置効果の)適合性が犠牲になるというトレードオフが実証されている。
+
+#### Observational Studies with Unconfoundedness  
+不確実性を伴う観察研究  
+
+1. The discussion so far has focused on the setting where the assignment to treatment is randomized.
+
+    これまでの議論では、処置への割り当てが無作為化されている状況に焦点を当てていた。  
+$\quad$
+
+2. The proposed methods can be adapted to observational studies under the assumption of unconfoundedness.
+
+    提案された手法は不確実性を前提とした観察研究に適用可能である。  
+$\quad$
+
+3. In that case we need to modify the estimates within leaves to remove the bias from simple comparisons of treated and control units.
+
+    その場合[不確実性を前提とした観察研究]は、処置ユニットと対照ユニットの単純な比較からバイアスを除去するために葉の中の推定値を修正する必要がある。  
+$\quad$
+
+4. There is a large literature on methods for doing so (e.g., ref. 3).
+
+    そのための方法については多くの文献がある。(例えば参考文献3)  
+$\quad$
+
+5. For example, as in ref. 21 we can do so by propensity score weighting.
+
+    例えば参考文献21のように、傾向スコアの重み付けによって(処置ユニットと対照ユニットの単純な比較からバイアスを除去)できる。  
+$\quad$
+
+6. Efficiency will improve if we renormalize the weights within each leaf and within the treatment and control group when estimating treatment effects.
+
+    処置効果を推定する際に、各葉の中や処置群と対照群の中で重みを再度正規化すれば効率は向上する。  
+$\quad$
+
+7. Crump et al. (22) propose approaches to trimming observations with extreme values for the propensity score to improve robustnesses.
+
+    Crumpら(22)はロバスト性を改善するために傾向スコアの極端な値を持つ観測値をトリミングする[刈り込む]アプローチを提案している。  
+$\quad$
+
+8. Note that there are some additional conditions required to establish asymptotic normality of treatment effect estimates when propensity score weighting is used (see, e.g., ref.21); these results apply without modification to the estimation phase of honest partitioning algorithms.
+
+    傾向スコアの重み付けが使用されている時(例えば参考文献.21参照）、処置効果の推定値の漸近正規性を確立するために必要ないくつかの追加条件があることに注意されたい。;これらの結果はhonest分割アルゴリズムの推定段階に変更することなく適用される。
+
+#### The Literature  
+文献  
+
+1. A small but growing literature seeks to apply supervised machine learning techniques to the problem of estimating heterogeneous treatment effects.
+
+    小規模であるが成長しつつある文献では、教師あり機械学習技術を異質な処置効果の推定問題に適用しようとしている。  
+$\quad$
+
+2. Beyond those previously discussed, Tian et al. (23) transform the features rather than the outcomes and then apply LASSO to the model with the original outcome and the transformed features.
+
+    これまでに議論されたものに加えて、Tianら(23)はアウトカムではなく特徴量を変換し、元のアウトカムと変換された特徴量を持つモデルにLASSOを適用している。  
+$\quad$
+
+3. Foster et al. (24) estimate $\mu(w,x)=\mathbb{E}[Y_i(w)|X_i=x]$ for $w=0,1$ using random forests, then calculate $\hat{\tau}=\hat{\mu}(1,X_i)−\hat{\mu}(0,X_i)$.
+
+    Fosterら(24)はランダムフォレストを用いて$w=0,1$で$\mu(w,x)=\mathbb{E}[Y_i(w)|X_i=x]$を推定し、$\hat{\tau}=\hat{\mu}(1,X_i)−\hat{\mu}(0,X_i)$を計算している。  
+$\quad$
+
+4. They use machine learning algorithms to estimate $\hat{\tau}_i$ as a function of the units’ attributes,$X_i$.
+
+    彼らは機械学習アルゴリズムを使って、ユニットの属性$X_i$の関数として$\hat{\tau}_i$を推定している。  
+$\quad$
+
+5. Imai and Ratkovic (25) use LASSO to estimate the effects of both treatments and attributes, but with different penalty terms for the two types of features to allow for the possibility that the treatment effects are present but the magnitudes of the interactions are small.
+
+    ImaiとRatkovic(25)は、LASSOを用いて処置効果と属性の両方の効果を推定しているが、処置効果はあるが交互作用の大きさが小さいという可能性を考慮して、2種類の特徴に対して異なる罰則項を用いている。  
+$\quad$
+
+6. Their approach is similar to ours in that they distinguish between the estimation of treatment effects and the estimation of the impact of other attributes of units.
+
+    彼らのアプローチは、処置効果の推定とユニットの他の属性の影響の推定を区別している点で、我々のアプローチと似ている。  
+$\quad$
+
+7. Green and Kern (26) use Bayesian additive regression trees to model treatment effect heterogeneity.
+
+    Green と Kern(26)は、BARTを用いて処置効果の異質性をモデル化している。  
+$\quad$
+
+8. Taddy et al. (27) consider **a model** with the outcome linear in the covariates and **the interaction** with the treatment variable.
+
+    Taddyら(27)は、共変量のアウトカムが線形なモデルと、処置変数との交互作用を考慮している。  
+$\quad$
+
+9. Using Bayesian nonparametric methods, they project estimates of heterogeneous treatment effects onto the feature space using LASSO-type regularization methods to get low-dimensional summaries of heterogeneity.
+
+    ベイジアンノンパラメトリック手法を用いて、LASSO型の正則化法を用いて特徴空間に異質な処置効果の推定値を射影し、異質性の低次元の要約を得る。  
+$\quad$
+
+10. Dudik et al. (16) and Beygelzimer and Langford (15) propose a related approach for finding the optimal treatment policy that combines inverse propensity score methods with “direct methods” [e.g., directly estimating $\mu(w,x)$] that predict the outcome as a function of the treatment and the unit attributes.
+
+    Dudikら(16)とBeygelzimerとLangford(15)は、逆傾向スコア法[IPWのこと？]と、処置とユニット属性の関数としてアウトカムを予測する「direct methods:直接法」[例えば、$\mu(w,x)$を直接推定する]を組み合わせた最適な処置方針を見つけるための関連したアプローチを提案する。  
+$\quad$
+
+11. The methods can be used to evaluate the average difference in outcomes from any two policies that map attributes to treatments, as well as to select the optimal policy function.
+
+    これらの方法は、最適な政策関数を選択するだけでなく、属性を処置にマッピングする任意の2つの政策からの結果の平均差を評価するために使用することができる。  
+$\quad$
+
+12. They do not focus on hypothesis testing for heterogeneous treatment effects, and they use conventional approaches for cross-validation.
+
+    彼らは異質な処置効果に対する仮説検定には焦点を当てておらず、クロスバリデーションには従来のアプローチを用いている。  
+$\quad$
+
+13. Also related is targeted learning (28), which modifies the loss function to increase the weight on the parts of the likelihood that concern parameters of interest, and work on experimental design optimized to find subpopulations with positive treatment effects (29).
+
+    また、関心のあるパラメータに関係する尤度の部分の重みを増やすために損失関数を変更する標的学習(28)や、正の処置効果を持つ部分集団を見つけるために最適化された実験デザインに取り組んでいる(29)。  
+$\quad$
+
+14. Finally, Wager and Walther (30) adjust confidence intervals to account for adaptive estimation, and List et al. (31) adjust for exhaustively searching the space of simple partitions.
+
+    最後に、WagerとWalther(30)はadaptive推定を考慮して信頼区間を調整し、Listら(31)は単純な分割の空間を網羅的に探索するように調整している。
+
+#### Conclusion
+1. In this paper we introduce methods for constructing trees for causal effects that allow us to do valid inference for the causal effects in randomized experiments and in observational studies satisfying unconfoundedness.
+
+    本論文では、無作為化実験や不確定性を満たす観察研究において、因果効果を有効に推論できる因果効果の木を構築する方法を紹介する。  
+$\quad$
+
+2. These methods provide valid confidence intervals without restrictions on the number of covariates or the complexity of the data-generating process.
+
+    これらの方法は、共変量の数やデータ生成プロセスの複雑さに制限されることなく、有効な信頼区間を提供する。  
+$\quad$
+
+3. Our methods partition the feature space into subspaces.
+
+    我々の手法は特徴空間を部分空間に分割する。  
+$\quad$
+
+4. The output of our method is a set of treatment effects and confidence intervals for each subspace.
+
+    我々の手法の出力は，各部分空間の処置効果と信頼区間のセットである。  
+$\quad$
+
+5. A potentially important application of the techniques is to “data mining”in randomized experiments.
+
+    この技術の潜在的で重要な応用は、無作為化実験における「データマイニング」である。  
+$\quad$
+
+6. Our method can be used to explore any previously conducted randomized controlled trial, for example, medical studies or field experiments in development economics.
+
+    我々の手法は、例えば、開発経済学における医学研究やフィールド実験[野外実験]など、以前に実施された無作為化比較試験の調査に使用することができる。  
+$\quad$
+
+7. Our methods can discover subpopulations with lower-than-average or higher-than-average treatment effects while producing confidence intervals for these estimates with nominal coverage, despite having searched over many possible subpopulations.
+
+    我々の手法は、多くの可能性のある部分集団を探索したにもかかわらず、これらの推定値の信頼区間を名目被覆で作成しながら、平均より低い処置効果または平均より高い処置効果を持つ部分集団を発見することができる。
