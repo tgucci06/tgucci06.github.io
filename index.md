@@ -6,12 +6,12 @@
 
 スライド形式でのまとめ
 
-- 1章: [はじめに](https://tgucci06.github.io/Kuroki_01.html)
-- 2章: [準備](https://tgucci06.github.io/Kuroki_02.html)
+- 1章: [はじめに] (https://tgucci06.github.io/Kuroki_01.html)
+- 2章: [準備] (https://tgucci06.github.io/Kuroki_02.html)
 
 ## 論文和訳
 
-- Susan Atheya, and Guido Imbens(2016)[Recursive partitioning for heterogeneous causal effects](https://tgucci06.github.io/和訳_causaltree.html)
+- Susan Atheya, and Guido Imbens(2016) [Recursive partitioning for heterogeneous causal effects](https://tgucci06.github.io/和訳_causaltree.html)
 
 ## 論文レビュー
 
