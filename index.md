@@ -11,13 +11,17 @@
 
 ## 論文和訳
 
+- Susan Atheya, and Guido Imbens(2016)[Recursive partitioning for heterogeneous causal effects](https://tgucci06.github.io/和訳_causaltree.html)
 
 ## 論文レビュー
 
 
 - Bartik, A. W.,et al(2020) [How Are Small Businesses Adjusting to COVID-19? Early Evidence from a Survey](https://tgucci06.github.io/peper_review_Bartik_2020.html)
 
-## 実装
+## 課題
+
+統計学特論A
+- [統計学特論A第1回課題](https://tgucci06.github.io/第1回課題0603.html)
 
 
 # 更新履歴
