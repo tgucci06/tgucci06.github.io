@@ -1,0 +1,192 @@
+---
+title: "統計学特論A 第1回課題"
+author: "谷口友哉"
+ddate: "`r format(Sys.time(), '%Y/%m/%d')`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+# 2020年度統計学特論Ａ第一回目の課題  
+$(0,\theta)$ の範囲の一様分布のパラメーター $\theta$ の推定について考える.この分布から無作為にとった大きさ$n$のサ
+ンプル$（X_i, i = 1, . . . , n）$から作られた次の統計量
+$$T = max(X_1, . . . , X_n)$$
+を使って$\theta$を推定する.  
+
+## 問1 (5点) Tの分布関数 $F(t) = P(T\leq t)$ を求めなさい.  
+$（X_i, i = 1, . . . , n）$は互いに独立同一であるので,
+$$
+\begin{aligned}
+F(t)&= P(T\leq t)\\
+    &= P(X_1\leq t)\cdots P(X_n\leq t)\\
+    &= \Bigl(\frac{t}{\theta}\Bigr)^n
+\end{aligned}
+$$
+
+## 問2（5点）Tの密度関数$f(t)$を求めなさい.  
+$$
+\begin{aligned}
+f(t)&= F^{'}(t)\\
+    &= \biggl\{\Bigl(\frac{t}{\theta}\Bigr)^n\biggr\}^{'}\\
+    &= \Bigl(\frac{1}{\theta}\Bigr)^nnt^{n-1}\:\:,(0\leq t\leq\theta)
+\end{aligned}
+$$
+
+## 問3（5点）Tが十分統計量であることを示しなさい.  
+$(X_1, . . . , X_n)$の同時密度関数は,
+$$
+f_{\theta}(x) = \left\{
+\begin{array}{ll}
+\theta^{-n} & (0\leq x_i \leq \theta\:\: \forall i)  \\
+0 & (otherwise) \tag{1}
+\end{array} 
+\right.
+$$
+ここで
+$$
+I_{[max\:x_i\leq \theta]}(x) = \left\{
+\begin{array}{ll}
+1 & (max\:x_i\leq \theta) \\
+0 & (otherwise) 
+\end{array} 
+\right.
+$$
+とおき,さらに,
+$$
+h(x) = h(x_1,\cdots,x_n)=
+\left\{
+\begin{array}{ll}
+1 & (x_i\geq \theta\:\: \forall i ) \\
+0 & (otherwise) 
+\end{array} 
+\right.
+$$
+とおく.  
+ここで,$x_i\leq\theta,\:\forall i\Leftrightarrow max\:x_i\leq \theta$ であるため,(1)式の$f_\theta(x)$ は,
+$$
+f_\theta(x) = \theta^{-n}I_{[max\:x_i\leq \theta]}(x)h(x)
+$$
+と書ける.  
+ここで, $g(\theta) =  \theta^{-n}I_{[max\:x_i\leq \theta]}(x)$ とおけば,
+$$
+f_\theta(x) = g(\theta)h(x)
+$$
+と分解できる.  
+したがって十分統計量の分解定理より, $T = max(X_1, . . . , X_n)$  は十分統計量であることが示せた.
+
+## 問4（5点）Tが完備であることを示しなさい.  
+問2より,Tの密度関数は
+$$
+\begin{aligned}
+f(t)&= F^{'}(t)\\
+    &= \Bigl(\frac{1}{\theta}\Bigr)^nnt^{n-1}
+\end{aligned}
+$$
+である.  
+ここで任意の関数$g(t)$について,
+$$
+\begin{aligned}
+E_{\theta}\bigl(g(T)\bigr)&= \int_{0}^{\theta}g(t)\: \Bigl(\frac{1}{\theta}\Bigr)^nnt^{n-1}dt\\
+&= \Bigl(\frac{n}{\theta^n}\Bigr)\int_{0}^{\theta}g(t)\: t^{n-1}dt\\
+&=0,\:\:\:\forall\:\theta>0
+\end{aligned} 
+$$
+と仮定する.関数 $g$ が連続ならば, $0=\int_{0}^{\theta}g(t)\cdot t^{n-1}dt$ を$\theta$ で微分することで, $g(\theta)\theta^{n-1}=0$ ,すなわち,
+$$
+g(\theta)=0,\:\: \forall\:\theta>0
+$$
+を得る.   
+関数 $g$ が必ずしも連続でない場合でもほぼ同様の議論により,関数 $g$ はほとんど至る所で0に等しいことが証明できる.  
+このことから,Tは完備であることが示せた.
+
+## 問5（5点）Tを使ったUMVUを求めなさい.  
+ここで $\hat{\theta}=2X_1$ とおくと,  
+$E[\hat{\theta}]=E[2X_1]=\theta$ であるので, $\hat{\theta}$ は $\theta$ の不偏推定量である.  
+ここで $\hat{\theta}$ は $X_1$ 以外の観測値を無視した推定量であるため,ラオ・ブラックウェルの定理を用いて $\hat{\theta}$ を改善する.  
+$T$ が与えられたときの $X_1$ の条件付き分布は,
+$$
+P(X_1=t|T=t)=\frac{1}{n}\\
+P(X_1\leq t|T=t)=\Bigl(1-\frac{1}{n}\Bigr)\frac{x}{t}\:\:\:\:\:\:\:\:\:(0<x<t)
+$$
+となることを用いると,条件付き期待値 $E[\hat{\theta}|T=t]$ は,
+$$
+\begin{aligned}
+E[\hat{\theta}|T=t]&=2E[X_1|T=t]\\
+    &= 2\biggl(t\cdot\frac{1}{n}+\Bigl(1-\frac{1}{n}\Bigr)\cdot\frac{t}{2}\biggr)\\
+    &= \frac{2t}{n}+t-\frac{t}{n}\\
+    &= \Bigl(1+\frac{1}{n}\Bigr)t
+\end{aligned}
+$$
+と書ける.  
+
+よって改善した不偏推定量 $\hat{\theta}^*$ は, $$\hat{\theta}^*=\Bigl(1+\frac{1}{n}\Bigr)T$$
+である.  
+
+ここで, $\hat{\theta}^*$ が $\theta$ の不偏推定量であることを証明する.  
+問2より,Tの密度関数は
+$$
+\begin{aligned}
+f(t)&= F^{'}(t)\\
+    &= \Bigl(\frac{1}{\theta}\Bigr)^nnt^{n-1}
+\end{aligned}
+$$
+であるから,  
+$$
+E[\hat{\theta}^*]=\Bigl(1+\frac{1}{n}\Bigr)\: E[T]
+$$
+$T$ の期待値 $E[T]$ は,
+$$
+\begin{aligned}
+E[T]&=\int_{0}^{\theta}t\cdot f(t)dt\\
+    &= \Bigl(\frac{1}{\theta}\Bigr)^n\: n\int_{0}^{\theta}t^{n-1}\cdot t\:dt\\
+    &= \Bigl(\frac{1}{\theta}\Bigr)^n\: n\int_{0}^{\theta}t\:dt\\
+    &= \Bigl(\frac{1}{\theta}\Bigr)^n\: n\int_{0}^{\theta}\Bigl(\frac{1}{n+1}\cdot t^{n+1}\Bigr)^{'}\:dt\\
+    &= \Bigl(\frac{1}{\theta}\Bigr)^n\:{n}\cdot{\frac{1}{n+1}}\cdot{\theta^{n+1}}\\
+    &= \frac{n}{n+1}\theta
+\end{aligned}
+$$
+となる.よって,  
+$$
+\begin{aligned}
+E[\hat{\theta}^*]&=\Bigl(\frac{n+1}{n}\Bigr)\cdot{\frac{n}{n+1}\theta}\\
+    &= \theta
+\end{aligned}
+$$
+となるため, $\hat{\theta}^*$ が $\theta$ の不偏推定量であることが示せた.  
+
+ここで,他の任意の不偏推定量を $\tilde{\theta}$ とし,ラオ・ブラックウェルの定理より, $\tilde{\theta}^*=E[\tilde{\theta}|T=t]$ とおく.  
+ラオ・ブラックウェルの定理から,
+$$
+V(\tilde{\theta}^*)\leq V(\tilde{\theta})
+$$
+であり,  
+$f(T)=\tilde{\theta}^*(T)-\hat{\theta}^*(T)$とおくと  
+$E[\tilde{\theta}^*]=0,E[\hat{\theta}^*]=0$ であるので,
+$$
+E[f(T)]=E[\tilde{\theta}^*(T)-\hat{\theta}^*(T)]=0\:,\forall\:\theta
+$$
+となる.  
+したがって完備性の定義より, $f(T)\equiv0$ .  
+つまり, $\tilde{\theta}^*(T)\equiv\hat{\theta}^*(T)$ でなければならない.  
+このとき, $V(\tilde{\theta}^*)=V(\hat{\theta}^*)$ となるので,
+$$
+V(\hat{\theta}^*)=V(\tilde{\theta}^*)\leq V(\tilde{\theta})
+$$
+となることが示せた.  
+よって, $\hat{\theta}^*=\Bigl(1+\frac{1}{n}\Bigr)T$ が UMVU となることが示せた.
+
+
+
+
+
+
+
+
+
+
+
+
