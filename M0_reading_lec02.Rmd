@@ -257,7 +257,9 @@ $$
 
 * この結果は定理D.2からすぐに従う
 
-* (2.16)の右辺を$δ$とおいて$\epsilon$について解くと，一つの仮説に対してすぐに次のような境界が得られる
+<div style="text-align: center">
+<img src="lec02_proof4.jpg" width="100%">
+</div>
 
 ### Corollary 2.11 (Generalization bound — single hypothesis) 
 
@@ -291,6 +293,80 @@ $$
 |p-\hat{p}| \leq  \sqrt{\frac{log2(10)}{1000}} \approx 0.048  \tag{2.19}
 $$
 
+* 標本Sで学習したときに学習アルゴリズムによって返される仮説$h_S$の汎化誤差を抑えるために、系2.11を容易に適用できるだろうか？
+
+  →$h_S$ は固定された仮説 (ﬁxed hypothesis) ではなく、抽出された訓練標本Sに依存するランダム変数であるため、系2.11を容易に適用できない
+
+* 経験誤差の期待値が汎化誤差（式 (2.3)）である固定された (fixed) 仮説の場合とは異なり、汎化誤差$R(h_S)$はランダム変数であり、一般的に定数である期待値$\mathbb{E}[\hat{R}_S(h_S)]$とは異なることにも注意
+
+  →したがって、一貫した場合の証明と同様に一様収束境界、すなわちすべての仮説$h∈\mathcal{H}$に対して高い確率で保持される境界を導出する必要がある
+
+### Theorem 2.13 (Learning bound — finite H, inconsistent case)
+
+* $\mathcal{H}$ を有限仮説集合とする
+
+* すると、任意の$δ＞0$について、少なくとも $1 -δ$ の確率で、次の不等式が成立
+
+$$
+\forall h \in \mathcal{H},\; R(h) \leq \hat{R}_S(h) \: + \: \sqrt{\frac{log|\mathcal{H}|\: + \: log2/\delta}{2m}} \tag{2.20}
+$$
+
+### proof(Theorem 2.13)
+
+<div style="text-align: center">
+<img src="lec02_proof5.jpg" width="100%">
+</div>
+
+<div style="text-align: center">
+<img src="lec02_proof6.jpg" width="100%">
+</div>
+
+### Remarks
+
+* このように、ある有限の仮説集合 $\mathcal{H}$ について、高い確率で(whp : with high probability)
+
+$$
+\forall h \in \mathcal{H},\;R(h) \leq \hat{R}_S(h) \: + \: O\sqrt{\frac{log_2|\mathcal{H}|}{m}}
+$$
+
+* $log_2|\mathcal{H}|$は$\mathcal{H}$を表現する(符号化する)のに必要なビット数として解釈できる
+
+* この境界は経験誤差の低減と仮説集合の大きさの制御との間のトレードオフを求めることを示唆
+
+  * 仮説集合を大きくする(mを大きくする)と第2項でペナルティを受けるが，第1項である経験誤差の低減に役立つ可能性がある
+  
+  * 一方で同じような経験誤差の場合、より小さな仮説集合を使うことを示唆
+
+→ **Occam’s Razor principle** (オッカムの剃刀の原理) の例
+
+### Occam’s Razor principle
+
+「Plurality should not be posited without necessity」   (必要以上に多くを仮定すべきではない)  
+
+「the simplest explanation is best」(最も単純な説明が最善である) とも言い換えられる
+
+* 今回の文脈では、「他のすべてのものが等しいと、より単純な（より小さい）仮説集合がより良い」
 
 
+## Summary
+
+* $\exists \mathcal{A},\forall c \in \mathcal{C},\forall \epsilon,\delta>0,m=P(1/\epsilon,1/\delta)$において以下が成り立つならば、$\mathcal{C}$はPAC学習可能である
+
+$$
+Pr_{S \sim \mathcal{D}^m}[R(h_S) \leq \epsilon] \geq 1 - \delta
+$$
+
+* 有限仮説集合$\mathcal{H}$が一貫性をもつ場合 (consistent case) の学習境界は、
+
+$$
+R(h) \leq \frac{1}{m}(log|\mathcal{H}|\:+\:log\frac{1}{\delta})
+$$
+
+* 有限仮説集合$\mathcal{H}$が一貫性をもたない場合 (inconsistent case) の学習境界は、
+
+$$
+R(h) \leq \hat{R}_S(h)\:+\:\sqrt{\frac{log|\mathcal{H}|\: + \: log2/\delta}{2m}}
+$$
+
+* 無限仮説集合 (infinite hypothesis sets) をどう扱えばいいか？➡︎第3章の話題
 
