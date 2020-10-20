@@ -11,7 +11,7 @@
 
 ### Mehryar Mohri, Afshin Rostamizadeh, and Ameet Talwalkar. Foundations of Machine Learning
 
-- Lec02:
+- Lec02:[Learning guarantees for finite hypothesis sets](https://tgucci06.github.io/M0_reading_lec02.html)
 
 ## 論文和訳
 
