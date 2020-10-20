@@ -1,0 +1,234 @@
+---
+title: "Learning guarantees for finite hypothesis sets"
+author: "谷口友哉"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    toc: TRUE
+    theme: cayman
+    highlight: github
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Motivation
+
+* 事例から学ぶアルゴリズムを設計・解析する際に、いくつかの基本的な疑問 (計算学習問題) が生じる
+  * 効率的に学べるものは何か？
+  * 本質的に学びにくいものは何か？
+  * 学習の一般的なモデルはあるのか？
+  
+* Probably Approxably Correct (PAC)学習のフレームワークを導入することで、これらの疑問を形式化し、対処することから始める
+
+## What is the PAC framework?
+
+近似解を達成するために必要なサンプル点の数、サンプルの複雑さ、学習アルゴリズムの時間と空間の複雑さの観点から、学習可能な概念のクラスを定義するのに役立つ（これは概念の計算表現のコストに依存する）
+
+最初にPACフレームワークを説明・例示し、使用される仮説集合が学習する概念を含む一貫性のあるケースと一貫性のないケースの両方で、使用される仮説集合が有限である場合に、このフレームワーク内のいくつかの一般的な学習保証を提示する
+
+## Definitions and Notation
+
+* $\mathcal{X}$ : すべての確からしい例orインスタンス(実例)の集合。**入力空間**とも呼ばれる
+  * 例：身長と体重を特徴量とするすべての男性と女性の集合
+
+* $\mathcal{Y}$ : すべての確からしいラベルorターゲット値の集合。ここでは$\mathcal{Y} = \{0, 1\}$に限定(2値分類)
+
+* $target \;concept \; \mathcal{c}:\;X \rightarrow Y$ : $\mathcal{X}$ から $\mathcal{Y}$ への写像。日本語訳は「ターゲット概念」。$\mathcal{Y} = \{0, 1\}$なので、$\mathcal{c}$ は値1を取る$\mathcal{X}$の部分集合と識別できる
+
+* $concept \; class\; \mathcal{C}$ : ターゲット概念の集合
+
+* $target \;distribution; \mathcal{D}$ : $\mathcal{X}$上のfixed 確率分布(パラメータが変動しない？)。training and test examples は$\mathcal{D}$から抽出される。
+
+* $S = (x_1,_\cdots,x_m)$ : training sample (訓練標本)
+
+* $concept \;hypothesis \;sets \;\mathcal{H}$ : 概念仮説集合 $\mathcal{H}$。必ずしも概念集合$\mathcal{C}$と一致しない。
+  * 例:全ての線形分類器の集合(線形判別分析、SVMなど)
+
+* 学習アルゴリズム : 訓練標本$S$を受け取り、ターゲット概念$c$に近似する仮説集合$\mathcal{H}$から仮説$h_S$を選択
+
+### What is the task?
+
+* ラベル付けされた標本$S$を用いて、概念$c$に関して一般化誤差が小さい仮説$h∈\mathcal{H}$を選択すること
+
+## Errors
+
+### Definition 2.1 (Generalization error)
+
+ターゲット概念$c\in \mathcal{C}$とターゲット分布$\mathcal{D}$が与えられたときの、仮説$h \in \mathcal{H}$の汎化誤差orリスクは次のように定義される。ここで$1_{\omega}$はイベント$\omega$の指示関数。
+
+$$
+R(h) = Pr_{x \sim \mathcal{D}}[h(x) \neq c(x)] = \mathbb{E}_{x \sim \mathcal{D}}[1_{h(x) \neq c(x)}] \tag{2.1}
+$$
+
+* この定義と他の関連する定義のために、関数$\mathcal{H}$とターゲット概念$c$は測定可能でなければならない。
+
+
+* 仮説の汎化誤差は、分布$\mathcal{D}$とターゲット概念$c$の両方が未知であるため、学習者が直接知ることはできない。
+
+* しかし、学習者はラベル付けされた標本$S$上で仮説の**経験誤差**を測定することができる。
+
+### Definition 2.2 (Empirical error)
+
+仮説$h \in \mathcal{H}$、ターゲット概念$c\in \mathcal{C}$、標本$S = (x1, ... , xm)$が与えられると、仮説$h$の経験誤差または経験リスクは以下で定義される。
+
+$$
+\hat{R_S}(h) = \frac{1}{m}\sum^{m}_{i = 1}1_{h(x) \neq c(x)} \tag{2.2}
+$$
+
+* $h \in \mathcal{H}$の経験誤差は標本$S$における$h$の平均誤差
+* 一般化誤差は分布$D$に基づくその期待誤差
+
+* i.i.d.標本$S$に基づく経験誤差の期待値は汎化誤差に等しい (経験誤差は汎化誤差の不偏推定量)
+
+$$
+\mathbb{E}_{S \sim \mathcal{D}^m}[\hat{R_S}(h)] = R(h) \tag{2.3}
+$$
+
+### proof
+
+<div style="text-align: center">
+<img src="lec02_proof1.jpg" width="100%">
+</div>
+
+## PAC model
+
+* PAC学習 : Probably Approxably Correct Learning.「確率的におおよそ正しい学習」と訳される
+
+### Definition 2.3 (PAC-learning)
+
+* 以下のような学習アルゴリズム$\mathcal{A}$が存在するとき、概念クラス$\mathcal{C}$は**PAC学習可能(PAC-learnable)**である
+
+  * 固定多項式に対する大きさ$m = poly(1/\epsilon, 1/\delta)$の標本$S$
+  * 任意のターゲット概念$c \in \mathcal{C}$,$\epsilon > 0$,$\delta > 0$およびすべての分布$\mathcal{D}$について、
+
+$$
+Pr_{S \sim \mathcal{D}^m}[R(h_S) \leq \epsilon] \geq 1 - \delta \tag{2.4}
+$$
+
+### Remarks
+
+* PAC フレームワークはdistribution-free モデル (分布の仮定なし)
+
+* 誤差を定義するために使用される学習サンプルとテスト例は、同一の分布$\mathcal{D}$に従う
+
+* パラメータ$\delta > 0$は信頼度$1 - \delta$を、$\epsilon > 0$は精度$1 - \epsilon$を求めるために使用
+
+* 概念クラス$\mathcal{C}$はアルゴリズムにとって既知であるが、ターゲット概念$c \in \mathcal{C}$は未知であることに注意
+
+## Example  (Rectangles Learning)
+
+<div style="text-align: center">
+<img src="Rectangles_example1.jpg" width="100%">
+</div>
+
+<div style="text-align: center">
+<img src="Rectangles_example2.jpg" width="100%">
+</div>
+
+## Guarantees for finite hypothesis sets — consistent case
+
+### Theorem 2.5 (Learning bound — finite H, consistent case)
+
+* $\mathcal{H}$を$\mathcal{X}$から$\mathcal{Y}(\{0,1\})$に写像する関数の有限集合とする
+
+* $\mathcal{A}$は、任意のターゲット概念$c \in \mathcal{H}$とi.i.d.標本$S$に対して、一貫性のある仮説$h_S$($\hat{R}_S(h_S) = 0$)を返すアルゴリズムとする
+
+* 任意の$\delta > 0$に対して、少なくとも$1-\delta$の確率で
+
+$$
+R(h_S) \leq \frac{1}{m}(log|\mathcal{H}| + log \frac{1}{\delta}) \tag{2.9}
+$$
+
+### proof
+
+<div style="text-align: center">
+<img src="lec02_proof2.jpg" width="100%">
+</div>
+
+<div style="text-align: center">
+<img src="lec02_proof3.jpg" width="100%">
+</div>
+
+### Example 2.6 (Conjunction of Boolean literals)
+
+Boolean : true or falseの型 (java?)  
+literals: 定数値
+
+以下では、Boolean literalsを「ブール値」と訳す
+
+* 最大n個のブール値 $x_1, ... , x_n$ の論理積の概念クラス$\mathcal{C}_n$を学習することを考える
+
+  * ブール値は、変数 $x_i, \; i ∈[n]$、またはその否定 $\bar{x}_i$ のいずれか
+
+* 例1）n = 4 
+  * 論理積 $x_1∧ \bar{x}_2∧ x_4$ があり、ここで $\bar{x}_2$ はブール値 $x_2$ の否定を表す
+
+  * (1, 0, 0, 1) はこの概念の正の例
+  
+  * (1, 0, 0, 0) はこの概念の負の例
+  
+* 例2）n = 4 
+  * 正の例 (1, 0, 1, 0) は、ターゲット概念が定数値 $\bar{x}_1$ と $\bar{x}_3$ を含むことができず、定数値 $x_2$ と $x_4$ を含むことができないことを意味する
+  
+  * 対照的に、負の例 (例えば(1,0,0,0)) はそのnビットのうちのどのビットが正しくないかがわからないため、情報量が少なくなる
+
+* よって一貫性のある仮説を見つけるための簡単なアルゴリズムは、正の例に基づいており、次のように構成されています。
+
+  * 各正の例 $(b_1, ... , b_n)$  と $i∈[n]$ について、<br>   $b_i=1$ならば、$x_i$は概念クラスの可能性のある定数値とされ、<br>
+$b_i=0$ならば、$x_i$は除外される
+
+  * 除外されていないすべての定数値の論理積は、ターゲット概念と一致する仮説となる
+
+### Example Figure2.4
+
+* 以下の図2.4は、学習サンプルの例と、n = 6の場合の一貫した仮説を示している
+
+<div style="text-align: center">
+<img src="lec02_figure2_4.png" width="40%">
+</div>
+
+* 図2.4 (n = 6のとき)
+
+  * 表の最初の6行は学習例
+  
+  * 最後の列 (7列目) に$+$または$-$のラベル
+
+  * 最後の行 (7行目) は、すべての正の例 (7列目が$+$) に対して、$i$列目の要素が全て0(or1)であれば、$i∈[6]$にそれぞれ0(or1)が入る
+
+  * また、正の例において、0と1の両方が$i$番目の要素として現れる場合 (図中の赤枠) には、最後の行に“?”が入る
+
+  * この学習サンプルについて、一貫性のあるアルゴリズムによって返される仮説は、$\bar{x}_1∧ x_2∧ x_5∧ x_6$
+
+### Algorithm
+
+* 各ブール値は正に含まれていても、否定されていても、含まれていなくてもよいので、<br>
+$|\mathcal{H}| =|\mathcal{C}n| = 3^n$となる
+
+* 一貫性のある仮説の標本複雑度境界(式2.8)に当てはめると、任意の $\epsilon > 0$ および $\delta > 0$ において、<br>
+以下のような標本複雑度境界が得られる
+
+$$
+m \geq \frac{1}{\epsilon}\bigl( (log3)n \:+\: log\frac{1}{\delta} \bigr) \tag{2.10}
+$$
+
+* したがって，最大n個のブール値の論理積のクラスはPAC-learnableである
+  
+  * (2.10)を満たすならば、仮説 $h_S$ は任意の $\epsilon,\delta > 0$ に対して、$Pr_{S \sim D^m}[R(h_s) \leq \epsilon] \geq 1 - \delta$ を満たす。すなわちPAC-learnablである。
+  
+* $δ = 0.02、\epsilon = 0.1、n = 10$の場合、境界は$m \geq 149$となる
+
+
+
+
+
+
+
+
+
+
+
+
+
+
