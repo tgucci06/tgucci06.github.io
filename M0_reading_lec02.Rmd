@@ -11,11 +11,13 @@ vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+
 ---
 
 ## Motivation
 
 * 事例から学ぶアルゴリズムを設計・解析する際に、いくつかの基本的な疑問 (計算学習問題) が生じる
+
   * 効率的に学べるものは何か？
   * 本質的に学びにくいものは何か？
   * 学習の一般的なモデルはあるのか？
