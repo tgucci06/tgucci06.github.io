@@ -269,7 +269,7 @@ $$
 Pr_{S \sim D^m}[\hat{R}_S(h)-R(h) \leq -\epsilon] \leq exp(-2m\epsilon^2) \tag{2.15}  
 $$
 
-* プールの不等式により、以下のような両面不等式を意味する
+* これらの不等式を組み合わせると
 
 $$
 Pr_{S \sim D^m}[|\hat{R}_S(h)-R(h)| \geq \epsilon] \leq 2exp(-2m\epsilon^2) \tag{2.16} 
