@@ -299,6 +299,11 @@ $$
 <img src="lec02_proof7.jpg" width="100%">
 </div>
 
+* 保科先生の板書 (2020/10/28 追記)
+<div style="text-align: center">
+<img src="lec02_proof7_plus.jpg" width="100%">
+</div>
+
 ### Example 2.12 (Tossing a coin)
 
 * 偏ったコインを投げて、確率 $p$ で表が出るとする
