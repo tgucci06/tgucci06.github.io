@@ -12,6 +12,7 @@
 ### Mehryar Mohri, Afshin Rostamizadeh, and Ameet Talwalkar. Foundations of Machine Learning
 
 - Lec02:[Learning guarantees for finite hypothesis sets](https://tgucci06.github.io/M0_reading_lec02.html)
+- Lec05:[Kernel Methods](https://tgucci06.github.io/M0_reading_lec05.html)
 
 ## 論文和訳
 
@@ -28,6 +29,8 @@
 
 # 更新履歴
 
+* 2021/03/30
+  * 輪読資料(Foundations of Machine Learning) 追加
 * 2020/10/15
   * 課題、論文和訳 追加
 * 2020/08/05
