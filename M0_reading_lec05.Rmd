@@ -416,10 +416,38 @@ $\bf M$ の存在は例えば、$K$ の特異値分解やコレスキー分解�
 
 $KK'$ に関連するカーネル行列は $(\bf K_{\mathit {ij}}K'_{\mathit {ij}})_{\mathit {ij}}$ である
 
-任意の $\bf{c}∈\mathbb R^{\mathit m×\rm 1}$ に対して、$\bf K_{\mathit {ij}}$を$\bf M$の要素で表現すると、$\bf z_\mathit k = \left[\begin{matrix} c_1 \bf M_{\mathit \rm{1}k}}  \\ \vdots \\ a \end{matrix}\right]$を用いてＡＡＡと書くことができる。
+任意の $\bf{c}∈\mathbb R^{\mathit m×\rm 1}$ に対して、$\bf K_{\mathit {ij}}$を$\bf M$の要素で表現すると、$\bf z_\mathit k = \left[\begin{matrix} c_1 \bf M_{\rm{1k}}  \\ \vdots \\ c_m \bf M_{\rm{mk}} \end{matrix}\right]$ を用いて次のように書くことができる
 
-これは、ＰＤＳカーネルが積の下で閉じていることを示している。
+$$
+\begin{aligned}
+\sum^{m}_{i,j = i}c_ic_j(\bf K_{\mathit {ij}}K'_{\mathit {ij}})
+&= \sum^{m}_{i,j = i}c_ic_j\left( \left[\sum^m_{k = 1}\bf M_{\mathit {ik}}M_{\mathit {jk}}\right]\bf K'_{\mathit {ij}}\right)\\
+&= \sum^m_{k = 1}\left[\sum^{m}_{i,j = i}c_ic_j\bf M_{\mathit {ik}}M_{\mathit {jk}}\bf K'_{\mathit {ij}}\right]\\
+&= \sum^m_{k = 1}\bf z_k^\top K'z_k \ge \rm0
 
+\end{aligned}
+$$
 
+これはPDSカーネルが積の下で閉じていることを示している
 
+$K$ と $K'$ のテンソル積は、2つのPDSカーネル $(x_1,x'_1,x_2.x'_2) \mapsto K(x_1,x_2)$ と、$(x_1,x'_1,x_2.x'_2) \mapsto K'(x'_1,x'_2)$ の積としてPDSとなる
+
+次に、$(K_n)_{n∈\mathbb N}$ を、点極限 $K$ を持つPDSカーネルの列とする
+
+$\bf K$ を $K$ に関連付けられたカーネル行列とし、$\bf K_n$ を$\forall n∈\mathbb N$ について $K_n$に関連付けられたものの1つとすると、
+
+$$
+(\forall n,\bf c^\top K_nc \ge \rm 0) \Rightarrow \lim_{n \rightarrow \infty}\bf c^\top K_nc 
+\rm= \bf c^\top K_nc \ge \rm 0
+$$
+
+これは、点極限の下での閉包を示している
+
+最後に、$\forall x,x'∈\mathcal X$ に対して、$K$ が $|K(x,x')|<\rho$ であるPDSカーネルであると仮定し、$f : x \mapsto \sum^{\infty}_{n = 0}a_nx^n, a_n ≥0$ を収束半径 (radius of convergence) $\rho$ を持つべき級数とすると、$n∈\mathbb N$について、$K^n$ と $a_nK^n$ は積の下の閉包によるPDSである
+
+$\forall N∈N$ について、$\sum^{N}_{n =0}a_nK^n$ は $a_nK^n$ らの和の下の閉包によるPDSであり、$f ◦K$はNが無限に傾くにつれて、$\sum^{N}_{n =0}a_nK^n$ の極限の下の閉包によるPDSである (Q.E.D)
+
+例：expの収束半径が無限大であるため、任意のPDSカーネル $K$ に対して $exp(K)$ はPDSであることをこの定理は暗示している
+
+## Kernel-based algorithms
 
