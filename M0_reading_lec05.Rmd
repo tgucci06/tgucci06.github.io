@@ -1,0 +1,362 @@
+---
+title: "Kernel Methods"
+author: "谷口友哉"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    toc: TRUE
+    theme: cayman
+    highlight: github
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+
+---
+
+## Motivation
+
+* 前章で扱ったSVMは高次元特徴量空間を扱う
+
+  * 汎化境界は次元数に依存せず、マージンに依存する<br>
+  　➡ 高次元特徴量にマージンの大きい超平面をとることを求めている
+  * 一方、高次元空間でドット積をとることは非常に計算コストがかかる<br>
+  　➡ **カーネルという考え方を学ぼう！！**
+  
+* $kernel methods$ は機械学習で広く用いられている
+
+  * (例) 非線形決定境界を定義するために、SVMのアルゴリズムを拡張する際に用いられる
+
+* 背後にある主な考え方は $kernels$ または $kernel functions$ に基づき、<br>
+**symmetry (対称性)** と **positive-definiteness (正定値性)**という条件のもとで<br>
+高次元空間の内積を暗黙的に定義
+
+## Introduction
+
+* 前章では、線形分類のためのアルゴリズムとしてSVMを紹介
+
+  * SVM応用上効果的であり、理論的にも正当性が高いという利点がある
+
+* 実際には線形分離できないことが多い
+
+  * (a)は任意の超平面が両方の母集団を横切る例
+  * しかし、(b)のようにより複雑な関数を使って2つの集合を分離することも可能
+  
+<div style="text-align: center">
+<img src="lec05_01.png" width="60%">
+</div>
+
+* このような非線形決定境界を定義する一つの方法は<br>
+入力空間 $\mathcal{X}$ から線形分離が可能な高次元空間 $\mathbb{H}$ への非線形写像 $\Phi$  を使用すること（下図を参照）
+
+$$
+\Phi : \mathcal{X} \rightarrow \mathbb{H}
+$$
+
+<div style="text-align: center">
+<img src="lec05_02.png" width="60%">
+</div>
+
+* 実際には、$\mathbb{H}$ の次元が非常に大きくなる可能性がある
+
+  * (例) 文書の分類の場合、3つの連続した単語 (トリグラム) のシーケンスを特徴量として使用<br>
+  　➡ わずか10万語の語彙でも、特徴空間 $\mathbb{H}$ の次元は10^15に達する
+
+* 一方で、5.4節で示されたマージン境界は、SVMのような大マージンの分類アルゴリズムの汎化能力が特徴空間の次元に依存せず、マージン $\rho$ と学習例数 $m$ だけに依存することを示している<br>
+  　➡ 好ましいマージン $\rho$ があれば<br>
+  　　このようなアルゴリズムは非常に高次元な空間でも成功する可能性がある
+
+* しかし、超平面解を求めるためには高次元空間での内積計算を複数回行う必要があり<br>
+非常にコストが高くなる可能性<br>
+  　➡ カーネルやカーネル関数を用いたカーネル法で解決しよう！！
+
+### Definition 6.1 (Kernels)
+
+関数 $K$  は $\mathbb{H}$ 上のカーネルと呼ばれる
+
+$$K \colon  \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}$$
+
+* アイデアは、任意の2点 $\forall x, x' \in \mathcal{X}$ に対して、<br>
+$K(x, x′)$ がベクトル $\Phi(x)$ と $\Phi(x')$ の内積に等しくなるようなカーネル $K$ を定義すること<br>
+(内積を入力空間のものと区別するために，一般的に内積を $<,>$ と表記する)
+
+$$
+\forall x, x' \in \mathcal{X}, K(x,x') = <\Phi(x),\Phi(x')> \tag{6.1}
+$$
+  
+特徴量空間と呼ばれるヒルベルト空間 $\mathbb{H}$ への いくつかの写像 $\Phi \colon \mathcal{X} \rightarrow \mathbb{H}$
+
+* カーネル $K$ の重要な利点① : **efficiency**
+  * 多くの場合、$\Phi$ と $\mathbb{H}$  の内積を計算することよりも有意に効率的であり、<br>
+  いくつかのケースでは、$\mathbb{H}$の次元は無限大であるため内積の計算ができないこともある
+
+* カーネル $K$ の重要な利点② :  **flexibility**
+  * 明示的に写像 $\Phi$ を定義したり、計算する必要はない
+  * カーネル $K$ は，$\Phi$ の存在が保証されている限り任意に選ぶことができる<br>
+  　➡ カーネル $K$ が Mercer’s condition (PDS condiion) を満たす
+
+### Theorem 6.2 (Mercer’s condition)
+
+$\mathcal{X} \subset \mathbb{R}^N$ をコンパクト集合とし<br>
+$K \colon \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}$ を連続で対称な関数とする<br>
+すると、 $K$ は任意の自乗可積分関数 $c \:(c \subset L_2(\mathcal{X}))$ に対して、
+$$
+\int_{\mathcal{X} \times \mathcal{X}}c(x)c(x')K(x,x')dxdx'\geq0
+$$
+
+が成り立つ場合には、$a_n > 0$について以下のように一様に収束した形の展開を認める
+
+$$
+K(x,x') = \sum^{\infty}_{n = 0}a_n \phi_n(x)\phi_n(x')
+$$
+
+* この条件は、SVMのようなアルゴリズムの最適化問題の凸性を保証し、それによって大域最小値への収束を保証するために重要である
+
+* 定理の仮定の下でマーサーの条件と同等の条件は、カーネル $K$ が正定値対称 (positive definite symmetric : PDS) であること
+
+* この性質は、特に $\mathcal{X}$ についての仮定を必要としないので、実際にはより一般的なものである
+
+## Positive definite symmetric kernels
+
+### Definition 6.3 (Positive definite symmetric kernels : 正定値対称カーネル)
+
+任意の $\{x_1,...,x_m\} ⊆\mathcal{X}$ に対して、行列 $\bf{K} \rm{= [K(x_i,x_j)]_{ij} \in \mathbb{R}^{m \times m}}$ が対称正半定値 (Symmetric Positive Semidefinite : SPSD) である場合<br>
+カーネル $K \colon  \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}$ は、正定値対称 (PDS) であると言われる
+
+$K$ が対称であり、以下の2つの等価な条件のいずれかが満たされていれば、$K$はSPSDである
+
+* $K$ の固有値が非負である
+
+* 任意の列ベクトル $c = (c_1, . . . ,c_m)^\top \in  \mathbb{R}^{m \times 1}$において以下を満たす
+
+$$
+\bf{c^\top Kc} \:\rm{=\sum^{n}_{i,j=1} c_ic_jK(x_i,x_j) \geq 0 \tag{6.2}}
+$$
+
+* 標本 $S = (x1,....,xm)$ に対して、$\bf{K} \rm{= [K(x_i,x_j)]_{ij} \in \mathbb{R}^{m \times m}}$ は、カーネル行列またはKと標本Sとの関係を表すグラム行列と呼ばれている
+
+### Example 6.4 (Polynomial kernels : 多項式カーネル)
+
+定数 $\forall c > 0$ について、次数 $d \in \mathbb{N}$の多項式カーネルは、以下の (6.3)式 によって $\mathbb{R}^N$ 上に定義されたカーネル $K$ である
+
+$$
+\forall \bf{x,x'} \rm{\in \mathbb{R}^N , K(\bf{x,x'}) \;\rm{=(\bf{x,x'} \rm{\;+ \;c})^d}} \tag{6.3}
+$$
+
+* 多項式カーネルは入力空間を次元 ${N+d \choose d}$ の高次元空間に写像する（演習6.12参照）
+
+  * (例) 次元 $N = 2$ の入力空間に対して、2 次の多項式 (d = 2) は，次元 6 の次の内積に対応する
+
+$$
+\forall \bf{x,x'} \rm{\in \mathbb{R}^2 , K(\bf{x,x'}) \rm{\;=\;(x_1x_1' + x_2x_2'+\;c})^2 =\left[\begin{array}{ccc} 
+x_1^2  \\
+x_2^2  \\
+\sqrt{2}\:x_1x_2 \\
+\sqrt{2c}\:x_1 \\
+\sqrt{2c}\:x_2 \\
+c
+\end{array} 
+\right] 
+\cdot
+\left[\begin{array}{ccc} 
+x_1'^2  \\
+x_2'^2  \\
+\sqrt{2}\:x_1'x_2' \\
+\sqrt{2c}\:x_1' \\
+\sqrt{2c}\:x_2' \\
+c
+\end{array} 
+\right]
+} \tag{6.4}
+$$  
+
+
+* このように、2次多項式に対応する特徴量は<br>
+  元の特徴量（$x_1$ と $x_2$）、これらの特徴量の積、および定数特徴量である
+
+* より一般的には、次数 $d$ の多項式カーネルに対応する特徴は、元の特徴に基づいたせいぜい次数 $d$ のすべての単項式である
+
+* (6.4)のように多項式カーネルを内積として明示的に表現することで、それらがPDSカーネルであることが直接証明される
+
+### Example (Figure 6.3)
+
+多項式カーネルの応用を説明するために、図6.3aの例を考えてみる<br>
+これは2次元の単純なデータ集合で、線形に分離できないものを示している<br>
+排他的論理和（XOR）関数の観点から解釈すると、XOR問題として知られている：点のラベルは、その座標のうちの1つが正確に1であれば青色である
+しかし、これらの点を(6.4)で述べたように2次多項式で定義された6次元空間に写すと、問題は式 $x_1x_2 = 0$ の超平面で分離可能になる<br>
+図6.3bは、これらの点を3番目と4番目の座標で定義された2次元空間に投影したもの
+
+<div style="text-align: center">
+<img src="lec05_03.png" width="60%">
+</div>
+
+    図6.3 : XOR分類問題と多項式カーネルの使用の説明
+    (a) 入力空間で線形的に分離不可能なXOR問題 (b) 2次多項式カーネルを用いて線形に分離可能
+
+### Example 6.5 (Gaussian kernels)
+
+任意の定数 $\sigma >0$ について、ガウシアンカーネルまたは放射基底関数 (RBF) は、$\mathbb{R}^N$ 上で以下の(6.5)式のように定義されたカーネル $K$ である
+
+$$
+\forall \bf{x,x'} \rm{\in \mathbb{R}^N , K(\bf{x,x'}) \;\rm{=exp\left( \frac{||(\bf{x'-x}||\rm{^2}}{2\sigma^2} \right) }} \tag{6.5}
+$$
+
+ガウシアンカーネルルは、応用で最も頻繁に使用されるカーネルの一つ
+
+6.2.3節で、カーネル $K′：(\bf{x,x′}$$)\rightarrow exp\left( \frac{\bf{x'\cdot x}}{\sigma^2} \right)$ で正規化することにより、ガウシアンカーネルがPDSカーネルであると導出できることを証明する
+
+### Example 6.6 (Sigmoid kernels)
+
+任意の実数 $a, b ≥ 0$ について、シグモイドカーネルは、$\mathbb{R}^N$ 上で以下の(6.6)式のように定義されたカーネル $K$ である
+
+$$
+\forall \bf{x,x'} \rm{\in \mathbb{R}^N , K(\bf{x,x'}) \;\rm{=tanh\left(a(\bf{x'-x}\rm)+b \right) }} \tag{6.6}
+$$
+
+SVMでシグモイドカーネルを使用することは、シグモイド関数を介して定義されることが多い単純なニューラルネットワークに基づく学習アルゴリズムと密接に関連したアルゴリズムを導く
+
+$a < 0$ または $b < 0$ の場合、カーネルはPDSではなく、対応するニューラルネットワークは凸最適化の収束保証の恩恵を受けない(演習6.18参照)
+
+### 6.2.2 Reproducing kernel Hilbert space
+
+ここではPDSカーネルの重要な性質である、ヒルベルト空間の内積を誘導することを証明する
+この証明には以下の補題を利用する 
+
+### Lemma 6.7 (Cauchy-Schwarz inequality for PDS kernels)
+
+$K$ をPDSカーネルとする。すると，任意の $x,x′\in \mathcal{X}$ において以下の(6.7)式が成り立つ
+
+$$
+K(x,x')^2 \leq K(x,x)K(x',x') \tag{6.7}
+$$
+
+**Proof**<br>
+行列 $\bf{K} = \left(
+    \begin{array}{ccc}
+      K(x,x) & K(x,x') \\
+      K(x',x) & K(x',x')  \\
+    \end{array}
+  \right)$ を考えてみる
+
+定義により、$K$ がPDSであれば、$\bf K$ はすべての $x, x′∈X$ に対してSPSDである
+
+特に$\bf K$ の固有値の積 $det(\bf K\rm)$ は非負でなければならない
+したがって、$K(x′, x) = K(x, x′)$ を用いて証明を締めくくる以下の等式が得られる
+
+$$
+det(\bf K\rm) = K(x,x)K(x',x')\ - K(x,x')^2 \geq 0
+$$
+
+### Theorem 6.8 (Reproducing kernel Hilbert space (RKHS) )
+
+$K : \mathcal{X} × \mathcal{X} → \mathbb{R}$ を PDS カーネルとすると、ヒルベルト空間 $\mathbb{H}$  (定義A.2参照) と$\mathcal{X}$ から $\mathbb{H}$ への写像 $Φ$ が存在し、そのような写像 $Φ$ は以下の(6.8)式を満たす
+
+$$
+\forall x,x' \in \mathcal{X},\: K(x,x') = \langle \Phi \rm(\mathit x),\Phi \rm(\mathit x') \rangle \tag{6.8}
+$$
+
+さらに、$\mathbb{H}$ はreproducing property (再生性) と呼ばれる以下の性質を持つ
+
+$$
+\forall h\in\mathbb{H},\;\forall x \in \mathcal{X},\:h(x) = \langle h,K(x,\cdot)\rangle \tag{6.9}
+$$
+
+$\mathbb{H}$ は $K$ に関連付けられた再生カーネルヒルベルト空間(Reproducing Kernel Hilbert Space : RKHS)と呼ばれる
+
+**Proof**<br>
+
+任意の $x ∈\mathcal X$ について、以下を満たすような $Φ(x) : \mathcal X \rightarrow \mathbb{R}^\mathcal{X}$ を定義する
+
+$$
+\forall x,x' \in \mathcal{X},\:  \Phi \rm(\mathit x)\Phi \rm(\mathit x') = \mathit{K \rm(\mathit{x,x'})}
+$$
+
+このような関数 $Φ(x)$ の有限線形結合の集合として $\mathbb H_0$を定義する
+
+$$
+\mathbb H_0 = \left\{\sum_{i \in I}a_i\Phi(x_i): a_i \in \mathbb{R},x_i \in \mathcal{X},|I|<\infty \right\}
+$$
+
+ここで $f = \sum_{i \in I}a_i\Phi(x_i),g = \sum_{j \in J}b_j\Phi(x'_j)$ とする全ての $\forall f,g \in \mathbb H_0$ において、以下のように定義される $\mathbb H_0 \times \mathbb H_0$ 上の 演算 $\langle -,-\rangle$ を導入する
+
+$$
+\langle f,g \rangle = \sum_{i \in I,j \in J}a_ib_jK(x_i,x'_j) = \sum_{j \in J}b_jf(x'_i) = \sum_{i \in I}a_ig(x_i)
+$$
+
+定義により、$\langle -,-\rangle$は対称である。最後の2つの式 $\left(\sum_{j \in J}b_jf(x'_i) = \sum_{i \in I}a_ig(x_i)\right)$ は、$\langle f,g \rangle$ が $f$ と $g$ の特定の表現に依存しないことを示し、$\langle -,-\rangle$ が双線形 (bilinear) であることも示している
+
+さらに、$K$ はPDSなので、$\forall f = \sum_{i \in I}a_ig(x_i)∈\mathbb H_0$ において、
+
+$$
+\langle f,f \rangle = \sum_{i,j \in I}a_ia_jK(x_i,x_j) \geq 0
+$$
+
+したがって、$\langle -,-\rangle$ は正の半正定値双線形である。この不等式は、$\langle -,-\rangle$ の双線形性を用いて、$f_1,...,f_m$ と $c_1,...,c_m∈\mathbb R$において、以下の不等式が成り立つことをより一般的に暗示している
+
+$$
+\sum^{m}_{i,j = 1}c_i,c_j\langle f_i,f_j\rangle = \left\langle \sum^{m}_{i = 1}c_if_i,\sum^{m}_{j = 1}c_jf_j \right\rangle \geq 0
+$$
+
+したがって、$\langle -,-\rangle$ は $\mathbb H_0$ 上のPDSカーネルである
+よって、任意の $f∈\mathbb H_0$ と任意の $x∈\mathcal X$ について、補題6.7により以下のように書くことができる
+
+$$
+\left\langle f,\Phi(x) \right\rangle \leq \left\langle f,f \right\rangle \left\langle \Phi(x),\Phi(x) \right\rangle
+$$
+
+さらに、$\langle -,-\rangle$ の再現性を観察する<br>
+$\forall f = \sum_{i \in I}a_ig(x_i)∈\mathbb H_0$ において、$\langle -,-\rangle$ の定義より、
+
+$$
+\forall x \in \mathcal X, \; f(x) = \sum_{i \in I}a_iK(x_i,x) = \left\langle f,\Phi(x) \right\rangle \tag{6.10}
+$$
+
+したがって、$\forall x ∈ \mathcal X,\:\left[f(x)\right]2 ≤ \langle f,f\rangle K(x,x)$ は、$\langle -,-\rangle$ の定値性を示す
+
+このことは、$\langle -,-\rangle$ が $\mathbb H_0$ 上に内積を定義していることを意味し、それによって $\mathbb H_0$ は前ヒルベルト空間となる
+
+$\mathbb H_0$ は標準的な構成に従って、密なヒルベルト空間 $\mathbb H$ を形成するために完備 () でありうる
+
+また、Cauchy-Schwarzの不等式により、任意の $x ∈\mathcal X$ に対して、$f → \langle f,Φ(x)\rangle$はリプシッツであり、したがって連続である
+
+よって、$\mathbb H_0$ が$\mathbb H$ の中で密なので、再現性 (6.10) も$\mathbb H$ 上で保持される (Q.E.D)
+
+### Note
+
+* PDSカーネルKに対して定理の証明で定義されたヒルベルト空間 $\mathbb H$は、$K$ に関連付けられた再生カーネルヒルベルト空間 (Reproducing Kernel Hilbert Space : RKHS) と呼ばれる
+
+* $\forall x,x'∈\mathcal X$ に対して $K(x,x')$ を持つ $Φ:\mathcal X \rightarrow \mathbb H$ が存在するような任意のヒルベルト空間 $\mathbb H$は、$K$ に関連付けられた特徴空間 (feature space)と呼ばれ、$Φ$ は特徴写像 (feature mapping) と呼ばれる
+
+* $K$ に関連付けられた特徴空間は一般的に一意ではなく、異なる次元を持つことがあることに注意
+
+  * 実際には、$K$ に関連付けられた特徴空間の次元を参照するとき、明示的に記述された特徴写像に基づく特徴空間の次元を参照するか、K に関連付けられた RKHS の次元を参照する
+
+* 定理6.8はPDS カーネルを用いて特徴空間または特徴ベクトルを暗黙的に定義することができることを示唆している
+
+* 前章で述べたように、学習の成功において特徴量が果たす役割は非常に重要である
+
+* 貧弱な特徴量では、目標ラベルとの関連性がなく、学習は非常に困難になるか不可能になる可能性がある
+
+* 対照的に、優れた特徴はアルゴリズムに非常に貴重な手がかりを与える可能性がある
+
+* したがって、PDSカーネルを用いた学習と固定入力空間の場合、有用な特徴を求めるという問題は、有用なPDSカーネルを見つけるという問題に置き換わる
+
+  * 標準的な学習問題では特徴がタスクに関するユーザの事前知識を表すのに対し、ここではPDSカーネルがこの役割を果たす<br>
+  →タスクに対する適切なPDSカーネルの選択が非常に重要になる
+  
+### 6.2.3 Properties
+
+* PDS カーネルのいくつかの重要な特性を紹介
+
+  * まず、PDS カーネルが正規化できること、そして、正規化されたカーネルも PDS であることを示す
+
+  * そして、PDS カーネルのいくつかの重要な閉塞特性を証明する。
+これは，より単純なものから複雑な PDS カーネルを構築するために用いることができる．
+
+任意のカーネルKに対して、AAAで定義された正規化カーネルK′を関連付けることができる。
+
+定義により，正規化カーネルK′に対して，K (x, x) != 0となるようなすべてのx ∈Xに対して，K′(x, x) = 1.
+
+正規化カーネルの例は、パラメータσ＞０のガウスカーネルであり、これは、Ｋ′に関連付けられた正規化カーネルである：(x,x′)→exp(x-x′)
+
+### Lemma 6.9 (Normalized PDS kernels)
