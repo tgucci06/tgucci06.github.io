@@ -121,6 +121,7 @@ code span.ot { color: #007020; }
 <li><a href="#note">Note</a></li>
 <li><a href="#properties">6.2.3 Properties</a></li>
 <li><a href="#lemma-6.9-normalized-pds-kernels">Lemma 6.9 (Normalized PDS kernels)</a></li>
+<li><a href="#theorem-6.10-pds-kernels-closure-properties">Theorem 6.10 (PDS kernels — closure properties)</a></li>
 </ul></li>
 </ul>
 </div>
@@ -182,7 +183,7 @@ code span.ot { color: #007020; }
 <li>アイデアは、任意の2点 <span class="math inline">\(\forall x, x&#39; \in \mathcal{X}\)</span> に対して、<br> <span class="math inline">\(K(x, x′)\)</span> がベクトル <span class="math inline">\(\Phi(x)\)</span> と <span class="math inline">\(\Phi(x&#39;)\)</span> の内積に等しくなるようなカーネル <span class="math inline">\(K\)</span> を定義すること<br> (内積を入力空間のものと区別するために，一般的に内積を <span class="math inline">\(&lt;,&gt;\)</span> と表記する)</li>
 </ul>
 <p><span class="math display">\[
-\forall x, x&#39; \in \mathcal{X}, K(x,x&#39;) = &lt;\Phi(x),\Phi(x&#39;)&gt; \tag{6.1}
+\forall x, x&#39; \in \mathcal{X}, K(x,x&#39;) = \left\langle \Phi(x),\Phi(x&#39;)\right\rangle \tag{6.1}
 \]</span></p>
 <p>特徴量空間と呼ばれるヒルベルト空間 <span class="math inline">\(\mathbb{H}\)</span> への いくつかの写像 <span class="math inline">\(\Phi \colon \mathcal{X} \rightarrow \mathbb{H}\)</span></p>
 <ul>
@@ -285,7 +286,7 @@ c
 <p><span class="math display">\[
 \forall \bf{x,x&#39;} \rm{\in \mathbb{R}^N , K(\bf{x,x&#39;}) \;\rm{=exp\left( \frac{||(\bf{x&#39;-x}||\rm{^2}}{2\sigma^2} \right) }} \tag{6.5}
 \]</span></p>
-<p>ガウシアンカーネルルは、応用で最も頻繁に使用されるカーネルの一つ</p>
+<p>ガウシアンカーネルは、応用で最も頻繁に使用されるカーネルの一つ</p>
 <p>6.2.3節で、カーネル <span class="math inline">\(K′：(\bf{x,x′}\)</span><span class="math inline">\()\rightarrow exp\left( \frac{\bf{x&#39;\cdot x}}{\sigma^2} \right)\)</span> で正規化することにより、ガウシアンカーネルがPDSカーネルであると導出できることを証明する</p>
 </div>
 <div id="example-6.6-sigmoid-kernels" class="section level3">
@@ -358,14 +359,14 @@ det(\bf K\rm) = K(x,x)K(x&#39;,x&#39;)\ - K(x,x&#39;)^2 \geq 0
 <p>したがって、<span class="math inline">\(\forall x ∈ \mathcal X,\:\left[f(x)\right]2 ≤ \langle f,f\rangle K(x,x)\)</span> は、<span class="math inline">\(\langle -,-\rangle\)</span> の定値性を示す</p>
 <p>このことは、<span class="math inline">\(\langle -,-\rangle\)</span> が <span class="math inline">\(\mathbb H_0\)</span> 上に内積を定義していることを意味し、それによって <span class="math inline">\(\mathbb H_0\)</span> は前ヒルベルト空間となる</p>
 <p><span class="math inline">\(\mathbb H_0\)</span> は標準的な構成に従って、密なヒルベルト空間 <span class="math inline">\(\mathbb H\)</span> を形成するために完備 () でありうる</p>
-<p>また、Cauchy-Schwarzの不等式により、任意の <span class="math inline">\(x ∈\mathcal X\)</span> に対して、<span class="math inline">\(f → \langle f,Φ(x)\rangle\)</span>はリプシッツであり、したがって連続である</p>
+<p>また、Cauchy-Schwarzの不等式により、任意の <span class="math inline">\(x ∈\mathcal X\)</span> に対して、<span class="math inline">\(f \mapsto \langle f,Φ(x)\rangle\)</span>はリプシッツであり、したがって連続である</p>
 <p>よって、<span class="math inline">\(\mathbb H_0\)</span> が<span class="math inline">\(\mathbb H\)</span> の中で密なので、再現性 (6.10) も<span class="math inline">\(\mathbb H\)</span> 上で保持される (Q.E.D)</p>
 </div>
 <div id="note" class="section level3">
 <h3>Note</h3>
 <ul>
 <li><p>PDSカーネルKに対して定理の証明で定義されたヒルベルト空間 <span class="math inline">\(\mathbb H\)</span>は、<span class="math inline">\(K\)</span> に関連付けられた再生カーネルヒルベルト空間 (Reproducing Kernel Hilbert Space : RKHS) と呼ばれる</p></li>
-<li><p><span class="math inline">\(\forall x,x&#39;∈\mathcal X\)</span> に対して <span class="math inline">\(K(x,x&#39;)\)</span> を持つ <span class="math inline">\(Φ:\mathcal X \rightarrow \mathbb H\)</span> が存在するような任意のヒルベルト空間 <span class="math inline">\(\mathbb H\)</span>は、<span class="math inline">\(K\)</span> に関連付けられた特徴空間 (feature space)と呼ばれ、<span class="math inline">\(Φ\)</span> は特徴写像 (feature mapping) と呼ばれる</p></li>
+<li><p><span class="math inline">\(\forall x,x&#39;∈\mathcal X\)</span> に対して <span class="math inline">\(K(x,x&#39;)\)</span> を持つ <span class="math inline">\(Φ:\mathcal X \rightarrow \mathbb H\)</span> が存在するような任意のヒルベルト空間 <span class="math inline">\(\mathbb H\)</span>は、<span class="math inline">\(K\)</span> に関連付けられた<strong>特徴空間</strong> (feature space)と呼ばれ、<span class="math inline">\(Φ\)</span> は<strong>特徴写像</strong> (feature mapping) と呼ばれる</p></li>
 <li><p><span class="math inline">\(K\)</span> に関連付けられた特徴空間は一般的に一意ではなく、異なる次元を持つことがあることに注意</p>
 <ul>
 <li>実際には、<span class="math inline">\(K\)</span> に関連付けられた特徴空間の次元を参照するとき、明示的に記述された特徴写像に基づく特徴空間の次元を参照するか、K に関連付けられた RKHS の次元を参照する</li>
@@ -389,12 +390,49 @@ det(\bf K\rm) = K(x,x)K(x&#39;,x&#39;)\ - K(x,x&#39;)^2 \geq 0
 <li><p>そして、PDS カーネルのいくつかの重要な閉塞特性を証明する。 これは，より単純なものから複雑な PDS カーネルを構築するために用いることができる．</p></li>
 </ul></li>
 </ul>
-<p>任意のカーネルKに対して、AAAで定義された正規化カーネルK′を関連付けることができる。</p>
-<p>定義により，正規化カーネルK′に対して，K (x, x) != 0となるようなすべてのx ∈Xに対して，K′(x, x) = 1.</p>
-<p>正規化カーネルの例は、パラメータσ＞０のガウスカーネルであり、これは、Ｋ′に関連付けられた正規化カーネルである：(x,x′)→exp(x-x′)</p>
+<p>任意のカーネル <span class="math inline">\(K\)</span> に対して、以下の(6.11)式で定義された正規化カーネル (normalized kernel) <span class="math inline">\(K&#39;\)</span>を関連付けることができる</p>
+<p><span class="math display">\[
+\forall x,x&#39; \in \mathcal X, \; K&#39;(x,x&#39;) = 
+\begin{cases}
+    0 &amp; \left( K(x,x) = 0 \right) \cup \left( K(x&#39;,x&#39;) = 0 \right)\\
+    \frac{K(x,x&#39;)}{\sqrt{K(x,x)K(x&#39;,x&#39;)}} &amp; (otherwise)
+  \end{cases}
+\tag{6.11}
+\]</span></p>
+<p>正規化カーネル <span class="math inline">\(K′\)</span> の定義より、<span class="math inline">\(K(x, x) ≠ 0\)</span> となるような<span class="math inline">\(\forall x ∈\mathcal X\)</span> について、<span class="math inline">\(K&#39;(x, x) = 1\)</span> となる</p>
+<p>正規化カーネルの例は、パラメータ <span class="math inline">\(σ &gt; 0\)</span> のガウシアンカーネルであり、これは、<span class="math inline">\(K&#39;：(\bf{x,x&#39;}\rm) \mapsto\mathit {exp\left(\frac{\bf x \cdot x&#39;}{\sigma^2}\right)}\)</span> に関連付けられた正規化カーネルである</p>
 </div>
 <div id="lemma-6.9-normalized-pds-kernels" class="section level3">
 <h3>Lemma 6.9 (Normalized PDS kernels)</h3>
+<p>KをPDSカーネルとすると、<span class="math inline">\(K\)</span> に関連付けられた正規化カーネル <span class="math inline">\(K&#39;\)</span> はPDSである</p>
+<p><strong>Proof</strong><br> <span class="math inline">\({x_1,\ldots,x_m} ⊆ \mathcal X\)</span> とし、<span class="math inline">\(c\)</span> を <span class="math inline">\(\mathbb R^m\)</span> の任意のベクトルとする</p>
+<p>和 <span class="math inline">\(\sum^{m}_{i,j = 1}c_ic_jK&#39;(x_i,x_j)\)</span> が非負であることを示す</p>
+<p>補題6.7より、<span class="math inline">\(K(x_i, x_i) = 0\)</span> であれば <span class="math inline">\(K(x_i,x_j) = 0\)</span> であるので、したがって、<span class="math inline">\(\forall j ∈[1,m]\)</span> について <span class="math inline">\(K&#39;(x_i,x_j) = 0\)</span> である</p>
+<p>したがって、<span class="math inline">\(i∈[1,m]\)</span> に対して <span class="math inline">\(K(x_i,x_i)&gt;0\)</span> と考えることができる</p>
+<p>すると、和は次のように書きかえることができる<br> ここで <span class="math inline">\(Φ\)</span> は定理6.8によって <span class="math inline">\(K\)</span> に関連付けられた特徴写像であり、<span class="math inline">\(\|\cdot\|_{\mathbb H}\)</span> を特徴空間 <span class="math inline">\(\mathbb H\)</span> の内積によって誘導されるノルムである (例：<span class="math inline">\(\forall w \in \mathbb H,\;\|\bf w\|_{\mathbb H} = \sqrt{\langle \bf w,w \rangle}\)</span>)</p>
+<p><span class="math display">\[
+\sum^{m}_{i,j = 1}\frac{c_ic_jK(x_i,x_j)}{\sqrt{K(x_i,x_i)K(x_j,x_j)}}
+=\sum^{m}_{i,j = 1}\frac{c_ic_j \left\langle\Phi(x_i),\Phi(x_j)\right\rangle}{||\Phi(x_i)||_{\mathbb H}||\Phi(x_j)||_{\mathbb H}}
+= \left\|\sum^{m}_{i}\frac{c_i\Phi(x_i)}{\|\Phi(x_i)\|_{\mathbb H}}\right\|^2 \geq 0
+\]</span></p>
+<p>したがって正規化カーネル <span class="math inline">\(K&#39;\)</span> はPDSであることが示された (Q.E.D)</p>
+</div>
+<div id="theorem-6.10-pds-kernels-closure-properties" class="section level3">
+<h3>Theorem 6.10 (PDS kernels — closure properties)</h3>
+<p>PDS カーネルは、和、積、テンソル積、点極限(?)、およびすべての <span class="math inline">\(n∈\mathbb N\)</span> に対して <span class="math inline">\(a_n≧0\)</span> のべき級数 <span class="math inline">\(\sum^{\infty}_{n = 0}a_nx^n\)</span> との合成の下で閉じている</p>
+<p><strong>Proof</strong><br></p>
+<p>任意の <span class="math inline">\(m\)</span> 点の集合に対するPDSカーネル <span class="math inline">\(K\)</span> と <span class="math inline">\(K&#39;\)</span> から生成された2つのカーネル行列 <span class="math inline">\(\bf K\)</span> と<span class="math inline">\(\bf K&#39;\)</span>から始める</p>
+<p>前提として、これらのカーネル行列はSPSDである</p>
+<p>任意の <span class="math inline">\(\bf{c} \mathit{∈\mathbb R^{m×1}}\)</span> に対して、以下のようになることを観察する</p>
+<p><span class="math display">\[
+(\bf{c^\top Kc}\ge \rm{0}) \cap (\bf{c^\top K&#39;c}\ge \rm{0})\Rightarrow \bf{c^\top (K+K&#39;)c}\ge \rm{0}
+\]</span></p>
+<p>(6.2)式より、これは <span class="math inline">\(K + K&#39;\)</span> が SPSD であり、したがって <span class="math inline">\(K + K&#39;\)</span> が PDS であることを示す</p>
+<p>積の下での閉包を示すために、任意のSPSD行列 <span class="math inline">\(\bf K\)</span> に対して、<span class="math inline">\(\bf K = MM^\top\)</span>となるような <span class="math inline">\(\bf M\)</span> が存在するという事実を用いる</p>
+<p><span class="math inline">\(\bf M\)</span> の存在は例えば、<span class="math inline">\(K\)</span> の特異値分解やコレスキー分解によって生成できるため、保証されている</p>
+<p><span class="math inline">\(KK&#39;\)</span> に関連するカーネル行列は <span class="math inline">\((\bf K_{\mathit {ij}}K&#39;_{\mathit {ij}})_{\mathit {ij}}\)</span> である</p>
+<p>任意の <span class="math inline">\(\bf{c}∈\mathbb R^{\mathit m×\rm 1}\)</span> に対して、<span class="math inline">\(\bf K_{\mathit {ij}}\)</span>を<span class="math inline">\(\bf M\)</span>の要素で表現すると、<span class="math inline">\(\bf z_\mathit k = \left[\begin{matrix} c_1 \bf M_{\mathit \rm{1}k}} \\ \vdots \\ a \end{matrix}\right]\)</span>を用いてＡＡＡと書くことができる。</p>
+<p>これは、ＰＤＳカーネルが積の下で閉じていることを示している。</p>
 </div>
 </div>
 </section>

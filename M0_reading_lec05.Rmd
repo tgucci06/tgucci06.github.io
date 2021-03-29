@@ -81,7 +81,7 @@ $K(x, x′)$ がベクトル $\Phi(x)$ と $\Phi(x')$ の内積に等しくな�
 (内積を入力空間のものと区別するために，一般的に内積を $<,>$ と表記する)
 
 $$
-\forall x, x' \in \mathcal{X}, K(x,x') = <\Phi(x),\Phi(x')> \tag{6.1}
+\forall x, x' \in \mathcal{X}, K(x,x') = \left\langle \Phi(x),\Phi(x')\right\rangle \tag{6.1}
 $$
   
 特徴量空間と呼ばれるヒルベルト空間 $\mathbb{H}$ への いくつかの写像 $\Phi \colon \mathcal{X} \rightarrow \mathbb{H}$
@@ -201,7 +201,7 @@ $$
 \forall \bf{x,x'} \rm{\in \mathbb{R}^N , K(\bf{x,x'}) \;\rm{=exp\left( \frac{||(\bf{x'-x}||\rm{^2}}{2\sigma^2} \right) }} \tag{6.5}
 $$
 
-ガウシアンカーネルルは、応用で最も頻繁に使用されるカーネルの一つ
+ガウシアンカーネルは、応用で最も頻繁に使用されるカーネルの一つ
 
 6.2.3節で、カーネル $K′：(\bf{x,x′}$$)\rightarrow exp\left( \frac{\bf{x'\cdot x}}{\sigma^2} \right)$ で正規化することにより、ガウシアンカーネルがPDSカーネルであると導出できることを証明する
 
@@ -317,7 +317,7 @@ $$
 
 $\mathbb H_0$ は標準的な構成に従って、密なヒルベルト空間 $\mathbb H$ を形成するために完備 () でありうる
 
-また、Cauchy-Schwarzの不等式により、任意の $x ∈\mathcal X$ に対して、$f → \langle f,Φ(x)\rangle$はリプシッツであり、したがって連続である
+また、Cauchy-Schwarzの不等式により、任意の $x ∈\mathcal X$ に対して、$f \mapsto \langle f,Φ(x)\rangle$はリプシッツであり、したがって連続である
 
 よって、$\mathbb H_0$ が$\mathbb H$ の中で密なので、再現性 (6.10) も$\mathbb H$ 上で保持される (Q.E.D)
 
@@ -325,7 +325,7 @@ $\mathbb H_0$ は標準的な構成に従って、密なヒルベルト空間 $\
 
 * PDSカーネルKに対して定理の証明で定義されたヒルベルト空間 $\mathbb H$は、$K$ に関連付けられた再生カーネルヒルベルト空間 (Reproducing Kernel Hilbert Space : RKHS) と呼ばれる
 
-* $\forall x,x'∈\mathcal X$ に対して $K(x,x')$ を持つ $Φ:\mathcal X \rightarrow \mathbb H$ が存在するような任意のヒルベルト空間 $\mathbb H$は、$K$ に関連付けられた特徴空間 (feature space)と呼ばれ、$Φ$ は特徴写像 (feature mapping) と呼ばれる
+* $\forall x,x'∈\mathcal X$ に対して $K(x,x')$ を持つ $Φ:\mathcal X \rightarrow \mathbb H$ が存在するような任意のヒルベルト空間 $\mathbb H$は、$K$ に関連付けられた**特徴空間** (feature space)と呼ばれ、$Φ$ は**特徴写像** (feature mapping) と呼ばれる
 
 * $K$ に関連付けられた特徴空間は一般的に一意ではなく、異なる次元を持つことがあることに注意
 
@@ -353,10 +353,73 @@ $\mathbb H_0$ は標準的な構成に従って、密なヒルベルト空間 $\
   * そして、PDS カーネルのいくつかの重要な閉塞特性を証明する。
 これは，より単純なものから複雑な PDS カーネルを構築するために用いることができる．
 
-任意のカーネルKに対して、AAAで定義された正規化カーネルK′を関連付けることができる。
+任意のカーネル $K$ に対して、以下の(6.11)式で定義された正規化カーネル (normalized kernel) $K'$を関連付けることができる
 
-定義により，正規化カーネルK′に対して，K (x, x) != 0となるようなすべてのx ∈Xに対して，K′(x, x) = 1.
+$$
+\forall x,x' \in \mathcal X, \; K'(x,x') = 
+\begin{cases}
+    0 & \left( K(x,x) = 0 \right) \cup \left( K(x',x') = 0 \right)\\
+    \frac{K(x,x')}{\sqrt{K(x,x)K(x',x')}} & (otherwise)
+  \end{cases}
+\tag{6.11}
+$$
 
-正規化カーネルの例は、パラメータσ＞０のガウスカーネルであり、これは、Ｋ′に関連付けられた正規化カーネルである：(x,x′)→exp(x-x′)
+正規化カーネル $K′$ の定義より、$K(x, x) ≠ 0$ となるような$\forall x ∈\mathcal X$ について、$K'(x, x) = 1$ となる
+
+正規化カーネルの例は、パラメータ $σ > 0$ のガウシアンカーネルであり、これは、$K'：(\bf{x,x'}\rm) \mapsto\mathit {exp\left(\frac{\bf x \cdot x'}{\sigma^2}\right)}$ に関連付けられた正規化カーネルである
 
 ### Lemma 6.9 (Normalized PDS kernels)
+
+KをPDSカーネルとすると、$K$ に関連付けられた正規化カーネル $K'$ はPDSである
+
+**Proof**<br>
+${x_1,\ldots,x_m} ⊆ \mathcal X$ とし、$c$ を $\mathbb R^m$ の任意のベクトルとする
+
+和 $\sum^{m}_{i,j = 1}c_ic_jK'(x_i,x_j)$ が非負であることを示す
+
+補題6.7より、$K(x_i, x_i) = 0$ であれば $K(x_i,x_j) = 0$ であるので、したがって、$\forall j ∈[1,m]$ について $K'(x_i,x_j) = 0$ である
+
+したがって、$i∈[1,m]$ に対して $K(x_i,x_i)>0$ と考えることができる
+
+すると、和は次のように書きかえることができる<br>
+ここで $Φ$ は定理6.8によって $K$ に関連付けられた特徴写像であり、$\|\cdot\|_{\mathbb H}$ を特徴空間 $\mathbb H$ の内積によって誘導されるノルムである (例：$\forall w \in \mathbb H,\;\|\bf w\|_{\mathbb H} = \sqrt{\langle \bf w,w \rangle}$)
+
+$$
+\sum^{m}_{i,j = 1}\frac{c_ic_jK(x_i,x_j)}{\sqrt{K(x_i,x_i)K(x_j,x_j)}}
+=\sum^{m}_{i,j = 1}\frac{c_ic_j \left\langle\Phi(x_i),\Phi(x_j)\right\rangle}{||\Phi(x_i)||_{\mathbb H}||\Phi(x_j)||_{\mathbb H}}
+= \left\|\sum^{m}_{i}\frac{c_i\Phi(x_i)}{\|\Phi(x_i)\|_{\mathbb H}}\right\|^2 \geq 0
+$$
+
+したがって正規化カーネル $K'$ はPDSであることが示された (Q.E.D)
+
+### Theorem 6.10 (PDS kernels — closure properties)
+
+PDS カーネルは、和、積、テンソル積、点極限(?)、およびすべての $n∈\mathbb N$ に対して $a_n≧0$ のべき級数 $\sum^{\infty}_{n = 0}a_nx^n$ との合成の下で閉じている
+
+**Proof**<br>
+
+任意の $m$ 点の集合に対するPDSカーネル $K$ と $K'$ から生成された2つのカーネル行列 $\bf K$ と$\bf K'$から始める
+
+前提として、これらのカーネル行列はSPSDである
+
+任意の $\bf{c} \mathit{∈\mathbb R^{m×1}}$ に対して、以下のようになることを観察する
+
+$$
+(\bf{c^\top Kc}\ge \rm{0}) \cap (\bf{c^\top K'c}\ge \rm{0})\Rightarrow \bf{c^\top (K+K')c}\ge \rm{0}
+$$
+
+(6.2)式より、これは $K + K'$ が SPSD であり、したがって $K + K'$ が PDS であることを示す
+
+積の下での閉包を示すために、任意のSPSD行列 $\bf K$ に対して、$\bf K = MM^\top$となるような $\bf M$ が存在するという事実を用いる
+
+$\bf M$ の存在は例えば、$K$ の特異値分解やコレスキー分解によって生成できるため、保証されている
+
+$KK'$ に関連するカーネル行列は $(\bf K_{\mathit {ij}}K'_{\mathit {ij}})_{\mathit {ij}}$ である
+
+任意の $\bf{c}∈\mathbb R^{\mathit m×\rm 1}$ に対して、$\bf K_{\mathit {ij}}$を$\bf M$の要素で表現すると、$\bf z_\mathit k = \left[\begin{matrix} c_1 \bf M_{\mathit \rm{1}k}}  \\ \vdots \\ a \end{matrix}\right]$を用いてＡＡＡと書くことができる。
+
+これは、ＰＤＳカーネルが積の下で閉じていることを示している。
+
+
+
+
