@@ -84,7 +84,7 @@ $$
 \forall x, x' \in \mathcal{X}, \;K(x,x') = \left\langle \Phi(x),\Phi(x')\right\rangle \tag{6.1}
 $$
   
-特徴量空間と呼ばれるヒルベルト空間 $\mathbb{H}$ への いくつかの写像 $\Phi \colon \mathcal{X} \rightarrow \mathbb{H}$
+特徴量空間と呼ばれるヒルベルト空間 $\mathbb{H}$ への いくつかの写像 $\Phi \colon \mathcal{X} \rightarrow \mathbb{H}$ (内積から定義されるノルムに関して完備性を満たす内積空間をヒルベルト空間という。(青本p172) 完備性とは、任意のコーシー列が極限を持つ性質のことをいう (青本p170))
 
 * カーネル $K$ の重要な利点① : **efficiency**
   * 多くの場合、$\Phi$ と $\mathbb{H}$  の内積を計算することよりも有意に効率的であり、<br>
