@@ -72,7 +72,7 @@ $$
 
 ### Definition 6.1 (Kernels)
 
-関数 $K$  は $\mathbb{H}$ 上のカーネルと呼ばれる
+関数 $K$  は $\mathcal X$ 上のカーネルと呼ばれる
 
 $$K \colon  \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}$$
 
