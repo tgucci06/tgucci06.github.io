@@ -297,25 +297,25 @@ $$
 \sum^{m}_{i,j = 1}c_i,c_j\langle f_i,f_j\rangle = \left\langle \sum^{m}_{i = 1}c_if_i,\sum^{m}_{j = 1}c_jf_j \right\rangle \geq 0
 $$
 
-したがって、$\langle -,-\rangle$ は $\mathbb H_0$ 上のPDSカーネルである
+したがって、$\langle -,-\rangle$ は $\mathbb H_0$ 上のPDSカーネルである<br>
 よって、任意の $f∈\mathbb H_0$ と任意の $x∈\mathcal X$ について、補題6.7により以下のように書くことができる
 
 $$
 \left\langle f,\Phi(x) \right\rangle \leq \left\langle f,f \right\rangle \left\langle \Phi(x),\Phi(x) \right\rangle
 $$
 
-さらに、$\langle -,-\rangle$ の再現性を観察する<br>
+さらに、$\langle -,-\rangle$ の再生性を観察する<br>
 $\forall f = \sum_{i \in I}a_ig(x_i)∈\mathbb H_0$ において、$\langle -,-\rangle$ の定義より、
 
 $$
 \forall x \in \mathcal X, \; f(x) = \sum_{i \in I}a_iK(x_i,x) = \left\langle f,\Phi(x) \right\rangle \tag{6.10}
 $$
 
-したがって、$\forall x ∈ \mathcal X,\:\left[f(x)\right]2 ≤ \langle f,f\rangle K(x,x)$ は、$\langle -,-\rangle$ の定値性を示す
+したがって、$\forall x ∈ \mathcal X,\:\left[f(x)\right]^2 ≤ \langle f,f\rangle K(x,x)$ は、$\langle -,-\rangle$ の定値性を示す
 
 このことは、$\langle -,-\rangle$ が $\mathbb H_0$ 上に内積を定義していることを意味し、それによって $\mathbb H_0$ は前ヒルベルト空間となる
 
-$\mathbb H_0$ は標準的な構成に従って、密なヒルベルト空間 $\mathbb H$ を形成するために完備 () でありうる
+$\mathbb H_0$ は標準的な構成に従って、稠密 (dence) なヒルベルト空間 $\mathbb H$ を形成するために完備化されうる
 
 また、Cauchy-Schwarzの不等式により、任意の $x ∈\mathcal X$ に対して、$f \mapsto \langle f,Φ(x)\rangle$はリプシッツであり、したがって連続である
 
