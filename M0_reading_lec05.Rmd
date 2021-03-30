@@ -120,7 +120,7 @@ $$
 
 ### Definition 6.3 (Positive definite symmetric kernels : 正定値対称カーネル)
 
-任意の $\{x_1,...,x_m\} ⊆\mathcal{X}$ に対して、行列 $\bf{K} \rm{= [K(x_i,x_j)]_{ij} \in \mathbb{R}^{m \times m}}$ が対称正半定値 (Symmetric Positive Semidefinite : SPSD) である場合<br>
+任意の $\{x_1,...,x_m\} ⊆\mathcal{X}$ に対して、行列 $\bf{K} \rm{= [K(x_i,x_j)]_{ij} \in \mathbb{R}^{m \times m}}$ が対称半正定値 (Symmetric Positive Semidefinite : SPSD) である場合<br>
 カーネル $K \colon  \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}$ は、正定値対称 (PDS) であると言われる
 
 $K$ が対称であり、以下の2つの等価な条件のいずれかが満たされていれば、$K$はSPSDである
@@ -195,7 +195,7 @@ $$
 
 ### Example 6.5 (Gaussian kernels)
 
-任意の定数 $\sigma >0$ について、ガウシアンカーネルまたは放射基底関数 (RBF) は、$\mathbb{R}^N$ 上で以下の(6.5)式のように定義されたカーネル $K$ である
+任意の定数 $\sigma >0$ について、ガウシアンカーネルまたは動径基底関数 (RBF) は、$\mathbb{R}^N$ 上で以下の(6.5)式のように定義されたカーネル $K$ である
 
 $$
 \forall \bf{x,x'} \rm{\in \mathbb{R}^N , K(\bf{x,x'}) \;\rm{=exp\left(- \frac{||\bf{x'-x}||\rm{^2}}{2\sigma^2} \right) }} \tag{6.5}
@@ -261,7 +261,7 @@ $$
 \forall h\in\mathbb{H},\;\forall x \in \mathcal{X},\:h(x) = \langle h,K(x,\cdot)\rangle \tag{6.9}
 $$
 
-$\mathbb{H}$ は $K$ に関連付けられた再生カーネルヒルベルト空間(Reproducing Kernel Hilbert Space : RKHS)と呼ばれる
+$\mathbb{H}$ は $K$ に関連付けられた再生核カーネルヒルベルト空間(Reproducing Kernel Hilbert Space : RKHS)と呼ばれる
 
 **Proof**<br>
 
@@ -315,15 +315,15 @@ $$
 
 このことは、$\langle -,-\rangle$ が $\mathbb H_0$ 上に内積を定義していることを意味し、それによって $\mathbb H_0$ は前ヒルベルト空間となる
 
-$\mathbb H_0$ は標準的な構成に従って、稠密 (dence) なヒルベルト空間 $\mathbb H$ を形成するために完備化されうる
+$\mathbb H_0$ は標準的な構成に従って、稠密 (ちゅうみつ) なヒルベルト空間 $\mathbb H$ を形成するために完備化されうる
 
 また、Cauchy-Schwarzの不等式により、任意の $x ∈\mathcal X$ に対して、$f \mapsto \langle f,Φ(x)\rangle$はリプシッツであり、したがって連続である
 
-よって、$\mathbb H_0$ が$\mathbb H$ の中で密なので、再現性 (6.10) も$\mathbb H$ 上で保持される (Q.E.D)
+よって、$\mathbb H_0$ が$\mathbb H$ の中で稠密なので、再生性 (6.10) も$\mathbb H$ 上で保持される (Q.E.D)
 
 ### Note
 
-* PDSカーネルKに対して定理の証明で定義されたヒルベルト空間 $\mathbb H$は、$K$ に関連付けられた再生カーネルヒルベルト空間 (Reproducing Kernel Hilbert Space : RKHS) と呼ばれる
+* PDSカーネルKに対して定理の証明で定義されたヒルベルト空間 $\mathbb H$は、$K$ に関連付けられた再生核カーネルヒルベルト空間 (Reproducing Kernel Hilbert Space : RKHS) と呼ばれる
 
 * $\forall x,x'∈\mathcal X$ に対して $K(x,x')$ を持つ $Φ:\mathcal X \rightarrow \mathbb H$ が存在するような任意のヒルベルト空間 $\mathbb H$は、$K$ に関連付けられた**特徴空間** (feature space)と呼ばれ、$Φ$ は**特徴写像** (feature mapping) と呼ばれる
 
@@ -449,4 +449,96 @@ $\forall N∈N$ について、$\sum^{N}_{n =0}a_nK^n$ は $a_nK^n$ らの和の
 例：expの収束半径が無限大であるため、任意のPDSカーネル $K$ に対して $exp(K)$ はPDSであることをこの定理は暗示している
 
 ## Kernel-based algorithms
+
+SVMがどのようにカーネルと一緒に使用できるかを議論し、カーネルが汎化に与える影響を分析する
+
+### SVMs with PDS kernels
+
+* 第5章では、SVMの双対最適化問題や解の形式が入力ベクトルに直接依存せず、内積のみに依存することを議論した
+
+* PDS カーネルは暗黙的に内積を定義する（定理 6.8）ので、SVM を拡張し、内積 $x \cdot x'$ の各インスタンスを $K(x,x')$ に置き換えることで、任意の PDS カーネル $K$ とSVMを組み合わせることができる
+
+* これは、PDSカーネルを用いて(5.33)式を拡張したSVM最適化問題と解の以下の一般的形 (general form) につながる
+
+$$
+\max_{\bf \alpha}\sum^{m}_{i = 1}\alpha_i-\frac{1}{2}\sum^{m}_{i,j = 1}\alpha_i\alpha_jy_iy_jK(x_i,x_j)\\
+\rm{subject \;to \;}0\mathit{\le\alpha_i\le C \cap \sum^{m}_{i = 1}\alpha_iy_i }= 0,\mathit{i} \in [1,m]
+\tag{6.13}
+$$
+
+* (5.34)式を考慮すると、仮説hの解は $0 < α_i < C$ の $\forall x_i$について、$b = y_i - \sum^{m}_{j = 1}α_jy_jK(x_j,x_i)$とおくと、以下の(6.14)式のように書くことができる
+
+$$
+h(x) = sgn\left(\sum^m_{i = 1}\alpha_iy_iK(x_i,x)+b\right)\tag{6.14}
+$$
+
+### 6.3.2 Representer theorem
+
+オフセット $b$ のモジュロ (剰余演算,
+mod) では、SVMの仮説解は、関数 $K(x_i,\cdot)$ の線形結合として書けることに注目する<br>
+ここで $x_i$ はサンプル点である
+
+Representer定理として知られる次の定理は、これが実際にはオフセットのないSVMを含む幅広いクラスの最適化問題に適用される一般的な性質であることを示している
+
+### Theorem 6.11 (Representer theorem)
+
+$K : \mathcal X × \mathcal X → \mathbb R$ を PDS カーネル、$\mathbb H$ を対応する RKHS とすると、非減少関数 $G：\mathbb R → \mathbb R$ と損失関数 $L：\mathbb R^m → \mathbb R ∪{+∞}$ の場合、以下の最適化問題は $h^∗ = \sum^m_{i = 1}α_iK(x_i,\cdot)$ の形式の解を得ることができる
+
+$$
+\newcommand{\argmin}{\mathop{\rm arg~min}\limits}
+\argmin_{h \in \mathbb H} F(h) = \argmin_{h \in \mathbb H} G(\|h\|_{\mathbb H}) + L\left(h(x_1),\dots,h(x_m)\right)
+$$
+
+$G$ がさらに増加すると仮定すると、任意の解はこの形式を持つ。
+
+**証明**<br>
+$\mathbb H_1 = span({K(x_i,\cdot): i ∈[1,m]})$ とする ($\mathbb H_1$ は $K(x_i,\cdot)$ が張る空間を指す)
+
+任意の $h ∈ \mathbb H$ は、$\mathbb H=\mathbb H_1⊕\mathbb H_1^\bot$ に従って、$h=h_1+h^\bot$ の分解を認める。ここで、$⊕$ は直和 (direct sum)である
+
+$G$ は非減少 (non-decreasing)なので、$G\left(\|h_1\|_{\mathbb H}\right) \le G\left(\sqrt{\|h_1\|_{\mathbb H}^2+\|h\bot\|_{\mathbb H}^2}\right) = G(\|h\|_{\mathbb H})$ となる
+
+再生性により、$\forall i ∈ [1,m]$ に対して、$h(x_i) = \langle h, K(x_i, \cdot)\rangle = \langle h_1, K(x_i, \cdot)\rangle = h_1(x_i)$ となる
+
+したがって、$L\left(h(x_1), ... , h(x_m)\right) = L\left(h_1(x_1), . , h_1(x_m)\right)$ となり、$F(h_1) ≤ F(h)$ となる
+
+これにより、定理の最初の部分が証明される
+
+Gがさらに増加する場合、$\|h\bot \|_{\mathbb H} >0$ のとき、$F (h_1 ) < F (h)$ となり、最適化問題の解はすべて $\mathbb H_1$でなければならない (Q.E.D)
+
+### 6.3.3 Learning guarantees
+
+ここでは、PDS カーネルに基づいた仮説集合に対する汎化学習保証を提示する
+
+次の定理6.12は、ノルムが制限されたカーネルベースの仮説の経験ラデマッハ複雑度に一般的な境界を与える<br>
+これはある $Λ≧0$ において、$\mathcal H = \left\{h \in \mathbb H:\|h\|_{\mathbb H}\le\Lambda\right\}$ の形式の仮説集合である
+ここで、$\mathbb H$ はカーネル $K$ に関連付けられた RKHS である
+
+再生性により、任意の $h∈\mathcal H$ は、$x \mapsto \langle h, K(x, \cdot)\rangle = \langle h, Φ(x)\rangle$ の形式で、$\|h\|_{\mathbb H} ≤ Λ$ をもつ
+ここで、$Φ$は、$K$ に関連付けられた特徴写像であり、それは、$x\mapsto \langle \bf{w},\rm Φ(\mathit x)\rangle$ の形式で、$\|\bf w\|_{\mathbb H} ≤ Λ$ をもつ
+
+
+### Theorem 6.12 (Rademacher complexity of kernel-based hypotheses)
+
+$K : \mathcal X × \mathcal X → \mathbb R$ を PDS カーネルとし、$Φ:\mathcal X → \mathbb H$ を $K$ に関連付けられた特徴写像とする
+
+$S ⊆ \left\{x:K(x,x)≤r^2\right\}$ を大きさ $m$ の標本とし、ある $Λ≧0$ において $\mathcal H = \left\{x \mapsto \langle \bf{w},\rm Φ(\mathit x)\rangle:\;\|\bf w\|_{\mathbb H} ≤Λ\right\}$ とすると、
+
+$$
+\hat{\mathfrak R}_S(\mathcal H) \le\frac{\Lambda\sqrt{\mathrm{Tr}[\bf K]}}{m}\le\sqrt{\frac{r^2\Lambda^2}{m}}\tag{6.16}
+$$
+
+**Proof**<br>
+
+<div style="text-align: center">
+<img src="lec05_04.jpg" width="100%">
+</div>
+
+
+この定理は、カーネル行列のトレースがカーネルに基づく仮説集合の複雑さを制御するための重要な量であることを示している
+
+
+
+
+
 
