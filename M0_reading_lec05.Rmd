@@ -81,7 +81,7 @@ $K(x, x′)$ がベクトル $\Phi(x)$ と $\Phi(x')$ の内積に等しくな�
 (内積を入力空間のものと区別するために，一般的に内積を $<,>$ と表記する)
 
 $$
-\forall x, x' \in \mathcal{X}, K(x,x') = \left\langle \Phi(x),\Phi(x')\right\rangle \tag{6.1}
+\forall x, x' \in \mathcal{X}, \;K(x,x') = \left\langle \Phi(x),\Phi(x')\right\rangle \tag{6.1}
 $$
   
 特徴量空間と呼ばれるヒルベルト空間 $\mathbb{H}$ への いくつかの写像 $\Phi \colon \mathcal{X} \rightarrow \mathbb{H}$
