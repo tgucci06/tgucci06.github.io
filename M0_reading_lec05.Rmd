@@ -27,7 +27,7 @@ vignette: >
 
   * (例) 非線形決定境界を定義するために、SVMのアルゴリズムを拡張する際に用いられる
 
-* 背後にある主な考え方は $kernels$ または $kernel functions$ に基づき、<br>
+* 背後にある主な考え方は $kernels$ または $kernel\;functions$ に基づき、<br>
 **symmetry (対称性)** と **positive-definiteness (正定値性)**という条件のもとで<br>
 高次元空間の内積を暗黙的に定義
 
