@@ -285,7 +285,7 @@ c
 <h3>Example 6.5 (Gaussian kernels)</h3>
 <p>任意の定数 <span class="math inline">\(\sigma &gt;0\)</span> について、ガウシアンカーネルまたは放射基底関数 (RBF) は、<span class="math inline">\(\mathbb{R}^N\)</span> 上で以下の(6.5)式のように定義されたカーネル <span class="math inline">\(K\)</span> である</p>
 <p><span class="math display">\[
-\forall \bf{x,x&#39;} \rm{\in \mathbb{R}^N , K(\bf{x,x&#39;}) \;\rm{=exp\left( \frac{||(\bf{x&#39;-x}||\rm{^2}}{2\sigma^2} \right) }} \tag{6.5}
+\forall \bf{x,x&#39;} \rm{\in \mathbb{R}^N , K(\bf{x,x&#39;}) \;\rm{=exp\left(- \frac{||\bf{x&#39;-x}||\rm{^2}}{2\sigma^2} \right) }} \tag{6.5}
 \]</span></p>
 <p>ガウシアンカーネルは、応用で最も頻繁に使用されるカーネルの一つ</p>
 <p>6.2.3節で、カーネル <span class="math inline">\(K′：(\bf{x,x′}\)</span><span class="math inline">\()\rightarrow exp\left( \frac{\bf{x&#39;\cdot x}}{\sigma^2} \right)\)</span> で正規化することにより、ガウシアンカーネルがPDSカーネルであると導出できることを証明する</p>

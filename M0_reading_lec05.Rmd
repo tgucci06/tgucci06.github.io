@@ -198,7 +198,7 @@ $$
 任意の定数 $\sigma >0$ について、ガウシアンカーネルまたは放射基底関数 (RBF) は、$\mathbb{R}^N$ 上で以下の(6.5)式のように定義されたカーネル $K$ である
 
 $$
-\forall \bf{x,x'} \rm{\in \mathbb{R}^N , K(\bf{x,x'}) \;\rm{=exp\left( \frac{||(\bf{x'-x}||\rm{^2}}{2\sigma^2} \right) }} \tag{6.5}
+\forall \bf{x,x'} \rm{\in \mathbb{R}^N , K(\bf{x,x'}) \;\rm{=exp\left(- \frac{||\bf{x'-x}||\rm{^2}}{2\sigma^2} \right) }} \tag{6.5}
 $$
 
 ガウシアンカーネルは、応用で最も頻繁に使用されるカーネルの一つ
