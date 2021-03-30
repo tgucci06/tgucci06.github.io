@@ -77,14 +77,14 @@ $$
 $$K \colon  \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}$$
 
 * アイデアは、任意の2点 $\forall x, x' \in \mathcal{X}$ に対して、<br>
-$K(x, x′)$ がベクトル $\Phi(x)$ と $\Phi(x')$ の内積に等しくなるようなカーネル $K$ を定義すること<br>
+$K(x, x′)$ が特徴量空間と呼ばれるヒルベルト空間 $\mathbb{H}$ への いくつかの写像 $\Phi \colon \mathcal{X} \rightarrow \mathbb{H}$について、ベクトル $\Phi(x)$ と $\Phi(x')$ の内積に等しくなるようなカーネル $K$ を定義すること<br>
 (内積を入力空間のものと区別するために，一般的に内積を $\langle\cdot,\cdot\rangle$ と表記する)
 
 $$
 \forall x, x' \in \mathcal{X}, \;K(x,x') = \left\langle \Phi(x),\Phi(x')\right\rangle \tag{6.1}
 $$
   
-特徴量空間と呼ばれるヒルベルト空間 $\mathbb{H}$ への いくつかの写像 $\Phi \colon \mathcal{X} \rightarrow \mathbb{H}$ (内積から定義されるノルムに関して完備性を満たす内積空間をヒルベルト空間という。(青本p172) 完備性とは、任意のコーシー列が極限を持つ性質のことをいう (青本p170))
+ (内積から定義されるノルムに関して完備性を満たす内積空間をヒルベルト空間という。(青本p172) 完備性とは、任意のコーシー列が極限を持つ性質のことをいう (青本p170))
 
 * カーネル $K$ の重要な利点① : **efficiency**
   * 多くの場合、$\Phi$ と $\mathbb{H}$  の内積を計算することよりも有意に効率的であり、<br>
