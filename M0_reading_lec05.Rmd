@@ -23,7 +23,7 @@ vignette: >
   * 一方、高次元空間でドット積をとることは非常に計算コストがかかる<br>
   　➡ **カーネルという考え方を学ぼう！！**
   
-* $kernel methods$ は機械学習で広く用いられている
+* $kernel\;methods$ は機械学習で広く用いられている
 
   * (例) 非線形決定境界を定義するために、SVMのアルゴリズムを拡張する際に用いられる
 
@@ -424,7 +424,6 @@ $$
 &= \sum^{m}_{i,j = i}c_ic_j\left( \left[\sum^m_{k = 1}\bf M_{\mathit {ik}}M_{\mathit {jk}}\right]\bf K'_{\mathit {ij}}\right)\\
 &= \sum^m_{k = 1}\left[\sum^{m}_{i,j = i}c_ic_j\bf M_{\mathit {ik}}M_{\mathit {jk}}\bf K'_{\mathit {ij}}\right]\\
 &= \sum^m_{k = 1}\bf z_k^\top K'z_k \ge \rm0
-
 \end{aligned}
 $$
 

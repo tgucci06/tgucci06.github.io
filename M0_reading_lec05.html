@@ -136,7 +136,7 @@ code span.ot { color: #007020; }
 <li>汎化境界は次元数に依存せず、マージンに依存する<br> 　➡ 高次元特徴量にマージンの大きい超平面をとることを求めている</li>
 <li>一方、高次元空間でドット積をとることは非常に計算コストがかかる<br> 　➡ <strong>カーネルという考え方を学ぼう！！</strong></li>
 </ul></li>
-<li><p><span class="math inline">\(kernel methods\)</span> は機械学習で広く用いられている</p>
+<li><p><span class="math inline">\(kernel\;methods\)</span> は機械学習で広く用いられている</p>
 <ul>
 <li>(例) 非線形決定境界を定義するために、SVMのアルゴリズムを拡張する際に用いられる</li>
 </ul></li>
@@ -433,8 +433,14 @@ det(\bf K\rm) = K(x,x)K(x&#39;,x&#39;)\ - K(x,x&#39;)^2 \geq 0
 <p><span class="math inline">\(\bf M\)</span> の存在は例えば、<span class="math inline">\(K\)</span> の特異値分解やコレスキー分解によって生成できるため、保証されている</p>
 <p><span class="math inline">\(KK&#39;\)</span> に関連するカーネル行列は <span class="math inline">\((\bf K_{\mathit {ij}}K&#39;_{\mathit {ij}})_{\mathit {ij}}\)</span> である</p>
 <p>任意の <span class="math inline">\(\bf{c}∈\mathbb R^{\mathit m×\rm 1}\)</span> に対して、<span class="math inline">\(\bf K_{\mathit {ij}}\)</span>を<span class="math inline">\(\bf M\)</span>の要素で表現すると、<span class="math inline">\(\bf z_\mathit k = \left[\begin{matrix} c_1 \bf M_{\rm{1k}} \\ \vdots \\ c_m \bf M_{\rm{mk}} \end{matrix}\right]\)</span> を用いて次のように書くことができる</p>
-<p>$$ \begin{aligned} ^{m}<em>{i,j = i}c_ic_j(</em>{}K’<em>{}) &amp;= ^{m}</em>{i,j = i}c_ic_j( <em>{})\ &amp;= ^m</em>{k = 1}\ &amp;= ^m_{k = 1}_k^K’z_k </p>
-<p>\end{aligned} $$</p>
+<p><span class="math display">\[
+\begin{aligned}
+\sum^{m}_{i,j = i}c_ic_j(\bf K_{\mathit {ij}}K&#39;_{\mathit {ij}})
+&amp;= \sum^{m}_{i,j = i}c_ic_j\left( \left[\sum^m_{k = 1}\bf M_{\mathit {ik}}M_{\mathit {jk}}\right]\bf K&#39;_{\mathit {ij}}\right)\\
+&amp;= \sum^m_{k = 1}\left[\sum^{m}_{i,j = i}c_ic_j\bf M_{\mathit {ik}}M_{\mathit {jk}}\bf K&#39;_{\mathit {ij}}\right]\\
+&amp;= \sum^m_{k = 1}\bf z_k^\top K&#39;z_k \ge \rm0
+\end{aligned}
+\]</span></p>
 <p>これはPDSカーネルが積の下で閉じていることを示している</p>
 <p><span class="math inline">\(K\)</span> と <span class="math inline">\(K&#39;\)</span> のテンソル積は、2つのPDSカーネル <span class="math inline">\((x_1,x&#39;_1,x_2.x&#39;_2) \mapsto K(x_1,x_2)\)</span> と、<span class="math inline">\((x_1,x&#39;_1,x_2.x&#39;_2) \mapsto K&#39;(x&#39;_1,x&#39;_2)\)</span> の積としてPDSとなる</p>
 <p>次に、<span class="math inline">\((K_n)_{n∈\mathbb N}\)</span> を、点極限 <span class="math inline">\(K\)</span> を持つPDSカーネルの列とする</p>
