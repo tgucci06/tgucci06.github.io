@@ -435,7 +435,7 @@ det(\bf K\rm) = K(x,x)K(x&#39;,x&#39;)\ - K(x,x&#39;)^2 \geq 0
 (\bf{c^\top Kc}\ge \rm{0}) \cap (\bf{c^\top K&#39;c}\ge \rm{0})\Rightarrow \bf{c^\top (K+K&#39;)c}\ge \rm{0}
 \]</span></p>
 <p>(6.2)式より、これは <span class="math inline">\(K + K&#39;\)</span> が SPSD であり、したがって <span class="math inline">\(K + K&#39;\)</span> が PDS であることを示す</p>
-<p>積の下での閉包を示すために、任意のSPSD行列 <span class="math inline">\(\bf K\)</span> に対して、<span class="math inline">\(\bf K = MM^\top\)</span>となるような <span class="math inline">\(\bf M\)</span> が存在するという事実を用いる</p>
+<p>積の下での閉性を示すために、任意のSPSD行列 <span class="math inline">\(\bf K\)</span> に対して、<span class="math inline">\(\bf K = MM^\top\)</span>となるような <span class="math inline">\(\bf M\)</span> が存在するという事実を用いる</p>
 <p><span class="math inline">\(\bf M\)</span> の存在は例えば、<span class="math inline">\(K\)</span> の特異値分解やコレスキー分解によって生成できるため、保証されている</p>
 <p><span class="math inline">\(KK&#39;\)</span> に関連するカーネル行列は <span class="math inline">\((\bf K_{\mathit {ij}}K&#39;_{\mathit {ij}})_{\mathit {ij}}\)</span> である</p>
 <p>任意の <span class="math inline">\(\bf{c}∈\mathbb R^{\mathit m×\rm 1}\)</span> に対して、<span class="math inline">\(\bf K_{\mathit {ij}}\)</span>を<span class="math inline">\(\bf M\)</span>の要素で表現すると、<span class="math inline">\(\bf z_\mathit k = \left[\begin{matrix} c_1 \bf M_{\rm{1k}} \\ \vdots \\ c_m \bf M_{\rm{mk}} \end{matrix}\right]\)</span> を用いて次のように書くことができる</p>
@@ -455,7 +455,7 @@ det(\bf K\rm) = K(x,x)K(x&#39;,x&#39;)\ - K(x,x&#39;)^2 \geq 0
 (\forall n,\bf c^\top K_nc \ge \rm 0) \Rightarrow \lim_{n \rightarrow \infty}\bf c^\top K_nc 
 \rm= \bf c^\top K_nc \ge \rm 0
 \]</span></p>
-<p>これは、点極限の下での閉包を示している</p>
+<p>これは、点極限の下での閉性を示している</p>
 <p>最後に、<span class="math inline">\(\forall x,x&#39;∈\mathcal X\)</span> に対して、<span class="math inline">\(K\)</span> が <span class="math inline">\(|K(x,x&#39;)|&lt;\rho\)</span> であるPDSカーネルであると仮定し、<span class="math inline">\(f : x \mapsto \sum^{\infty}_{n = 0}a_nx^n, a_n ≥0\)</span> を収束半径 (radius of convergence) <span class="math inline">\(\rho\)</span> を持つべき級数とすると、<span class="math inline">\(n∈\mathbb N\)</span>について、<span class="math inline">\(K^n\)</span> と <span class="math inline">\(a_nK^n\)</span> は積の下の閉包によるPDSである</p>
 <p><span class="math inline">\(\forall N∈N\)</span> について、<span class="math inline">\(\sum^{N}_{n =0}a_nK^n\)</span> は <span class="math inline">\(a_nK^n\)</span> らの和の下の閉包によるPDSであり、<span class="math inline">\(f ◦K\)</span>はNが無限に傾くにつれて、<span class="math inline">\(\sum^{N}_{n =0}a_nK^n\)</span> の極限の下の閉包によるPDSである (Q.E.D)</p>
 <p>例：expの収束半径が無限大であるため、任意のPDSカーネル <span class="math inline">\(K\)</span> に対して <span class="math inline">\(exp(K)\)</span> はPDSであることをこの定理は暗示している</p>
