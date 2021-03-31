@@ -495,10 +495,10 @@ h(x) = sgn\left(\sum^m_{i = 1}\alpha_iy_iK(x_i,x)+b\right)\tag{6.14}
 \newcommand{\argmin}{\mathop{\rm arg~min}\limits}
 \argmin_{h \in \mathbb H} F(h) = \argmin_{h \in \mathbb H} G(\|h\|_{\mathbb H}) + L\left(h(x_1),\dots,h(x_m)\right)
 \]</span></p>
-<p><span class="math inline">\(G\)</span> がさらに増加すると仮定すると、任意の解はこの形式を持つ。</p>
-<p><strong>証明</strong><br> <span class="math inline">\(\mathbb H_1 = span({K(x_i,\cdot): i ∈[1,m]})\)</span> とする (<span class="math inline">\(\mathbb H_1\)</span> は <span class="math inline">\(K(x_i,\cdot)\)</span> が張る空間を指す)</p>
+<p><span class="math inline">\(G\)</span> がさらに増加すると仮定すると、任意の解はこの形式を持つ</p>
+<p><strong>Proof</strong><br> <span class="math inline">\(\mathbb H_1 = span({K(x_i,\cdot): i ∈[1,m]})\)</span> とする (<span class="math inline">\(\mathbb H_1\)</span> は <span class="math inline">\(K(x_i,\cdot)\)</span> が張る空間を指す)</p>
 <p>任意の <span class="math inline">\(h ∈ \mathbb H\)</span> は、<span class="math inline">\(\mathbb H=\mathbb H_1⊕\mathbb H_1^\bot\)</span> に従って、<span class="math inline">\(h=h_1+h^\bot\)</span> の分解を認める。ここで、<span class="math inline">\(⊕\)</span> は直和 (direct sum)である</p>
-<p><span class="math inline">\(G\)</span> は非減少 (non-decreasing)なので、<span class="math inline">\(G\left(\|h_1\|_{\mathbb H}\right) \le G\left(\sqrt{\|h_1\|_{\mathbb H}^2+\|h\bot\|_{\mathbb H}^2}\right) = G(\|h\|_{\mathbb H})\)</span> となる</p>
+<p><span class="math inline">\(G\)</span> は非減少 (non-decreasing)なので、<span class="math inline">\(G\left(\|h_1\|_{\mathbb H}\right) \le G\left(\sqrt{\|h_1\|_{\mathbb H}^2+\|h^\bot\|_{\mathbb H}^2}\right) = G(\|h\|_{\mathbb H})\)</span> となる</p>
 <p>再生性により、<span class="math inline">\(\forall i ∈ [1,m]\)</span> に対して、<span class="math inline">\(h(x_i) = \langle h, K(x_i, \cdot)\rangle = \langle h_1, K(x_i, \cdot)\rangle = h_1(x_i)\)</span> となる</p>
 <p>したがって、<span class="math inline">\(L\left(h(x_1), ... , h(x_m)\right) = L\left(h_1(x_1), . , h_1(x_m)\right)\)</span> となり、<span class="math inline">\(F(h_1) ≤ F(h)\)</span> となる</p>
 <p>これにより、定理の最初の部分が証明される</p>

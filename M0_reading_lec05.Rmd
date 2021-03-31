@@ -491,14 +491,14 @@ $$
 \argmin_{h \in \mathbb H} F(h) = \argmin_{h \in \mathbb H} G(\|h\|_{\mathbb H}) + L\left(h(x_1),\dots,h(x_m)\right)
 $$
 
-$G$ がさらに増加すると仮定すると、任意の解はこの形式を持つ。
+$G$ がさらに増加すると仮定すると、任意の解はこの形式を持つ
 
-**証明**<br>
+**Proof**<br>
 $\mathbb H_1 = span({K(x_i,\cdot): i ∈[1,m]})$ とする ($\mathbb H_1$ は $K(x_i,\cdot)$ が張る空間を指す)
 
 任意の $h ∈ \mathbb H$ は、$\mathbb H=\mathbb H_1⊕\mathbb H_1^\bot$ に従って、$h=h_1+h^\bot$ の分解を認める。ここで、$⊕$ は直和 (direct sum)である
 
-$G$ は非減少 (non-decreasing)なので、$G\left(\|h_1\|_{\mathbb H}\right) \le G\left(\sqrt{\|h_1\|_{\mathbb H}^2+\|h\bot\|_{\mathbb H}^2}\right) = G(\|h\|_{\mathbb H})$ となる
+$G$ は非減少 (non-decreasing)なので、$G\left(\|h_1\|_{\mathbb H}\right) \le G\left(\sqrt{\|h_1\|_{\mathbb H}^2+\|h^\bot\|_{\mathbb H}^2}\right) = G(\|h\|_{\mathbb H})$ となる
 
 再生性により、$\forall i ∈ [1,m]$ に対して、$h(x_i) = \langle h, K(x_i, \cdot)\rangle = \langle h_1, K(x_i, \cdot)\rangle = h_1(x_i)$ となる
 
