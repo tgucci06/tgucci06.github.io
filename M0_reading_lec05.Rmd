@@ -446,7 +446,7 @@ $$
 
 最後に、$\forall x,x'∈\mathcal X$ に対して、$K$ が $|K(x,x')|<\rho$ であるPDSカーネルであると仮定し、$f : x \mapsto \sum^{\infty}_{n = 0}a_nx^n, a_n ≥0$ を収束半径 (radius of convergence) $\rho$ を持つべき級数とすると、$n∈\mathbb N$について、$K^n$ と $a_nK^n$ は積の下の閉包によるPDSである
 
-$\forall N∈N$ について、$\sum^{N}_{n =0}a_nK^n$ は $a_nK^n$ らの和の下の閉性によるPDSであり、$f ◦K$はNが無限に傾くにつれて、$\sum^{N}_{n =0}a_nK^n$ の極限の下の閉性によるPDSである (Q.E.D)
+$\forall N∈\mathbb N$ について、$\sum^{N}_{n =0}a_nK^n$ は $a_nK^n$ らの和の下の閉性によるPDSであり、$f ◦K$はNが無限に傾くにつれて、$\sum^{N}_{n =0}a_nK^n$ の極限の下の閉性によるPDSである (Q.E.D)
 
 例：expの収束半径が無限大であるため、任意のPDSカーネル $K$ に対して $exp(K)$ はPDSであることをこの定理は暗示している
 
