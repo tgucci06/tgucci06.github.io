@@ -389,7 +389,7 @@ ${x_1,\ldots,x_m} ⊆ \mathcal X$ とし、$c$ を $\mathbb R^m$ の任意のベ
 $$
 \sum^{m}_{i,j = 1}\frac{c_ic_jK(x_i,x_j)}{\sqrt{K(x_i,x_i)K(x_j,x_j)}}
 =\sum^{m}_{i,j = 1}\frac{c_ic_j \left\langle\Phi(x_i),\Phi(x_j)\right\rangle}{||\Phi(x_i)||_{\mathbb H}||\Phi(x_j)||_{\mathbb H}}
-= \left\|\sum^{m}_{i}\frac{c_i\Phi(x_i)}{\|\Phi(x_i)\|_{\mathbb H}}\right\|^2 \geq 0
+= \left\|\sum^{m}_{i}\frac{c_i\Phi(x_i)}{\|\Phi(x_i)\|_{\mathbb H}}\right\|^2_{\mathbb H} \geq 0
 $$
 
 したがって正規化カーネル $K'$ はPDSであることが示された (Q.E.D)
