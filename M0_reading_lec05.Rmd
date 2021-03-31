@@ -323,7 +323,7 @@ $\mathbb H_0$ は標準的な構成に従って、稠密 (ちゅうみつ) な�
 
 ### Note
 
-* PDSカーネルKに対して定理の証明で定義されたヒルベルト空間 $\mathbb H$は、$K$ に関連付けられた再生核カーネルヒルベルト空間 (Reproducing Kernel Hilbert Space : RKHS) と呼ばれる
+* PDSカーネル $K$ に対して定理の証明で定義されたヒルベルト空間 $\mathbb H$は、$K$ に関連付けられた再生核カーネルヒルベルト空間 (Reproducing Kernel Hilbert Space : RKHS) と呼ばれる
 
 * $\forall x,x'∈\mathcal X$ に対して $K(x,x')$ を持つ $Φ:\mathcal X \rightarrow \mathbb H$ が存在するような任意のヒルベルト空間 $\mathbb H$は、$K$ に関連付けられた**特徴空間** (feature space)と呼ばれ、$Φ$ は**特徴写像** (feature mapping) と呼ばれる
 
