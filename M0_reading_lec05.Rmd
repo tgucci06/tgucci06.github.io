@@ -506,7 +506,7 @@ $G$ は非減少 (non-decreasing)なので、$G\left(\|h_1\|_{\mathbb H}\right) 
 
 これにより、定理の最初の部分が証明される
 
-Gがさらに増加する場合、$\|h\bot \|_{\mathbb H} >0$ のとき、$F (h_1 ) < F (h)$ となり、最適化問題の解はすべて $\mathbb H_1$でなければならない (Q.E.D)
+Gがさらに増加する場合、$\|h^\bot \|_{\mathbb H} >0$ のとき、$F (h_1 ) < F (h)$ となり、最適化問題の解はすべて $\mathbb H_1$でなければならない (Q.E.D)
 
 ### 6.3.3 Learning guarantees
 
@@ -538,6 +538,48 @@ $$
 
 
 この定理は、カーネル行列のトレースがカーネルに基づく仮説集合の複雑さを制御するための重要な量であることを示している
+
+## Negative definite symmetric kernels
+
+多くの場合、実際には考慮された学習タスクに対して自然な距離や計量 (distance or metric) が利用可能である
+
+この計量は類似度を定義するために使用できる
+
+  * (例) ガウシアン・カーネルは $\rm exp\left(-\mathit {d}^{\,2}\right)$ の形をしている<br>
+  ここで $d$ は入力ベクトル空間の計量である
+
+以下のようないくつかの自然な疑問が生じる<br>
+
+  * ヒルベルト空間のメトリックから他にどのような PDS カーネルを構築できるか？<br>
+  * $\rm exp\left(-\mathit {d}^{\,2}\right)$ がPDSであることを保証するために、$d$ はどのような技術的条件を満たすべきか？
+
+これらの疑問に対処するのに役立つ自然な数学的定義が負定値対称 (NDS) カーネルの定義である
+
+### Definition 6.14 (Negative definite symmetric (NDS) kernels )
+
+カーネル $K : \mathcal X × \mathcal X → \mathbb R$ が対称であり、$\{x_1,...,x_m\} \subseteq \mathcal X$ と  $1^\top \bf c \rm = 0$ となる $\bf{c} ∈\mathbb R^{\rm m×1}$ において以下のような場合、そのカーネルは負定値対称 (NDS) であると言われる
+
+$$
+\bf c^\top Kc \rm \le 0
+$$
+
+明らかに、$K$ がPDSならば$-K$はNDSであるが、一般的には逆は成り立たない
+
+以下にNDSカーネルの標準的な例を示す
+
+### Example 6.15 (Squared distance — NDS kernel)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
