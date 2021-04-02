@@ -319,7 +319,8 @@ $\mathbb H_0$ は標準的な構成に従って、稠密 (ちゅうみつ) な�
 
 また、Cauchy-Schwarzの不等式により、任意の $x ∈\mathcal X$ に対して、$f \mapsto \langle f,Φ(x)\rangle$はリプシッツであり、したがって連続である
 
-よって、$\mathbb H_0$ が$\mathbb H$ の中で稠密なので、再生性 (6.10) も$\mathbb H$ 上で保持される (Q.E.D)
+よって、$\mathbb H_0$ が$\mathbb H$ の中で稠密なので、再生性 (6.10) も$\mathbb H$ 上で保持される 
+(Q.E.D)
 
 ### Note
 
@@ -569,18 +570,36 @@ $$
 
 ### Example 6.15 (Squared distance — NDS kernel)
 
+$\mathbb R^N$ における二乗距離 $(x, x') \mapsto \|x'-x\|^2$ はNDSカーネルを定義する
+
+確かに $\bf c ∈ \mathbb R^{\rm m×1}$ で $\sum^m_{i = 1}c_i = 0$ とする 
+
+すると、任意の $\{x_1,...,x_m\} ⊆\mathcal X$ について、以下のように書くことができる
 
 
+$$
+\begin{aligned}
+\sum^m_{i,j = 1} c_ic_j\|\bf x_{\mathit i} -x_{\mathit j}\|^\rm 2 
+&= \sum^{\mathit m}_\mathit{i,j \rm = 1}c_ic_j\left(\bf x_{\mathit i} - x_{\mathit j}\right)\cdot\left(\bf x_{\mathit i} - x_{\mathit j}\right)\\
+&= \sum^{\mathit m}_\mathit{i,j \rm = 1}\mathit c_ic_j\left(\|\bf x_{\mathit i}\|^{\rm 2} + \|\bf x_{\mathit j}\|^{\rm 2} -\rm 2\bf x_{\mathit i} \cdot x_{\mathit j}\right)\\
+&= \sum^{\mathit m}_\mathit{i,j \rm = 1}\mathit c_ic_j \left(\|\bf x_{\mathit i}\|^{\rm 2} + \|\bf x_{\mathit j}\|^{\rm 2}\right) - 2\sum^m_{i = 1}c_i\bf x_{\mathit i}\cdot\sum^{\mathit m}_{\mathit j \rm = 1}c_\mathit j\bf x_{\mathit j}\\
+&=  \sum^{\mathit m}_\mathit{i,j \rm = 1}\mathit c_ic_j \left(\|\bf x_{\mathit i}\|^{\rm 2} + \|\bf x_{\mathit j}\|^{\rm 2}\right) - 2\left\|\sum^m_{i=1}c_i\bf x_{\mathit i}\right\|^2 \\
+&\le \sum^m_{i,j = 1}c_ic_j \left(\|\bf x_{\mathit i}\|^{\rm 2} + \|\bf x_{\mathit j}\|^{\rm 2}\right)\\
+&= \left(\sum^m_{j = 1}c_j\right)\left(\sum^m_{i = 1}c_i\|\bf x_{\mathit i}\|^2\right) + \left(\sum^m_{i = 1}c_i\right)\left(\sum^m_{j = 1}c_j\|\bf x_{\mathit j}\|^2\right)\\
+&= 0
 
+\end{aligned}
+$$
 
+次の定理はNDS カーネルと PDS カーネルの関係を示す
 
+これらの結果はPDSカーネルを設計するための別の一連のツールを提供する
 
+### Theorem 6.16
 
+$K'$ を $\forall x_0$ について $\forall x,x' \in \mathcal X,\;K'(x, x') = K(x, x_0) + K(x', x_0) - K(x, x') - K(x_0, x_0)$ によって定義されるとすると、$K'$ がPDSであれば、$K$ はNDSである
 
-
-
-
-
+**Proof**
 
 
 

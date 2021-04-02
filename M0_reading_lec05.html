@@ -13,7 +13,7 @@
 
 <meta name="author" content="谷口友哉" />
 
-<meta name="date" content="2021-04-02" />
+<meta name="date" content="2021-04-03" />
 
 <title>Kernel Methods</title>
 
@@ -98,7 +98,7 @@ code span.ot { color: #007020; }
 <section class="page-header">
 <h1 class="title toc-ignore project-name">Kernel Methods</h1>
 <h4 class="author project-author">谷口友哉</h4>
-<h4 class="date project-date">2021-04-02</h4>
+<h4 class="date project-date">2021-04-03</h4>
 </section>
 
 
@@ -133,6 +133,7 @@ code span.ot { color: #007020; }
 <li><a href="#negative-definite-symmetric-kernels">Negative definite symmetric kernels</a><ul>
 <li><a href="#definition-6.14-negative-definite-symmetric-nds-kernels">Definition 6.14 (Negative definite symmetric (NDS) kernels )</a></li>
 <li><a href="#example-6.15-squared-distance-nds-kernel">Example 6.15 (Squared distance — NDS kernel)</a></li>
+<li><a href="#theorem-6.16">Theorem 6.16</a></li>
 </ul></li>
 </ul>
 </div>
@@ -552,6 +553,18 @@ h(x) = sgn\left(\sum^m_{i = 1}\alpha_iy_iK(x_i,x)+b\right)\tag{6.14}
 </div>
 <div id="example-6.15-squared-distance-nds-kernel" class="section level3">
 <h3>Example 6.15 (Squared distance — NDS kernel)</h3>
+<p><span class="math inline">\(\mathbb R^N\)</span> における二乗距離 <span class="math inline">\((x, x&#39;) \mapsto \|x&#39;-x\|^2\)</span> はNDSカーネルを定義する</p>
+<p>確かに <span class="math inline">\(\bf c ∈ \mathbb R^{\rm m×1}\)</span> で <span class="math inline">\(\sum^m_{i = 1}c_i = 0\)</span> とする</p>
+<p>すると、任意の <span class="math inline">\(\{x_1,...,x_m\} ⊆\mathcal X\)</span> について、以下のように書くことができる</p>
+<p>$$ \begin{aligned} ^m_{i,j = 1} c_ic_j|<em>{i} -x</em>{j}|^<em>c_ic_j(</em>{i} - x_{j})(<em>{i} - x</em>{j})\ &amp;= <sup>{m}<em>c_ic_j(|</em>{i}|</sup>{} + |<em>{j}|^{} -</em>{i} x_{j})\ &amp;= <sup>{m}<em>c_ic_j (|</em>{i}|</sup>{} + |<em>{j}|^{}) - 2^m</em>{i = 1}c_i<em>{i}<sup>{m}<em>{j }c</em>j<em>{j}\ &amp;= <sup>{m}<em>c_ic_j (|</em>{i}|</sup>{} + |</em>{j}|</sup>{}) - 2|^m</em>{i=1}c_i<em>{i}|^2 \ &amp;^m</em>{i,j = 1}c_ic_j (|<em>{i}|^{} + |</em>{j}|^{})\ &amp;= (^m_{j = 1}c_j)(^m_{i = 1}c_i|<em>{i}|^2) + (^m</em>{i = 1}c_i)(^m_{j = 1}c_j|_{j}|^2)\ &amp;= 0</p>
+<p>\end{aligned} $$</p>
+<p>次の定理はNDS カーネルと PDS カーネルの関係を示す</p>
+<p>これらの結果はPDSカーネルを設計するための別の一連のツールを提供する</p>
+</div>
+<div id="theorem-6.16" class="section level3">
+<h3>Theorem 6.16</h3>
+<p><span class="math inline">\(K&#39;\)</span> を <span class="math inline">\(\forall x_0\)</span> について <span class="math inline">\(\forall x,x&#39; \in \mathcal X,\;K&#39;(x, x&#39;) = K(x, x_0) + K(x&#39;, x_0) - K(x, x&#39;) - K(x_0, x_0)\)</span> によって定義されるとすると、<span class="math inline">\(K&#39;\)</span> がPDSであれば、<span class="math inline">\(K\)</span> はNDSである</p>
+<p><strong>Proof</strong></p>
 </div>
 </div>
 </section>
