@@ -13,7 +13,7 @@
 
 <meta name="author" content="谷口友哉" />
 
-<meta name="date" content="2021-04-03" />
+<meta name="date" content="2021-04-06" />
 
 <title>Kernel Methods</title>
 
@@ -98,7 +98,7 @@ code span.ot { color: #007020; }
 <section class="page-header">
 <h1 class="title toc-ignore project-name">Kernel Methods</h1>
 <h4 class="author project-author">谷口友哉</h4>
-<h4 class="date project-date">2021-04-03</h4>
+<h4 class="date project-date">2021-04-06</h4>
 </section>
 
 
@@ -134,7 +134,9 @@ code span.ot { color: #007020; }
 <li><a href="#definition-6.14-negative-definite-symmetric-nds-kernels">Definition 6.14 (Negative definite symmetric (NDS) kernels )</a></li>
 <li><a href="#example-6.15-squared-distance-nds-kernel">Example 6.15 (Squared distance — NDS kernel)</a></li>
 <li><a href="#theorem-6.16">Theorem 6.16</a></li>
+<li><a href="#theorem-6.18">Theorem 6.18</a></li>
 </ul></li>
+<li><a href="#sequence-kernels">Sequence kernels</a></li>
 </ul>
 </div>
 
@@ -565,7 +567,49 @@ h(x) = sgn\left(\sum^m_{i = 1}\alpha_iy_iK(x_i,x)+b\right)\tag{6.14}
 <h3>Theorem 6.16</h3>
 <p><span class="math inline">\(K&#39;\)</span> を <span class="math inline">\(\forall x_0\)</span> について <span class="math inline">\(\forall x,x&#39; \in \mathcal X,\;K&#39;(x, x&#39;) = K(x, x_0) + K(x&#39;, x_0) - K(x, x&#39;) - K(x_0, x_0)\)</span> によって定義されるとすると、<span class="math inline">\(K&#39;\)</span> がPDSであれば、<span class="math inline">\(K\)</span> はNDSである</p>
 <p><strong>Proof</strong></p>
+<p><span class="math inline">\(K&#39;\)</span> がPDSであるとし、<span class="math inline">\(\forall x_0\)</span> について、<span class="math inline">\(K(x, x&#39;) = K(x, x_0)+K(x_0, x&#39;)-K(x_0, x_0)-K&#39;(x, x&#39;)\)</span> を持つような <span class="math inline">\(K\)</span> を定義する</p>
+<p>そして、<span class="math inline">\(\bf c^\top1 \rm= 0\)</span> となるような <span class="math inline">\(\forall \bf c\in\mathbb R^{\mathit m}\)</span> と、任意の点の集合 <span class="math inline">\((x_1,...,x_m)∈\mathcal X^m\)</span> において、以下のように <span class="math inline">\(K\)</span> がNDSであることを証明する</p>
+<p><span class="math display">\[
+\begin{aligned}
+\sum^m_{i,j = 1}c_ic_jK(x_i,x_j) 
+&amp;= \left(\sum^m_{i = 1}c_iK(x_i,x_0)\right)\left(\sum^m_{j = 1}c_j\right) + \left(\sum^m_{i = 1}c_i\right)\left(\sum^m_{j = 1}c_jK(x_0,x_j)\right) - \left(\sum^m_{i = 1}c_i\right)^2K(x_0,x_0) - \sum^m_{i,j = 1}c_ic_jK&#39;(x_i,x_i)\\
+&amp;= -\sum^m_{i,j = 1}c_ic_jK&#39;(x_i,x_j)\\
+&amp;\le 0
+\end{aligned}
+\]</span></p>
+<p>ここで<span class="math inline">\(K\)</span> がNDSであると仮定し、<span class="math inline">\(\forall x_0\)</span> について <span class="math inline">\(K′\)</span> を定義する</p>
+<p>そして、<span class="math inline">\(c_0 = -\bf c^\top1\)</span> となるような <span class="math inline">\(\forall \bf c\in\mathbb R^{\mathit m}\)</span> と、先に定義した <span class="math inline">\(x_0\)</span> と同様に任意の点 <span class="math inline">\((x_1,...,x_m)∈\mathcal X^m\)</span> において次のようにNDSの性質を保持する： <span class="math inline">\(\sum^m_{i,j=0} c_ic_j K(x_i,x_j) ≤ 0\)</span></p>
+<p>これは、以下を意味する</p>
+<p><span class="math display">\[
+\begin{aligned}
+\sum^m_{i,j = 0}c_ic_jK(x_i,x_j) 
+&amp;= \left(\sum^m_{i = 0}c_iK(x_i,x_0)\right)\left(\sum^m_{j = 0}c_j\right) + \left(\sum^m_{i = 0}c_i\right)\left(\sum^m_{j = 0}c_jK(x_0,x_j)\right) - \left(\sum^m_{i = 0}c_i\right)^2 K(x_0,x_0) - \sum^m_{i,j = 0}c_ic_jK&#39;(x_i,x_i)\\
+&amp;= -\sum^m_{i,j = 0}c_ic_jK&#39;(x_i,x_j)\\
+&amp;\le 0
+\end{aligned}
+\]</span></p>
+<p>この式は、<span class="math inline">\(2 \sum^m_{i,j = 1}c_ic_j K&#39;(x_i, x_j) ≥ -2c_0 \sum^m_{i = 0}c_iK&#39;(x_i, x_0) + c^2_0K&#39;(x_0, x_0) = 0\)</span> を意味する</p>
+<p><span class="math inline">\(∀x∈\mathcal X, K&#39;(x, x_0) = 0\)</span>なので、この等式は成立する (証明終了)</p>
 </div>
+<div id="theorem-6.18" class="section level3">
+<h3>Theorem 6.18</h3>
+<p>定理6.18</p>
+<p><span class="math inline">\(K: \mathcal X × \mathcal X → \mathbb R\)</span> を、 <span class="math inline">\(\forall x,x′ ∈\mathcal X\)</span> において、<span class="math inline">\(x = x&#39;\)</span> ならば、<span class="math inline">\(K(x,x&#39;) = 0\)</span> となるようなNDSカーネルとする</p>
+<p>すると、<span class="math inline">\(x,x&#39; ∈ \mathcal X\)</span> において、以下のようなヒルベルト空間 <span class="math inline">\(\mathbb H\)</span> と写像 <span class="math inline">\(Φ:\mathcal X→ \mathbb H\)</span> が存在する</p>
+<p><span class="math display">\[
+K(x,x&#39;) = \|\Phi(x) - \Phi(x&#39;)\|^2
+\]</span></p>
+<p>したがって、定理の仮説の下では、<span class="math inline">\(\sqrt{K}\)</span> はメトリックを定義する</p>
+<p>この定理は、<span class="math inline">\(\mathbb R\)</span> のカーネル <span class="math inline">\((x,x&#39;) \mapsto \exp(-|x - x&#39;|^p)\)</span> が <span class="math inline">\(p &gt; 2\)</span> に対してPDSではないことを示すために用いることができる</p>
+<p>そうでなければ、<span class="math inline">\(\forall t &gt; 0, \{x_1,...,x_m\} ⊆\mathcal X, \bf c ∈ \mathbb R^{\mathit m×\rm 1}\)</span> に対して、次のようになる</p>
+<p><span class="math display">\[
+\sum^{m}_{i,j = 1}c_ic_je^{-t|x_i-x_j|^p} = \sum^{m}_{i,j = 1}c_ic_je^{-|t^{1/p}x_i-t^{1/p}x_j|^p} \ge 0
+\]</span></p>
+<p>これは、<span class="math inline">\((x, x&#39;) \mapsto |x - x&#39;|^p\)</span> が <span class="math inline">\(p &gt; 2\)</span> に対して NDS であることを意味する</p>
+</div>
+</div>
+<div id="sequence-kernels" class="section level2">
+<h2>Sequence kernels</h2>
 </div>
 </section>
 
