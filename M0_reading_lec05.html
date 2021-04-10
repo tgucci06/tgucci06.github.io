@@ -565,8 +565,18 @@ h(x) = sgn\left(\sum^m_{i = 1}\alpha_iy_iK(x_i,x)+b\right)\tag{6.14}
 <p><span class="math inline">\(\mathbb R^N\)</span> における二乗距離 <span class="math inline">\((x, x&#39;) \mapsto \|x&#39;-x\|^2\)</span> はNDSカーネルを定義する</p>
 <p>確かに <span class="math inline">\(\bf c ∈ \mathbb R^{\rm m×1}\)</span> で <span class="math inline">\(\sum^m_{i = 1}c_i = 0\)</span> とする</p>
 <p>すると、任意の <span class="math inline">\(\{x_1,...,x_m\} ⊆\mathcal X\)</span> について、以下のように書くことができる</p>
-<p>$$ \begin{aligned} ^m_{i,j = 1} c_ic_j|<em>{i} -x</em>{j}|^<em>c_ic_j(</em>{i} - x_{j})(<em>{i} - x</em>{j})\ &amp;= <sup>{m}<em>c_ic_j(|</em>{i}|</sup>{} + |<em>{j}|^{} -</em>{i} x_{j})\ &amp;= <sup>{m}<em>c_ic_j (|</em>{i}|</sup>{} + |<em>{j}|^{}) - 2^m</em>{i = 1}c_i<em>{i}<sup>{m}<em>{j }c</em>j<em>{j}\ &amp;= <sup>{m}<em>c_ic_j (|</em>{i}|</sup>{} + |</em>{j}|</sup>{}) - 2|^m</em>{i=1}c_i<em>{i}|^2 \ &amp;^m</em>{i,j = 1}c_ic_j (|<em>{i}|^{} + |</em>{j}|^{})\ &amp;= (^m_{j = 1}c_j)(^m_{i = 1}c_i|<em>{i}|^2) + (^m</em>{i = 1}c_i)(^m_{j = 1}c_j|_{j}|^2)\ &amp;= 0</p>
-<p>\end{aligned} $$</p>
+<p><span class="math display">\[
+\begin{aligned}
+\sum^m_{i,j = 1} c_ic_j\|\bf x_{\mathit i} -x_{\mathit j}\|^\rm 2 
+&amp;= \sum^{\mathit m}_\mathit{i,j \rm = 1}c_ic_j\left(\bf x_{\mathit i} - x_{\mathit j}\right)\cdot\left(\bf x_{\mathit i} - x_{\mathit j}\right)\\
+&amp;= \sum^{\mathit m}_\mathit{i,j \rm = 1}\mathit c_ic_j\left(\|\bf x_{\mathit i}\|^{\rm 2} + \|\bf x_{\mathit j}\|^{\rm 2} -\rm 2\bf x_{\mathit i} \cdot x_{\mathit j}\right)\\
+&amp;= \sum^{\mathit m}_\mathit{i,j \rm = 1}\mathit c_ic_j \left(\|\bf x_{\mathit i}\|^{\rm 2} + \|\bf x_{\mathit j}\|^{\rm 2}\right) - 2\sum^m_{i = 1}c_i\bf x_{\mathit i}\cdot\sum^{\mathit m}_{\mathit j \rm = 1}c_\mathit j\bf x_{\mathit j}\\
+&amp;=  \sum^{\mathit m}_\mathit{i,j \rm = 1}\mathit c_ic_j \left(\|\bf x_{\mathit i}\|^{\rm 2} + \|\bf x_{\mathit j}\|^{\rm 2}\right) - 2\left\|\sum^m_{i=1}c_i\bf x_{\mathit i}\right\|^2 \\
+&amp;\le \sum^m_{i,j = 1}c_ic_j \left(\|\bf x_{\mathit i}\|^{\rm 2} + \|\bf x_{\mathit j}\|^{\rm 2}\right)\\
+&amp;= \left(\sum^m_{j = 1}c_j\right)\left(\sum^m_{i = 1}c_i\|\bf x_{\mathit i}\|^2\right) + \left(\sum^m_{i = 1}c_i\right)\left(\sum^m_{j = 1}c_j\|\bf x_{\mathit j}\|^2\right)\\
+&amp;= 0
+\end{aligned}
+\]</span></p>
 <p>次の定理はNDS カーネルと PDS カーネルの関係を示す</p>
 <p>これらの結果はPDSカーネルを設計するための別の一連のツールを提供する</p>
 </div>
@@ -618,30 +628,14 @@ K(x,x&#39;) = \|\Phi(x) - \Phi(x&#39;)\|^2
 <div id="sequence-kernels" class="section level2">
 <h2>Sequence kernels</h2>
 <p>一般的に使用される多項式カーネルやガウシアンカーネルを含む、前節で与えられた例は、すべてベクトル空間上のPDSカーネルのためのものである</p>
-<p>実際に見られる多くの学習タスクでは、入力空間Xはベクトル空間ではない</p>
+<p>実際に見られる多くの学習タスクでは、入力空間 <span class="math inline">\(\mathcal X\)</span> はベクトル空間ではない</p>
 <ul>
 <li>実際に分類する例としては、タンパク質配列、画像、グラフ、解析木、有限オートマトン、またはベクトルとして直接与えられない他の離散構造が考えられる</li>
 </ul>
 <p>PDS カーネルは、もともとベクトル空間のために設計された SVM のようなアルゴリズムを、このようなオブジェクトの分類に拡張するための方法を提供する</p>
 <p>しかし、これらの構造に対してどのようにPDSカーネルを定義すればよいか？</p>
-<p>このセクションでは、シーケンスカーネル、すなわち、シーケンスや文字列のためのカーネルの具体的なケースに焦点を当てる</p>
-<p>PDS カーネルは、他の離散構造に対しても同様の方法で定義することができる</p>
-<p>シーケンスカーネルは、計算生物学や自然言語処理に適用される学習アルゴリズムに特に関連しており、これらはどちらも重要な応用である</p>
-<p>どのようにしてシーケンスの類似度であるシーケンスのPDSカーネルを定義することができるのか？</p>
-<p>一つの考えは、二つの配列、例えば二つの文書や二つの生物配列を、共通の部分文字列や部分配列を共有している場合に、類似していると宣言すること</p>
-<ul>
-<li>(例) 二つの配列間のカーネルは、それらの共通の部分文字列のカウントの積の和で定義される</li>
-</ul>
-<p>しかし、どの部分文字列がその定義に使われるべきか？</p>
-<p>ほとんどの場合、一致する部分文字列の定義に flexibility (柔軟性) が必要になるだろう</p>
-<ul>
-<li>(例) 計算生物学の応用では、一致するものは不完全になる可能性がある</li>
-</ul>
-<p>そのため、いくつかの不一致、場合によってはギャップ、ワイルドカードを考慮する必要があるかもしれない</p>
-<p>より一般的には、様々な置換を許容する必要があるかもしれないし、共通の部分文字列に異なる重みを割り当てて、マッチする部分文字列を強調し、他の部分文字列を強調しないようにしたいと思うかもしれない</p>
-<p>この議論から分かるように、多くの異なる可能性があり、そのようなカーネルを定義するための一般的なフレームワークが必要</p>
 <p>以下では、この議論で考えられているすべてのカーネルを含む、<strong>シーケンスカーネル</strong>、<strong>有理カーネル</strong> のための一般的なフレームワークを紹介</p>
-<p>また、それらの計算のための一般的で効率的なアルゴリズムを記述し、いくつかの例を用いてそれらを説明</p>
+<p>また、それらの計算のための一般的で効率的なアルゴリズムを記述し、いくつかの例を用いてそれらを説明する</p>
 <p>これらのカーネルの定義は、Weighted transducers の定義に依存している</p>
 <p>したがって、これらの定義といくつかの関連するアルゴリズムから始める</p>
 <div id="weighted-transducers" class="section level3">
@@ -741,7 +735,7 @@ L = \sigma^*\bigl((\epsilon_1, \epsilon_1)(\epsilon_2, \epsilon_2) + (\epsilon_2
 </div>
 <div id="theorem-6.21" class="section level3">
 <h3>Theorem 6.21</h3>
-<p>任意の weighted transducer <span class="math inline">\(T = \left(Σ,∆,Q,I,F,E,ρ\right)\)</span> において、関数 <span class="math inline">\(K = T ◦ T^{-1}\)</span> はPDS rational kernelである</p>
+<p>任意の weighted transducer <span class="math inline">\(T = \left(Σ,∆,Q,I,F,E,ρ\right)\)</span> において、関数 <span class="math inline">\(K = T ◦ T^{-1}\)</span> は PDS rational kernel である</p>
 <p><strong>Proof</strong><br> 合成と逆写像の定義により、 <span class="math display">\[
 \forall x, y∈Σ^∗,\;K(x,y) = \sum_{z \in\Delta^*} T(x,z)T(y,z)
 \]</span></p>
