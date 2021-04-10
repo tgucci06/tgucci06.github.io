@@ -686,7 +686,7 @@ PDS カーネルは、もともとベクトル空間のために設計された 
 
 ### Definition 6.19
 
-Weighted transducer $T$ は、$\mathit 7$ -タプル (組) $T = (Σ, ∆, Q, I, F, E, \rho)$ 
+Weighted transducer $T$ は、$\mathit 7$ -タプル (組) $T = (Σ, ∆, Q, I, F, E, \rho)$ である
 
 * $Σ$ は有限の入力アルファベット
 * $∆$ は有限の出力アルファベット
@@ -695,7 +695,6 @@ Weighted transducer $T$ は、$\mathit 7$ -タプル (組) $T = (Σ, ∆, Q, I, 
 * $F⊆Q$ は最終状態の集合
 * $E$ は $Q×\left(Σ∪\{\epsilon\}\right)×\left(Σ∪\{\epsilon\}\right) ×\mathbb R×Q$ の遷移要素の有限多集合
 * $\rho : F \rightarrow \mathbb R$ は$F$ を $\mathbb R$ に写像する最終重み関数
-
 
 transducer $T$ の大きさは、その状態数と遷移数の合計であり、$|T|$ で示される
 
@@ -707,110 +706,29 @@ transducer $T$ の大きさは、その状態数と遷移数の合計であり�
 <img src="lec05_05.png" width="40%">
 </div>
 
-この図では、遷移の入力ラベルと出力ラベルをコロンで区切り、重みをスラッシュで区切って示している
+* この図では、遷移の入力ラベルと出力ラベルをコロンで区切り、重みをスラッシュで区切って示している
 
-初期状態は太い円で、最終状態は二重の円で表されている
-最終状態 $q$ での最終重み $ρ[q]$ はスラッシュの後に表示される
+* 初期状態は太い円で、最終状態は二重の円で表されている
 
-パス $π$ の入力ラベルは、$π$ に沿って入力ラベルを連結して得られる$Σ^∗$ の文字列要素である
+* 最終状態 $q$ での最終重み $ρ[q]$ はスラッシュの後に表示される
 
-同様に、パス $π$ の出力ラベルは、出力ラベルを $π$ に沿って連結して得られる
+* パス $π$ の入力ラベルは、$π$ に沿って入力ラベルを連結して得られる $Σ^∗$ の文字列要素である
 
-初期状態から最終状態へのパスを accepting path という
+* 同様に、パス $π$ の出力ラベルは、出力ラベルを $π$ に沿って連結して得られる
 
-accepting path の重みは、そのパスを構成する遷移の重みと、パスの最終状態の重みを掛け合わせて得られる
+* 初期状態から最終状態へのパスを accepting path という
 
-weighted transducer は、$Σ^∗ × ∆^∗$ から $\mathbb R$ への写像を定義する
+* accepting path の重みは、そのパスを構成する遷移の重みと、パスの最終状態の重みを掛け合わせて得られる
 
-weighted transducer $T$ が文字列のペア $(x, y) ∈Σ^∗ × ∆^∗$ に関連付ける重みを $T(x,y)$ と表し、入力ラベル $x$ と出力ラベル $y$ を持つすべての受け入れ可能なパスの重みを合計して得られる
+* weighted transducer は、$Σ^∗ × ∆^∗$ から $\mathbb R$ への写像を定義する
 
-例えば、図6.4の transducer では、入力ラベル $aab$ と出力ラベル $baa$ を持ち、重みが $3×1×4×2$ のパスと、重みが $3×2×3×2$ のパスをもつので、$(aab,baa)$ のペアに，3×1×4×2+3×2×3×2の重みを与えている
+* weighted transducer $T$ が文字列のペア $(x, y) ∈Σ^∗ × ∆^∗$ に関連付ける重みを $T(x,y)$ と表し、入力ラベル $x$ と出力ラベル $y$ を持つすべての受け入れ可能なパスの重みを合計して得られる
 
-非循環transducer、つまり循環しないtransducer $T$ のすべての accepting paths の重みの合計は、一般的な最短距離アルゴリズムまたは forward- backward アルゴリズム (近接勾配法)を用いて、線形時間、つまり $O\left(|T|\right)$ で計算できる
+  * 例えば、図6.4の transducer では、入力ラベル $aab$ と出力ラベル $baa$ を持ち、重みが $3×1×4×2$ のパスと、重みが $3×2×3×2$ のパスをもつので、$(aab,baa)$ のペアに，3×1×4×2+3×2×3×2の重みを与えている
+
+* 非循環transducer、つまり循環しないtransducer $T$ のすべての accepting paths の重みの合計は、一般的な最短距離アルゴリズムまたは forward- backward アルゴリズム (近接勾配法)を用いて、線形時間、つまり $O\left(|T|\right)$ で計算できる
 
   * これらは単純なアルゴリズムであるが、詳細な説明をすると本章の主旨から逸脱してしまう
-
-### Composition
-
-weighted transducers の重要な操作に合成がある<br>
-これは、2つ以上の weighted transducers を組み合わせて、より複雑な weighted transducers を形成するために使用できる
-
-これから説明するように、この操作はシーケンスカーネルの作成と計算に役立つ
-
-その定義は、関係の合成の定義に従う
-
-2つの weighted transducers $T_1 = (Σ, ∆, Q_1, I_1, F_1, E_1, ρ_1)$ と $T_2 = (Δ, Ω, Q_2, I_2, F_2, E_2, ρ_2)$ が与えられたとき、$T_1$ と $T_2$ を合成した結果は、$T_1 \circ T_2$で示される weighted transducers であり、 $\forall x∈Σ^∗$ と  $\forall y ∈ Ω^∗$ に対して以下の(6.19)式で定義され、総和はアルファベット $Δ$ 上のすべての文字列 $z$ に対して実行される
-
-$$
-\left(T_1 \circ T_2\right)(x,y) = \sum_{z \in \Delta^*}T_1(x,z) \cdot T_2(z,y) \tag{6.19}
-$$
-
-2つの重み付き変換器の合成を計算する一般的で効率的なアルゴリズムが存在する
-
-$T_1$ の入力側または $T_2$ の出力側に $\epsilon$ がない場合、$T_1 \circ T_2 = (Σ,Δ,Q,I,F,E,ρ)$ の状態は、$T_1$ の状態と $T_2$ の状態からなるペア、$Q ⊆ Q_1×Q_2$ で識別できる
-
-初期状態とは、元の transducers の初期状態をペアにして得られるもので、$I = I_1 × I_2$ であり、同様に最終状態は $F = Q∩ (F_1 × F_2)$ で定義される
-
-ある状態 $(q_1, q_2) ∈ F_1 × F_2$ における最終重みは $ρ(q)=ρ_1(q_1)ρ_2(q_2)$ であり、$q_1$ と $q_2$ の最終重みの積となる
-
-遷移は、$T_1$ と$T_2$ の適切な遷移から、$T_1$ の遷移と $T_2$ の遷移をマッチングさせて得られる
-
-$$
-E = \biguplus_{\substack{(q_1,a,b,w_1,q_2) \in E_1 \\ (q'_1,b,c,w_2,q'_2) \in E_2}} \left\{\left((q_1,q'_1),a,c,w_1 \otimes w_2,(q_2,q'_2)\right)\right\}
-$$
-
-ここで、$\uplus$ は、$\{1, 2\} \uplus \{1, 3\} = \{1, 1, 2, 3\}$ のように、多集合の標準的な結合操作を表し、遷移の重複度 (multiplicity) を保持する
-
-最悪の場合、状態 $q_1$ を去る $T_1$ のすべての遷移は、状態 $q'_1$を去る $T_2$ のすべての遷移と一致するので、合成の空間と時間の複雑さは2次関数的になる：$O\left(|T1||T2|\right)$
-
-実際には、このようなケースは稀であり、合成は非常に効率的である
-
-図6.5は、あるケースでのアルゴリズムを示している
-
-図6.6に示すように、$T_1$ が出力 $\epsilon$ ラベルを認め、$T_2$ が入力 $\epsilon$ ラベルを認めている場合、先ほどのアルゴリズムでは、冗長な $\epsilon$ パスを作成してしまい、誤った結果になる可能性がある
-
-元の transducers のマッチするパスの重みは $p$ 回数えられることになる<br>
-ここで$p$は合成結果の冗長なパスの数である
-
-この問題を回避するためには、composite transducer (複合変換器) から1つの $\epsilon$ -パスを除いてすべての $\epsilon$ -パスをフィルタリングしなければならない
-
-図6.6では、その経路の選択肢の一つを太字で示していますが、この場合は最短の経路である
-
-驚くべきことに、このフィルタリング自体が有限状態変換器 $F$ としてエンコードできる（図6.6b）
-
-このフィルタを適用するためには，まず $T_1$ と $T_2$ を $\epsilon$ のセマンティクスを明示する補助記号で補強する必要がある
-
-図6.6に示すように、$\tilde{T_1} \left(\tilde{T_2}\right)$ を $T_1 \;(T_2)$ から出力（入力）$\epsilon$ ラベルを$\epsilon_2 \;(\epsilon_1)$ に置き換えることで得られる weighted transducer とする
-
-したがって、シンボル $\epsilon_1$ とのマッチングは、$T_1$ の同じ状態にとどまり、入力 $\epsilon$ で $T_2$ の遷移を受けることに対応する
-
-$\epsilon_2$ は対称的な方法で記述することができる
-
-filter transducer $F$ は、$(\epsilon_1,\epsilon_1)$ の直後にマッチング $(\epsilon_2,\epsilon_2)$ を行うことを許可しない
-
-対称性により、$(\epsilon_2, \epsilon_2)$ の直後のマッチング $(\epsilon1, \epsilon1)$ も許可されない
-
-同様に、マッチング $(\epsilon_1,\epsilon_1)$ の直後に $(\epsilon_2,\epsilon_1)$ が続く場合も、マッチング $(\epsilon_2,\epsilon_1)(\epsilon_1,\epsilon_1)$ を経由する経路が可能なので、フィルタ $F$ では許可されない
-
-同様に、$(\epsilon_2, \epsilon_2)(\epsilon_2, \epsilon_1)$ も除外される
-
-filter transducer $F$ は、正確には言語 $L$ の補数を受け入れるペア上の有限オートマトンであることを検証するのは難しくない
-ここで、$σ =\left\{(\epsilon_1, \epsilon_1), (\epsilon_2, \epsilon_2), (\epsilon_2, \epsilon_1), x\right\}$ である
-
-$$
-L = \sigma^*\bigl((\epsilon_1, \epsilon_1)(\epsilon_2, \epsilon_2) + (\epsilon_2, \epsilon_2)(\epsilon_1, \epsilon_1) + (\epsilon_1, \epsilon_1)(\epsilon_2, \epsilon_1) + (\epsilon_2, \epsilon_2)(\epsilon_2, \epsilon_1)\bigr)\sigma^*
-$$
-
-
-このように、フィルタ $F$ は、各 $\epsilon$ 配列の合成において、正確に1つの $\epsilon$ 経路が許容されることを保証する
-
-合成の正しい結果を得るためには、すでに説明した$\epsilon$ -free 合成アルゴリズムを使用して、次のように計算すればよい
-
-$$
-\tilde{T_1} \circ F \circ \tilde{T_2} \tag{6.20}
-$$
-
-filter transducer $F$ のサイズは一定なので、一般的な合成の複雑さは $\epsilon$ -free合成と同じで、$O(|T_1||T_2|)$ となる
 
 ### 6.5.2 Rational kernels
 
@@ -818,9 +736,15 @@ filter transducer $F$ のサイズは一定なので、一般的な合成の複�
 
 ### Definition 6.20 (Rational kernels)
 
-カーネル $K : Σ^∗ × Σ^∗ → \mathbb R$ は、ある weighted transducer $U: \forall x,y ∈ Σ^∗,K(x,y) = U(x,y)$ によって定義される写像と一致する場合、有理であるという
+1. カーネル $K : Σ^∗ × Σ^∗ → \mathbb R$ は、ある weighted transducer $U: \forall x,y ∈ Σ^∗,K(x,y) = U(x,y)$ によって定義される写像と一致する場合、有理であるという
 
-transducer $\forall T:\Sigma^* \times \Delta^* \rightarrow \mathbb R$ について，$T$ の逆写像を $T^{-1} : \Delta^* \times \Sigma^* \rightarrow \mathbb R$ とすると，これは $T$ から各遷移の入力ラベルと出力ラベルを入れ替えて得られる transducer である
+2. $T_1:\Sigma^* \times \Delta^* \rightarrow \mathbb R$ と $T_2:\Delta^* \times \Omega^* \rightarrow \mathbb R$ の2つをweighted transducers とすると、$T_1$ と $T_2$ の composition (合成) は以下のように定義される
+
+$$
+\forall x\in \Sigma^*,\forall y \in \Omega^*,\:(T_1 \circ T_2)(x,y) = \sum_{z \in \Delta^*} T_1(x,z)T_2(z,y)
+$$
+
+3. transducer $\forall T:\Sigma^* \times \Delta^* \rightarrow \mathbb R$ について，$T$ の逆写像を $T^{-1} : \Delta^* \times \Sigma^* \rightarrow \mathbb R$ とすると，これは $T$ から各遷移の入力ラベルと出力ラベルを入れ替えて得られる transducer である
 
 $$
 \forall x, y,\; T^{-1}(x, y) = T (y, x)
@@ -852,4 +776,14 @@ $$
 ここで、$z_1,...,z_N$ は、長さが最大 $n$ の$Σ^∗$ の文字列の集合の任意の列挙である
 
 このように、$K$ はPDSカーネル $\left(K_n\right)_{n∈\mathbb N}$ の列の点極限としてPDSである (証明終了)
+
+## Conclusion
+
+PDSカーネルは
+
+* 豊かな数学的理論と基礎
+* 多くの線形アルゴリズムを非線形予測に拡張するための一般的なアイデア
+* 柔軟な手法：どのPDSカーネルでも使用可能
+* 現代のアルゴリズムや応用で広く利用されている
+* ラベル付きデータからPDSカーネルとそのカーネルに基づく仮説をさらに学習できるか？
 
