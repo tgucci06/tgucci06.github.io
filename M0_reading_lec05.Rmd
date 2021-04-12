@@ -572,7 +572,7 @@ $$
 
 $\mathbb R^N$ における二乗距離 $(x, x') \mapsto \|x'-x\|^2$ はNDSカーネルを定義する
 
-確かに $\bf c ∈ \mathbb R^{\rm m×1}$ で $\sum^m_{i = 1}c_i = 0$ とする 
+$\bf c ∈ \mathbb R^{\rm m×1}$ で $\sum^m_{i = 1}c_i = 0$ とする 
 
 すると、任意の $\{x_1,...,x_m\} ⊆\mathcal X$ について、以下のように書くことができる
 
@@ -631,31 +631,6 @@ $$
 この式は、$2 \sum^m_{i,j = 1}c_ic_j K'(x_i, x_j) ≥ -2c_0 \sum^m_{i = 0}c_iK'(x_i, x_0) + c^2_0K'(x_0, x_0) = 0$ を意味する
 
 $∀x∈\mathcal X, K'(x, x_0) = 0$なので、この等式は成立する (証明終了)
-
-### Theorem 6.18
-
-定理6.18
-
-$K: \mathcal X × \mathcal X → \mathbb R$ を、 $\forall x,x′ ∈\mathcal X$ において、$x = x'$ ならば、$K(x,x') = 0$ となるようなNDSカーネルとする
-
-すると、$x,x' ∈ \mathcal X$ において、以下のようなヒルベルト空間 $\mathbb H$ と写像 $Φ:\mathcal X→ \mathbb H$ が存在する
-
-$$
-K(x,x') = \|\Phi(x) - \Phi(x')\|^2
-$$
-
-
-したがって、定理の仮説の下では、$\sqrt{K}$ はメトリックを定義する
-
-この定理は、$\mathbb R$ のカーネル $(x,x') \mapsto \exp(-|x - x'|^p)$ が $p > 2$ に対してPDSではないことを示すために用いることができる
-
-そうでなければ、$\forall t > 0, \{x_1,...,x_m\} ⊆\mathcal X, \bf c ∈ \mathbb R^{\mathit m×\rm 1}$ に対して、次のようになる
-
-$$
-\sum^{m}_{i,j = 1}c_ic_je^{-t|x_i-x_j|^p} = \sum^{m}_{i,j = 1}c_ic_je^{-|t^{1/p}x_i-t^{1/p}x_j|^p} \ge 0
-$$
-
-これは、$(x, x') \mapsto |x - x'|^p$ が $p > 2$ に対して NDS であることを意味する
 
 ## Sequence kernels
 
