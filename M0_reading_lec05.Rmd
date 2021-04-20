@@ -596,7 +596,7 @@ $$
 
 ### Theorem 6.16
 
-$K'$ を $\forall x_0$ について $\forall x,x' \in \mathcal X,\;K'(x, x') = K(x, x_0) + K(x', x_0) - K(x, x') - K(x_0, x_0)$ によって定義されるとすると、$K'$ がPDSであれば、$K$ はNDSである
+$K'$ を $\forall x_0$ について $\forall x,x' \in \mathcal X,\;K'(x, x') = K(x, x_0) + K(x', x_0) - K(x, x') - K(x_0, x_0)$ によって定義されるとすると、$K$ はNDSであるならば、$K'$ がPDSである (iff)
 
 **Proof**
 
@@ -670,7 +670,7 @@ transducer $T$ の大きさは、その状態数と遷移数の合計であり�
 
 つまり、Weighted transducers とは、各遷移に入力と出力の両方のラベルを付け、実数値の重みを持たせた有限オートマトンのことである
 
-図6.4にweighted finite-state transducer (重み付き有限状態 transducer) の例を示す
+下図にweighted finite-state transducer (重み付き有限状態 transducer) の例を示す
 
 <div style="text-align: center">
 <img src="lec05_05.png" width="40%">
@@ -682,7 +682,7 @@ transducer $T$ の大きさは、その状態数と遷移数の合計であり�
 
 * 最終状態 $q$ での最終重み $ρ[q]$ はスラッシュの後に表示される
 
-* パス $π$ の入力ラベルは、$π$ に沿って入力ラベルを連結して得られる $Σ^∗$ の文字列要素である
+* パス $π$ の入力ラベルは、$π$ に沿って入力ラベルを連結して得られる文字列要素 $Σ^∗$ である
 
 * 同様に、パス $π$ の出力ラベルは、出力ラベルを $π$ に沿って連結して得られる
 
@@ -694,7 +694,7 @@ transducer $T$ の大きさは、その状態数と遷移数の合計であり�
 
 * weighted transducer $T$ が文字列のペア $(x, y) ∈Σ^∗ × ∆^∗$ に関連付ける重みを $T(x,y)$ と表し、入力ラベル $x$ と出力ラベル $y$ を持つすべての受け入れ可能なパスの重みを合計して得られる
 
-  * 例えば、図6.4の transducer では、入力ラベル $aab$ と出力ラベル $baa$ を持ち、重みが $3×1×4×2$ のパスと、重みが $3×2×3×2$ のパスをもつので、$(aab,baa)$ のペアに，3×1×4×2+3×2×3×2の重みを与えている
+  * 例えば、図6.4の transducer では、入力ラベル $aab$ と出力ラベル $baa$ を持ち、重みが $3×1×4×2$ のパスと、重みが $3×2×3×2$ のパスをもつので、$(aab,baa)$ のペアに3×1×4×2+3×2×3×2の重みを与えている
 
 * 非循環transducer、つまり循環しないtransducer $T$ のすべての accepting paths の重みの合計は、一般的な最短距離アルゴリズムまたは forward- backward アルゴリズム (近接勾配法)を用いて、線形時間、つまり $O\left(|T|\right)$ で計算できる
 
@@ -706,7 +706,7 @@ transducer $T$ の大きさは、その状態数と遷移数の合計であり�
 
 ### Definition 6.20 (Rational kernels)
 
-1. カーネル $K : Σ^∗ × Σ^∗ → \mathbb R$ は、ある weighted transducer $U: \forall x,y ∈ Σ^∗,K(x,y) = U(x,y)$ によって定義される写像と一致する場合、有理であるという
+1. カーネル $K : Σ^∗ × Σ^∗ → \mathbb R$ は、ある weighted transducer $U: \forall x,y ∈ Σ^∗,K(x,y) = U(x,y)$ によって定義される写像と一致する場合、rational (有理である) という
 
 2. $T_1:\Sigma^* \times \Delta^* \rightarrow \mathbb R$ と $T_2:\Delta^* \times \Omega^* \rightarrow \mathbb R$ の2つをweighted transducers とすると、$T_1$ と $T_2$ の composition (合成) は以下のように定義される
 
@@ -732,7 +732,7 @@ $$
 \forall x, y∈Σ^∗,\;K(x,y) = \sum_{z \in\Delta^*} T(x,z)T(y,z)
 $$
 
-Kは次のように定義されるカーネル列 $(K_n)_{n \ge 0}$の点極限である
+Kは次のように定義されるカーネル列 $(K_n)_{n \ge 0}$の pointwise limit (点極限) である
 
 $$
 \forall n \in \mathbb N,\; \forall x,y \in \Sigma^*,\;\; K_n(x,y) = \sum_{|z|\le n}T(x,z)T(y,z)
@@ -742,10 +742,7 @@ $$
 
 任意のサンプル $(x_1, ... , x_m)$ に対応するカーネル行列 $\bf K_n$ はSPSDなので、$K_n$ はPDSである
 
-これは、$\bf K_n$が、$\bf{A} = \rm(\mathit{K_n(x_i,z_j}))_{\mathit i∈[1,\mathit m],\mathit j∈[1,\mathit N]}$ として、$\bf K_n = AA^\top$ と書けることからもわかる<br>
-ここで、$z_1,...,z_N$ は、長さが最大 $n$ の$Σ^∗$ の文字列の集合の任意の列挙である
-
-このように、$K$ はPDSカーネル $\left(K_n\right)_{n∈\mathbb N}$ の列の点極限としてPDSである (証明終了)
+このように、$K$ はPDSカーネル $\left(K_n\right)_{n∈\mathbb N}$ の列の pointwise limit (点極限)  としてPDSである (証明終了)
 
 ## Conclusion
 

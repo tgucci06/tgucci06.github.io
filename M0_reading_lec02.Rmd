@@ -11,7 +11,6 @@ vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-
 ---
 
 ## Motivation
@@ -409,4 +408,3 @@ R(h) \leq \hat{R}_S(h)\:+\:\sqrt{\frac{log|\mathcal{H}|\: + \: log2/\delta}{2m}}
 $$
 
 * 無限仮説集合 (infinite hypothesis sets) をどう扱えばいいか？➡︎第3章の話題
-
