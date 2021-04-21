@@ -485,7 +485,7 @@ Representer定理として知られる次の定理は、これが実際にはオ
 
 ### Theorem 6.11 (Representer theorem)
 
-$K : \mathcal X × \mathcal X → \mathbb R$ を PDS カーネル、$\mathbb H$ を対応する RKHS とすると、非減少関数 $G：\mathbb R → \mathbb R$ と損失関数 $L：\mathbb R^m → \mathbb R ∪{+∞}$ の場合、以下の最適化問題は $h^∗ = \sum^m_{i = 1}α_iK(x_i,\cdot)$ の形式の解を得ることができる
+$K : \mathcal X × \mathcal X → \mathbb R$ を PDS カーネル、$\mathbb H$ を対応する RKHS とすると、非減少関数 $G：\mathbb R → \mathbb R$ と損失関数 $L：\mathbb R^m → \mathbb R ∪{+∞}$ の場合、以下の最適化問題の解は $h^∗ = \sum^m_{i = 1}α_iK(x_i,\cdot)$ としかならない
 
 $$
 \newcommand{\argmin}{\mathop{\rm arg~min}\limits}
@@ -507,7 +507,7 @@ $G$ は非減少 (non-decreasing)なので、$G\left(\|h_1\|_{\mathbb H}\right) 
 
 これにより、定理の最初の部分が証明される
 
-Gがさらに増加する場合、$\|h^\bot \|_{\mathbb H} >0$ のとき、$F (h_1 ) < F (h)$ となり、最適化問題の解はすべて $\mathbb H_1$でなければならない (Q.E.D)
+Gがさらに増加する場合、$\|h^\bot \|_{\mathbb H} >0$ のとき、$F (h_1 ) < F (h)$ となり、最適化問題の解はすべて $\mathbb H_1$ にしかならない (Q.E.D)
 
 ### 6.3.3 Learning guarantees
 
@@ -596,7 +596,7 @@ $$
 
 ### Theorem 6.16
 
-$K'$ を $\forall x_0$ について $\forall x,x' \in \mathcal X,\;K'(x, x') = K(x, x_0) + K(x', x_0) - K(x, x') - K(x_0, x_0)$ によって定義されるとすると、$K$ はNDSであるならば、$K'$ がPDSである (iff)
+$K'$ を $\forall x_0$ について $\forall x,x' \in \mathcal X,\;K'(x, x') = K(x, x_0) + K(x', x_0) - K(x, x') - K(x_0, x_0)$ によって定義されるとすると、$K$ はNDSであることと、$K'$ がPDSであるは同値 (iff) である
 
 **Proof**
 
@@ -624,6 +624,7 @@ $$
 \sum^m_{i,j = 0}c_ic_jK(x_i,x_j) 
 &= \left(\sum^m_{i = 0}c_iK(x_i,x_0)\right)\left(\sum^m_{j = 0}c_j\right) + \left(\sum^m_{i = 0}c_i\right)\left(\sum^m_{j = 0}c_jK(x_0,x_j)\right) - \left(\sum^m_{i = 0}c_i\right)^2 K(x_0,x_0) - \sum^m_{i,j = 0}c_ic_jK'(x_i,x_i)\\
 &= -\sum^m_{i,j = 0}c_ic_jK'(x_i,x_j)\\
+&= -\sum^m_{i,j = 1}c_ic_jK'(x_i,x_j) - c_0\sum^m_{i= 0}c_iK'(x_i,x_0) - c_0\sum^m_{j= 0}c_jK'(x_j,x_0) - c_0^2K'(x_0,x_0)\\
 &\le 0
 \end{aligned}
 $$
@@ -770,7 +771,7 @@ $$
 * 以下の表にこの特徴写像の例を示す
 
 <div style="text-align: center">
-<img src="lec05_06.jpg" width="60%">
+<img src="lec05_06.jpg" width="80%">
 </div>
 
 ## Conclusion
