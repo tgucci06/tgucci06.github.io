@@ -654,7 +654,7 @@ h(x) = sgn\left(\sum^m_{i = 1}\alpha_iy_iK(x_i,x)+b\right)\tag{6.14}
 <li><p>初期状態から最終状態へのパスを accepting path という</p></li>
 <li><p>accepting path の重みは、そのパスを構成する遷移の重みと、パスの最終状態の重みを掛け合わせて得られる</p></li>
 <li><p>weighted transducer は、<span class="math inline">\(Σ^∗ × ∆^∗\)</span> から <span class="math inline">\(\mathbb R\)</span> への写像を定義する</p></li>
-<li><p>weighted transducer <span class="math inline">\(T\)</span> が文字列のペア <span class="math inline">\((x, y) ∈Σ^∗ × ∆^∗\)</span> に関連付ける重みを <span class="math inline">\(T(x,y)\)</span> と表し、入力ラベル <span class="math inline">\(x\)</span> と出力ラベル <span class="math inline">\(y\)</span> を持つすべての受け入れ可能なパスの重みを合計して得られる</p>
+<li><p>weighted transducer <span class="math inline">\(T\)</span> が文字列のペア <span class="math inline">\((x, y) ∈Σ^∗ × ∆^∗\)</span> に関連付ける重みを <span class="math inline">\(T(x,y)\)</span> と表し、入力ラベル <span class="math inline">\(x\)</span> と出力ラベル <span class="math inline">\(y\)</span> を持つすべての accepting path の重みを合計して得られる</p>
 <ul>
 <li>例えば、図6.4の transducer では、入力ラベル <span class="math inline">\(aab\)</span> と出力ラベル <span class="math inline">\(baa\)</span> を持ち、重みが <span class="math inline">\(3×1×4×2\)</span> のパスと、重みが <span class="math inline">\(3×2×3×2\)</span> のパスをもつので、<span class="math inline">\((aab,baa)\)</span> のペアに3×1×4×2+3×2×3×2の重みを与えている</li>
 </ul></li>
