@@ -20,6 +20,10 @@
 
 ## 論文レビュー
 
+## Code 
+
+- pcalgパッケージを用いたPCアルゴリズムの実行:[PCアルゴリズム](https://tgucci06.github.io/PCalgorithm.R)
+  参考 [pcalgパッケージのドキュメント](https://cran.r-project.org/web/packages/pcalg/pcalg.pdf!)
 
 ## 課題
 
