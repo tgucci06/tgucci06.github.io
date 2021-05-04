@@ -1,0 +1,21 @@
+h1 {
+    padding-bottom: 0.3em;
+    line-height: 1.2;
+    border-bottom: solid 1px whitesmoke;
+  }
+  
+  h2 {
+    margin-top: 3em;
+    padding-bottom: 0.3em;
+    padding-left: 0.5em;
+    border-left: solid 15px darkcyan;
+    border-bottom: solid 1px lightgray;
+  }
+  
+  h3 {
+    margin-top: 1.5em;
+    padding-bottom: 0.2em;
+    padding-left: 0.5em;
+    border-left: solid 5px darkcyan;
+    border-bottom: solid 1px lightgray;
+  } 
