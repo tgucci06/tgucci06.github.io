@@ -6,8 +6,8 @@
 
 スライド形式でのまとめ
 
-- 1章: [はじめに] (https://tgucci06.github.io/Kuroki_01.html)
-- 2章: [準備] (https://tgucci06.github.io/Kuroki_02.html)
+- 1章: [はじめに](https://tgucci06.github.io/Kuroki_01.html)
+- 2章: [準備](https://tgucci06.github.io/Kuroki_02.html)
 
 ### Mehryar Mohri, Afshin Rostamizadeh, and Ameet Talwalkar. Foundations of Machine Learning
 
@@ -20,6 +20,10 @@
 
 ## 論文レビュー
 
+## Code 
+
+- pcalgパッケージを用いたPCアルゴリズムの実行:  
+  参考 [pcalgパッケージのドキュメント](https://cran.r-project.org/web/packages/pcalg/pcalg.pdf!)
 
 ## 課題
 
