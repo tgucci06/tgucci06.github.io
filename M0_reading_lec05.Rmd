@@ -8,7 +8,7 @@ output:
     self_contained: TRUE
     thumbnails: FALSE
     lightbox: FALSE
-    css: styles_customized.css
+    css: style.css
     md_extensions: -ascii_identifiers
 vignette: >
   %\VignetteIndexEntry{Vignette Title}

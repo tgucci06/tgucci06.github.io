@@ -3,21 +3,28 @@ title: "統計学特論A 第1回課題"
 author: "谷口友哉"
 ddate: "`r format(Sys.time(), '%Y/%m/%d')`"
 output:
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+  rmdformats::downcute:
+    code_folding: hide
+    self_contained: TRUE
+    thumbnails: FALSE
+    lightbox: FALSE
+    css: style.css
+    md_extensions: -ascii_identifiers
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
 # 2020年度統計学特論Ａ第一回目の課題  
+
 $(0,\theta)$ の範囲の一様分布のパラメーター $\theta$ の推定について考える.この分布から無作為にとった大きさ$n$のサ
 ンプル$（X_i, i = 1, . . . , n）$から作られた次の統計量
 $$T = max(X_1, . . . , X_n)$$
 を使って$\theta$を推定する.  
 
 ## 問1 (5点) Tの分布関数 $F(t) = P(T\leq t)$ を求めなさい.  
+
 $（X_i, i = 1, . . . , n）$は互いに独立同一であるので,
 $$
 \begin{aligned}
@@ -28,6 +35,7 @@ F(t)&= P(T\leq t)\\
 $$
 
 ## 問2（5点）Tの密度関数$f(t)$を求めなさい.  
+
 $$
 \begin{aligned}
 f(t)&= F^{'}(t)\\
@@ -37,6 +45,7 @@ f(t)&= F^{'}(t)\\
 $$
 
 ## 問3（5点）Tが十分統計量であることを示しなさい.  
+
 $(X_1, . . . , X_n)$の同時密度関数は,
 $$
 f_{\theta}(x) = \left\{
@@ -79,6 +88,7 @@ $$
 したがって十分統計量の分解定理より, $T = max(X_1, . . . , X_n)$  は十分統計量であることが示せた.
 
 ## 問4（5点）Tが完備であることを示しなさい.  
+
 問2より,Tの密度関数は
 $$
 \begin{aligned}
@@ -104,6 +114,7 @@ $$
 このことから,Tは完備であることが示せた.
 
 ## 問5（5点）Tを使ったUMVUを求めなさい.  
+
 ここで $\hat{\theta}=2X_1$ とおくと,  
 $E[\hat{\theta}]=E[2X_1]=\theta$ であるので, $\hat{\theta}$ は $\theta$ の不偏推定量である.  
 ここで $\hat{\theta}$ は $X_1$ 以外の観測値を無視した推定量であるため,ラオ・ブラックウェルの定理を用いて $\hat{\theta}$ を改善する.  

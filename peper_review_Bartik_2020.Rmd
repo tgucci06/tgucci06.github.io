@@ -3,14 +3,17 @@ title: "How Are Small Businesses Adjusting to COVID-19? Early Evidence from a Su
 author: "Tomoya Taniguchi"
 date: "`r format(Sys.time(),'%Y/%m/%d')`"
 output:
-  html_document:
+  rmdformats::downcute:
+    code_folding: hide
     self_contained: TRUE
-    df_print: paged
-    toc: TRUE
-    toc_float: TRUE
-    toc_depth: 3
-editor_options:
-  chunk_output_type: inline
+    thumbnails: FALSE
+    lightbox: FALSE
+    css: style.css
+    md_extensions: -ascii_identifiers
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}  
 ---
 
 ```{r knitr_init, echo=FALSE, message=FALSE, warning=FALSE}

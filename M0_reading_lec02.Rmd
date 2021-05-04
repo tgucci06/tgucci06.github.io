@@ -3,10 +3,13 @@ title: "Learning guarantees for finite hypothesis sets"
 author: "谷口友哉"
 date: "`r Sys.Date()`"
 output:
-  prettydoc::html_pretty:
-    toc: TRUE
-    theme: cayman
-    highlight: github
+  rmdformats::downcute:
+    code_folding: hide
+    self_contained: TRUE
+    thumbnails: FALSE
+    lightbox: FALSE
+    css: style.css
+    md_extensions: -ascii_identifiers
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
