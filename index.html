@@ -1,0 +1,270 @@
+<html>
+<head>
+<meta charset="utf-8">
+<style type="text/css">
+@import 'https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300';
+
+/*
+ FORMATTING FOR CODEPEN
+*/
+
+html,body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.col {
+  height: 100%;
+}
+
+div[class*=container] {
+  text-align: center;
+  width: 100%;
+  height: 33%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-1 { background: #333; }
+.container-2 { background: #565554; }
+.container-3 { background: #333; }
+.container-4 { background: #565554; }
+.container-5 { background: #333; }
+.container-6 { background: #565554; }
+
+a:link { color: #ffffff; }
+a:visited { color: #ffffff; }
+a:hover { color: #ffffff; }
+a:active { color: #ffffff; }
+
+/*
+ BUTTON STYLING
+*/
+
+.btn {
+  position: relative;
+  color: white;
+  width: 256px;
+  height: 64px;
+  line-height: 64px;
+  transition: all 0.3s;
+  span {
+    transition: all 0.3s;
+    tranform: scale(1, 1);
+  }
+}
+
+
+.btn::before, .btn::after {
+  content: '';
+  position: absolute;
+  transition: all 0.3s;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.btn-one::before {
+    left: 4px;
+    z-index: -1;
+  
+  opacity: 0;
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(0.1, 1);
+}
+
+.btn-one:hover::before {
+  opacity: 1;
+  transform: scale(1, 1);
+}
+
+.btn-one::after {
+  transition: all 0.3s;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.btn-one:hover::after {
+  transform: scale(1, .1);
+  opacity: 0;
+}
+
+/* BTN TWO */
+
+.btn-two::before {
+    left: 4px;
+    z-index: -1;
+  
+  opacity: 0;
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(0.1, 1);
+}
+
+.btn-two:hover::before {
+  opacity: 1;
+  transform: scale(1, 1);
+}
+
+.btn-two::after {
+  transition: all 0.3s;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.btn-two:hover::after {
+  transform: scale(1, .1);
+  opacity: 0;
+}
+
+/* BTN THREE */
+
+.btn-three::before {
+    left: 4px;
+    z-index: -1;
+  
+  opacity: 0;
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(0.1, 1);
+}
+
+.btn-three:hover::before {
+  opacity: 1;
+  transform: scale(1, 1);
+}
+
+.btn-three::after {
+  transition: all 0.3s;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.btn-three:hover::after {
+  transform: scale(1, .1);
+  opacity: 0;
+}
+/* BTN FOUR */
+
+.btn-four::before {
+    left: 4px;
+    z-index: -1;
+  
+  opacity: 0;
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(0.1, 1);
+}
+
+.btn-four:hover::before {
+  opacity: 1;
+  transform: scale(1, 1);
+}
+
+.btn-four::after {
+  transition: all 0.3s;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.btn-four:hover::after {
+  transform: scale(1, .1);
+  opacity: 0;
+}
+
+/* BTN FIVE */
+
+.btn-five::before {
+    left: 4px;
+    z-index: -1;
+  
+  opacity: 0;
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(0.1, 1);
+}
+
+.btn-five:hover::before {
+  opacity: 1;
+  transform: scale(1, 1);
+}
+
+.btn-five::after {
+  transition: all 0.3s;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.btn-five:hover::after {
+  transform: scale(1, .1);
+  opacity: 0;
+}
+
+/* BTN SIX */
+
+.btn-six::before {
+    left: 4px;
+    z-index: -1;
+  
+  opacity: 0;
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(0.1, 1);
+}
+
+.btn-six:hover::before {
+  opacity: 1;
+  transform: scale(1, 1);
+}
+
+.btn-six::after {
+  transition: all 0.3s;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.btn-six:hover::after {
+  transform: scale(1, .1);
+  opacity: 0;
+}
+</style>
+<title> Reiji Page </title>
+</head>
+<body>
+<div class="col">
+  <div class="container-1">
+    <div class="btn btn-one">
+    <span><a href="http://133.102.45.60/~s5017247/images/profile.html">PLOFILE</a></span>
+    </div>
+  </div>
+
+  <div class="container-2">
+    <div class="btn btn-two">
+      <span><a href="http://133.102.45.60/~s5017247/images/like.html">LIKE</a></span>
+    </div>
+  </div>
+
+  <div class="container-3">
+    <div class="btn btn-three">
+      <span><a href="http://133.102.45.60/~s5017247/images/visualprogramming.html">VISUALPROGRAMMING</a></span>
+    </div>
+  </div>
+</div>
+
+<div class="col">
+  <div class="container-4">
+    <div class="btn btn-four">
+      <span><a href="https://133.102.45.60:80/~s5017247/VR/xr_sample.html">VR</a></span>
+    </div>
+  </div>
+
+  <div class="container-5">
+    <div class="btn btn-five">
+      <span><a href="http://133.102.45.60/~s5017247/images/eventhistory.html">EVENT HISTORY</a></span>
+    </div>
+  </div>
+
+  <div class="container-6">
+    <div class="btn btn-six">
+      <span><a href="https://133.102.45.60:80/~s5017247/VR/oimachi/oimachi.html">StreetView</a></span>
+    </div>
+  </div>
+</div>
+</body>
