@@ -3,10 +3,13 @@ title: "Kernel Methods"
 author: "谷口友哉"
 date: "`r Sys.Date()`"
 output:
-  prettydoc::html_pretty:
-    toc: TRUE
-    theme: slate
-    #highlight: github
+  rmdformats::downcute:
+    code_folding: hide
+    self_contained: TRUE
+    thumbnails: FALSE
+    lightbox: FALSE
+    css: styles_customized.css
+    md_extensions: -ascii_identifiers
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
