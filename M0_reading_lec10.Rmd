@@ -1,0 +1,64 @@
+---
+title: "Multi-Class Classification"
+author: "谷口友哉"
+date: "`r Sys.Date()`"
+output:
+  rmdformats::downcute:
+    code_folding: hide
+    self_contained: TRUE
+    thumbnails: FALSE
+    lightbox: FALSE
+    css: style.css
+    md_extensions: -ascii_identifiers
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+
+---
+
+## Motivation
+
+* 現実世界の問題は、テキスト、音声、画像、生物学的配列など複数のクラスを持つことが多い
+* これまで研究されてきたアルゴリズムは、2値分類問題のために設計されていた
+* 多クラス分類のアルゴリズムはどのように設計されるか？
+  * 2値分類に使われるアルゴリズムを多クラス分類に一般化できるか？
+  * 多クラス分類を2値分類に還元できるか？
+
+## Introduction
+
+* これまでの章で検討した分類問題はすべて2値分類を考えていた
+* しかし現実の分類問題では、クラスの数が2以上のものがほとんど
+  * (例) テキスト文書にトピックを割り当てる問題  
+         $\;\;\;\;\:$音声にカテゴリーを割り当てる問題  
+         $\;\;\;\;\:$生物学的配列に関数を割り当てる問題など  
+  * クラスの数が数百以上になることもある
+
+* 本章では，多クラス分類の問題を扱う
+  1. 多クラス分類の学習問題を紹介し、その複数の設定を議論した後、ラデマッハ複雑度の概念を用いて一般化境界を導出
+  2. 多クラス分類問題に取り組むための一連のアルゴリズムを説明 (多クラスSVM、決定木、多クラスブースティングなど)
+  3. 様々な応用で生じる構造化予測の問題についても簡単に説明
+  
+## 9.1 Multi-class classification problem
+
+### Notion 
+
+* $\mathcal X$ を入力空間
+* $\mathcal Y$ を出力空間
+* $\mathcal D$ を $\mathcal X$ 上の未知の分布 ($\mathcal X$ は $\mathcal D$ からi.i.dに抽出)
+* $\mathcal Y$ がクラスの有限集合
+  * $\mathcal Y = \{1, ... , k\}$ とする mono-label case と、$\mathcal Y = \{-1,+1\}^k$ とする multi-label case を区別する (便宜的に数字で表記)
+
+* mono-label case : 各例は1つのクラスでラベル付けされる
+* multi-label case: 複数のクラスでラベル付けされる
+
+* multi-label case は、スポーツ、ビジネス、社会などの複数の異なるトピックでラベル付けされたテキスト文書のケースで説明できる
+
+
+## Conclusion
+
+* One-vs-allアプローチが最も広く使われている
+* 他のアプローチが優れているという明確な経験的証拠はない (Rifkin and Klautau, 2004)
+  * 比較的大きな error rate (誤分類率) を持つ小さなデータセットの場合を除く
+* 大規模な構造化多クラス問題：しばしばランキング問題として扱われる（10章のランキングを参照）
+
