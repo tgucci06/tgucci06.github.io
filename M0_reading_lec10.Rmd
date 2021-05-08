@@ -122,6 +122,31 @@ $$
 x \mapsto \argmax_{y \in \mathcal Y} \:\:h(x,y)
 $$
 
+当然ながら、ラベルを付けた例 $(x, y)$ における関数 $h$ のマージン $\rho_h(x, y)$ は、次のように定義される
+
+$$
+\rho_h(x, y) = h(x,y) - \max_{y'\neq y}\,h\left(x,y'\right)
+$$
+
+したがって、$h$ が $(x,y)$ を誤分類するのは、$\rho_h(x,y) \le 0$ と同値
+
+$\forall \rho > 0$ において、多クラス分類に対する仮説 $h$ の経験マージン損失を次のように定義できる
+
+$$
+\hat{R}_{S,\rho}(h) = \frac{1}{m}\sum^m_{i = 1}\Phi_\rho\left(\rho_h(x_i,y_i)\right) \tag{9.5}
+$$
+
+ここで $\Phi_{\rho}$ はマージン損失関数である（定義5.5）
+
+したがって、多クラス分類の経験マージン
+損失は、$h$ によって誤分類された訓練点の割合、または正しく分類されたが信頼度が $\rho$ 以下の訓練点の割合によって抑えられる
+
+$$
+\hat{R}_{S,\rho}(h) = \frac{1}{m}\sum^m_{i = 1}1_{\rho_h(x_i,y_i) \le \rho} \tag{9.6}
+$$
+
+### Theorem 9.2 (Margin bound for multi-class classification) 
+
 ## Conclusion
 
 * One-vs-allアプローチが最も広く使われている

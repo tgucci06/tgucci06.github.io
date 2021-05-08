@@ -2016,6 +2016,23 @@ R(h) = \mathbb E_{x \sim \mathcal D}\left[d_H\left(h(x),f(x)\right)\right] \;\;\
 <p><span class="math display">\[
 x \mapsto \mathop{\rm arg~max}\limits_{y \in \mathcal Y} \:\:h(x,y)
 \]</span></p>
+<p>当然ながら、ラベルを付けた例 <span class="math inline">\((x, y)\)</span> における関数 <span class="math inline">\(h\)</span> のマージン <span class="math inline">\(\rho_h(x, y)\)</span> は、次のように定義される</p>
+<p><span class="math display">\[
+\rho_h(x, y) = h(x,y) - \max_{y&#39;\neq y}\,h\left(x,y&#39;\right)
+\]</span></p>
+<p>したがって、<span class="math inline">\(h\)</span> が <span class="math inline">\((x,y)\)</span> を誤分類するのは、<span class="math inline">\(\rho_h(x,y) \le 0\)</span> と同値</p>
+<p><span class="math inline">\(\forall \rho &gt; 0\)</span> において、多クラス分類に対する仮説 <span class="math inline">\(h\)</span> の経験マージン損失を次のように定義できる</p>
+<p><span class="math display">\[
+\hat{R}_{S,\rho}(h) = \frac{1}{m}\sum^m_{i = 1}\Phi_\rho\left(\rho_h(x_i,y_i)\right) \tag{9.5}
+\]</span></p>
+<p>ここで <span class="math inline">\(\Phi_{\rho}\)</span> はマージン損失関数である（定義5.5）</p>
+<p>したがって、多クラス分類の経験マージン 損失は、<span class="math inline">\(h\)</span> によって誤分類された訓練点の割合、または正しく分類されたが信頼度が <span class="math inline">\(\rho\)</span> 以下の訓練点の割合によって抑えられる</p>
+<p><span class="math display">\[
+\hat{R}_{S,\rho}(h) = \frac{1}{m}\sum^m_{i = 1}1_{\rho_h(x_i,y_i) \le \rho} \tag{9.6}
+\]</span></p>
+<div id="theorem-9.2-margin-bound-for-multi-class-classification" class="section level3">
+<h3>Theorem 9.2 (Margin bound for multi-class classification)</h3>
+</div>
 </div>
 <div id="conclusion" class="section level2">
 <h2>Conclusion</h2>
