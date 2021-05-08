@@ -7,7 +7,7 @@
 
         <meta name="author" content="谷口友哉" />
     
-        <meta name="date" content="2021-05-06" />
+        <meta name="date" content="2021-05-08" />
     
     <title>Multi-Class Classification</title>
 
@@ -1865,6 +1865,7 @@ border-bottom: solid 1px lightgray;
             <li><a href="#motivation">Motivation</a></li>
             <li><a href="#introduction">Introduction</a></li>
             <li><a href="#multi-class-classification-problem">9.1 Multi-class classification problem</a></li>
+            <li><a href="#generalization-bounds">9.2 Generalization bounds</a></li>
             <li><a href="#conclusion">Conclusion</a></li>
             </ul>
           </div>
@@ -1887,7 +1888,7 @@ border-bottom: solid 1px lightgray;
       <p class="authors">
            <span class="glyphicon glyphicon-user"></span> 谷口友哉
       </p>
-         <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2021-05-06</p>
+         <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2021-05-08</p>
          
    
       
@@ -1943,6 +1944,78 @@ border-bottom: solid 1px lightgray;
 <li><p>multi-label case は、スポーツ、ビジネス、社会などの複数の異なるトピックでラベル付けされたテキスト文書のケースで説明できる</p></li>
 </ul>
 </div>
+<div id="generalization-error" class="section level3">
+<h3>Generalization error</h3>
+<ul>
+<li>いずれの場合も、学習者は、ラベル付き標本 <span class="math inline">\(S = ((x_1, y_1), ... , (x_m, y_m)) ∈ \left(\mathcal X × \mathcal Y\right)^m\)</span> を受け取る
+<ul>
+<li><span class="math inline">\(x_1, ... , x_m\)</span> は<span class="math inline">\(\mathcal D\)</span> に従ってi.i.d.で抽出される</li>
+<li><span class="math inline">\(\forall i∈[1,m],\;y_i = f(x_i)\)</span> であり、<span class="math inline">\(f : \mathcal X → \mathcal Y\)</span>は対象となるラベリング関数</li>
+</ul></li>
+<li>以下では決定論的なシナリオを考える
+<ul>
+<li>2.4.1節で述べたように、<span class="math inline">\(\mathcal X×\mathcal Y\)</span> の分布を認める確率的なものに簡単に拡張できる</li>
+</ul></li>
+<li><span class="math inline">\(\mathcal X\)</span> を <span class="math inline">\(\mathcal Y\)</span> に写像する関数の仮説集合 <span class="math inline">\(\mathcal H\)</span> が与えられた場合、多クラス分類問題はラベル付き標本 <span class="math inline">\(S\)</span> を用いて、ターゲット <span class="math inline">\(f\)</span> に関して小さな汎化誤差 <span class="math inline">\(R(h)\)</span> を持つ仮説 <span class="math inline">\(h∈\mathcal H\)</span> を見つけること</li>
+</ul>
+<p><span class="math display">\[
+R(h) = \mathbb E_{x \sim \mathcal D}[1_{h(x)\neq f(x)}] \;\;\; \rm{mono-label\;case}\tag{9.1}
+\]</span></p>
+<p><span class="math display">\[
+R(h) = \mathbb E_{x \sim \mathcal D}\left[\sum^{k}_{l = 1} 1_{[h(x)]_l\neq [f(x)]_l}\right] \;\;\; \rm{multi-label\;case}\tag{9.2}
+\]</span></p>
+<ul>
+<li>ハミング距離 <span class="math inline">\(d_H\)</span>（2つのベクトルの中で異なる対応する成分の数）の概念は、両方の誤差に共通の定式化を与えるために使用することができる</li>
+</ul>
+<p><span class="math display">\[
+R(h) = \mathbb E_{x \sim \mathcal D}\left[d_H\left(h(x),f(x)\right)\right] \;\;\;\tag{9.3}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(h∈\mathcal H\)</span> の経験的誤差を <span class="math inline">\(\hat{R}_S(h)\)</span> とし、次のように定義する</li>
+</ul>
+<p><span class="math display">\[
+\hat{R}_S(h) = \frac{1}{m}\sum^{m}_{i = 1}d_H\left(h(x_i),y_i\right) \tag{9.4}
+\]</span></p>
+</div>
+<div id="note" class="section level3">
+<h3>Note</h3>
+<ul>
+<li>多クラスの設定では、計算上および学習上の問題がいくつか発生する</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>多数のクラスを扱うこと (計算上の問題)
+<ul>
+<li>クラスの数 <span class="math inline">\(k\)</span> は、これから紹介するアルゴリズムの時間的複雑さに直接影響する</li>
+<li><span class="math inline">\(k=100\)</span> や <span class="math inline">\(k=1,000\)</span> のような比較的少ないクラス数であっても、実際には使用できないかもしれない</li>
+</ul></li>
+<li>不均衡なクラスの存在
+<ul>
+<li>ラベル付けされた標本の5％以下のクラスもあれば、データの非常に大きな部分を占めるクラスもある</li>
+<li>多クラスの解を定義するために別々の2値分類器が使用されている場合、トレーニングサンプルにわずかしか含まれていない2つのクラスを区別する分類器をトレーニングする必要がある</li>
+<li>これは小さなサンプルで学習することを意味し、性能の保証ができない</li>
+<li>また、学習インスタンスの大部分が1つのクラスに属する場合、先に定義した汎化誤差が比較的低いと思われるため、常にそのクラスを返す仮説を提案したくなるかもしれない</li>
+<li>しかし、このような些細な解は、通常、意図したものではない</li>
+<li>代わりに、クラスの各ペアに異なる誤分類の重みを割り当てることで、損失関数を再定式化する必要があるかもしれない</li>
+</ul></li>
+<li>クラスの階層化 (クラス間の関係性)
+<ul>
+<li>(例) 文書分類の場合、世界の政治を扱った文書を不動産を扱った文書に誤分類した場合は、より具体的なラベルである野球ではなくスポーツのラベルを付けた場合よりも、当然ながらペナルティが大きくなる</li>
+<li>より複雑で有用な多クラス分類法では、クラス間の階層的な関係を考慮し、この階層に応じて損失関数を定義する</li>
+<li>クラス間の階層的な関係を用いることで、より豊かで複雑な多クラス分類問題となる</li>
+</ul></li>
+</ol>
+</div>
+</div>
+<div id="generalization-bounds" class="section level2">
+<h2>9.2 Generalization bounds</h2>
+<p>mono-label case 多クラス分類における、マージンベースの汎化境界を示す</p>
+<p>2値の状況では、分類器はしばしばスコアリング関数の符号に基づいて定義される</p>
+<p>多クラスの設定では、仮説はスコアリング関数 <span class="math inline">\(h :\mathcal X × \mathcal Y → \mathbb R\)</span> に基づいて定義される</p>
+<p>点 <span class="math inline">\(x\)</span> に関連するラベルは、最大のスコア <span class="math inline">\(h(x, y)\)</span> をもたらすものであり、<span class="math inline">\(\mathcal X\)</span> から <span class="math inline">\(\mathcal Y\)</span> への以下の写像を定義</p>
+
+<p><span class="math display">\[
+x \mapsto \mathop{\rm arg~max}\limits_{y \in \mathcal Y} \:\:h(x,y)
+\]</span></p>
 </div>
 <div id="conclusion" class="section level2">
 <h2>Conclusion</h2>
