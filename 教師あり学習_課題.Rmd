@@ -1,0 +1,212 @@
+---
+title: "教師あり学習 課題"
+author: "谷口友哉"
+ddate: "`r format(Sys.time(), '%Y/%m/%d')`"
+output:
+  rmdformats::downcute:
+    code_folding: hide
+    self_contained: TRUE
+    thumbnails: FALSE
+    lightbox: FALSE
+    css: style.css
+    md_extensions: -ascii_identifiers
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# 課題2  
+
+R パッケージ "MASS"の "Boston" データセットに対して，変数 medv を目的変数，それ以外を説明変数として lasso を適用し，解パス図および CV の推移の図， CV によって選択された回帰係数を出力せよ
+
+```{r,include = FALSE}
+library(MASS)
+```
+```{r}
+data(Boston)
+head(Boston)
+```
+
+
+* glmnetUtils パッケージ を使うことで formula チック (y ~ x) で書ける
+  * https://cran.r-project.org/web/packages/glmnetUtils/vignettes/intro.html
+
+```{r,include = FALSE}
+library(glmnet)
+library(glmnetUtils)
+```
+
+```{r}
+par(family= "HiraKakuProN-W3")
+fit.Lasso <- glmnet(medv ~ ., data = Boston)
+plot(fit.Lasso, xvar="lambda", label=TRUE,
+     xlab="正則化パラメータの対数値", 
+     ylab="回帰係数", col="black", lwd=2.5)
+```
+
+* ggfortify パッケージを使うことで、ggplot 風に描画できる
+  * https://cran.r-project.org/web/packages/ggfortify/vignettes/plot_lm.html
+
+```{r,include = FALSE}
+library(ggfortify)
+```
+
+```{r}
+autoplot(fit.Lasso, xvar = "lambda")
+```
+
+
+* CV
+
+```{r}
+fit.Lasso.cv <- cv.glmnet(medv ~ ., data = Boston,
+                           nfolds = 10,
+                           alpha = 1, 
+                           standardize = TRUE)
+```
+
+```{r}
+par(family= "HiraKakuProN-W3")
+# CV値の推移をプロット
+plot(fit.Lasso.cv, xlab="正則化パラメータの対数値", ylab="２乗誤差")
+```
+
+```{r}
+# CV値が最小となる正則化パラメータ値を出力
+fit.Lasso.cv$lambda.min
+# 1標準誤差ルールにより選択された正則化パラメータの値を出力
+fit.Lasso.cv$lambda.1se
+```
+
+
+```{r,include = FALSE}
+library(ggfortify)
+```
+
+```{r}
+autoplot(fit.Lasso.cv)
+```
+
+* broom パッケージを使うことでモデルの学習結果を tidy 形式にできる
+  * http://varianceexplained.org/broom-gallery/snippets/broom-glmnet.html
+
+```{r,include = FALSE}
+library(broom)
+```
+
+```{r}
+tidied_cv <- tidy(fit.Lasso.cv)
+head(tidied_cv)
+```
+
+
+* 上で求めた値と一致しない。。。なぜ？
+```{r}
+glance_cv <- glance(fit.Lasso.cv)
+glance_cv
+```
+
+
+* tidy data にすることで lambda と推定値の推移を ggplot で描画できる
+
+```{r,include = FALSE}
+library(ggplot2)
+```
+
+```{r}
+ggplot(tidied_cv, aes(lambda, estimate)) + 
+  geom_line(color = "red") +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = .2) +
+  scale_x_log10() +
+  geom_vline(xintercept = glance_cv$lambda.min) +
+  geom_vline(xintercept = glance_cv$lambda.1se, lty = 2)
+```
+
+* cv で選択された lambda を固定
+
+```{r}
+# fit.Lasso.cv$lambda.min で求めた値
+fit.Lasso1 <- glmnet(medv ~ ., data = Boston,lambda = 0.02800535)
+fit.Lasso1$beta
+```
+
+
+```{r}
+# glance関数で出力された結果
+fit.Lasso2 <- glmnet(medv ~ ., data = Boston,lambda = 0.02325053)
+fit.Lasso2$beta
+```
+
+* 係数は少し変わるが、0と推定される変数は同じ
+
+# 課題4
+
+適当なデータに対して fused lasso or L1 トレンドフィルタリングを適用し、当てはめ曲線を出力せよ．𝜆の値は適当でよい  
+または、適当なデータに対してグラフィカルlassoを適用し、推定されたグラフを出力せよ．𝜆の値は適当でよい
+
+* genlassoパッケージのfusedlasso1dを用いることでfused lassoによる推定を行える
+
+```{r,include = FALSE}
+library(genlasso)
+```
+
+```{r}
+set.seed(1)
+n = 100
+i = 1:n
+y = (i > 20 & i < 30) + 5*(i > 50 & i < 70) + rnorm(n, sd=0.1)
+out = fusedlasso1d(y)
+```
+
+
+```{r}
+plot(out, lambda=1)
+```
+
+
+# 課題6 
+
+R package "grpreg" のデータセット "Lung" に対して，`変数 Lung$y[,1] を 目的変数， Lung$X` を説明変数として group lasso を適用し，解パス図および回帰係数を出力せよ。𝜆の値は適当でよい
+
+* grpregのドキュメント : https://cran.r-project.org/web/packages/grpreg/grpreg.pdf
+
+* Lungデータ : 肺がんに対する2つの治療レジメンの無作為化試験のデータ
+
+```{r,include = FALSE}
+library(grpreg)
+```
+
+* データを眺めてみる
+
+```{r}
+data(Lung)
+hist(Lung$y[,1], xlab="Follow-up time", main="")
+```
+
+```{r}
+X <- Lung$X
+y <- Lung$y
+group <- Lung$group
+fit_grlasso <- grpreg(X, y, group, penalty="grLasso",log.lambda = 10.9897)
+
+```
+
+```{r}
+plot(fit_grlasso)
+```
+
+```{r}
+# Plot group norms, with labels in right margin
+plot(fit_grlasso, norm=TRUE, label=TRUE)
+```
+
+```{r}
+# lambda = 10 のときの係数を表示
+coef(fit_grlasso,lambda = 10)# 係数の推定値
+```
+
+
+
+
+
