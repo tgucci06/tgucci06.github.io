@@ -7,7 +7,7 @@
 
         <meta name="author" content="谷口友哉" />
     
-        <meta name="date" content="2021-05-04" />
+        <meta name="date" content="2021-05-18" />
     
     <title>Kernel Methods</title>
 
@@ -1890,7 +1890,7 @@ border-bottom: solid 1px lightgray;
       <p class="authors">
            <span class="glyphicon glyphicon-user"></span> 谷口友哉
       </p>
-         <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2021-05-04</p>
+         <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2021-05-18</p>
          
    
       
@@ -1988,24 +1988,24 @@ K(x,x&#39;) = \sum^{\infty}_{n = 0}a_n \phi_n(x)\phi_n(x&#39;)
 <h2>Positive definite symmetric kernels</h2>
 <div id="definition-6.3-positive-definite-symmetric-kernels-正定値対称カーネル" class="section level3">
 <h3>Definition 6.3 (Positive definite symmetric kernels : 正定値対称カーネル)</h3>
-<p>任意の <span class="math inline">\(\{x_1,...,x_m\} ⊆\mathcal{X}\)</span> に対して、行列 <span class="math inline">\(\bf{K} \rm{= [K(x_i,x_j)]_{ij} \in \mathbb{R}^{m \times m}}\)</span> が対称半正定値 (Symmetric Positive Semidefinite : SPSD) である場合<br> カーネル <span class="math inline">\(K \colon \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}\)</span> は、正定値対称 (PDS) であると言われる</p>
+<p>任意の <span class="math inline">\(\{x_1,...,x_m\} ⊆\mathcal{X}\)</span> に対して、行列 <span class="math inline">\(\bf{K} \mathrm{= [K(x_i,x_j)]_{ij} \in \mathbb{R}^{m \times m}}\)</span> が対称半正定値 (Symmetric Positive Semidefinite : SPSD) である場合<br> カーネル <span class="math inline">\(K \colon \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}\)</span> は、正定値対称 (PDS) であると言われる</p>
 <p><span class="math inline">\(K\)</span> が対称であり、以下の2つの等価な条件のいずれかが満たされていれば、<span class="math inline">\(K\)</span>はSPSDである</p>
 <ul>
 <li><p><span class="math inline">\(K\)</span> の固有値が非負である</p></li>
 <li><p>任意の列ベクトル <span class="math inline">\(c = (c_1, . . . ,c_m)^\top \in \mathbb{R}^{m \times 1}\)</span>において以下を満たす</p></li>
 </ul>
 <p><span class="math display">\[
-\bf{c^\top Kc} \:\rm{=\sum^{n}_{i,j=1} c_ic_jK(x_i,x_j) \geq 0 \tag{6.2}}
+\bf{c^\top Kc} \:\mathrm{=\sum^{n}_{i,j=1} c_ic_jK(x_i,x_j) \geq 0 \tag{6.2}}
 \]</span></p>
 <ul>
-<li>標本 <span class="math inline">\(S = (x1,....,xm)\)</span> に対して、<span class="math inline">\(\bf{K} \rm{= [K(x_i,x_j)]_{ij} \in \mathbb{R}^{m \times m}}\)</span> は、カーネル行列またはKと標本Sとの関係を表すグラム行列と呼ばれている</li>
+<li>標本 <span class="math inline">\(S = (x1,....,xm)\)</span> に対して、<span class="math inline">\(\bf{K} \mathrm{= [K(x_i,x_j)]_{ij} \in \mathbb{R}^{m \times m}}\)</span> は、カーネル行列またはKと標本Sとの関係を表すグラム行列と呼ばれている</li>
 </ul>
 </div>
 <div id="example-6.4-polynomial-kernels-多項式カーネル" class="section level3">
 <h3>Example 6.4 (Polynomial kernels : 多項式カーネル)</h3>
 <p>定数 <span class="math inline">\(\forall c &gt; 0\)</span> について、次数 <span class="math inline">\(d \in \mathbb{N}\)</span>の多項式カーネルは、以下の (6.3)式 によって <span class="math inline">\(\mathbb{R}^N\)</span> 上に定義されたカーネル <span class="math inline">\(K\)</span> である</p>
 <p><span class="math display">\[
-\forall \bf{x,x&#39;} \rm{\in \mathbb{R}^N , K(\bf{x,x&#39;}) \;\rm{=(\bf{x,x&#39;} \rm{\;+ \;c})^d}} \tag{6.3}
+\forall \bf{x,x&#39;} \mathrm{\in \mathbb{R}^N , K(\bf{x,x&#39;}) \;\mathrm{=(\bf{x,x&#39;} \mathrm{\;+ \;c})^d}} \tag{6.3}
 \]</span></p>
 <ul>
 <li><p>多項式カーネルは入力空間を次元 <span class="math inline">\({N+d \choose d}\)</span> の高次元空間に写像する（演習6.12参照）</p>
@@ -2014,7 +2014,7 @@ K(x,x&#39;) = \sum^{\infty}_{n = 0}a_n \phi_n(x)\phi_n(x&#39;)
 </ul></li>
 </ul>
 <p><span class="math display">\[
-\forall \bf{x,x&#39;} \rm{\in \mathbb{R}^2 , K(\bf{x,x&#39;}) \rm{\;=\;(x_1x_1&#39; + x_2x_2&#39;+\;c})^2 =\left[\begin{array}{ccc} 
+\forall \bf{x,x&#39;} \mathrm{\in \mathbb{R}^2 , K(\bf{x,x&#39;}) \mathrm{\;=\;(x_1x_1&#39; + x_2x_2&#39;+\;c})^2 =\left[\begin{array}{ccc} 
 x_1^2  \\
 x_2^2  \\
 \sqrt{2}\:x_1x_2 \\
@@ -2054,7 +2054,7 @@ c
 <h3>Example 6.5 (Gaussian kernels)</h3>
 <p>任意の定数 <span class="math inline">\(\sigma &gt;0\)</span> について、ガウシアンカーネルまたは動径基底関数 (RBF) は、<span class="math inline">\(\mathbb{R}^N\)</span> 上で以下の(6.5)式のように定義されたカーネル <span class="math inline">\(K\)</span> である</p>
 <p><span class="math display">\[
-\forall \bf{x,x&#39;} \rm{\in \mathbb{R}^N , K(\bf{x,x&#39;}) \;\rm{=exp\left(- \frac{||\bf{x&#39;-x}||\rm{^2}}{2\sigma^2} \right) }} \tag{6.5}
+\forall \bf{x,x&#39;} \mathrm{\in \mathbb{R}^N , K(\bf{x,x&#39;}) \;\mathrm{=exp\left(- \frac{||\bf{x&#39;-x}||\mathrm{^2}}{2\sigma^2} \right) }} \tag{6.5}
 \]</span></p>
 <p>ガウシアンカーネルは、応用で最も頻繁に使用されるカーネルの一つ</p>
 <p>6.2.3節で、カーネル <span class="math inline">\(K′：(\bf{x,x′}\)</span><span class="math inline">\()\rightarrow exp\left( \frac{\bf{x&#39;\cdot x}}{\sigma^2} \right)\)</span> で正規化することにより、ガウシアンカーネルがPDSカーネルであると導出できることを証明する</p>
@@ -2063,7 +2063,7 @@ c
 <h3>Example 6.6 (Sigmoid kernels)</h3>
 <p>任意の実数 <span class="math inline">\(a, b ≥ 0\)</span> について、シグモイドカーネルは、<span class="math inline">\(\mathbb{R}^N\)</span> 上で以下の(6.6)式のように定義されたカーネル <span class="math inline">\(K\)</span> である</p>
 <p><span class="math display">\[
-\forall \bf{x,x&#39;} \rm{\in \mathbb{R}^N , K(\bf{x,x&#39;}) \;\rm{=tanh\left(a(\bf{x&#39;-x}\rm)+b \right) }} \tag{6.6}
+\forall \bf{x,x&#39;} \mathrm{\in \mathbb{R}^N , K(\bf{x,x&#39;}) \;\mathrm{=tanh\left(a(\bf{x&#39;-x}\mathrm)+b \right) }} \tag{6.6}
 \]</span></p>
 <p>SVMでシグモイドカーネルを使用することは、シグモイド関数を介して定義されることが多い単純なニューラルネットワークに基づく学習アルゴリズムと密接に関連したアルゴリズムを導く</p>
 <p><span class="math inline">\(a &lt; 0\)</span> または <span class="math inline">\(b &lt; 0\)</span> の場合、カーネルはPDSではなく、対応するニューラルネットワークは凸最適化の収束保証の恩恵を受けない(演習6.18参照)</p>
@@ -2080,16 +2080,16 @@ K(x,x&#39;)^2 \leq K(x,x)K(x&#39;,x&#39;) \tag{6.7}
 \]</span></p>
 <p><strong>Proof</strong><br> 行列 <span class="math inline">\(\bf{K} = \left(  \begin{array}{ccc}  K(x,x) &amp; K(x,x&#39;) \\  K(x&#39;,x) &amp; K(x&#39;,x&#39;) \\  \end{array}  \right)\)</span> を考えてみる</p>
 <p>定義により、<span class="math inline">\(K\)</span> がPDSであれば、<span class="math inline">\(\bf K\)</span> はすべての <span class="math inline">\(x, x&#39;∈\mathcal X\)</span> に対してSPSDである</p>
-<p>特に<span class="math inline">\(\bf K\)</span> の固有値の積 <span class="math inline">\(det(\bf K\rm)\)</span> は非負でなければならない<br> したがって、<span class="math inline">\(K(x&#39;, x) = K(x, x&#39;)\)</span> を用いて証明を締めくくる以下の等式が得られる</p>
+<p>特に<span class="math inline">\(\bf K\)</span> の固有値の積 <span class="math inline">\(det(\bf K\mathrm)\)</span> は非負でなければならない<br> したがって、<span class="math inline">\(K(x&#39;, x) = K(x, x&#39;)\)</span> を用いて証明を締めくくる以下の等式が得られる</p>
 <p><span class="math display">\[
-det(\bf K\rm) = K(x,x)K(x&#39;,x&#39;)\ - K(x,x&#39;)^2 \geq 0
+det(\bf K\mathrm) = K(x,x)K(x&#39;,x&#39;)\ - K(x,x&#39;)^2 \geq 0
 \]</span></p>
 </div>
 <div id="theorem-6.8-reproducing-kernel-hilbert-space-rkhs" class="section level3">
 <h3>Theorem 6.8 (Reproducing kernel Hilbert space (RKHS) )</h3>
 <p><span class="math inline">\(K : \mathcal{X} × \mathcal{X} → \mathbb{R}\)</span> を PDS カーネルとすると、ヒルベルト空間 <span class="math inline">\(\mathbb{H}\)</span> (定義A.2参照) と<span class="math inline">\(\mathcal{X}\)</span> から <span class="math inline">\(\mathbb{H}\)</span> への写像 <span class="math inline">\(Φ\)</span> が存在し、そのような写像 <span class="math inline">\(Φ\)</span> は以下の(6.8)式を満たす</p>
 <p><span class="math display">\[
-\forall x,x&#39; \in \mathcal{X},\: K(x,x&#39;) = \langle \Phi \rm(\mathit x),\Phi \rm(\mathit x&#39;) \rangle \tag{6.8}
+\forall x,x&#39; \in \mathcal{X},\: K(x,x&#39;) = \langle \Phi \mathrm(\mathit x),\Phi \mathrm(\mathit x&#39;) \rangle \tag{6.8}
 \]</span></p>
 <p>さらに、<span class="math inline">\(\mathbb{H}\)</span> はreproducing property (再生性) と呼ばれる以下の性質を持つ</p>
 <p><span class="math display">\[
@@ -2099,7 +2099,7 @@ det(\bf K\rm) = K(x,x)K(x&#39;,x&#39;)\ - K(x,x&#39;)^2 \geq 0
 <p><strong>Proof</strong><br></p>
 <p>任意の <span class="math inline">\(x ∈\mathcal X\)</span> について、以下を満たすような <span class="math inline">\(Φ(x) : \mathcal X \rightarrow \mathbb{R}^\mathcal{X}\)</span> を定義する</p>
 <p><span class="math display">\[
-\forall x,x&#39; \in \mathcal{X},\:  \Phi \rm(\mathit x)\Phi \rm(\mathit x&#39;) = \mathit{K \rm(\mathit{x,x&#39;})}
+\forall x,x&#39; \in \mathcal{X},\:  \Phi \mathrm(\mathit x)\Phi \mathrm(\mathit x&#39;) = \mathit{K \mathrm(\mathit{x,x&#39;})}
 \]</span></p>
 <p>このような関数 <span class="math inline">\(Φ(x)\)</span> の有限線形結合の集合として <span class="math inline">\(\mathbb H_0\)</span>を定義する</p>
 <p><span class="math display">\[
@@ -2170,7 +2170,7 @@ det(\bf K\rm) = K(x,x)K(x&#39;,x&#39;)\ - K(x,x&#39;)^2 \geq 0
 \tag{6.11}
 \]</span></p>
 <p>正規化カーネル <span class="math inline">\(K′\)</span> の定義より、<span class="math inline">\(K(x, x) ≠ 0\)</span> となるような<span class="math inline">\(\forall x ∈\mathcal X\)</span> について、<span class="math inline">\(K&#39;(x, x) = 1\)</span> となる</p>
-<p>正規化カーネルの例は、パラメータ <span class="math inline">\(σ &gt; 0\)</span> のガウシアンカーネルであり、これは、<span class="math inline">\(K&#39;：(\bf{x,x&#39;}\rm) \mapsto\mathit {exp\left(\frac{\bf x \cdot x&#39;}{\sigma^2}\right)}\)</span> に関連付けられた正規化カーネルである</p>
+<p>正規化カーネルの例は、パラメータ <span class="math inline">\(σ &gt; 0\)</span> のガウシアンカーネルであり、これは、<span class="math inline">\(K&#39;：(\bf{x,x&#39;}\mathrm) \mapsto\mathit {exp\left(\frac{\bf x \cdot x&#39;}{\sigma^2}\right)}\)</span> に関連付けられた正規化カーネルである</p>
 </div>
 <div id="lemma-6.9-normalized-pds-kernels" class="section level3">
 <h3>Lemma 6.9 (Normalized PDS kernels)</h3>
@@ -2195,19 +2195,19 @@ det(\bf K\rm) = K(x,x)K(x&#39;,x&#39;)\ - K(x,x&#39;)^2 \geq 0
 <p>前提として、これらのカーネル行列はSPSDである</p>
 <p>任意の <span class="math inline">\(\bf{c} \mathit{∈\mathbb R^{m×1}}\)</span> に対して、以下のようになることを観察する</p>
 <p><span class="math display">\[
-(\bf{c^\top Kc}\ge \rm{0}) \cap (\bf{c^\top K&#39;c}\ge \rm{0})\Rightarrow \bf{c^\top (K+K&#39;)c}\ge \rm{0}
+(\bf{c^\top Kc}\ge \mathrm{0}) \cap (\bf{c^\top K&#39;c}\ge \mathrm{0})\Rightarrow \bf{c^\top (K+K&#39;)c}\ge \mathrm{0}
 \]</span></p>
 <p>(6.2)式より、これは <span class="math inline">\(K + K&#39;\)</span> が SPSD であり、したがって <span class="math inline">\(K + K&#39;\)</span> が PDS であることを示す</p>
 <p>積の下での閉性を示すために、任意のSPSD行列 <span class="math inline">\(\bf K\)</span> に対して、<span class="math inline">\(\bf K = MM^\top\)</span>となるような <span class="math inline">\(\bf M\)</span> が存在するという事実を用いる</p>
 <p><span class="math inline">\(\bf M\)</span> の存在は例えば、<span class="math inline">\(K\)</span> の特異値分解やコレスキー分解によって生成できるため、保証されている</p>
 <p><span class="math inline">\(KK&#39;\)</span> に関連するカーネル行列は <span class="math inline">\((\bf K_{\mathit {ij}}K&#39;_{\mathit {ij}})_{\mathit {ij}}\)</span> である</p>
-<p>任意の <span class="math inline">\(\bf{c}∈\mathbb R^{\mathit m×\rm 1}\)</span> に対して、<span class="math inline">\(\bf K_{\mathit {ij}}\)</span>を<span class="math inline">\(\bf M\)</span>の要素で表現すると、<span class="math inline">\(\bf z_\mathit k = \left[\begin{matrix} c_1 \bf M_{\rm{1k}} \\ \vdots \\ c_m \bf M_{\rm{mk}} \end{matrix}\right]\)</span> を用いて次のように書くことができる</p>
+<p>任意の <span class="math inline">\(\bf{c}∈\mathbb R^{\mathit m×\mathrm 1}\)</span> に対して、<span class="math inline">\(\bf K_{\mathit {ij}}\)</span>を<span class="math inline">\(\bf M\)</span>の要素で表現すると、<span class="math inline">\(\bf z_\mathit k = \left[\begin{matrix} c_1 \bf M_{\mathrm{1k}} \\ \vdots \\ c_m \bf M_{\mathrm{mk}} \end{matrix}\right]\)</span> を用いて次のように書くことができる</p>
 <p><span class="math display">\[
 \begin{aligned}
 \sum^{m}_{i,j = i}c_ic_j(\bf K_{\mathit {ij}}K&#39;_{\mathit {ij}})
 &amp;= \sum^{m}_{i,j = i}c_ic_j\left( \left[\sum^m_{k = 1}\bf M_{\mathit {ik}}M_{\mathit {jk}}\right]\bf K&#39;_{\mathit {ij}}\right)\\
 &amp;= \sum^m_{k = 1}\left[\sum^{m}_{i,j = i}c_ic_j\bf M_{\mathit {ik}}M_{\mathit {jk}}\bf K&#39;_{\mathit {ij}}\right]\\
-&amp;= \sum^m_{k = 1}\bf z_k^\top K&#39;z_k \ge \rm0
+&amp;= \sum^m_{k = 1}\bf z_k^\top K&#39;z_k \ge \mathrm0
 \end{aligned}
 \]</span></p>
 <p>これはPDSカーネルが積の下で閉じていることを示している</p>
@@ -2215,8 +2215,8 @@ det(\bf K\rm) = K(x,x)K(x&#39;,x&#39;)\ - K(x,x&#39;)^2 \geq 0
 <p>次に、<span class="math inline">\((K_n)_{n∈\mathbb N}\)</span> を、点極限 <span class="math inline">\(K\)</span> を持つPDSカーネルの列とする</p>
 <p><span class="math inline">\(\bf K\)</span> を <span class="math inline">\(K\)</span> に関連付けられたカーネル行列とし、<span class="math inline">\(\bf K_n\)</span> を<span class="math inline">\(\forall n∈\mathbb N\)</span> について <span class="math inline">\(K_n\)</span>に関連付けられたものの1つとすると、</p>
 <p><span class="math display">\[
-(\forall n,\bf c^\top K_nc \ge \rm 0) \Rightarrow \lim_{n \rightarrow \infty}\bf c^\top K_nc 
-\rm= \bf c^\top K_nc \ge \rm 0
+(\forall n,\bf c^\top K_nc \ge \mathrm 0) \Rightarrow \lim_{n \rightarrow \infty}\bf c^\top K_nc 
+\mathrm= \bf c^\top K_nc \ge \mathrm 0
 \]</span></p>
 <p>これは、点極限の下での閉性を示している</p>
 <p>最後に、<span class="math inline">\(\forall x,x&#39;∈\mathcal X\)</span> に対して、<span class="math inline">\(K\)</span> が <span class="math inline">\(|K(x,x&#39;)|&lt;\rho\)</span> であるPDSカーネルであると仮定し、<span class="math inline">\(f : x \mapsto \sum^{\infty}_{n = 0}a_nx^n, a_n ≥0\)</span> を収束半径 (radius of convergence) <span class="math inline">\(\rho\)</span> を持つべき級数とすると、<span class="math inline">\(n∈\mathbb N\)</span>について、<span class="math inline">\(K^n\)</span> と <span class="math inline">\(a_nK^n\)</span> は積の下の閉包によるPDSである</p>
@@ -2236,7 +2236,7 @@ det(\bf K\rm) = K(x,x)K(x&#39;,x&#39;)\ - K(x,x&#39;)^2 \geq 0
 </ul>
 <p><span class="math display">\[
 \max_{\bf \alpha}\sum^{m}_{i = 1}\alpha_i-\frac{1}{2}\sum^{m}_{i,j = 1}\alpha_i\alpha_jy_iy_jK(x_i,x_j)\\
-\rm{subject \;to \;}0\mathit{\le\alpha_i\le C \cap \sum^{m}_{i = 1}\alpha_iy_i }= 0,\mathit{i} \in [1,m]
+\mathrm{subject \;to \;}0\mathit{\le\alpha_i\le C \cap \sum^{m}_{i = 1}\alpha_iy_i }= 0,\mathit{i} \in [1,m]
 \tag{6.13}
 \]</span></p>
 <ul>
@@ -2255,7 +2255,7 @@ h(x) = sgn\left(\sum^m_{i = 1}\alpha_iy_iK(x_i,x)+b\right)\tag{6.14}
 <h3>Theorem 6.11 (Representer theorem)</h3>
 <p><span class="math inline">\(K : \mathcal X × \mathcal X → \mathbb R\)</span> を PDS カーネル、<span class="math inline">\(\mathbb H\)</span> を対応する RKHS とすると、非減少関数 <span class="math inline">\(G：\mathbb R → \mathbb R\)</span> と損失関数 <span class="math inline">\(L：\mathbb R^m → \mathbb R ∪{+∞}\)</span> の場合、以下の最適化問題の解は <span class="math inline">\(h^∗ = \sum^m_{i = 1}α_iK(x_i,\cdot)\)</span> としかならない</p>
 <p><span class="math display">\[
-\newcommand{\argmin}{\mathop{\rm arg~min}\limits}
+\newcommand{\argmin}{\mathop{\mathrm arg~min}\limits}
 \argmin_{h \in \mathbb H} F(h) = \argmin_{h \in \mathbb H} G(\|h\|_{\mathbb H}) + L\left(h(x_1),\dots,h(x_m)\right)
 \]</span></p>
 <p><span class="math inline">\(G\)</span> がさらに増加すると仮定すると、任意の解はこの形式を持つ</p>
@@ -2271,12 +2271,12 @@ h(x) = sgn\left(\sum^m_{i = 1}\alpha_iy_iK(x_i,x)+b\right)\tag{6.14}
 <h3>6.3.3 Learning guarantees</h3>
 <p>ここでは、PDS カーネルに基づいた仮説集合に対する汎化学習保証を提示する</p>
 <p>次の定理6.12は、ノルムが制限されたカーネルベースの仮説の経験ラデマッハ複雑度に一般的な境界を与える<br> これはある <span class="math inline">\(Λ≧0\)</span> において、<span class="math inline">\(\mathcal H = \left\{h \in \mathbb H:\|h\|_{\mathbb H}\le\Lambda\right\}\)</span> の形式の仮説集合である ここで、<span class="math inline">\(\mathbb H\)</span> はカーネル <span class="math inline">\(K\)</span> に関連付けられた RKHS である</p>
-<p>再生性により、任意の <span class="math inline">\(h∈\mathcal H\)</span> は、<span class="math inline">\(x \mapsto \langle h, K(x, \cdot)\rangle = \langle h, Φ(x)\rangle\)</span> の形式で、<span class="math inline">\(\|h\|_{\mathbb H} ≤ Λ\)</span> をもつ ここで、<span class="math inline">\(Φ\)</span>は、<span class="math inline">\(K\)</span> に関連付けられた特徴写像であり、それは、<span class="math inline">\(x\mapsto \langle \bf{w},\rm Φ(\mathit x)\rangle\)</span> の形式で、<span class="math inline">\(\|\bf w\|_{\mathbb H} ≤ Λ\)</span> をもつ</p>
+<p>再生性により、任意の <span class="math inline">\(h∈\mathcal H\)</span> は、<span class="math inline">\(x \mapsto \langle h, K(x, \cdot)\rangle = \langle h, Φ(x)\rangle\)</span> の形式で、<span class="math inline">\(\|h\|_{\mathbb H} ≤ Λ\)</span> をもつ ここで、<span class="math inline">\(Φ\)</span>は、<span class="math inline">\(K\)</span> に関連付けられた特徴写像であり、それは、<span class="math inline">\(x\mapsto \langle \bf{w},\mathrm Φ(\mathit x)\rangle\)</span> の形式で、<span class="math inline">\(\|\bf w\|_{\mathbb H} ≤ Λ\)</span> をもつ</p>
 </div>
 <div id="theorem-6.12-rademacher-complexity-of-kernel-based-hypotheses" class="section level3">
 <h3>Theorem 6.12 (Rademacher complexity of kernel-based hypotheses)</h3>
 <p><span class="math inline">\(K : \mathcal X × \mathcal X → \mathbb R\)</span> を PDS カーネルとし、<span class="math inline">\(Φ:\mathcal X → \mathbb H\)</span> を <span class="math inline">\(K\)</span> に関連付けられた特徴写像とする</p>
-<p><span class="math inline">\(S ⊆ \left\{x:K(x,x)≤r^2\right\}\)</span> を大きさ <span class="math inline">\(m\)</span> の標本とし、ある <span class="math inline">\(Λ≧0\)</span> において <span class="math inline">\(\mathcal H = \left\{x \mapsto \langle \bf{w},\rm Φ(\mathit x)\rangle:\;\|\bf w\|_{\mathbb H} ≤Λ\right\}\)</span> とすると、</p>
+<p><span class="math inline">\(S ⊆ \left\{x:K(x,x)≤r^2\right\}\)</span> を大きさ <span class="math inline">\(m\)</span> の標本とし、ある <span class="math inline">\(Λ≧0\)</span> において <span class="math inline">\(\mathcal H = \left\{x \mapsto \langle \bf{w},\mathrm Φ(\mathit x)\rangle:\;\|\bf w\|_{\mathbb H} ≤Λ\right\}\)</span> とすると、</p>
 <p><span class="math display">\[
 \hat{\mathfrak R}_S(\mathcal H) \le\frac{\Lambda\sqrt{\mathrm{Tr}[\bf K]}}{m}\le\sqrt{\frac{r^2\Lambda^2}{m}}\tag{6.16}
 \]</span></p>
@@ -2292,19 +2292,19 @@ h(x) = sgn\left(\sum^m_{i = 1}\alpha_iy_iK(x_i,x)+b\right)\tag{6.14}
 <p>多くの場合、実際には考慮された学習タスクに対して自然な距離や計量 (distance or metric) が利用可能である</p>
 <p>この計量は類似度を定義するために使用できる</p>
 <ul>
-<li>(例) ガウシアン・カーネルは <span class="math inline">\(\rm exp\left(-\mathit {d}^{\,2}\right)\)</span> の形をしている<br> ここで <span class="math inline">\(d\)</span> は入力ベクトル空間の計量である</li>
+<li>(例) ガウシアン・カーネルは <span class="math inline">\(\mathrm exp\left(-\mathit {d}^{\,2}\right)\)</span> の形をしている<br> ここで <span class="math inline">\(d\)</span> は入力ベクトル空間の計量である</li>
 </ul>
 <p>以下のようないくつかの自然な疑問が生じる<br></p>
 <ul>
 <li>ヒルベルト空間のメトリックから他にどのような PDS カーネルを構築できるか？<br></li>
-<li><span class="math inline">\(\rm exp\left(-\mathit {d}^{\,2}\right)\)</span> がPDSであることを保証するために、<span class="math inline">\(d\)</span> はどのような技術的条件を満たすべきか？</li>
+<li><span class="math inline">\(\mathrm exp\left(-\mathit {d}^{\,2}\right)\)</span> がPDSであることを保証するために、<span class="math inline">\(d\)</span> はどのような技術的条件を満たすべきか？</li>
 </ul>
 <p>これらの疑問に対処するのに役立つ自然な数学的定義が負定値対称 (NDS) カーネルの定義である</p>
 <div id="definition-6.14-negative-definite-symmetric-nds-kernels" class="section level3">
 <h3>Definition 6.14 (Negative definite symmetric (NDS) kernels )</h3>
-<p>カーネル <span class="math inline">\(K : \mathcal X × \mathcal X → \mathbb R\)</span> が対称であり、<span class="math inline">\(\{x_1,...,x_m\} \subseteq \mathcal X\)</span> と <span class="math inline">\(1^\top \bf c \rm = 0\)</span> となる <span class="math inline">\(\bf{c} ∈\mathbb R^{\rm m×1}\)</span> において以下のような場合、そのカーネルは負定値対称 (NDS) であると言われる</p>
+<p>カーネル <span class="math inline">\(K : \mathcal X × \mathcal X → \mathbb R\)</span> が対称であり、<span class="math inline">\(\{x_1,...,x_m\} \subseteq \mathcal X\)</span> と <span class="math inline">\(1^\top \bf c \mathrm = 0\)</span> となる <span class="math inline">\(\bf{c} ∈\mathbb R^{\mathrm m×1}\)</span> において以下のような場合、そのカーネルは負定値対称 (NDS) であると言われる</p>
 <p><span class="math display">\[
-\bf c^\top Kc \rm \le 0
+\bf c^\top Kc \mathrm \le 0
 \]</span></p>
 <p>明らかに、<span class="math inline">\(K\)</span> がPDSならば<span class="math inline">\(-K\)</span>はNDSであるが、一般的には逆は成り立たない</p>
 <p>以下にNDSカーネルの標準的な例を示す</p>
@@ -2312,16 +2312,16 @@ h(x) = sgn\left(\sum^m_{i = 1}\alpha_iy_iK(x_i,x)+b\right)\tag{6.14}
 <div id="example-6.15-squared-distance-nds-kernel" class="section level3">
 <h3>Example 6.15 (Squared distance — NDS kernel)</h3>
 <p><span class="math inline">\(\mathbb R^N\)</span> における二乗距離 <span class="math inline">\((x, x&#39;) \mapsto \|x&#39;-x\|^2\)</span> はNDSカーネルを定義する</p>
-<p><span class="math inline">\(\bf c ∈ \mathbb R^{\rm m×1}\)</span> で <span class="math inline">\(\sum^m_{i = 1}c_i = 0\)</span> とする</p>
+<p><span class="math inline">\(\bf c ∈ \mathbb R^{\mathrm m×1}\)</span> で <span class="math inline">\(\sum^m_{i = 1}c_i = 0\)</span> とする</p>
 <p>すると、任意の <span class="math inline">\(\{x_1,...,x_m\} ⊆\mathcal X\)</span> について、以下のように書くことができる</p>
 <p><span class="math display">\[
 \begin{aligned}
-\sum^m_{i,j = 1} c_ic_j\|\bf x_{\mathit i} -x_{\mathit j}\|^\rm 2 
-&amp;= \sum^{\mathit m}_\mathit{i,j \rm = 1}c_ic_j\left(\bf x_{\mathit i} - x_{\mathit j}\right)\cdot\left(\bf x_{\mathit i} - x_{\mathit j}\right)\\
-&amp;= \sum^{\mathit m}_\mathit{i,j \rm = 1}\mathit c_ic_j\left(\|\bf x_{\mathit i}\|^{\rm 2} + \|\bf x_{\mathit j}\|^{\rm 2} -\rm 2\bf x_{\mathit i} \cdot x_{\mathit j}\right)\\
-&amp;= \sum^{\mathit m}_\mathit{i,j \rm = 1}\mathit c_ic_j \left(\|\bf x_{\mathit i}\|^{\rm 2} + \|\bf x_{\mathit j}\|^{\rm 2}\right) - 2\sum^m_{i = 1}c_i\bf x_{\mathit i}\cdot\sum^{\mathit m}_{\mathit j \rm = 1}c_\mathit j\bf x_{\mathit j}\\
-&amp;=  \sum^{\mathit m}_\mathit{i,j \rm = 1}\mathit c_ic_j \left(\|\bf x_{\mathit i}\|^{\rm 2} + \|\bf x_{\mathit j}\|^{\rm 2}\right) - 2\left\|\sum^m_{i=1}c_i\bf x_{\mathit i}\right\|^2 \\
-&amp;\le \sum^m_{i,j = 1}c_ic_j \left(\|\bf x_{\mathit i}\|^{\rm 2} + \|\bf x_{\mathit j}\|^{\rm 2}\right)\\
+\sum^m_{i,j = 1} c_ic_j\|\bf x_{\mathit i} -x_{\mathit j}\|^\mathrm 2 
+&amp;= \sum^{\mathit m}_\mathit{i,j \mathrm = 1}c_ic_j\left(\bf x_{\mathit i} - x_{\mathit j}\right)\cdot\left(\bf x_{\mathit i} - x_{\mathit j}\right)\\
+&amp;= \sum^{\mathit m}_\mathit{i,j \mathrm = 1}\mathit c_ic_j\left(\|\bf x_{\mathit i}\|^{\mathrm 2} + \|\bf x_{\mathit j}\|^{\mathrm 2} -\mathrm 2\bf x_{\mathit i} \cdot x_{\mathit j}\right)\\
+&amp;= \sum^{\mathit m}_\mathit{i,j \mathrm = 1}\mathit c_ic_j \left(\|\bf x_{\mathit i}\|^{\mathrm 2} + \|\bf x_{\mathit j}\|^{\mathrm 2}\right) - 2\sum^m_{i = 1}c_i\bf x_{\mathit i}\cdot\sum^{\mathit m}_{\mathit j \mathrm = 1}c_\mathit j\bf x_{\mathit j}\\
+&amp;=  \sum^{\mathit m}_\mathit{i,j \mathrm = 1}\mathit c_ic_j \left(\|\bf x_{\mathit i}\|^{\mathrm 2} + \|\bf x_{\mathit j}\|^{\mathrm 2}\right) - 2\left\|\sum^m_{i=1}c_i\bf x_{\mathit i}\right\|^2 \\
+&amp;\le \sum^m_{i,j = 1}c_ic_j \left(\|\bf x_{\mathit i}\|^{\mathrm 2} + \|\bf x_{\mathit j}\|^{\mathrm 2}\right)\\
 &amp;= \left(\sum^m_{j = 1}c_j\right)\left(\sum^m_{i = 1}c_i\|\bf x_{\mathit i}\|^2\right) + \left(\sum^m_{i = 1}c_i\right)\left(\sum^m_{j = 1}c_j\|\bf x_{\mathit j}\|^2\right)\\
 &amp;= 0
 \end{aligned}
@@ -2334,7 +2334,7 @@ h(x) = sgn\left(\sum^m_{i = 1}\alpha_iy_iK(x_i,x)+b\right)\tag{6.14}
 <p><span class="math inline">\(K&#39;\)</span> を <span class="math inline">\(\forall x_0\)</span> について <span class="math inline">\(\forall x,x&#39; \in \mathcal X,\;K&#39;(x, x&#39;) = K(x, x_0) + K(x&#39;, x_0) - K(x, x&#39;) - K(x_0, x_0)\)</span> によって定義されるとすると、<span class="math inline">\(K\)</span> はNDSであることと、<span class="math inline">\(K&#39;\)</span> がPDSであるは同値 (iff) である</p>
 <p><strong>Proof</strong></p>
 <p><span class="math inline">\(K&#39;\)</span> がPDSであるとし、<span class="math inline">\(\forall x_0\)</span> について、<span class="math inline">\(K(x, x&#39;) = K(x, x_0)+K(x_0, x&#39;)-K(x_0, x_0)-K&#39;(x, x&#39;)\)</span> を持つような <span class="math inline">\(K\)</span> を定義する</p>
-<p>そして、<span class="math inline">\(\bf c^\top1 \rm= 0\)</span> となるような <span class="math inline">\(\forall \bf c\in\mathbb R^{\mathit m}\)</span> と、任意の点の集合 <span class="math inline">\((x_1,...,x_m)∈\mathcal X^m\)</span> において、以下のように <span class="math inline">\(K\)</span> がNDSであることを証明する</p>
+<p>そして、<span class="math inline">\(\bf c^\top1 \mathrm= 0\)</span> となるような <span class="math inline">\(\forall \bf c\in\mathbb R^{\mathit m}\)</span> と、任意の点の集合 <span class="math inline">\((x_1,...,x_m)∈\mathcal X^m\)</span> において、以下のように <span class="math inline">\(K\)</span> がNDSであることを証明する</p>
 <p><span class="math display">\[
 \begin{aligned}
 \sum^m_{i,j = 1}c_ic_jK(x_i,x_j) 
@@ -2458,15 +2458,15 @@ h(x) = sgn\left(\sum^m_{i = 1}\alpha_iy_iK(x_i,x)+b\right)\tag{6.14}
 <li>ここで部分列 (subsequence) とは文字列の中で連続していないてもよい <span class="math inline">\(p\)</span> 個の文字</li>
 <li>部分文字列 (substring) は、文字列の中で連続する <span class="math inline">\(p\)</span> 個の文字</li>
 </ul></li>
-<li><p>昇順に並んだ <span class="math inline">\(p\)</span> 個の添字を <span class="math inline">\(\bf i \rm= \left(\mathit{i_\rm 1,\dots,\mathit i_\rm p}\right)\)</span> <span class="math inline">\(\left(i_1&lt;i_2&lt;\dots&lt;i_p\right)\)</span> とし、その添字に対応する文字による文字列を <span class="math inline">\(\bf s_i\)</span> とする</p></li>
+<li><p>昇順に並んだ <span class="math inline">\(p\)</span> 個の添字を <span class="math inline">\(\bf i \mathrm= \left(\mathit{i_\mathrm 1,\dots,\mathit i_\mathrm p}\right)\)</span> <span class="math inline">\(\left(i_1&lt;i_2&lt;\dots&lt;i_p\right)\)</span> とし、その添字に対応する文字による文字列を <span class="math inline">\(\bf s_i\)</span> とする</p></li>
 <li><p>ここで、特徴写像の要素を文字列 <span class="math inline">\(u\)</span> を部分列としていくつ含んでいるかで定義する</p></li>
 </ul>
 <p><span class="math display">\[
-\phi_u(s) = \left|\left\{\bf i\;\rm|\mathit{u \rm= \bf s_i}\right\}\right|
+\phi_u(s) = \left|\left\{\bf i\;\mathrm|\mathit{u \mathrm= \bf s_i}\right\}\right|
 \]</span></p>
 <p>任意の長さの文字列の集合を <span class="math inline">\(\mathcal A^* = \bigcup_{p＝0}^{\infty}\mathcal A^p\)</span> と表記すると、全部分列カーネルの特徴写像は以下の式で表される</p>
 <p><span class="math display">\[
-\bf \phi\rm(s) = (\phi_u(\bf s\rm))_{u \in \mathcal A^*}
+\bf \phi\mathrm(s) = (\phi_u(\bf s\mathrm))_{u \in \mathcal A^*}
 \]</span></p>
 <ul>
 <li>以下の表にこの特徴写像の例を示す</li>

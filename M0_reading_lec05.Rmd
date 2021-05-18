@@ -12,7 +12,7 @@ output:
     md_extensions: -ascii_identifiers
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{knitr::mathrmarkdown}
   %\VignetteEncoding{UTF-8}
 
 ---
@@ -123,8 +123,8 @@ $$
 
 ### Definition 6.3 (Positive definite symmetric kernels : 正定値対称カーネル)
 
-任意の $\{x_1,...,x_m\} ⊆\mathcal{X}$ に対して、行列 $\bf{K} \rm{= [K(x_i,x_j)]_{ij} \in \mathbb{R}^{m \times m}}$ が対称半正定値 (Symmetric Positive Semidefinite : SPSD) である場合<br>
-カーネル $K \colon  \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}$ は、正定値対称 (PDS) であると言われる
+任意の $\{x_1,...,x_m\} ⊆\mathcal{X}$ に対して、行列 $\bf{K} \mathrm{= [K(x_i,x_j)]_{ij} \in \mathbb{R}^{m \times m}}$ が対称半正定値 (Symmetric Positive Semidefinite : SPSD) である場合<br>
+カーネル $K \colon  \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}$ は、正定値対称 (PDS) であると言われる 
 
 $K$ が対称であり、以下の2つの等価な条件のいずれかが満たされていれば、$K$はSPSDである
 
@@ -133,17 +133,17 @@ $K$ が対称であり、以下の2つの等価な条件のいずれかが満た
 * 任意の列ベクトル $c = (c_1, . . . ,c_m)^\top \in  \mathbb{R}^{m \times 1}$において以下を満たす
 
 $$
-\bf{c^\top Kc} \:\rm{=\sum^{n}_{i,j=1} c_ic_jK(x_i,x_j) \geq 0 \tag{6.2}}
+\bf{c^\top Kc} \:\mathrm{=\sum^{n}_{i,j=1} c_ic_jK(x_i,x_j) \geq 0 \tag{6.2}}
 $$
 
-* 標本 $S = (x1,....,xm)$ に対して、$\bf{K} \rm{= [K(x_i,x_j)]_{ij} \in \mathbb{R}^{m \times m}}$ は、カーネル行列またはKと標本Sとの関係を表すグラム行列と呼ばれている
+* 標本 $S = (x1,....,xm)$ に対して、$\bf{K} \mathrm{= [K(x_i,x_j)]_{ij} \in \mathbb{R}^{m \times m}}$ は、カーネル行列またはKと標本Sとの関係を表すグラム行列と呼ばれている
 
 ### Example 6.4 (Polynomial kernels : 多項式カーネル)
 
 定数 $\forall c > 0$ について、次数 $d \in \mathbb{N}$の多項式カーネルは、以下の (6.3)式 によって $\mathbb{R}^N$ 上に定義されたカーネル $K$ である
 
 $$
-\forall \bf{x,x'} \rm{\in \mathbb{R}^N , K(\bf{x,x'}) \;\rm{=(\bf{x,x'} \rm{\;+ \;c})^d}} \tag{6.3}
+\forall \bf{x,x'} \mathrm{\in \mathbb{R}^N , K(\bf{x,x'}) \;\mathrm{=(\bf{x,x'} \mathrm{\;+ \;c})^d}} \tag{6.3}
 $$
 
 * 多項式カーネルは入力空間を次元 ${N+d \choose d}$ の高次元空間に写像する（演習6.12参照）
@@ -151,7 +151,7 @@ $$
   * (例) 次元 $N = 2$ の入力空間に対して、2 次の多項式 (d = 2) は，次元 6 の次の内積に対応する
 
 $$
-\forall \bf{x,x'} \rm{\in \mathbb{R}^2 , K(\bf{x,x'}) \rm{\;=\;(x_1x_1' + x_2x_2'+\;c})^2 =\left[\begin{array}{ccc} 
+\forall \bf{x,x'} \mathrm{\in \mathbb{R}^2 , K(\bf{x,x'}) \mathrm{\;=\;(x_1x_1' + x_2x_2'+\;c})^2 =\left[\begin{array}{ccc} 
 x_1^2  \\
 x_2^2  \\
 \sqrt{2}\:x_1x_2 \\
@@ -201,7 +201,7 @@ $$
 任意の定数 $\sigma >0$ について、ガウシアンカーネルまたは動径基底関数 (RBF) は、$\mathbb{R}^N$ 上で以下の(6.5)式のように定義されたカーネル $K$ である
 
 $$
-\forall \bf{x,x'} \rm{\in \mathbb{R}^N , K(\bf{x,x'}) \;\rm{=exp\left(- \frac{||\bf{x'-x}||\rm{^2}}{2\sigma^2} \right) }} \tag{6.5}
+\forall \bf{x,x'} \mathrm{\in \mathbb{R}^N , K(\bf{x,x'}) \;\mathrm{=exp\left(- \frac{||\bf{x'-x}||\mathrm{^2}}{2\sigma^2} \right) }} \tag{6.5}
 $$
 
 ガウシアンカーネルは、応用で最も頻繁に使用されるカーネルの一つ
@@ -213,7 +213,7 @@ $$
 任意の実数 $a, b ≥ 0$ について、シグモイドカーネルは、$\mathbb{R}^N$ 上で以下の(6.6)式のように定義されたカーネル $K$ である
 
 $$
-\forall \bf{x,x'} \rm{\in \mathbb{R}^N , K(\bf{x,x'}) \;\rm{=tanh\left(a(\bf{x'-x}\rm)+b \right) }} \tag{6.6}
+\forall \bf{x,x'} \mathrm{\in \mathbb{R}^N , K(\bf{x,x'}) \;\mathrm{=tanh\left(a(\bf{x'-x}\mathrm)+b \right) }} \tag{6.6}
 $$
 
 SVMでシグモイドカーネルを使用することは、シグモイド関数を介して定義されることが多い単純なニューラルネットワークに基づく学習アルゴリズムと密接に関連したアルゴリズムを導く
@@ -243,11 +243,11 @@ $$
 
 定義により、$K$ がPDSであれば、$\bf K$ はすべての $x, x'∈\mathcal X$ に対してSPSDである
 
-特に$\bf K$ の固有値の積 $det(\bf K\rm)$ は非負でなければならない<br>
+特に$\bf K$ の固有値の積 $det(\bf K\mathrm)$ は非負でなければならない<br>
 したがって、$K(x', x) = K(x, x')$ を用いて証明を締めくくる以下の等式が得られる
 
 $$
-det(\bf K\rm) = K(x,x)K(x',x')\ - K(x,x')^2 \geq 0
+det(\bf K\mathrm) = K(x,x)K(x',x')\ - K(x,x')^2 \geq 0
 $$
 
 ### Theorem 6.8 (Reproducing kernel Hilbert space (RKHS) )
@@ -255,7 +255,7 @@ $$
 $K : \mathcal{X} × \mathcal{X} → \mathbb{R}$ を PDS カーネルとすると、ヒルベルト空間 $\mathbb{H}$  (定義A.2参照) と$\mathcal{X}$ から $\mathbb{H}$ への写像 $Φ$ が存在し、そのような写像 $Φ$ は以下の(6.8)式を満たす
 
 $$
-\forall x,x' \in \mathcal{X},\: K(x,x') = \langle \Phi \rm(\mathit x),\Phi \rm(\mathit x') \rangle \tag{6.8}
+\forall x,x' \in \mathcal{X},\: K(x,x') = \langle \Phi \mathrm(\mathit x),\Phi \mathrm(\mathit x') \rangle \tag{6.8}
 $$
 
 さらに、$\mathbb{H}$ はreproducing property (再生性) と呼ばれる以下の性質を持つ
@@ -271,7 +271,7 @@ $\mathbb{H}$ は $K$ に関連付けられた再生核カーネルヒルベル�
 任意の $x ∈\mathcal X$ について、以下を満たすような $Φ(x) : \mathcal X \rightarrow \mathbb{R}^\mathcal{X}$ を定義する
 
 $$
-\forall x,x' \in \mathcal{X},\:  \Phi \rm(\mathit x)\Phi \rm(\mathit x') = \mathit{K \rm(\mathit{x,x'})}
+\forall x,x' \in \mathcal{X},\:  \Phi \mathrm(\mathit x)\Phi \mathrm(\mathit x') = \mathit{K \mathrm(\mathit{x,x'})}
 $$
 
 このような関数 $Φ(x)$ の有限線形結合の集合として $\mathbb H_0$を定義する
@@ -372,7 +372,7 @@ $$
 
 正規化カーネル $K′$ の定義より、$K(x, x) ≠ 0$ となるような$\forall x ∈\mathcal X$ について、$K'(x, x) = 1$ となる
 
-正規化カーネルの例は、パラメータ $σ > 0$ のガウシアンカーネルであり、これは、$K'：(\bf{x,x'}\rm) \mapsto\mathit {exp\left(\frac{\bf x \cdot x'}{\sigma^2}\right)}$ に関連付けられた正規化カーネルである
+正規化カーネルの例は、パラメータ $σ > 0$ のガウシアンカーネルであり、これは、$K'：(\bf{x,x'}\mathrm) \mapsto\mathit {exp\left(\frac{\bf x \cdot x'}{\sigma^2}\right)}$ に関連付けられた正規化カーネルである
 
 ### Lemma 6.9 (Normalized PDS kernels)
 
@@ -411,7 +411,7 @@ PDS カーネルは、和、積、テンソル積、点極限(?)、およびす�
 任意の $\bf{c} \mathit{∈\mathbb R^{m×1}}$ に対して、以下のようになることを観察する
 
 $$
-(\bf{c^\top Kc}\ge \rm{0}) \cap (\bf{c^\top K'c}\ge \rm{0})\Rightarrow \bf{c^\top (K+K')c}\ge \rm{0}
+(\bf{c^\top Kc}\ge \mathrm{0}) \cap (\bf{c^\top K'c}\ge \mathrm{0})\Rightarrow \bf{c^\top (K+K')c}\ge \mathrm{0}
 $$
 
 (6.2)式より、これは $K + K'$ が SPSD であり、したがって $K + K'$ が PDS であることを示す
@@ -422,14 +422,14 @@ $\bf M$ の存在は例えば、$K$ の特異値分解やコレスキー分解�
 
 $KK'$ に関連するカーネル行列は $(\bf K_{\mathit {ij}}K'_{\mathit {ij}})_{\mathit {ij}}$ である
 
-任意の $\bf{c}∈\mathbb R^{\mathit m×\rm 1}$ に対して、$\bf K_{\mathit {ij}}$を$\bf M$の要素で表現すると、$\bf z_\mathit k = \left[\begin{matrix} c_1 \bf M_{\rm{1k}}  \\ \vdots \\ c_m \bf M_{\rm{mk}} \end{matrix}\right]$ を用いて次のように書くことができる
+任意の $\bf{c}∈\mathbb R^{\mathit m×\mathrm 1}$ に対して、$\bf K_{\mathit {ij}}$を$\bf M$の要素で表現すると、$\bf z_\mathit k = \left[\begin{matrix} c_1 \bf M_{\mathrm{1k}}  \\ \vdots \\ c_m \bf M_{\mathrm{mk}} \end{matrix}\right]$ を用いて次のように書くことができる
 
 $$
 \begin{aligned}
 \sum^{m}_{i,j = i}c_ic_j(\bf K_{\mathit {ij}}K'_{\mathit {ij}})
 &= \sum^{m}_{i,j = i}c_ic_j\left( \left[\sum^m_{k = 1}\bf M_{\mathit {ik}}M_{\mathit {jk}}\right]\bf K'_{\mathit {ij}}\right)\\
 &= \sum^m_{k = 1}\left[\sum^{m}_{i,j = i}c_ic_j\bf M_{\mathit {ik}}M_{\mathit {jk}}\bf K'_{\mathit {ij}}\right]\\
-&= \sum^m_{k = 1}\bf z_k^\top K'z_k \ge \rm0
+&= \sum^m_{k = 1}\bf z_k^\top K'z_k \ge \mathrm0
 \end{aligned}
 $$
 
@@ -442,8 +442,8 @@ $K$ と $K'$ のテンソル積は、2つのPDSカーネル $(x_1,x'_1,x_2.x'_2)
 $\bf K$ を $K$ に関連付けられたカーネル行列とし、$\bf K_n$ を$\forall n∈\mathbb N$ について $K_n$に関連付けられたものの1つとすると、
 
 $$
-(\forall n,\bf c^\top K_nc \ge \rm 0) \Rightarrow \lim_{n \rightarrow \infty}\bf c^\top K_nc 
-\rm= \bf c^\top K_nc \ge \rm 0
+(\forall n,\bf c^\top K_nc \ge \mathrm 0) \Rightarrow \lim_{n \rightarrow \infty}\bf c^\top K_nc 
+\mathrm= \bf c^\top K_nc \ge \mathrm 0
 $$
 
 これは、点極限の下での閉性を示している
@@ -468,7 +468,7 @@ SVMがどのようにカーネルと一緒に使用できるかを議論し、�
 
 $$
 \max_{\bf \alpha}\sum^{m}_{i = 1}\alpha_i-\frac{1}{2}\sum^{m}_{i,j = 1}\alpha_i\alpha_jy_iy_jK(x_i,x_j)\\
-\rm{subject \;to \;}0\mathit{\le\alpha_i\le C \cap \sum^{m}_{i = 1}\alpha_iy_i }= 0,\mathit{i} \in [1,m]
+\mathrm{subject \;to \;}0\mathit{\le\alpha_i\le C \cap \sum^{m}_{i = 1}\alpha_iy_i }= 0,\mathit{i} \in [1,m]
 \tag{6.13}
 $$
 
@@ -491,7 +491,7 @@ Representer定理として知られる次の定理は、これが実際にはオ
 $K : \mathcal X × \mathcal X → \mathbb R$ を PDS カーネル、$\mathbb H$ を対応する RKHS とすると、非減少関数 $G：\mathbb R → \mathbb R$ と損失関数 $L：\mathbb R^m → \mathbb R ∪{+∞}$ の場合、以下の最適化問題の解は $h^∗ = \sum^m_{i = 1}α_iK(x_i,\cdot)$ としかならない
 
 $$
-\newcommand{\argmin}{\mathop{\rm arg~min}\limits}
+\newcommand{\argmin}{\mathop{\mathrm arg~min}\limits}
 \argmin_{h \in \mathbb H} F(h) = \argmin_{h \in \mathbb H} G(\|h\|_{\mathbb H}) + L\left(h(x_1),\dots,h(x_m)\right)
 $$
 
@@ -521,14 +521,14 @@ Gがさらに増加する場合、$\|h^\bot \|_{\mathbb H} >0$ のとき、$F (h
 ここで、$\mathbb H$ はカーネル $K$ に関連付けられた RKHS である
 
 再生性により、任意の $h∈\mathcal H$ は、$x \mapsto \langle h, K(x, \cdot)\rangle = \langle h, Φ(x)\rangle$ の形式で、$\|h\|_{\mathbb H} ≤ Λ$ をもつ
-ここで、$Φ$は、$K$ に関連付けられた特徴写像であり、それは、$x\mapsto \langle \bf{w},\rm Φ(\mathit x)\rangle$ の形式で、$\|\bf w\|_{\mathbb H} ≤ Λ$ をもつ
+ここで、$Φ$は、$K$ に関連付けられた特徴写像であり、それは、$x\mapsto \langle \bf{w},\mathrm Φ(\mathit x)\rangle$ の形式で、$\|\bf w\|_{\mathbb H} ≤ Λ$ をもつ
 
 
 ### Theorem 6.12 (Rademacher complexity of kernel-based hypotheses)
 
 $K : \mathcal X × \mathcal X → \mathbb R$ を PDS カーネルとし、$Φ:\mathcal X → \mathbb H$ を $K$ に関連付けられた特徴写像とする
 
-$S ⊆ \left\{x:K(x,x)≤r^2\right\}$ を大きさ $m$ の標本とし、ある $Λ≧0$ において $\mathcal H = \left\{x \mapsto \langle \bf{w},\rm Φ(\mathit x)\rangle:\;\|\bf w\|_{\mathbb H} ≤Λ\right\}$ とすると、
+$S ⊆ \left\{x:K(x,x)≤r^2\right\}$ を大きさ $m$ の標本とし、ある $Λ≧0$ において $\mathcal H = \left\{x \mapsto \langle \bf{w},\mathrm Φ(\mathit x)\rangle:\;\|\bf w\|_{\mathbb H} ≤Λ\right\}$ とすると、
 
 $$
 \hat{\mathfrak R}_S(\mathcal H) \le\frac{\Lambda\sqrt{\mathrm{Tr}[\bf K]}}{m}\le\sqrt{\frac{r^2\Lambda^2}{m}}\tag{6.16}
@@ -549,22 +549,22 @@ $$
 
 この計量は類似度を定義するために使用できる
 
-  * (例) ガウシアン・カーネルは $\rm exp\left(-\mathit {d}^{\,2}\right)$ の形をしている<br>
+  * (例) ガウシアン・カーネルは $\mathrm exp\left(-\mathit {d}^{\,2}\right)$ の形をしている<br>
   ここで $d$ は入力ベクトル空間の計量である
 
 以下のようないくつかの自然な疑問が生じる<br>
 
   * ヒルベルト空間のメトリックから他にどのような PDS カーネルを構築できるか？<br>
-  * $\rm exp\left(-\mathit {d}^{\,2}\right)$ がPDSであることを保証するために、$d$ はどのような技術的条件を満たすべきか？
+  * $\mathrm exp\left(-\mathit {d}^{\,2}\right)$ がPDSであることを保証するために、$d$ はどのような技術的条件を満たすべきか？
 
 これらの疑問に対処するのに役立つ自然な数学的定義が負定値対称 (NDS) カーネルの定義である
 
 ### Definition 6.14 (Negative definite symmetric (NDS) kernels )
 
-カーネル $K : \mathcal X × \mathcal X → \mathbb R$ が対称であり、$\{x_1,...,x_m\} \subseteq \mathcal X$ と  $1^\top \bf c \rm = 0$ となる $\bf{c} ∈\mathbb R^{\rm m×1}$ において以下のような場合、そのカーネルは負定値対称 (NDS) であると言われる
+カーネル $K : \mathcal X × \mathcal X → \mathbb R$ が対称であり、$\{x_1,...,x_m\} \subseteq \mathcal X$ と  $1^\top \bf c \mathrm = 0$ となる $\bf{c} ∈\mathbb R^{\mathrm m×1}$ において以下のような場合、そのカーネルは負定値対称 (NDS) であると言われる
 
 $$
-\bf c^\top Kc \rm \le 0
+\bf c^\top Kc \mathrm \le 0
 $$
 
 明らかに、$K$ がPDSならば$-K$はNDSであるが、一般的には逆は成り立たない
@@ -575,19 +575,19 @@ $$
 
 $\mathbb R^N$ における二乗距離 $(x, x') \mapsto \|x'-x\|^2$ はNDSカーネルを定義する
 
-$\bf c ∈ \mathbb R^{\rm m×1}$ で $\sum^m_{i = 1}c_i = 0$ とする 
+$\bf c ∈ \mathbb R^{\mathrm m×1}$ で $\sum^m_{i = 1}c_i = 0$ とする 
 
 すると、任意の $\{x_1,...,x_m\} ⊆\mathcal X$ について、以下のように書くことができる
 
 
 $$
 \begin{aligned}
-\sum^m_{i,j = 1} c_ic_j\|\bf x_{\mathit i} -x_{\mathit j}\|^\rm 2 
-&= \sum^{\mathit m}_\mathit{i,j \rm = 1}c_ic_j\left(\bf x_{\mathit i} - x_{\mathit j}\right)\cdot\left(\bf x_{\mathit i} - x_{\mathit j}\right)\\
-&= \sum^{\mathit m}_\mathit{i,j \rm = 1}\mathit c_ic_j\left(\|\bf x_{\mathit i}\|^{\rm 2} + \|\bf x_{\mathit j}\|^{\rm 2} -\rm 2\bf x_{\mathit i} \cdot x_{\mathit j}\right)\\
-&= \sum^{\mathit m}_\mathit{i,j \rm = 1}\mathit c_ic_j \left(\|\bf x_{\mathit i}\|^{\rm 2} + \|\bf x_{\mathit j}\|^{\rm 2}\right) - 2\sum^m_{i = 1}c_i\bf x_{\mathit i}\cdot\sum^{\mathit m}_{\mathit j \rm = 1}c_\mathit j\bf x_{\mathit j}\\
-&=  \sum^{\mathit m}_\mathit{i,j \rm = 1}\mathit c_ic_j \left(\|\bf x_{\mathit i}\|^{\rm 2} + \|\bf x_{\mathit j}\|^{\rm 2}\right) - 2\left\|\sum^m_{i=1}c_i\bf x_{\mathit i}\right\|^2 \\
-&\le \sum^m_{i,j = 1}c_ic_j \left(\|\bf x_{\mathit i}\|^{\rm 2} + \|\bf x_{\mathit j}\|^{\rm 2}\right)\\
+\sum^m_{i,j = 1} c_ic_j\|\bf x_{\mathit i} -x_{\mathit j}\|^\mathrm 2 
+&= \sum^{\mathit m}_\mathit{i,j \mathrm = 1}c_ic_j\left(\bf x_{\mathit i} - x_{\mathit j}\right)\cdot\left(\bf x_{\mathit i} - x_{\mathit j}\right)\\
+&= \sum^{\mathit m}_\mathit{i,j \mathrm = 1}\mathit c_ic_j\left(\|\bf x_{\mathit i}\|^{\mathrm 2} + \|\bf x_{\mathit j}\|^{\mathrm 2} -\mathrm 2\bf x_{\mathit i} \cdot x_{\mathit j}\right)\\
+&= \sum^{\mathit m}_\mathit{i,j \mathrm = 1}\mathit c_ic_j \left(\|\bf x_{\mathit i}\|^{\mathrm 2} + \|\bf x_{\mathit j}\|^{\mathrm 2}\right) - 2\sum^m_{i = 1}c_i\bf x_{\mathit i}\cdot\sum^{\mathit m}_{\mathit j \mathrm = 1}c_\mathit j\bf x_{\mathit j}\\
+&=  \sum^{\mathit m}_\mathit{i,j \mathrm = 1}\mathit c_ic_j \left(\|\bf x_{\mathit i}\|^{\mathrm 2} + \|\bf x_{\mathit j}\|^{\mathrm 2}\right) - 2\left\|\sum^m_{i=1}c_i\bf x_{\mathit i}\right\|^2 \\
+&\le \sum^m_{i,j = 1}c_ic_j \left(\|\bf x_{\mathit i}\|^{\mathrm 2} + \|\bf x_{\mathit j}\|^{\mathrm 2}\right)\\
 &= \left(\sum^m_{j = 1}c_j\right)\left(\sum^m_{i = 1}c_i\|\bf x_{\mathit i}\|^2\right) + \left(\sum^m_{i = 1}c_i\right)\left(\sum^m_{j = 1}c_j\|\bf x_{\mathit j}\|^2\right)\\
 &= 0
 \end{aligned}
@@ -605,7 +605,7 @@ $K'$ を $\forall x_0$ について $\forall x,x' \in \mathcal X,\;K'(x, x') = K
 
 $K'$ がPDSであるとし、$\forall x_0$ について、$K(x, x') = K(x, x_0)+K(x_0, x')-K(x_0, x_0)-K'(x, x')$ を持つような $K$ を定義する
 
-そして、$\bf c^\top1 \rm= 0$ となるような $\forall \bf c\in\mathbb R^{\mathit m}$ と、任意の点の集合 $(x_1,...,x_m)∈\mathcal X^m$ において、以下のように $K$ がNDSであることを証明する
+そして、$\bf c^\top1 \mathrm= 0$ となるような $\forall \bf c\in\mathbb R^{\mathit m}$ と、任意の点の集合 $(x_1,...,x_m)∈\mathcal X^m$ において、以下のように $K$ がNDSであることを証明する
 
 $$
 \begin{aligned}
@@ -757,18 +757,18 @@ $$
   * ここで部分列 (subsequence) とは文字列の中で連続していないてもよい $p$ 個の文字
   * 部分文字列 (substring) は、文字列の中で連続する $p$ 個の文字
   
-* 昇順に並んだ $p$ 個の添字を $\bf i \rm= \left(\mathit{i_\rm 1,\dots,\mathit i_\rm p}\right)$ $\left(i_1<i_2<\dots<i_p\right)$ とし、その添字に対応する文字による文字列を $\bf s_i$ とする
+* 昇順に並んだ $p$ 個の添字を $\bf i \mathrm= \left(\mathit{i_\mathrm 1,\dots,\mathit i_\mathrm p}\right)$ $\left(i_1<i_2<\dots<i_p\right)$ とし、その添字に対応する文字による文字列を $\bf s_i$ とする
 
 * ここで、特徴写像の要素を文字列 $u$ を部分列としていくつ含んでいるかで定義する
 
 $$
-\phi_u(s) = \left|\left\{\bf i\;\rm|\mathit{u \rm= \bf s_i}\right\}\right|
+\phi_u(s) = \left|\left\{\bf i\;\mathrm|\mathit{u \mathrm= \bf s_i}\right\}\right|
 $$
 
 任意の長さの文字列の集合を $\mathcal A^* = \bigcup_{p＝0}^{\infty}\mathcal A^p$ と表記すると、全部分列カーネルの特徴写像は以下の式で表される
 
 $$
-\bf \phi\rm(s) = (\phi_u(\bf s\rm))_{u \in \mathcal A^*}
+\bf \phi\mathrm(s) = (\phi_u(\bf s\mathrm))_{u \in \mathcal A^*}
 $$
 
 * 以下の表にこの特徴写像の例を示す
