@@ -1,0 +1,267 @@
+---
+title: "causaltree"
+author: "谷口友哉"
+ddate: "`r format(Sys.time(), '%Y/%m/%d')`"
+output:
+  rmdformats::downcute:
+    code_folding: hide
+    self_contained: TRUE
+    thumbnails: FALSE
+    lightbox: FALSE
+    css: style.css
+    md_extensions: -ascii_identifiers
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# setup  
+
+RのcausalTreeパッケージは Susan Athey氏 の GitHub リポにある  
+(https://github.com/susanathey/causalTree)  
+Github からインストールするために devtools というパッケージを事前にインストールする必要がある
+
+```{r,message = FALSE}
+#未インストールの場合はインストールする。
+#install.packages('devtools')
+```
+
+devtoolsを使ってcausalTreeパッケージをインストール
+
+```{r,message = FALSE}
+# devtools::install_github('susanathey/causalTree')
+```
+
+ライブラリ読み込み
+
+```{r,message = FALSE}
+library(causalTree)
+library(tidyverse)
+```
+
+サンプルデータとしてcausalTreeに入っているデータ'simulation.1'を使う
+
+```{r}
+data(simulation.1)
+#データの確認
+glimpse(simulation.1)
+```
+
+# 実装  
+
+Susan Athey氏 のGitHubリポにあるドキュメントを参考にする
+(https://github.com/susanathey/causalTree/blob/master/briefintro.pdf)
+
+## Splitting rules  
+
+4つの異なる分割ルールが用意されている  
+1. TOT: Transformed Outcome Trees  
+2. CT: Causal Trees  
+3. fit: Fit-based Trees  
+4. tstats: Squared T-statistic Trees  
+```
+causalTree function offers four different splitting rules for user to choose.
+Each splitting rule corresponds to a specific risk function,   
+and each split at a node aims to minimize the risk function.
+```
+## Discrete splitting  
+
+試しにtreeを構築してみる
+
+```{r,warning=FALSE}
+#tree <- causalTree(y ~ x1 + x2 + x3 + x4, data = simulation.1,
+                   #treatment = simulation.1$treatment,
+                   #split.Rule = "TOT",
+                   #cv.option = "fit", cv.Honest = F,
+                   #split.Bucket = T,xval = 10,
+                   #cv.alpha = 0.5, propensity = 0.5)
+ret <- capture.output({
+    tree <- causalTree(y ~ x1 + x2 + x3 + x4, data = simulation.1,
+                       treatment = simulation.1$treatment,
+                       split.Rule = "TOT",
+                       cv.option = "fit", cv.Honest = F,
+                       split.Bucket = T,xval = 10)
+} )
+```
+
+tree を可視化するにはrpart.plot関数を使う  
+roundint = FALSEとしておかないと警告が出ることがある  
+capture.output() を causalTree() に適用するとメッセージ出力を抑制できる  
+
+```{r}
+rpart.plot(tree,roundint = FALSE)
+```
+
+* 剪定をしていないため、深いtreeが構築された
+
+### 引数の説明  
+
+第1引数 : 目的変数と説明変数  
+data : treeの構築に使用するデータ  
+treatment : dataに格納したデータで処置を表す2値データ  
+split.Rule : treeの分割基準.'TOT','CT','fit','tstats'  
+cv.option : cv(クロスバリデーション)のオプション.'CT','TOT','fit','matching'  
+cv.Honest : cvをHonest型で実施するかどうか.TRUE or FALSE  
+split.Bucket : 離散分割を使用するかどうか.TRUE or FALSE  
+xval : cvのホールド数.xval = 10は10 folds cv  
+cv.alpha : $\hat{-EMSE}_\tau\left(S^{tr,cv},N^{est},\Pi,\alpha\right)=\alpha・\frac{1}{N^{tr,cv}}\sum_{i\in S^{tr,cv}}\hat{\tau}^2\left(X_i;S^{tr,cv},\Pi\right)-(1-\alpha)・\left(\frac{1}{N^{tr,cv}}+\frac{1}{N^{est}}\right)・\sum_{\ell\in\Pi}\left(\frac{S_{S^{tr,cv}_{treat}}^2(\ell)}{p}+\frac{S_{S^{tr,cv}_{control}}^2(\ell)}{1-p}\right)$ の$\alpha$を選択. 式中の第2項の調整のための追加係数  
+propensity : 処置確率.TOT splitting ruleで必要  
+
+
+##  Cross Validation and Pruning
+
+剪定に使用される最小のcvエラーに対応する複雑度パラメータを選択するためにcv treeを構築  
+cvでは、エラーを計算するために異なる評価基準を選択することができる
+
+Cross validation optionsは以下の4種類が用意されている  
+  1. TOT : There is no “honest” option for this method.  
+  2. CT : CT-A or CT-H. cv.alphaで調整可能.  
+  3. fit : fit-A or fit-H. cv.alphaで調整可能.  
+  4. matching : 以下のリスク関数で評価 $$\hat{MSE}_\tau(S^{tr,cv},S^{tr,tr},\Pi)=\sum_{i \in S^{tr,cv}}\left(\tau^*(X_i,W_i;S)-\frac{\hat{\tau}(X_i;S^{tr,tr},\Pi)+\hat{\tau}(X_{n(W_i,X_i;S^{tr,cv})};S^{tr,tr},\Pi)}{2}\right)^2$$  
+  ここで $\tau^*\left(X_i,W_i;S\right)\equiv(2W_i-1)\left(Y_i-Y_{n\left(W_i,X_i;S\right)}\right)$ であり, $n\left(W_i,X_i;S\right)$ は特徴空間における $\left(X_i,Y_i,W_i\right)$ の最近傍と定義  
+
+### Example  
+
+treeを構築  
+以下では honest splitting rule を CT-H (split.Rule ="CT",
+split.Honest = T)とし、 cv method を matching (cv.option = "matching" and cv.Honest = F)の設定を考える  
+
+```{r}
+tree1 <- causalTree(y ~ x1 + x2 + x3 + x4, data = simulation.1,
+                    treatment = simulation.1$treatment, 
+                    split.Rule = "CT",split.Honest = T,
+                    cv.option = "matching", cv.Honest = F,
+                    split.Bucket = F, xval = 10)
+```
+
+treeを可視化  
+
+```{r}
+rpart.plot(tree1,roundint = FALSE)
+```
+
+複雑度パラメータ（cp）と正規化クロスバリデーションエラー（xerror）を確認するための cptable を出力
+
+```{r}
+tree1$cptable
+```
+
+プロットしたtreeは大きくて深いため、最小のcvエラー（xerror:cptable[,4]）に対応する複雑度パラメータopcp(:cptable[,1])を選択し、prune()関数を用いて剪定する
+
+```{r}
+opcp <- tree1$cptable[, 1][which.min(tree1$cptable[,4])]
+optree <- prune(tree1, cp = opcp)
+rpart.plot(optree,roundint = FALSE)
+```
+
+
+## Honest Estimation
+
+```
+In addtion to causalTree, we also support one-step honest re-estimation in function honest.causalTree. It can fit a causalTree model and get honest estimation results with
+tree structre built on training sample (including cross validation) and leaf treatment effect
+estimates taken from estimation sample.
+
+causalTreeに加えて、関数 honest.causalTreeでワンステップのhonestな再推定もサポートしている
+これは、causalTreeモデルを適合させ、学習サンプル（クロスバリデーションを含む）と推定サンプルから取得した葉の処置効果推定値に基づいて構築された木構造を用いて、honestな推定結果を得ることができる
+```
+
+まずはデータをトレーニングデータと推定データに分ける
+
+```{r}
+n <- nrow(simulation.1)
+trIdx <- which(simulation.1$treatment == 1)
+conIdx <- which(simulation.1$treatment == 0)
+train_idx <- c(sample(trIdx, length(trIdx) / 2),
+               sample(conIdx, length(conIdx) / 2))
+train_data <- simulation.1[train_idx, ]
+est_data <- simulation.1[-train_idx, ]
+```
+
+honest.causalTree()関数で木を構築
+
+```{r}
+honestTree <- honest.causalTree(y ~ x1 + x2 + x3 + x4,
+                                data = train_data,
+                                treatment =train_data$treatment,
+                                est_data = est_data,
+                                est_treatment=est_data$treatment,
+                                split.Rule = "CT", split.Honest = T,
+                                HonestSampleSize = nrow(est_data),
+                                split.Bucket = T, cv.option = "fit",
+                                cv.Honest = F)
+```
+
+引数の説明
+```
+第1引数          : 目的変数と説明変数
+data             : treeの構築に使用するデータ
+treatment        : dataに格納したデータで処置を表す2値データ
+est_data         : 葉の推定に使用するデータ
+est_treatment    : est_dataに格納したデータで処置を表す2値データ
+split.Rule　　   : treeの分割基準.'TOT','CT'
+split.Honest     : Honest型の分割をするか.TRUE or FALSE
+HonestSampleSize : est_dataの行数
+split.Bucket     : 離散分割を使用するかどうか.
+cv.option        : cv(クロスバリデーション)のオプション.'CT','TOT','fit','matching'
+cv.Honest        : cvをHonest型で実施するかどうか.
+```
+
+treeを可視化
+
+```{r}
+rpart.plot(honestTree,roundint = FALSE)
+```
+
+深くなったtreeを剪定する
+
+```{r}
+opcp <- honestTree$cptable[,1][which.min(honestTree$cptable[,4])]
+opTree <- prune(honestTree, opcp)
+```
+
+剪定後のtreeを可視化
+
+```{r}
+rpart.plot(opTree)
+```
+
+## ランダムフォレストでよく使われる変数重要度を可視化  
+
+変数重要度を可視化する関数
+
+```{r}
+#関数作成
+plotVarImp <- function(ranger_fit, top=NULL){
+  library(ggplot2)
+  
+  n <-length(ranger_fit$variable.importance)
+  
+  pd <- data.frame(Variable = names(ranger_fit$variable.importance[1:n]),
+                   Importance = as.numeric(ranger_fit$variable.importance[1:n])) %>% 
+    arrange(desc(Importance))
+  
+  if(is.null(top)){
+    pd <- arrange(pd, Importance)
+  } else {
+    pd <- arrange(pd[1:top,], Importance)
+  }
+  p <- ggplot(pd, aes(x=factor(Variable, levels=unique(Variable)), y=Importance)) +
+    geom_bar(stat="identity") +
+    xlab("Variables") + 
+    coord_flip()
+  plot(p)
+}
+
+plotVarImp(opTree)
+```
+
+
+### memo
+causalTree():treeの構築はadaptive  
+honest.causalTree():treeの構築がhonest
