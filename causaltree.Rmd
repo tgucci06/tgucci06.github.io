@@ -1,5 +1,5 @@
 ---
-title: "causaltree"
+title: "causaltree 実装メモ"
 author: "谷口友哉"
 ddate: "`r format(Sys.time(), '%Y/%m/%d')`"
 output:
