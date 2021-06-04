@@ -1,3 +1,5 @@
 title: Tomoya Taniguchi のホームページ
 theme: jekyll-theme-slate
 google_analytics: UA-G-GVS80S77KN
+plugins:
+  - jekyll-sitemap
