@@ -1,0 +1,193 @@
+---
+title: "Rで異常検知 メモ"
+author: "谷口友哉"
+ddate: "`r format(Sys.time(), '%Y/%m/%d')`"
+output:
+  rmdformats::downcute:
+    code_folding: hide
+    self_contained: TRUE
+    thumbnails: FALSE
+    lightbox: FALSE
+    css: style.css
+    md_extensions: -ascii_identifiers
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+先日の大学院の授業で異常検知について学習しました。ここでは、そのときに学んだ内容をRで実装したときのメモを備忘録として残しておきます。このページは以下の参考書の2章と7章の一部をまとめたものです。
+
+* 参考書：入門 機械学習による異常検知 – Rによる実践ガイド –, 井手 剛 著, コロナ社, 2015年
+
+# setup  
+
+* ライブラリ読み込み
+
+```{r,message = FALSE}
+library(tidyverse)
+library(car)
+library(MASS)
+```
+
+(参考) 外れ値が含むようなデータを生成する方法
+
+```{r}
+Mu2 <- c(25, 35)				# x,yの平均値
+Si2 <- matrix(c(25, 28, 28, 49), ncol=2)	# 相関係数
+dat2 <- mvrnorm(90, Mu2, Si2)			# データ生成
+Muo1 <- c(10, 55)				# 外れ値の平均値1
+Muo2 <- c(40, 15)				# 外れ値の平均値2
+Sio <- matrix(c(4, 1, 1, 9), ncol=2)		# 外れ値の分散・共分散
+Err1 <- mvrnorm(5, Muo1, Sio)			
+Err2 <- mvrnorm(5, Muo2, Sio)			
+Dat <- rbind(dat2, Err1, Err2)			
+Dat <- data.frame(x = Dat[,1], y = Dat[,2])	
+
+
+ggplot2::ggplot(Dat, aes(x = x ,y = y)) + 
+  geom_point() 
+```
+
+# 2章 外れ値検出
+
+* 外れ値検出 (Outlier detection)
+
+```{r}
+?Davis
+head(Davis)
+summary(Davis)
+
+```
+
+* ヒストグラムと箱ひげ図
+
+```{r}
+ggplot2::ggplot(Davis, aes(x = weight)) +
+  geom_histogram(bins = 15)
+
+ggplot2::ggplot(Davis, aes(x = "", y = weight)) + 
+  stat_boxplot(geom = "errorbar", width = 0.3) +   # ひげと横線を描写するコード
+  geom_boxplot() + 
+  labs(x = "") 
+```
+
+* 正規分布を重ねる
+  * https://stackoverflow.com/questions/27661852/adding-a-density-line-to-a-histogram-with-count-data-in-ggplot2
+```{r}
+# 正規分布を重ねる
+ggplot2::ggplot(Davis, aes(x = weight)) + 
+  geom_histogram(aes(y=..density..),colour = "black", fill = "blue", alpha = 0.7) +
+  stat_function(fun = dnorm, args = fitdistr(Davis$weight,"normal")$estimate,size = 1.5,colour = "brown")
+```
+
+* hotelling
+```{r}
+mu <- mean(Davis$weight)
+s2 <- mean((Davis$weight - mu)^2)
+
+sd <- sqrt(s2)
+c(mu, s2)
+
+a <- (Davis$weight - mu)^2/s2 # 異常度
+th <-  qchisq(0.99, 1) # 閾値
+
+d <- data.frame(a)
+
+
+ggplot2::ggplot(d,aes(x=c(1:200),y=a)) +
+  geom_point() + 
+  geom_hline(yintercept = th, linetype = "dashed", colour = "blue") + 
+  labs(title = "", x = "sample number", y = "anomaly")
+```
+
+# 7章 異常部位検知と変化点検知
+
+* Keogh et al. (2005) の心電図データを以下から取得
+  * http://www.cs.ucr.edu/~eamonn/discords/qtdbsel102.txt
+```{r}
+dt <- read.table("qtdbsel102.txt")
+head(dt)
+```
+
+* データを分割, 可視化する
+
+```{r}
+D.train <- dt[1:3000,2] #訓練データ
+D.test <- dt[3001:6000,2] #検証データ
+plot(D.train, type="l", ylim=c(4.0,6.0)) #訓練データの図示
+plot(D.test, type="l", ylim=c(4.0,6.0)) #検証データの図示
+```
+
+
+## 最近傍までの距離で異常部位検知 (Discord discovery)
+
+* knnのためにFNNパッケージを読み込んでおく
+
+```{r}
+library(FNN) # knn
+
+width <- 100
+nk <- 1
+
+D.train <- embed(dt[1:3000, 2], width)
+D.test <- embed(dt[3001:6000, 2], width)
+
+
+d <- FNN::knnx.dist(D.train, D.test, k = nk) # knn
+
+df <- data.frame(x = c(1:(3000 - width + 1)), y = d[,1])
+
+p <- ggplot2::ggplot(df,aes(x = x,y = y)) + 
+  geom_line() + 
+  labs(title = "", x = "index", y = "anomaly")
+
+plot(p)
+```
+
+## 変化点検知 (Change-point detection)
+
+* 特異スペクトル変換法で計算した変化度による変化点検知
+
+```{r}
+# 特異スペクトル変換
+xi <- dt[3001:6000, 2]
+w <- 50 # width
+m <- 2
+k <- w/2
+L <- k/2 # lag
+Tt <- length(xi)
+score <- rep(0, Tt)
+
+for(t in (w+k):(Tt-L+1)) {
+  t.start <- t-w-k+1
+  t.end <- t-1
+  X1 <- t(embed(xi[t.start:t.end], w))[w:1,] # trajectory matrix
+  X2 <- t(embed(xi[(t.start + L):(t.end + L)], w))[w:1,] # test matrix
+  
+  U1 <- svd(X1)$u[,1:m] # X11 SVD
+  U2 <- svd(X2)$u[,1:m] # X12 SVD
+  sig1 <- svd(t(U1) %*% U2)$d[1] # overlap
+  score[t] <- 1 - sig1^2 # change score
+}
+
+df <- data.frame(x = c(1:3000), y = score)
+head(df)
+
+p <- ggplot2::ggplot(df,aes(x = x,y = y)) + 
+  geom_line() + 
+  labs(title = "", x = "time index", y = "change")
+
+plot(p)
+```
+
+異常部位検出よりも明瞭に変化点が検出されている
+
+# まとめ
+
+外れ値検出、異常部位検出、変化点検知について簡単に触ってみました。  
+今回の内容を元に、異常検知について (ざっくり) 俯瞰した note を後日またアップします。
