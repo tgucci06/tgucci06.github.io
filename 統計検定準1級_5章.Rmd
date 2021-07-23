@@ -17,7 +17,7 @@ vignette: >
 
 ---
 
-## キーワード
+# キーワード
 
 * 離散一様分布
 * ベルヌーイ分布
@@ -28,9 +28,9 @@ vignette: >
 * 負の二項分布
 * 多項分布
 
-## 離散一様分布
+# 離散一様分布
 
-### 定義{#discrete_uniform_distribution}
+## 定義{#discrete_uniform_distribution1}
 
 確率変数 $X$ が $1,2,\dots,K$ を等確率で取る、つまり
 
@@ -40,28 +40,30 @@ $$
 
 であるとき、$X$ の分布を $\left\{1,2,\dots,K\right\}$ 上の **離散一様分布** (discrete uniform distribution) という
 
-### 期待値と分散{#discrete_uniform_distribution}
+## 期待値と分散･確率母関数{#discrete_uniform_distribution2}
+
+期待値と分散は以下の通り
 
 $$
 E[X] = \frac{K + 1}{2},\:\: V[X] = \frac{K^2-1}{12}
 $$
 (証明)
 
-### 確率母関数{#discrete_uniform_distribution}
+確率母関数は以下の通り
 
 $$
 G(s) = E\left[s^X\right] = \frac{s + s^2 + \cdots + s^K}{K} = \frac{s\left(1 - s^K\right)}{K\left(1 - s\right)}
 $$
 
-## ベルヌーイ分布
+# ベルヌーイ分布
 
-### ベルヌーイ試行
+## ベルヌーイ試行
 
 2つの結果のうち、いずれか一方が起こる試行を考える  
 一方を「成功」、もう一方を「失敗」と呼ぶ  
 成功の起こる確率を成功確率 $p (0<p<1)$ とする試行を **ベルヌーイ試行** (Bernoulli trial) という
 
-### 定義{#Bernoulli_distribution}
+## 定義{#Bernoulli_distribution1}
 
 成功確率 $p$のベルヌーイ試行に対し、確率変数 $X$ を成功の時 $1$、失敗の時 $0$ をとると定義  
 ($X$ はベルヌーイ試行を1回行った時の成功の回数)  
@@ -73,18 +75,140 @@ $$
 P(X = x) = p^xq^{1-x} , \;x = 0,1
 $$
 
+## 期待値と分散･確率母関数{#Bernoulli_distribution2}
 
-## 二項分布
+$Bin(1,p)$ の期待値と分散は以下の通り
 
-## 超幾何分布
+$$
+E[X] = p,\:\: V[X] = pq \tag{5.1}
+$$
 
-## ポアソン分布
+(証明)
+$$
+E[X] = 1 \times p + 0 \times q = p
+$$
 
-## 幾何分布
+また、$X = 0,1$ より、$X^2 = X$ なので、$E[X^2] = E[X] = p$ であるので、
 
-## 負の二項分布
+$$
+V[X] = E\left[X^2\right] - \left(E[X]\right)^2 = p - p^2 = p(1 - p) = pq
+$$
 
-## 多項分布
+確率母関数は以下の通り
+
+$$
+G(s) = E\left[s^X\right] = s^1 \times p + s^0 \times q =ps + q \tag{5.2}
+$$
+
+
+# 二項分布
+
+## 定義{#binomial_distribution1}
+
+成功確率 $p \;(0<p<1)$のベルヌーイ試行を $n$ 回行い、$i\;(1\leq i \leq n)$ 回目のベルヌーイ試行に対応する確率変数を $X_i$ とする  
+(和$X_1 + \cdots + X_n$ は $n$ 回中の成功回数)  
+ここで、$X_1, \dots , X_n$ が独立であるとき、$Y = X_1 + \cdots + X_n$ が従う分布を、<br>
+成功確率 $p$ の **二項分布** (binomial distribution) といい、$Bin(n,p)$ と表す  
+(独立なベルヌーイ試行を $n$ 回行った時の成功回数 $Y$ の分布が二項分布)
+
+$Bin(1,p)$ の確率変数は、$q := 1 - p$ を用いて以下のように書ける
+
+$$
+P(Y = y) = {}_n C_y p^yq^{1 - y}, \;y = 0,1,\dots,n  \tag{5.3}
+$$
+これは与えられた $y \:(0\leq y \leq n)$ に対し、 $n$ 回の独立なベルヌーイ試行のうち成功 $y$ 回、<br>
+失敗 $n - y$ 回となるような列を考えると、列の総数は $n$ 回の試行のうち成功が起こった $y$ 回を選ぶ方法に<br>
+特定の列が生じる確率を掛け合わせたものと同義である
+
+## 期待値と分散･確率母関数{#binomial_distribution2}
+
+$Bin(n,p)$ の期待値と分散、確率母関数は以下の通り
+
+$$
+E[Y] = np,\:\: V[Y] = npq,\:\: G(s) = E\left[s^Y\right] = \left(ps + q\right)^n  \tag{5.4}
+$$
+
+(証明) 
+
+$Bin(1,p)$ の期待値と分散･確率母関数より導出できる
+
+$Y \sim Bin(n,p)$ の時、$Y = X_1 + \cdots + X_n, \:X_1, \dots, X_n \overset{iid}{\sim} Bin(1,p)$ と考えて良いので、式(5.1)、(5.2) より
+
+$$
+E[Y] = E[X_1] + \cdots + E[X_n] = nE[X_1] = np
+$$
+
+
+$$
+V[Y] = V[X_1] + \cdots + V[X_n] = nV[X_1] = npq
+$$
+
+$$
+G(s) = E\left[s^Y\right] = E\left[s^{X_1}\right] \times \cdots E\left[s^{X_n}\right]= \left(E\left[s^{X_1}\right]\right)^2 = \left(ps + q\right)^n 
+$$
+
+## 二項分布の再生性{#binomial_distribution3}
+
+$Y_1 \sim Bin(n_1,p)$ と $Y_2 \sim Bin(n_2,p)$ が独立ならば、$Y_1 + Y_2 \sim Bin(n_1 + n_2,p)$ となる
+
+(証明) 
+
+式(5.4) より、$Y_1 + Y_2 $ の確率母関数が以下のようになり、<br>
+$Bin(n_1 + n_2,p)$ の確率母関数に一致することからわかる
+
+$$
+E\left[s^{Y_1 + Y_2}\right] = E\left[s^{Y_1}s^{Y_2}\right] = E\left[s^{Y_1}\right] E\left[s^{Y_2}\right] = \left(ps + q\right)^{n_1}\left(ps + q\right)^{n_2} = \left(ps + q\right)^{n_1 + n_2}  
+$$
+
+# 超幾何分布
+
+## 定義{#hypergeometric_distribution1}
+
+壺の中に $N$ 個の玉が入っており、そのうち $M$ 個は赤玉、残りの $N - M$ 個は白玉である $(0 < M < N)$
+
+よく混ぜ、壺から $n$ 個 取り出すとき、 $n$ 個中 $Y$ 個が赤玉だったとする  
+($n = 1$ ならば、 $Y \sim Bin\left(1,\frac{M}{N}\right)$ )
+
+復元無作為抽出 (1つ取り出すごとにその玉を壺に戻し、次の玉を取り出す) のときは、<br>
+赤玉の割合 $\frac{M}{N}$ は変化しないため、取り出された赤玉の個数 $Y$ は二項分布 $Bin\left(n,\frac{M}{N}\right)$ に従う
+
+一方で、非復元無作為抽出 (取り出した玉を壺に戻さず、次の玉を取り出す) のときは<br>
+それまでに取り出された赤玉と白玉の数によって壺の中の赤玉の割合は変化し、$Y$ は二項分布に従わない
+
+非復元無作為抽出のとき、$Y$ は **超幾何分布** (hypergeometric distribution) に従い、$HG(N,M,n)$ と表す  
+($M$ 個の赤玉と $N - M$ 個の白玉の合計 $N$ 個の玉が入った壺から、<br>
+非復元無作為抽出で $n$ 個の玉を取り出す時、取り出された $n$ 個のうちの赤玉の個数 $Y$ が<br>
+超幾何分布 $HG(N,M,n)$ に従う)
+
+$Y \sim HG(N,M,n)$ の確率変数は以下のように書ける
+
+$$
+P(Y = y) = \frac{{}_M C_y \times {}_{N-M} C_{n -y}}{{}_N C_n}, \; \max\{0,n - (N - M)\} \leq y \leq \min\{n,M\}  \tag{5.5}
+$$
+
+ここで、$\max\{0,n - (N - M)\} \leq y \leq \min\{n,M\}$ は $0 \leq y \leq M,\:0 \leq n - y \leq N -M$ の言いかえである  
+($a < 0$ または $b < 0$ のとき、${}_a C_b = 0$ と考えるならばこの条件は不要)
+
+なお、$n$ と $\frac{M}{N} := p$ を一定のまま、$N \rightarrow \infty \: (M = Np \rightarrow \infty)$ とすると、<br>
+式(5.5)は二項分布 $Bin(n,p)$ の確率関数に各 $y$ で収束し、復元抽出と非復元抽出の差がなくなる
+
+## 期待値と分散{#hypergeometric_distribution2}
+
+$HG(N,M,n)$ の期待値と分散は以下の通り
+
+$$
+E[Y] = n \cdot  \frac{M}{N},\:\: V[Y] = n \cdot  \frac{M}{N} \left(1 - \frac{M}{N}\right) \times \frac{N - n}{N - 1} \tag{5.6}
+$$
+
+(証明) 
+
+# ポアソン分布
+
+# 幾何分布
+
+# 負の二項分布
+
+# 多項分布
 
 
 

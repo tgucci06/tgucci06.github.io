@@ -126,10 +126,28 @@
           <div class="SidebarItems" id="toc">
             <ul>
             <li><a href="#キーワード">キーワード</a></li>
-            <li><a href="#離散一様分布">離散一様分布</a></li>
-            <li><a href="#ベルヌーイ分布">ベルヌーイ分布</a></li>
-            <li><a href="#二項分布">二項分布</a></li>
-            <li><a href="#超幾何分布">超幾何分布</a></li>
+            <li><a href="#離散一様分布">離散一様分布</a>
+            <ul>
+            <li><a href="#discrete_uniform_distribution1">定義</a></li>
+            <li><a href="#discrete_uniform_distribution2">期待値と分散･確率母関数</a></li>
+            </ul></li>
+            <li><a href="#ベルヌーイ分布">ベルヌーイ分布</a>
+            <ul>
+            <li><a href="#ベルヌーイ試行">ベルヌーイ試行</a></li>
+            <li><a href="#Bernoulli_distribution1">定義</a></li>
+            <li><a href="#Bernoulli_distribution2">期待値と分散･確率母関数</a></li>
+            </ul></li>
+            <li><a href="#二項分布">二項分布</a>
+            <ul>
+            <li><a href="#binomial_distribution1">定義</a></li>
+            <li><a href="#binomial_distribution2">期待値と分散･確率母関数</a></li>
+            <li><a href="#binomial_distribution3">二項分布の再生性</a></li>
+            </ul></li>
+            <li><a href="#超幾何分布">超幾何分布</a>
+            <ul>
+            <li><a href="#hypergeometric_distribution1">定義</a></li>
+            <li><a href="#hypergeometric_distribution2">期待値と分散</a></li>
+            </ul></li>
             <li><a href="#ポアソン分布">ポアソン分布</a></li>
             <li><a href="#幾何分布">幾何分布</a></li>
             <li><a href="#負の二項分布">負の二項分布</a></li>
@@ -163,8 +181,8 @@
    
 <!-- Don't indent these lines or it will mess pre blocks indentation --> 
 <div class="page-content has-page-title">
-<div id="キーワード" class="section level2">
-<h2>キーワード</h2>
+<div id="キーワード" class="section level1">
+<h1>キーワード</h1>
 <ul>
 <li>離散一様分布</li>
 <li>ベルヌーイ分布</li>
@@ -176,39 +194,38 @@
 <li>多項分布</li>
 </ul>
 </div>
-<div id="離散一様分布" class="section level2">
-<h2>離散一様分布</h2>
-<div id="discrete_uniform_distribution" class="section level3">
-<h3>定義</h3>
+<div id="離散一様分布" class="section level1">
+<h1>離散一様分布</h1>
+<div id="discrete_uniform_distribution1" class="section level2">
+<h2>定義</h2>
 <p>確率変数 <span class="math inline">\(X\)</span> が <span class="math inline">\(1,2,\dots,K\)</span> を等確率で取る、つまり</p>
 <p><span class="math display">\[
 P(X = 1) = P(X = 2) = \cdots = P(X = K) = \frac{1}{K}
 \]</span></p>
 <p>であるとき、<span class="math inline">\(X\)</span> の分布を <span class="math inline">\(\left\{1,2,\dots,K\right\}\)</span> 上の <strong>離散一様分布</strong> (discrete uniform distribution) という</p>
 </div>
-<div id="discrete_uniform_distribution" class="section level3">
-<h3>期待値と分散</h3>
+<div id="discrete_uniform_distribution2" class="section level2">
+<h2>期待値と分散･確率母関数</h2>
+<p>期待値と分散は以下の通り</p>
 <p><span class="math display">\[
 E[X] = \frac{K + 1}{2},\:\: V[X] = \frac{K^2-1}{12}
 \]</span> (証明)</p>
-</div>
-<div id="discrete_uniform_distribution" class="section level3">
-<h3>確率母関数</h3>
+<p>確率母関数は以下の通り</p>
 <p><span class="math display">\[
 G(s) = E\left[s^X\right] = \frac{s + s^2 + \cdots + s^K}{K} = \frac{s\left(1 - s^K\right)}{K\left(1 - s\right)}
 \]</span></p>
 </div>
 </div>
-<div id="ベルヌーイ分布" class="section level2">
-<h2>ベルヌーイ分布</h2>
-<div id="ベルヌーイ試行" class="section level3">
-<h3>ベルヌーイ試行</h3>
+<div id="ベルヌーイ分布" class="section level1">
+<h1>ベルヌーイ分布</h1>
+<div id="ベルヌーイ試行" class="section level2">
+<h2>ベルヌーイ試行</h2>
 <p>2つの結果のうち、いずれか一方が起こる試行を考える<br />
 一方を「成功」、もう一方を「失敗」と呼ぶ<br />
 成功の起こる確率を成功確率 <span class="math inline">\(p (0&lt;p&lt;1)\)</span> とする試行を <strong>ベルヌーイ試行</strong> (Bernoulli trial) という</p>
 </div>
-<div id="Bernoulli_distribution" class="section level3">
-<h3>定義</h3>
+<div id="Bernoulli_distribution1" class="section level2">
+<h2>定義</h2>
 <p>成功確率 <span class="math inline">\(p\)</span>のベルヌーイ試行に対し、確率変数 <span class="math inline">\(X\)</span> を成功の時 <span class="math inline">\(1\)</span>、失敗の時 <span class="math inline">\(0\)</span> をとると定義<br />
 (<span class="math inline">\(X\)</span> はベルヌーイ試行を1回行った時の成功の回数)<br />
 <span class="math inline">\(X\)</span> の従う分布を、成功確率 <span class="math inline">\(p\)</span> の <strong>ベルヌーイ分布</strong> (Bernoulli distribution) といい、<span class="math inline">\(Bin(1,p)\)</span> と表す</p>
@@ -217,24 +234,106 @@ G(s) = E\left[s^X\right] = \frac{s + s^2 + \cdots + s^K}{K} = \frac{s\left(1 - s
 P(X = x) = p^xq^{1-x} , \;x = 0,1
 \]</span></p>
 </div>
+<div id="Bernoulli_distribution2" class="section level2">
+<h2>期待値と分散･確率母関数</h2>
+<p><span class="math inline">\(Bin(1,p)\)</span> の期待値と分散は以下の通り</p>
+<p><span class="math display">\[
+E[X] = p,\:\: V[X] = pq \tag{5.1}
+\]</span></p>
+<p>(証明) <span class="math display">\[
+E[X] = 1 \times p + 0 \times q = p
+\]</span></p>
+<p>また、<span class="math inline">\(X = 0,1\)</span> より、<span class="math inline">\(X^2 = X\)</span> なので、<span class="math inline">\(E[X^2] = E[X] = p\)</span> であるので、</p>
+<p><span class="math display">\[
+V[X] = E\left[X^2\right] - \left(E[X]\right)^2 = p - p^2 = p(1 - p) = pq
+\]</span></p>
+<p>確率母関数は以下の通り</p>
+<p><span class="math display">\[
+G(s) = E\left[s^X\right] = s^1 \times p + s^0 \times q =ps + q \tag{5.2}
+\]</span></p>
 </div>
-<div id="二項分布" class="section level2">
-<h2>二項分布</h2>
 </div>
-<div id="超幾何分布" class="section level2">
-<h2>超幾何分布</h2>
+<div id="二項分布" class="section level1">
+<h1>二項分布</h1>
+<div id="binomial_distribution1" class="section level2">
+<h2>定義</h2>
+<p>成功確率 <span class="math inline">\(p \;(0&lt;p&lt;1)\)</span>のベルヌーイ試行を <span class="math inline">\(n\)</span> 回行い、<span class="math inline">\(i\;(1\leq i \leq n)\)</span> 回目のベルヌーイ試行に対応する確率変数を <span class="math inline">\(X_i\)</span> とする<br />
+(和<span class="math inline">\(X_1 + \cdots + X_n\)</span> は <span class="math inline">\(n\)</span> 回中の成功回数)<br />
+ここで、<span class="math inline">\(X_1, \dots , X_n\)</span> が独立であるとき、<span class="math inline">\(Y = X_1 + \cdots + X_n\)</span> が従う分布を、<br> 成功確率 <span class="math inline">\(p\)</span> の <strong>二項分布</strong> (binomial distribution) といい、<span class="math inline">\(Bin(n,p)\)</span> と表す<br />
+(独立なベルヌーイ試行を <span class="math inline">\(n\)</span> 回行った時の成功回数 <span class="math inline">\(Y\)</span> の分布が二項分布)</p>
+<p><span class="math inline">\(Bin(1,p)\)</span> の確率変数は、<span class="math inline">\(q := 1 - p\)</span> を用いて以下のように書ける</p>
+<p><span class="math display">\[
+P(Y = y) = {}_n C_y p^yq^{1 - y}, \;y = 0,1,\dots,n  \tag{5.3}
+\]</span> これは与えられた <span class="math inline">\(y \:(0\leq y \leq n)\)</span> に対し、 <span class="math inline">\(n\)</span> 回の独立なベルヌーイ試行のうち成功 <span class="math inline">\(y\)</span> 回、<br> 失敗 <span class="math inline">\(n - y\)</span> 回となるような列を考えると、列の総数は <span class="math inline">\(n\)</span> 回の試行のうち成功が起こった <span class="math inline">\(y\)</span> 回を選ぶ方法に<br> 特定の列が生じる確率を掛け合わせたものと同義である</p>
 </div>
-<div id="ポアソン分布" class="section level2">
-<h2>ポアソン分布</h2>
+<div id="binomial_distribution2" class="section level2">
+<h2>期待値と分散･確率母関数</h2>
+<p><span class="math inline">\(Bin(n,p)\)</span> の期待値と分散、確率母関数は以下の通り</p>
+<p><span class="math display">\[
+E[Y] = np,\:\: V[Y] = npq,\:\: G(s) = E\left[s^Y\right] = \left(ps + q\right)^n  \tag{5.4}
+\]</span></p>
+<p>(証明)</p>
+<p><span class="math inline">\(Bin(1,p)\)</span> の期待値と分散･確率母関数より導出できる</p>
+<p><span class="math inline">\(Y \sim Bin(n,p)\)</span> の時、<span class="math inline">\(Y = X_1 + \cdots + X_n, \:X_1, \dots, X_n \overset{iid}{\sim} Bin(1,p)\)</span> と考えて良いので、式(5.1)、(5.2) より</p>
+<p><span class="math display">\[
+E[Y] = E[X_1] + \cdots + E[X_n] = nE[X_1] = np
+\]</span></p>
+<p><span class="math display">\[
+V[Y] = V[X_1] + \cdots + V[X_n] = nV[X_1] = npq
+\]</span></p>
+<p><span class="math display">\[
+G(s) = E\left[s^Y\right] = E\left[s^{X_1}\right] \times \cdots E\left[s^{X_n}\right]= \left(E\left[s^{X_1}\right]\right)^2 = \left(ps + q\right)^n 
+\]</span></p>
 </div>
-<div id="幾何分布" class="section level2">
-<h2>幾何分布</h2>
+<div id="binomial_distribution3" class="section level2">
+<h2>二項分布の再生性</h2>
+<p><span class="math inline">\(Y_1 \sim Bin(n_1,p)\)</span> と <span class="math inline">\(Y_2 \sim Bin(n_2,p)\)</span> が独立ならば、<span class="math inline">\(Y_1 + Y_2 \sim Bin(n_1 + n_2,p)\)</span> となる</p>
+<p>(証明)</p>
+<p>式(5.4) より、$Y_1 + Y_2 $ の確率母関数が以下のようになり、<br> <span class="math inline">\(Bin(n_1 + n_2,p)\)</span> の確率母関数に一致することからわかる</p>
+<p><span class="math display">\[
+E\left[s^{Y_1 + Y_2}\right] = E\left[s^{Y_1}s^{Y_2}\right] = E\left[s^{Y_1}\right] E\left[s^{Y_2}\right] = \left(ps + q\right)^{n_1}\left(ps + q\right)^{n_2} = \left(ps + q\right)^{n_1 + n_2}  
+\]</span></p>
 </div>
-<div id="負の二項分布" class="section level2">
-<h2>負の二項分布</h2>
 </div>
-<div id="多項分布" class="section level2">
-<h2>多項分布</h2>
+<div id="超幾何分布" class="section level1">
+<h1>超幾何分布</h1>
+<div id="hypergeometric_distribution1" class="section level2">
+<h2>定義</h2>
+<p>壺の中に <span class="math inline">\(N\)</span> 個の玉が入っており、そのうち <span class="math inline">\(M\)</span> 個は赤玉、残りの <span class="math inline">\(N - M\)</span> 個は白玉である <span class="math inline">\((0 &lt; M &lt; N)\)</span></p>
+<p>よく混ぜ、壺から <span class="math inline">\(n\)</span> 個 取り出すとき、 <span class="math inline">\(n\)</span> 個中 <span class="math inline">\(Y\)</span> 個が赤玉だったとする<br />
+(<span class="math inline">\(n = 1\)</span> ならば、 <span class="math inline">\(Y \sim Bin\left(1,\frac{M}{N}\right)\)</span> )</p>
+<p>復元無作為抽出 (1つ取り出すごとにその玉を壺に戻し、次の玉を取り出す) のときは、<br> 赤玉の割合 <span class="math inline">\(\frac{M}{N}\)</span> は変化しないため、取り出された赤玉の個数 <span class="math inline">\(Y\)</span> は二項分布 <span class="math inline">\(Bin\left(n,\frac{M}{N}\right)\)</span> に従う</p>
+<p>一方で、非復元無作為抽出 (取り出した玉を壺に戻さず、次の玉を取り出す) のときは<br> それまでに取り出された赤玉と白玉の数によって壺の中の赤玉の割合は変化し、<span class="math inline">\(Y\)</span> は二項分布に従わない</p>
+<p>非復元無作為抽出のとき、<span class="math inline">\(Y\)</span> は <strong>超幾何分布</strong> (hypergeometric distribution) に従い、<span class="math inline">\(HG(N,M,n)\)</span> と表す<br />
+(<span class="math inline">\(M\)</span> 個の赤玉と <span class="math inline">\(N - M\)</span> 個の白玉の合計 <span class="math inline">\(N\)</span> 個の玉が入った壺から、<br> 非復元無作為抽出で <span class="math inline">\(n\)</span> 個の玉を取り出す時、取り出された <span class="math inline">\(n\)</span> 個のうちの赤玉の個数 <span class="math inline">\(Y\)</span> が<br> 超幾何分布 <span class="math inline">\(HG(N,M,n)\)</span> に従う)</p>
+<p><span class="math inline">\(Y \sim HG(N,M,n)\)</span> の確率変数は以下のように書ける</p>
+<p><span class="math display">\[
+P(Y = y) = \frac{{}_M C_y \times {}_{N-M} C_{n -y}}{{}_N C_n}, \; \max\{0,n - (N - M)\} \leq y \leq \min\{n,M\}  \tag{5.5}
+\]</span></p>
+<p>ここで、<span class="math inline">\(\max\{0,n - (N - M)\} \leq y \leq \min\{n,M\}\)</span> は <span class="math inline">\(0 \leq y \leq M,\:0 \leq n - y \leq N -M\)</span> の言いかえである<br />
+(<span class="math inline">\(a &lt; 0\)</span> または <span class="math inline">\(b &lt; 0\)</span> のとき、<span class="math inline">\({}_a C_b = 0\)</span> と考えるならばこの条件は不要)</p>
+<p>なお、<span class="math inline">\(n\)</span> と <span class="math inline">\(\frac{M}{N} := p\)</span> を一定のまま、<span class="math inline">\(N \rightarrow \infty \: (M = Np \rightarrow \infty)\)</span> とすると、<br> 式(5.5)は二項分布 <span class="math inline">\(Bin(n,p)\)</span> の確率関数に各 <span class="math inline">\(y\)</span> で収束し、復元抽出と非復元抽出の差がなくなる</p>
+</div>
+<div id="hypergeometric_distribution2" class="section level2">
+<h2>期待値と分散</h2>
+<p><span class="math inline">\(HG(N,M,n)\)</span> の期待値と分散は以下の通り</p>
+<p><span class="math display">\[
+E[Y] = n \cdot  \frac{M}{N},\:\: V[Y] = n \cdot  \frac{M}{N} \left(1 - \frac{M}{N}\right) \times \frac{N - n}{N - 1} \tag{5.6}
+\]</span></p>
+<p>(証明)</p>
+</div>
+</div>
+<div id="ポアソン分布" class="section level1">
+<h1>ポアソン分布</h1>
+</div>
+<div id="幾何分布" class="section level1">
+<h1>幾何分布</h1>
+</div>
+<div id="負の二項分布" class="section level1">
+<h1>負の二項分布</h1>
+</div>
+<div id="多項分布" class="section level1">
+<h1>多項分布</h1>
 </div>
 </div>
 
