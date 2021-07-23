@@ -1,0 +1,90 @@
+---
+title: "離散型分布"
+author: "谷口友哉"
+date: "`r Sys.Date()`"
+output:
+  rmdformats::downcute:
+    code_folding: hide
+    self_contained: TRUE
+    thumbnails: FALSE
+    lightbox: FALSE
+    css: style.css
+    md_extensions: -ascii_identifiers
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+
+---
+
+## キーワード
+
+* 離散一様分布
+* ベルヌーイ分布
+* 二項分布
+* 超幾何分布
+* ポアソン分布
+* 幾何分布
+* 負の二項分布
+* 多項分布
+
+## 離散一様分布
+
+### 定義{#discrete_uniform_distribution}
+
+確率変数 $X$ が $1,2,\dots,K$ を等確率で取る、つまり
+
+$$
+P(X = 1) = P(X = 2) = \cdots = P(X = K) = \frac{1}{K}
+$$
+
+であるとき、$X$ の分布を $\left\{1,2,\dots,K\right\}$ 上の **離散一様分布** (discrete uniform distribution) という
+
+### 期待値と分散{#discrete_uniform_distribution}
+
+$$
+E[X] = \frac{K + 1}{2},\:\: V[X] = \frac{K^2-1}{12}
+$$
+(証明)
+
+### 確率母関数{#discrete_uniform_distribution}
+
+$$
+G(s) = E\left[s^X\right] = \frac{s + s^2 + \cdots + s^K}{K} = \frac{s\left(1 - s^K\right)}{K\left(1 - s\right)}
+$$
+
+## ベルヌーイ分布
+
+### ベルヌーイ試行
+
+2つの結果のうち、いずれか一方が起こる試行を考える  
+一方を「成功」、もう一方を「失敗」と呼ぶ  
+成功の起こる確率を成功確率 $p (0<p<1)$ とする試行を **ベルヌーイ試行** (Bernoulli trial) という
+
+### 定義{#Bernoulli_distribution}
+
+成功確率 $p$のベルヌーイ試行に対し、確率変数 $X$ を成功の時 $1$、失敗の時 $0$ をとると定義  
+($X$ はベルヌーイ試行を1回行った時の成功の回数)  
+$X$ の従う分布を、成功確率 $p$ の **ベルヌーイ分布** (Bernoulli distribution) といい、$Bin(1,p)$ と表す
+
+$Bin(1,p)$ の確率変数は、$q := 1 - p$ を用いて以下のように書ける
+
+$$
+P(X = x) = p^xq^{1-x} , \;x = 0,1
+$$
+
+
+## 二項分布
+
+## 超幾何分布
+
+## ポアソン分布
+
+## 幾何分布
+
+## 負の二項分布
+
+## 多項分布
+
+
+
