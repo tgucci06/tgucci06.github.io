@@ -7,7 +7,7 @@
 
         <meta name="author" content="谷口友哉" />
     
-        <meta name="date" content="2021-07-23" />
+        <meta name="date" content="2021-07-24" />
     
     <title>離散型分布</title>
 
@@ -148,7 +148,11 @@
             <li><a href="#hypergeometric_distribution1">定義</a></li>
             <li><a href="#hypergeometric_distribution2">期待値と分散</a></li>
             </ul></li>
-            <li><a href="#ポアソン分布">ポアソン分布</a></li>
+            <li><a href="#ポアソン分布">ポアソン分布</a>
+            <ul>
+            <li><a href="#Poisson_distribution1">定義</a></li>
+            <li><a href="#Poisson_distribution2">確率母関数･期待値と分散</a></li>
+            </ul></li>
             <li><a href="#幾何分布">幾何分布</a></li>
             <li><a href="#負の二項分布">負の二項分布</a></li>
             <li><a href="#多項分布">多項分布</a></li>
@@ -173,7 +177,7 @@
       <p class="authors">
            <span class="glyphicon glyphicon-user"></span> 谷口友哉
       </p>
-         <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2021-07-23</p>
+         <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2021-07-24</p>
            
 
    
@@ -320,11 +324,51 @@ P(Y = y) = \frac{{}_M C_y \times {}_{N-M} C_{n -y}}{{}_N C_n}, \; \max\{0,n - (N
 <p><span class="math display">\[
 E[Y] = n \cdot  \frac{M}{N},\:\: V[Y] = n \cdot  \frac{M}{N} \left(1 - \frac{M}{N}\right) \times \frac{N - n}{N - 1} \tag{5.6}
 \]</span></p>
-<p>(証明)</p>
+<p>期待値は、復元抽出の場合の二項分布 <span class="math inline">\(Bin\left(n,\frac{M}{N}\right)\)</span> の期待値と一致<br />
+分散は、復元抽出の場合の二項分布 <span class="math inline">\(Bin\left(n,\frac{M}{N}\right)\)</span> の分散を <span class="math inline">\(\frac{\left(N - n \right)}{\left(N - 1 \right)}\)</span> 倍したもの<br />
+<span class="math inline">\(n \geq 2\)</span> のとき <span class="math inline">\(\frac{\left(N - n \right)}{\left(N - 1 \right)} &lt; 1\)</span> であり、<span class="math inline">\(\frac{\left(N - n \right)}{\left(N - 1 \right)} &lt; 1\)</span> を <strong>有限母集団修正</strong> (finite population correction) という</p>
+<p>超幾何分布の確率母関数は超幾何関数を用いて表す (具体的な形は省略)</p>
 </div>
 </div>
 <div id="ポアソン分布" class="section level1">
 <h1>ポアソン分布</h1>
+<div id="Poisson_distribution1" class="section level2">
+<h2>定義</h2>
+<p>非負整数値をとる確率変数 <span class="math inline">\(Y\)</span> が、ある <span class="math inline">\(\lambda &gt; 0\)</span> に対して以下の確率関数をもつとする</p>
+<p><span class="math display">\[
+P(Y = y) = \frac{\lambda^y}{y!}e^{-\lambda},\:\:y = 0,1,2,\dots \tag{5.7}
+\]</span></p>
+<p>このとき <span class="math inline">\(Y\)</span> は <strong>ポアソン分布</strong> (Poisson distribution) に従い、<span class="math inline">\(Po(\lambda)\)</span> と表す<br />
+式 (5.7) が確率変数になることは、次のようにわかる</p>
+<p><span class="math display">\[
+\sum^{\infty}_{y = 0}\frac{\lambda^y e^{-\lambda}}{y!} = e^{-\lambda}\sum^{\infty}_{y = 0}\frac{\lambda^y}{y!} = e^{-\lambda}e^{\lambda} = 1
+\]</span></p>
+<p><span class="math inline">\(Po(\lambda)\)</span> の確率関数 (5.7) は、二項分布 <span class="math inline">\(Bin(n.p)\)</span> の確率関数 (5.3)　において、<br> <span class="math inline">\(np\)</span> を <span class="math inline">\(\lambda \;(&gt; 0)\)</span> に固定して <span class="math inline">\(n \rightarrow \infty \; (n \rightarrow \infty, p = \frac{\lambda}{n} \rightarrow 0)\)</span> とした場合の極限として得られる</p>
+<p><span class="math display">\[
+{}_n C_y \left(\frac{\lambda}{n}\right)^y \left(1-\frac{\lambda}{n}\right)^{n -y} \rightarrow \frac{\lambda^y}{y!}e^{-\lambda} \;\;(n \rightarrow \infty) \tag{5.8}
+\]</span></p>
+</div>
+<div id="Poisson_distribution2" class="section level2">
+<h2>確率母関数･期待値と分散</h2>
+<p><span class="math inline">\(Po(\lambda)\)</span> の確率母関数は以下の通り</p>
+<p><span class="math display">\[
+G(s) = E\left[s^Y\right] = e^{\lambda(s - 1)} \tag{5.9}
+\]</span></p>
+<p>(証明)</p>
+<p><span class="math display">\[
+E\left[s^Y\right] = \sum^{\infty}_{y = 0} s^y \cdot \frac{\lambda^y e^{-\lambda}}{y!} = e^{-\lambda} \sum^{\infty}_{y = 0} \frac{(\lambda s)^y}{y!} = e^{-\lambda}e^{\lambda s} = e^{\lambda(s - 1)}
+\]</span></p>
+<p><span class="math inline">\(Po(\lambda)\)</span> の期待値と分散は以下の通り</p>
+<p><span class="math display">\[
+E[Y] = \lambda,\:\: V[Y] = \lambda \tag{5.10}
+\]</span></p>
+<p>(証明)</p>
+<p><span class="math display">\[
+G&#39;(s) = \lambda e^{\lambda(s - 1)},\:\: G&#39;&#39;(s) = \lambda^2 e^{\lambda(s - 1)}\\
+E[Y] = G&#39;(1) =  \lambda ,\:\: V[Y] = E[Y(Y - 1)] + E[Y] -\left(E[Y]\right)^2 = G&#39;&#39;(1) + \lambda - \lambda^2 = \lambda^2 + \lambda -\lambda^2 = \lambda
+\]</span></p>
+<p>式 (5.10) は、式 (5.8) で極限をとる前の二項分布 <span class="math inline">\(Bin(n,p)\)</span> の期待値 <span class="math inline">\(np = \lambda\)</span> と<br> 分散 <span class="math inline">\(np(1 - p) = \lambda\left(1 - \left(\frac{\lambda}{n}\right)\right)\)</span> の極限を考えても予想できる</p>
+</div>
 </div>
 <div id="幾何分布" class="section level1">
 <h1>幾何分布</h1>

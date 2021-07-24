@@ -200,15 +200,78 @@ $$
 E[Y] = n \cdot  \frac{M}{N},\:\: V[Y] = n \cdot  \frac{M}{N} \left(1 - \frac{M}{N}\right) \times \frac{N - n}{N - 1} \tag{5.6}
 $$
 
-(証明) 
+
+期待値は、復元抽出の場合の二項分布 $Bin\left(n,\frac{M}{N}\right)$ の期待値と一致  
+分散は、復元抽出の場合の二項分布 $Bin\left(n,\frac{M}{N}\right)$ の分散を $\frac{\left(N - n \right)}{\left(N - 1 \right)}$ 倍したもの  
+$n \geq 2$ のとき $\frac{\left(N - n \right)}{\left(N - 1 \right)} < 1$ であり、$\frac{\left(N - n \right)}{\left(N - 1 \right)} < 1$ を **有限母集団修正** (finite population correction) という
+
+超幾何分布の確率母関数は超幾何関数を用いて表す (具体的な形は省略)
 
 # ポアソン分布
 
+## 定義{#Poisson_distribution1}
+
+非負整数値をとる確率変数 $Y$ が、ある $\lambda > 0$ に対して以下の確率関数をもつとする
+
+$$
+P(Y = y) = \frac{\lambda^y}{y!}e^{-\lambda},\:\:y = 0,1,2,\dots \tag{5.7}
+$$
+
+このとき $Y$ は **ポアソン分布** (Poisson distribution) に従い、$Po(\lambda)$ と表す  
+式 (5.7) が確率変数になることは、次のようにわかる
+
+$$
+\sum^{\infty}_{y = 0}\frac{\lambda^y e^{-\lambda}}{y!} = e^{-\lambda}\sum^{\infty}_{y = 0}\frac{\lambda^y}{y!} = e^{-\lambda}e^{\lambda} = 1
+$$
+
+$Po(\lambda)$ の確率関数 (5.7) は、二項分布 $Bin(n.p)$ の確率関数 (5.3)　において、<br>
+$np$ を $\lambda \;(> 0)$ に固定して $n \rightarrow \infty \; (n \rightarrow \infty, p = \frac{\lambda}{n} \rightarrow 0)$ とした場合の極限として得られる
+
+$$
+{}_n C_y \left(\frac{\lambda}{n}\right)^y \left(1-\frac{\lambda}{n}\right)^{n -y} \rightarrow \frac{\lambda^y}{y!}e^{-\lambda} \;\;(n \rightarrow \infty) \tag{5.8}
+$$
+
+## 確率母関数･期待値と分散{#Poisson_distribution2}
+
+$Po(\lambda)$ の確率母関数は以下の通り
+
+$$
+G(s) = E\left[s^Y\right] = e^{\lambda(s - 1)} \tag{5.9}
+$$
+
+(証明)
+
+$$
+E\left[s^Y\right] = \sum^{\infty}_{y = 0} s^y \cdot \frac{\lambda^y e^{-\lambda}}{y!} = e^{-\lambda} \sum^{\infty}_{y = 0} \frac{(\lambda s)^y}{y!} = e^{-\lambda}e^{\lambda s} = e^{\lambda(s - 1)}
+$$
+
+$Po(\lambda)$ の期待値と分散は以下の通り
+
+$$
+E[Y] = \lambda,\:\: V[Y] = \lambda \tag{5.10}
+$$
+
+(証明)
+
+$$
+G'(s) = \lambda e^{\lambda(s - 1)},\:\: G''(s) = \lambda^2 e^{\lambda(s - 1)}\\
+E[Y] = G'(1) =  \lambda ,\:\: V[Y] = E[Y(Y - 1)] + E[Y] -\left(E[Y]\right)^2 = G''(1) + \lambda - \lambda^2 = \lambda^2 + \lambda -\lambda^2 = \lambda
+$$
+
+式 (5.10) は、式 (5.8) で極限をとる前の二項分布 $Bin(n,p)$ の期待値 $np = \lambda$ と<br>
+分散 $np(1 - p) = \lambda\left(1 - \left(\frac{\lambda}{n}\right)\right)$ の極限を考えても予想できる
+
 # 幾何分布
+
+
 
 # 負の二項分布
 
+
+
 # 多項分布
+
+
 
 
 
