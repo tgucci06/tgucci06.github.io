@@ -105,7 +105,7 @@ $$
 
 ## 定義{#binomial_distribution1}
 
-成功確率 $p \;(0<p<1)$のベルヌーイ試行を $n$ 回行い、$i\;(1\leq i \leq n)$ 回目のベルヌーイ試行に対応する確率変数を $X_i$ とする  
+成功確率 $p \;(0<p<1)$ のベルヌーイ試行を $n$ 回行い、$i\;(1\leq i \leq n)$ 回目のベルヌーイ試行に対応する確率変数を $X_i$ とする  
 (和$X_1 + \cdots + X_n$ は $n$ 回中の成功回数)  
 ここで、$X_1, \dots , X_n$ が独立であるとき、$Y = X_1 + \cdots + X_n$ が従う分布を、<br>
 成功確率 $p$ の **二項分布** (binomial distribution) といい、$Bin(n,p)$ と表す  
@@ -255,23 +255,184 @@ $$
 
 $$
 G'(s) = \lambda e^{\lambda(s - 1)},\:\: G''(s) = \lambda^2 e^{\lambda(s - 1)}\\
-E[Y] = G'(1) =  \lambda ,\:\: V[Y] = E[Y(Y - 1)] + E[Y] -\left(E[Y]\right)^2 = G''(1) + \lambda - \lambda^2 = \lambda^2 + \lambda -\lambda^2 = \lambda
+E[Y] = G'(1) =  \lambda \\ 
+V[Y] = E[Y(Y - 1)] + E[Y] -\left(E[Y]\right)^2 = G''(1) + \lambda - \lambda^2 = \lambda^2 + \lambda -\lambda^2 = \lambda
 $$
 
 式 (5.10) は、式 (5.8) で極限をとる前の二項分布 $Bin(n,p)$ の期待値 $np = \lambda$ と<br>
 分散 $np(1 - p) = \lambda\left(1 - \left(\frac{\lambda}{n}\right)\right)$ の極限を考えても予想できる
 
+## ポアソン分布の再生性{#Poisson_distribution3}
+
+$Y_1 \sim Po(\lambda_1)$ と $Y_2 \sim Po(\lambda_2)$ が独立ならば、$Y_1 + Y_2 \sim Po(\lambda_1 + \lambda_2)$ となる
+
+(証明) 
+
+式(5.9) の確率母関数から、二項分布の再生性と同じ議論でわかる
+
 # 幾何分布
 
+## 定義{#geometric_distribution1}
 
+成功確率 $p \;(0 < p < 1)$ の独立なベルヌーイ試行を繰り返したとき、初めて成功するまでに起こる **失敗の回数** を $X$ とする  
+このとき $X$ は **幾何分布** (geometric distribution) に従い、$Geo(p)$ と表す
+
+確率関数は $q = 1 - p$ を用いて、以下のように幾何数列 (等比数列) の形で表される
+
+$$
+P(X = x) = pq^x,\:\: x = 0,1,2,\dots
+$$
+
+これは $X = x$ となるのは「最初の $x$ 回全て失敗し、その次に成功する」ときであることを表す
+
+## 確率母関数･期待値と分散{#geometric_distribution2}
+
+$Geo(p)$ の確率母関数は以下の通り
+
+$$
+G(s) = E\left[s^X\right] = \frac{p}{1 - qs},\:\:|s| < \frac{1}{q} \tag{5.11}
+$$
+
+(証明)
+
+$$
+E\left[s^X\right] = \sum^{\infty}_{x = 0} s^x pq^x = p \sum^{\infty}_{x = 0} \left(sq\right)^x = \frac{p}{(1 - qs)},\:\:|s| < \frac{1}{q}
+$$
+
+$Geo(p)$ の期待値と分散は以下の通り
+
+$$
+E[X] = \frac{q}{p},\:\: V[X] = \frac{q}{p^2} \tag{5.12}
+$$
+
+(証明)
+
+$$
+G'(s) = pq(1 - qs)^{-2},\:\: G''(s) = 2pq^2(1 - qs)^{-3}\\
+E[X] = G'(1) =  \frac{q}{p} \\ 
+V[X] = E[X(X - 1)] + E[X] -\left(E[X]\right)^2 = \frac{2q^2}{p^2} + \frac{q}{p} - \left(\frac{q}{p}\right)^2 = \frac{q}{p^2}
+$$
+
+式 (5.12) の期待値より、「失敗回数の期待値 $E[X]$」と「成功回数 $(= 1)$」の比が、<br>
+「失敗確率 $q$」と「成功確率 $p$ の比に等しいことがわかる
+
+## 幾何分布の無記憶性{#geometric_distribution3}
+
+$X \sim Geo(p)$ のとき、以下が成り立つことを幾何分布の **無記憶性** (memoryless property) という
+
+$$
+P\left(X \geq t_1 + t_2 \;|\;X \geq t_1\right) = P(X \geq t_2) ,\:\:t_1,t_2 = 0,1,2,\dots
+$$
+
+(証明)
+$t = 0,1,2,\dots$ に対し、「$X \geq t$」が「はじめの $t$ 回が全て失敗」と同値なので $P(X \geq t) = q^t$ となるため
+
+$$
+P\left(X \geq t_1 + t_2 \;|\;X \geq t_1\right) = \frac{q^{t_1 + t_2}}{{q^{t_1}}} = q^{t_2} = P(X \geq t_2),\:\:t_1,t_2 = 0,1,2,\dots
+$$ 
+
+## 補足{#geometric_distribution4}
+
+「初めて成功するまでの試行回数 $W$」が従う分布を幾何分布と呼ぶこともある  
+このとき、$W = X + 1$ の分布を考えればよい  
+確率関数、期待値、分散、確率母関数は以下の通り
+
+$$
+P(W = w) = P(X = w - 1) = pq^{w -1},\:\: w = 1,2,\dots\\
+E[W] = E[X] + 1 = \frac{q}{p} + 1 = \frac{1}{p}\\
+V[W] = V[X] = \frac{q}{p^2}\\
+G(s) = E\left[s^W\right] = sE\left[s^X\right] = \frac{ps}{1 - qs},\:\:|s| < \frac{1}{q}
+$$
 
 # 負の二項分布
 
+## 定義{#negative_binomial_distribution1}
+
+成功確率 $p \;(0 < p < 1)$ の独立なベルヌーイ試行を繰り返したとき、$r \in \mathbb N$ 回目の成功が起こった時点で、<br>
+それまでに起こった **失敗の回数** を $Y$ とする  
+このとき $Y$ は **負の二項分布** (negative binomial distribution) に従い、$NB(r,p)$ と表す  
+特に $NB(1,p)$ は幾何分布 $Geo(p)$ である 
+
+確率関数は $q = 1 - p$ と重複組合せ ($r$ 個の異なるものから重複を許して $y$ 個を選んでできる組合せ) の<br>
+総数 ${}_r \mathrm H_y$ を用いて、以下のように表される
+
+$$
+P(Y = y) = {}_r \mathrm H_y p^rq^y,\:\: y = 0,1,2,\dots \tag{5.13}
+$$
+
+これは $Y = y$ となるのは「最初の $y + r -1$ 回の試行で成功 $r -1$ 回、失敗 $y$ 回であり、<br>
+$y + r$ 回の試行で成功する」ときであることを表すので、
+
+$$
+P(Y = y) = {}_r \mathrm H_y p^{r -1} q^y \times p = {}_r \mathrm H_y p^rq^y
+$$
+
+
+(補足) 重複組合せは具体的には以下のように書ける
+
+$$
+{}_r \mathrm H_y = {}_{y + r -1} C_y = \frac{(y + r -1)(y + r -2) \cdots (r + 1)r}{y!}
+$$
+
+## 幾何分布との関連{#negative_binomial_distribution2}
+
+$X_1,\dots,X_r$ が互いに独立に幾何分布 $Geo(p)$ に従うとき、$X_1 + \dots + X_r$ が $NB(r,p)$ に従う
+
+
+(証明)
+
+確率母関数を用いて確認する
+
+まず、$X_1 + \dots + X_r \:\:\left(X_1,\dots,X_r \overset{iid}{\sim} Geo(p)\right)$ の確率母関数は、式 (5.11) を用いると、<br>
+二項分布のときと同じ議論により、
+
+$$
+E\left[s^{X_1 + \dots + X_r}\right] = \left(E\left[s^{X_1}\right]\right)^r = \left(\frac{p}{(1 - qs)}\right)^r,\:\:|s| < \frac{1}{q}
+$$
+
+他方、 $Y \sim NB(r,p)$ の確率母関数は以下のように書ける
+
+$$
+G(s) = E\left[s^{Y}\right] = \sum^{\infty}_{y = 0} s^y(-1)^y \binom{-r}{y} p^r q^y = p^r \sum^{\infty}_{y = 0} \binom{-r}{y} (-qs)^y = p^r (1 -qs)^{-r} = \left(\frac{p}{1 - qs}\right)^r ,\:\:|s| < \frac{1}{q}
+$$
+
+ここで、最後から2つ目の等号ではテイラー展開 $(1 + x)^a = \sum^{\infty}_{b = 0} \frac{(a(a-1)) \cdots (a - b + 1)}{b!}x^b = \sum^{\infty}_{b = 0}\binom{a}{b}x^b,\:\:|x| < 1$ ($\forall a \in \mathbb R$) を用いた
+
+
+確率母関数が一致したので、$X_1 + \dots + X_r$ と $Y$ が従分布が一致することが確認できた
+
+## 期待値と分散{#negative_binomial_distribution3}
+
+$NB(r,p)$ の期待値と分散は以下の通り
+
+$$
+E[X] = \frac{rq}{p},\:\: V[X] = \frac{rq}{p^2} 
+$$
+
+(証明)
+
+$X_1,\dots,X_r \overset{iid}{\sim} Geo(p)$ に対して、$Y \overset{d}{=} X_1 + \dots + X_r$ ($\overset{d}{=}$ は両辺の確率変数が従う分布が等しいことを表す) となることと、<br>
+式 (5.12) より以下が成り立つことからわかる
+
+$$
+E[X_1] = \frac{q}{p},\:\: V[X_1] = \frac{q}{p^2}
+$$
+
+## 負の二項分布の再生性{#negative_binomial_distribution4}
+
+確率母関数 $G(s) = \left(\frac{p}{1 - qs}\right)^r$ の形より、K$Y_1 \sim NB(r_1,p)$ と $Y_2 \sim NB(r_2,p)$ が独立ならば、<br>
+負の二項分布に関しても以下の再生性が成り立つ
+
+$$
+Y_1 + Y_2 \sim NB(r_1 + r_2,p)
+$$
 
 
 # 多項分布
 
+## 定義{#multinomial_distribution1}
 
+## 期待値･分散･共分散と確率母関数{#multinomial_distribution2}
 
-
+## 多項分布の再生性{#multinomial_distribution3}
 
