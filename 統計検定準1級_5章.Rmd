@@ -1,5 +1,5 @@
 ---
-title: "離散型分布"
+title: "離散型分布 まとめ"
 author: "谷口友哉"
 date: "`r Sys.Date()`"
 output:
@@ -16,6 +16,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 
 ---
+
+```{r,message = FALSE}
+library(tidyverse)
+```
 
 # キーワード
 
@@ -40,6 +44,19 @@ $$
 
 であるとき、$X$ の分布を $\left\{1,2,\dots,K\right\}$ 上の **離散一様分布** (discrete uniform distribution) という
 
+(例) 均等なサイコロを10,000回投げる
+
+```{r}
+a1 <- sample(1:6, size = 10000, replace = TRUE)
+df1 <- tibble(a1)
+ggplot(df1, aes(x = a1)) +
+  geom_bar(width = 0.5) +
+  labs(x = "出た目", y = "回数") +
+  scale_x_continuous(breaks = 1:6) +
+   theme_gray (base_family = "HiraKakuPro-W3")
+```
+
+
 ## 期待値と分散･確率母関数{#discrete_uniform_distribution2}
 
 期待値と分散は以下の通り
@@ -48,6 +65,13 @@ $$
 E[X] = \frac{K + 1}{2},\:\: V[X] = \frac{K^2-1}{12}
 $$
 (証明)
+
+以下の有名な公式より容易に導ける
+
+$$
+1 + 2 + \cdots + K = \frac{K(K + 1)}{2}\\
+1^2 + 2^2 + \cdots + K^2 = \frac{K(K + 1)(2K + 1)}{6}
+$$
 
 確率母関数は以下の通り
 
@@ -119,6 +143,20 @@ $$
 これは与えられた $y \:(0\leq y \leq n)$ に対し、 $n$ 回の独立なベルヌーイ試行のうち成功 $y$ 回、<br>
 失敗 $n - y$ 回となるような列を考えると、列の総数は $n$ 回の試行のうち成功が起こった $y$ 回を選ぶ方法に<br>
 特定の列が生じる確率を掛け合わせたものと同義である
+
+(例) 表が少し出やすいコイン (0.6の確率で表が出る) を1回の実験で10回投げ、表が出た回数を記録。  
+この実験を300回繰り返す
+
+```{r}
+a2 <- rbinom(n = 300, size = 10, prob = 0.6)
+df2 <- tibble(a2)
+ggplot(df2, aes(x = a2)) +
+  geom_bar(width = 0.5) +
+  labs(x = "成功回数", y = "確率") +
+  scale_x_continuous(breaks = 0:10) +
+  theme_gray (base_family = "HiraKakuPro-W3")
+```
+
 
 ## 期待値と分散･確率母関数{#binomial_distribution2}
 
@@ -192,6 +230,11 @@ $$
 なお、$n$ と $\frac{M}{N} := p$ を一定のまま、$N \rightarrow \infty \: (M = Np \rightarrow \infty)$ とすると、<br>
 式(5.5)は二項分布 $Bin(n,p)$ の確率関数に各 $y$ で収束し、復元抽出と非復元抽出の差がなくなる
 
+```{r}
+ggplot(data.frame(x = c(0:10)), aes(x)) +
+    geom_point(aes(y = dhyper(x, 30,70,max(x))))
+```
+
 ## 期待値と分散{#hypergeometric_distribution2}
 
 $HG(N,M,n)$ の期待値と分散は以下の通り
@@ -230,6 +273,12 @@ $np$ を $\lambda \;(> 0)$ に固定して $n \rightarrow \infty \; (n \rightarr
 $$
 {}_n C_y \left(\frac{\lambda}{n}\right)^y \left(1-\frac{\lambda}{n}\right)^{n -y} \rightarrow \frac{\lambda^y}{y!}e^{-\lambda} \;\;(n \rightarrow \infty) \tag{5.8}
 $$
+
+```{r}
+ggplot(data.frame(x = c(0:10)), aes(x)) +
+    geom_point(aes(y = dpois(x, lambda = 1)))
+```
+
 
 ## 確率母関数･期待値と分散{#Poisson_distribution2}
 
@@ -284,6 +333,12 @@ P(X = x) = pq^x,\:\: x = 0,1,2,\dots
 $$
 
 これは $X = x$ となるのは「最初の $x$ 回全て失敗し、その次に成功する」ときであることを表す
+
+```{r}
+ggplot(data.frame(x = c(0:10)), aes(x)) +
+    geom_point(aes(y = dgeom(x, prob = 0.4)))
+```
+
 
 ## 確率母関数･期待値と分散{#geometric_distribution2}
 
@@ -352,6 +407,12 @@ $$
 それまでに起こった **失敗の回数** を $Y$ とする  
 このとき $Y$ は **負の二項分布** (negative binomial distribution) に従い、$NB(r,p)$ と表す  
 特に $NB(1,p)$ は幾何分布 $Geo(p)$ である 
+
+```{r}
+ggplot(data.frame(x = c(0:10)), aes(x)) +
+    geom_point(aes(y = dnbinom(0:10, 4, 0.3)))
+```
+
 
 確率関数は $q = 1 - p$ と重複組合せ ($r$ 個の異なるものから重複を許して $y$ 個を選んでできる組合せ) の<br>
 総数 ${}_r \mathrm H_y$ を用いて、以下のように表される
@@ -432,7 +493,76 @@ $$
 
 ## 定義{#multinomial_distribution1}
 
+$K \:(\ge 2)$ 個の結果 $1,\dots,K$ のいづれか1つが起こる試行を考える  
+結果 $j \:(1 \le j \le K)$ が起こる確率を $p_{j} \:(p_1 > 0, \dots, p_K >0,p_1 + \cdots + p_K = 1)$ とする  
+この試行を独立に $n$ 回行う時、結果 $j$ が起こる回数回数 $Y^{(j)}$ とする  
+このとき、$Y := \left(Y^{(1)}, \dots, Y^{(K)}\right)$ は **多項分布** (multinomial distribution) に従い、$M(n;p_1, \dots, p_K)$ と表す  
+(常に $Y^{(1)} + \cdots + Y^{(K)} = n$ が成り立つことに注意)
+
+特に $K = 2$ のとき、$Y = \left(Y^{(1)}, Y^{(2)}\right) = \left(Y^{(1)}, n - Y^{(1)}\right) \sim M(n;p_1, 1 - p_1)$ と1対1に対応する $Y^{(1)}$ は<br>
+二項分布 $Bin(n, p_1)$ に従うので、多項分布は二項分布の一般化と考えることができる
+
+多項分布 $M(n;p_1, \dots, p_K)$ の確率関数は
+
+$$
+P(Y^{(1)} = y^{(1)},\dots, Y^{(K)} = y^{(K)}) = \frac{n!}{y^{(1)}! \cdots y^{(K)}!}p_1^{y^{(1)}} \cdots p_K^{y^{(K)}},\\
+y^{(j)} \in \{0,1,\dots,n\}\:(1 \le j \le K), \:\: y^{(1)} + \cdots + y^{(K)} = n
+$$
+
+(証明)
+
+独立な $n$ 回の試行のうち、結果 $j$ の回数が $y^{(j)} \:(1 \le j \le K)$ となるような結果の列を考えた時、<br>
+そのような特定の列が得られる確率が $p_1^{y^{(1)}} \cdots p_K^{y^{(K)}}$ であり、<br>
+またそのような結果の列の総数が以下のようになることからわかる
+
+$$
+{}_n C_{y^{(1)}} \times {}_{n - y^{(1)}} C_{y^{(2)}} \times \cdots \times {}_{n - y^{(1)} - \cdots -y^{(K-1)}} C_{y^{(K)}} = \frac{n!}{y^{(1)}! \cdots y^{(K)}!}
+$$
+
+
 ## 期待値･分散･共分散と確率母関数{#multinomial_distribution2}
+
+多項分布 $M(n;p_1, \dots, p_K)$ の期待値･分散･共分散と確率母関数は、
+
+$$
+E\left[Y^{(j)}\right] = np_j, \:\: V\left[Y^{(j)}\right] = np_j\left(1 - p_j\right),\:\: j = 1,\dots,K \tag{5.14}
+$$
+
+$$
+\mathrm{Cov} \left[Y^{(j)},Y^{(j')}\right] = - np_jp_{j'},\:\: j \neq j' \tag{5.15}
+$$
+
+$$
+G(s_1,\dots,s_K) = E\left[s^{Y^{(1)}} \cdots s^{Y^{(K)}} \right] = \left(p_1s_1 + \cdots +  p_Ks_K\right)^n \tag{5.16}
+$$
+
+(証明)
+
+これらは、$n = 1$ のときの多項分布 $M(1;p_1, \dots, p_K)$ の期待値･分散･共分散と確率母関数から得られる
+
+$n = 1$ のとき、$X = \left(X^{(1)},\dots, X^{(K)}\right) \sim M(1;p_1, \dots, p_K)$ に対して、
+
+$$
+E\left[X^{(j)}\right] = p_j, \:\: V\left[X^{(j)}\right] = p_j\left(1 - p_j\right),\:\: j = 1,\dots,K \tag{5.17}
+$$
+
+$$
+\mathrm{Cov} \left[X^{(j)},X^{(j')}\right] = - p_jp_{j'},\:\: j \neq j' \tag{5.18}
+$$
+
+$$
+G(s_1,\dots,s_K) = E\left[s^{X^{(1)}} \cdots s^{X^{(K)}} \right] = p_1s_1 + \cdots +  p_Ks_K \tag{5.19}
+$$
+
+これを用いると、一般の多項分布の式 (5.14)、(5.15)、(5.16) は次のようにして得られる  
+$Y = \left(Y^{(1)}, \dots, Y^{(K)}\right) \sim M(n;p_1, \dots, p_K)$ は<br>
+$X_i = \left(X^{(1)}, \dots, X^{(K)}\right) \overset{iid}{\sim} M(1;p_1, \dots, p_K),\:i = 1,\dots,n$ を用いて、<br>
+$Y = X_1 + \cdots + X_n$ と表されている  
+つまり、$Y^{(j)} = X_1^{(1)} + \cdots + X_n^{(K)},\:j = 1,\dots,K$ と考えて良い  
+
+これと式 (5.17)、(5.18)、(5.19) を用いれば、式 (5.14)、(5.15)、(5.16) が導ける
+
 
 ## 多項分布の再生性{#multinomial_distribution3}
 
+二項分布と同様の再生性が成り立つことが、確率母関数 (5.16) の形からわかる
