@@ -14,7 +14,6 @@ vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-
 ---
 
 ```{r,message = FALSE}
@@ -204,7 +203,7 @@ $$
 
 ## 定義
 
-壺の中に $N$ 個の玉が入っており、そのうち $M$ 個は赤玉、残りの $N - M$ 個は白玉である $(0 < M < N)$
+壺の中に $N$ 個の玉が入っており、そのうち $M$ 個は赤玉、残りの $N - M$ 個は白玉である $(0 < M < N)$  
 
 よく混ぜ、壺から $n$ 個 取り出すとき、 $n$ 個中 $Y$ 個が赤玉だったとする  
 ($n = 1$ ならば、 $Y \sim Bin\left(1,\frac{M}{N}\right)$ )
