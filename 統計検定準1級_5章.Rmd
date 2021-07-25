@@ -228,7 +228,11 @@ $Y \sim HG(N,M,n)$ の確率変数は以下のように書ける
 $$
 P(Y = y) = \frac{_M C_y \times _{N-M} C_{n -y}}{_N C_n}, \; \max\{0,n - (N - M)\} \leq y \leq \min\{n,M\}  \tag{5.5}
 $$
+ここで、$\max\{0,n - (N - M)\} \leq y \leq \min\{n,M\}$ は $0 \leq y \leq M,\:0 \leq n - y \leq N -M$ の言いかえである  
+($a < 0$ または $b < 0$ のとき、$_a C_b = 0$ と考えるならばこの条件は不要)
 
+なお、$n$ と $\frac{M}{N} := p$ を一定のまま、$N \rightarrow \infty \: (M = Np \rightarrow \infty)$ とすると、<br>
+式(5.5)は二項分布 $Bin(n,p)$ の確率関数に各 $y$ で収束し、復元抽出と非復元抽出の差がなくなる
 
 ```{r}
 ggplot(data.frame(x = c(0:10)), aes(x)) +
