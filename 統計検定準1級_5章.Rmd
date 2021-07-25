@@ -222,10 +222,11 @@ $n = 1$ ばらば、$Y$ は 成功確率 $\frac{M}{N}$ のベルヌーイ分布 
 非復元無作為抽出で $n$ 個の玉を取り出す時、取り出された $n$ 個のうちの赤玉の個数 $Y$ が<br>
 超幾何分布 $HG(N,M,n)$ に従う)
 
+
 $Y \sim HG(N,M,n)$ の確率変数は以下のように書ける
 
 $$
-P(Y = y) = \frac{{}_M C_y \times {}_{N-M} C_{n -y}}{{}_N C_n}, \; \max\{0,n - (N - M)\} \leq y \leq \min\{n,M\}  \tag{5.5}
+P(Y = y) = \frac{_M C_y \times _{N-M} C_{n -y}}{_N C_n}, \; \max\{0,n - (N - M)\} \leq y \leq \min\{n,M\}  \tag{5.5}
 $$
 
 
