@@ -34,7 +34,7 @@ library(tidyverse)
 
 # 離散一様分布
 
-## 定義{#discrete_uniform_distribution1}
+## 定義
 
 確率変数 $X$ が $1,2,\dots,K$ を等確率で取る、つまり
 
@@ -57,7 +57,7 @@ ggplot(df1, aes(x = a1)) +
 ```
 
 
-## 期待値と分散･確率母関数{#discrete_uniform_distribution2}
+## 期待値と分散･確率母関数
 
 期待値と分散は以下の通り
 
@@ -87,7 +87,7 @@ $$
 一方を「成功」、もう一方を「失敗」と呼ぶ  
 成功の起こる確率を成功確率 $p (0<p<1)$ とする試行を **ベルヌーイ試行** (Bernoulli trial) という
 
-## 定義{#Bernoulli_distribution1}
+## 定義
 
 成功確率 $p$のベルヌーイ試行に対し、確率変数 $X$ を成功の時 $1$、失敗の時 $0$ をとると定義  
 ($X$ はベルヌーイ試行を1回行った時の成功の回数)  
@@ -99,7 +99,7 @@ $$
 P(X = x) = p^xq^{1-x} , \;x = 0,1
 $$
 
-## 期待値と分散･確率母関数{#Bernoulli_distribution2}
+## 期待値と分散･確率母関数
 
 $Bin(1,p)$ の期待値と分散は以下の通り
 
@@ -127,9 +127,10 @@ $$
 
 # 二項分布
 
-## 定義{#binomial_distribution1}
+## 定義
 
-成功確率 $p \;(0<p<1)$ のベルヌーイ試行を $n$ 回行い、$i\;(1\leq i \leq n)$ 回目のベルヌーイ試行に対応する確率変数を $X_i$ とする  
+成功確率 $p \;(0<p<1)$ のベルヌーイ試行を $n$ 回行い、<br>
+$i\;(1\leq i \leq n)$ 回目のベルヌーイ試行に対応する確率変数を $X_i$ とする  
 (和$X_1 + \cdots + X_n$ は $n$ 回中の成功回数)  
 ここで、$X_1, \dots , X_n$ が独立であるとき、$Y = X_1 + \cdots + X_n$ が従う分布を、<br>
 成功確率 $p$ の **二項分布** (binomial distribution) といい、$Bin(n,p)$ と表す  
@@ -140,6 +141,7 @@ $Bin(1,p)$ の確率変数は、$q := 1 - p$ を用いて以下のように書�
 $$
 P(Y = y) = {}_n C_y p^yq^{1 - y}, \;y = 0,1,\dots,n  \tag{5.3}
 $$
+
 これは与えられた $y \:(0\leq y \leq n)$ に対し、 $n$ 回の独立なベルヌーイ試行のうち成功 $y$ 回、<br>
 失敗 $n - y$ 回となるような列を考えると、列の総数は $n$ 回の試行のうち成功が起こった $y$ 回を選ぶ方法に<br>
 特定の列が生じる確率を掛け合わせたものと同義である
@@ -158,7 +160,7 @@ ggplot(df2, aes(x = a2)) +
 ```
 
 
-## 期待値と分散･確率母関数{#binomial_distribution2}
+## 期待値と分散･確率母関数
 
 $Bin(n,p)$ の期待値と分散、確率母関数は以下の通り
 
@@ -185,7 +187,7 @@ $$
 G(s) = E\left[s^Y\right] = E\left[s^{X_1}\right] \times \cdots E\left[s^{X_n}\right]= \left(E\left[s^{X_1}\right]\right)^2 = \left(ps + q\right)^n 
 $$
 
-## 二項分布の再生性{#binomial_distribution3}
+## 二項分布の再生性
 
 $Y_1 \sim Bin(n_1,p)$ と $Y_2 \sim Bin(n_2,p)$ が独立ならば、$Y_1 + Y_2 \sim Bin(n_1 + n_2,p)$ となる
 
@@ -200,7 +202,7 @@ $$
 
 # 超幾何分布
 
-## 定義{#hypergeometric_distribution1}
+## 定義
 
 壺の中に $N$ 個の玉が入っており、そのうち $M$ 個は赤玉、残りの $N - M$ 個は白玉である $(0 < M < N)$
 
@@ -235,7 +237,7 @@ ggplot(data.frame(x = c(0:10)), aes(x)) +
     geom_point(aes(y = dhyper(x, 30,70,max(x))))
 ```
 
-## 期待値と分散{#hypergeometric_distribution2}
+## 期待値と分散
 
 $HG(N,M,n)$ の期待値と分散は以下の通り
 
@@ -252,7 +254,7 @@ $n \geq 2$ のとき $\frac{\left(N - n \right)}{\left(N - 1 \right)} < 1$ で�
 
 # ポアソン分布
 
-## 定義{#Poisson_distribution1}
+## 定義
 
 非負整数値をとる確率変数 $Y$ が、ある $\lambda > 0$ に対して以下の確率関数をもつとする
 
@@ -280,7 +282,7 @@ ggplot(data.frame(x = c(0:10)), aes(x)) +
 ```
 
 
-## 確率母関数･期待値と分散{#Poisson_distribution2}
+## 確率母関数･期待値と分散
 
 $Po(\lambda)$ の確率母関数は以下の通り
 
@@ -311,7 +313,7 @@ $$
 式 (5.10) は、式 (5.8) で極限をとる前の二項分布 $Bin(n,p)$ の期待値 $np = \lambda$ と<br>
 分散 $np(1 - p) = \lambda\left(1 - \left(\frac{\lambda}{n}\right)\right)$ の極限を考えても予想できる
 
-## ポアソン分布の再生性{#Poisson_distribution3}
+## ポアソン分布の再生性
 
 $Y_1 \sim Po(\lambda_1)$ と $Y_2 \sim Po(\lambda_2)$ が独立ならば、$Y_1 + Y_2 \sim Po(\lambda_1 + \lambda_2)$ となる
 
@@ -321,7 +323,7 @@ $Y_1 \sim Po(\lambda_1)$ と $Y_2 \sim Po(\lambda_2)$ が独立ならば、$Y_1 
 
 # 幾何分布
 
-## 定義{#geometric_distribution1}
+## 定義
 
 成功確率 $p \;(0 < p < 1)$ の独立なベルヌーイ試行を繰り返したとき、初めて成功するまでに起こる **失敗の回数** を $X$ とする  
 このとき $X$ は **幾何分布** (geometric distribution) に従い、$Geo(p)$ と表す
@@ -340,7 +342,7 @@ ggplot(data.frame(x = c(0:10)), aes(x)) +
 ```
 
 
-## 確率母関数･期待値と分散{#geometric_distribution2}
+## 確率母関数･期待値と分散
 
 $Geo(p)$ の確率母関数は以下の通り
 
@@ -371,7 +373,7 @@ $$
 式 (5.12) の期待値より、「失敗回数の期待値 $E[X]$」と「成功回数 $(= 1)$」の比が、<br>
 「失敗確率 $q$」と「成功確率 $p$ の比に等しいことがわかる
 
-## 幾何分布の無記憶性{#geometric_distribution3}
+## 幾何分布の無記憶性
 
 $X \sim Geo(p)$ のとき、以下が成り立つことを幾何分布の **無記憶性** (memoryless property) という
 
@@ -380,13 +382,14 @@ P\left(X \geq t_1 + t_2 \;|\;X \geq t_1\right) = P(X \geq t_2) ,\:\:t_1,t_2 = 0,
 $$
 
 (証明)
+
 $t = 0,1,2,\dots$ に対し、「$X \geq t$」が「はじめの $t$ 回が全て失敗」と同値なので $P(X \geq t) = q^t$ となるため
 
 $$
 P\left(X \geq t_1 + t_2 \;|\;X \geq t_1\right) = \frac{q^{t_1 + t_2}}{{q^{t_1}}} = q^{t_2} = P(X \geq t_2),\:\:t_1,t_2 = 0,1,2,\dots
 $$ 
 
-## 補足{#geometric_distribution4}
+## 補足
 
 「初めて成功するまでの試行回数 $W$」が従う分布を幾何分布と呼ぶこともある  
 このとき、$W = X + 1$ の分布を考えればよい  
@@ -401,7 +404,7 @@ $$
 
 # 負の二項分布
 
-## 定義{#negative_binomial_distribution1}
+## 定義
 
 成功確率 $p \;(0 < p < 1)$ の独立なベルヌーイ試行を繰り返したとき、$r \in \mathbb N$ 回目の成功が起こった時点で、<br>
 それまでに起こった **失敗の回数** を $Y$ とする  
@@ -435,7 +438,7 @@ $$
 {}_r \mathrm H_y = {}_{y + r -1} C_y = \frac{(y + r -1)(y + r -2) \cdots (r + 1)r}{y!}
 $$
 
-## 幾何分布との関連{#negative_binomial_distribution2}
+## 幾何分布との関連
 
 $X_1,\dots,X_r$ が互いに独立に幾何分布 $Geo(p)$ に従うとき、$X_1 + \dots + X_r$ が $NB(r,p)$ に従う
 
@@ -462,7 +465,7 @@ $$
 
 確率母関数が一致したので、$X_1 + \dots + X_r$ と $Y$ が従分布が一致することが確認できた
 
-## 期待値と分散{#negative_binomial_distribution3}
+## 期待値と分散
 
 $NB(r,p)$ の期待値と分散は以下の通り
 
@@ -479,7 +482,7 @@ $$
 E[X_1] = \frac{q}{p},\:\: V[X_1] = \frac{q}{p^2}
 $$
 
-## 負の二項分布の再生性{#negative_binomial_distribution4}
+## 負の二項分布の再生性
 
 確率母関数 $G(s) = \left(\frac{p}{1 - qs}\right)^r$ の形より、K$Y_1 \sim NB(r_1,p)$ と $Y_2 \sim NB(r_2,p)$ が独立ならば、<br>
 負の二項分布に関しても以下の再生性が成り立つ
@@ -491,7 +494,7 @@ $$
 
 # 多項分布
 
-## 定義{#multinomial_distribution1}
+## 定義
 
 $K \:(\ge 2)$ 個の結果 $1,\dots,K$ のいづれか1つが起こる試行を考える  
 結果 $j \:(1 \le j \le K)$ が起こる確率を $p_{j} \:(p_1 > 0, \dots, p_K >0,p_1 + \cdots + p_K = 1)$ とする  
@@ -520,7 +523,7 @@ $$
 $$
 
 
-## 期待値･分散･共分散と確率母関数{#multinomial_distribution2}
+## 期待値･分散･共分散と確率母関数
 
 多項分布 $M(n;p_1, \dots, p_K)$ の期待値･分散･共分散と確率母関数は、
 
@@ -563,7 +566,7 @@ $Y = X_1 + \cdots + X_n$ と表されている
 これと式 (5.17)、(5.18)、(5.19) を用いれば、式 (5.14)、(5.15)、(5.16) が導ける
 
 
-## 多項分布の再生性{#multinomial_distribution3}
+## 多項分布の再生性
 
 二項分布と同様の再生性が成り立つことが、確率母関数 (5.16) の形からわかる  
 (詳細は省略)
