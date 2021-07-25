@@ -1,0 +1,204 @@
+---
+title: "連続型分布と標本分布 まとめ"
+author: "谷口友哉"
+date: "`r Sys.Date()`"
+output:
+  rmdformats::downcute:
+    code_folding: hide
+    self_contained: TRUE
+    thumbnails: FALSE
+    lightbox: FALSE
+    css: style.css
+    md_extensions: -ascii_identifiers
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r,message = FALSE}
+library(tidyverse)
+```
+
+# キーワード
+
+* 連続一様分布
+* 正規分布
+* 指数分布
+* ガンマ分布
+* ベータ分布
+* コーシー分布
+* 対数正規分布
+* 2変量正規分布
+* 多変量正規分布
+* 混合正規分布
+* カイ二乗分布
+* t分布
+* F分布 (非心分布を含む)
+
+一般に、標本に基づく統計量の分布を標本分布という  
+ここでは正規分布からの無作為標本に基づく統計量の標本分布に現れる  
+カイ二乗分布、t分布、F分布も扱う
+
+# 連続一様分布
+
+## 定義
+
+$a < b$ を満たす $a,b$ に対し、確率密度関数
+
+$$
+f(x) = \left\{
+\begin{array}{ll}
+\frac{1}{b - a} & (a \le x \le b)\\
+0 & (otherwise)
+\end{array}
+\right.
+
+$$
+
+をもつ分布を **連続一様分布** (continuous uniform distribution) といい、$U(a,b)$ で表す
+
+## 期待値と分散･モーメント母関数
+
+$X \sim U(a,b)$ の期待値と分散、モーメント母関数は以下の通り
+
+$$
+E[X] = \frac{a + b}{2},\:\: V[X] = \frac{(b - a)^2}{12} \\
+M(t) = E\left[e^{tX}\right] = \frac{e^{bt} - e^{at}}{(b - a)t},\:\: -\infty < t < \infty
+$$
+
+
+# 正規分布
+
+## 定義
+
+実数 $\mu \in \mathbb R$ と $\sigma > 0$ に対し、確率密度関数
+
+$$
+f(x) = \frac{1}{\sqrt{2\pi} \sigma}\exp\left(-\frac{(x - \mu)^2}{2\sigma^2}\right)
+$$
+
+をもつ分布を **正規分布** (normal distribution) または **ガウス分布** (Gaussian distribution) といい、  
+$N\left(\mu,\sigma^2\right)$ で表す
+
+## 標準正規分布
+
+特に $\mu = 0, \sigma^2 = 1$ のときの $N\left(0,1\right)$ は **標準正規分布** (standard normal distribution) という  
+$Z \sim N(0,1)$ の確率密度関数 $\varphi(z)$、累積分布関数  $\Phi(z)$ は
+
+$$
+\varphi(z) := \frac{1}{\sqrt{2\pi}}\exp\left(-\frac{z^2}{2}\right)\\
+\Phi(z) := P(Z \le z) = \int^{z}_{-\infty} \varphi(z)dt,\:\: Z \sim N(0,1) \tag{6.1}
+$$
+
+## 期待値と分散･モーメント母関数･累積分布関数
+
+$X \sim U(a,b)$ の期待値と分散、モーメント母関数は以下の通り
+
+$$
+E[X] = \mu,\:\: V[X] = \sigma^2
+$$
+
+
+$$
+M(t) = E\left[e^{tX}\right] = \exp\left(\mu t + \frac{1}{2}\sigma^2 t^2 \right),\:\: -\infty < t < \infty \tag{6.2}
+$$
+
+$X \sim U(a,b)$ のとき、標準化した $Z = \frac{X - \mu}{\sigma}$ は標準正規分布に従う  
+よって、$X \sim U(a,b)$ の累積分布関数は
+
+$$
+P(X \le x) = P\left(\frac{X - \mu}{\sigma} \le \frac{x - \mu}{\sigma}\right) = \Phi\left(\frac{x - \mu}{\sigma}\right),\:\: Z \sim N(0,1)
+$$
+
+## 正規分布の再生性
+
+
+
+
+
+
+
+
+
+
+
+# 指数分布
+
+
+
+## 定義
+
+
+
+# ガンマ分布
+
+
+
+## 定義
+
+
+
+# ベータ分布
+
+
+
+## 定義
+
+
+
+# コーシー分布
+
+
+
+## 定義
+
+
+
+# 対数正規分布
+
+
+
+## 定義
+
+
+
+# 2変量正規分布、多変量正規分布
+
+
+
+## 定義
+
+
+# 混合正規分布
+
+
+
+## 定義
+
+
+
+# カイ二乗分布
+
+
+
+## 定義
+
+
+
+# t分布
+
+
+
+## 定義
+
+
+
+# F分布
+
+
+
+## 定義
+
+
+
