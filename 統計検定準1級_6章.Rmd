@@ -113,42 +113,144 @@ $$
 
 ## 正規分布の再生性
 
+$X_1 \sim N\left(\mu_1,\sigma^2_1\right)$ と $X_2 \sim N\left(\mu_2,\sigma^2_2\right)$ が独立ならば、$X_1 + X_2 \sim N\left(\mu_1 + \mu_2, \sigma^2_1 + \sigma^2_2\right)$ となる
 
+(証明)
+式 (6.2) より $X_1 + X_2$ のモーメント母関数が  
+以下のように $N\left(\mu_1 + \mu_2, \sigma^2_1 + \sigma^2_2\right)$ のモーメント母関数に一致することからわかる
 
-
-
-
-
-
-
+$$
+E\left[e^{t\left(X_1 + X_2\right)}\right] = E\left[e^{tX_1}e^{tX_2}\right] = E\left[e^{tX_1}\right]E\left[e^{tX_2}\right] = 
+\exp\left(\mu_1 t + \frac{1}{2}\sigma^2_1 t^2 \right) \exp\left(\mu_2 t + \frac{1}{2}\sigma^2_2 t^2 \right)
+$$
 
 
 # 指数分布
 
-
-
 ## 定義
 
+$\lambda > 0$ に対し、確率密度関数
+
+$$
+f(x) = \lambda e^{-\lambda x},\:\:x > 0
+$$
+
+をもつ分布を **指数分布** (exponential distribution) といい、  $Exp\left(\lambda\right)$ で表す
+
+$X \sim Exp\left(\lambda\right)$ の累積分布関数は
+
+$$
+F(x) = P(X \le x) = 1 - e^{-\lambda x},\:\:x > 0
+$$
+
+## 期待値と分散･モーメント母関数
+
+$X \sim Exp\left(\lambda\right)$ の期待値と分散、モーメント母関数は以下の通り
+
+$$
+E[X] = \frac{1}{\lambda},\:\: V[X] = \frac{1}{\lambda^2} \\
+M(t) = E\left[e^{tX}\right] = \frac{\lambda}{\lambda - t} = \left(1- \frac{1}{\lambda}t\right)^{-1} ,\:\: t < \lambda
+$$
+
+## 指数分布の無記憶性
+
+$X \sim Exp\left(\lambda\right)$ のとき、以下が成り立つことを、  
+指数分布の **無記憶性** (memoryless property) という
+
+$$
+P\left(X \ge t_1 + t_2|X \ge t_1 \right) = P\left(X \ge t_2\right),\:\:t_1,t_2 \ge 0
+$$
+
+(証明)
+
+$t \ge 0$ に対して $P\left(X \ge t\right) = 1 -F(t) = e^{-\lambda t}$ となるため、$t_1,t_2 \ge 0$ に対して
+
+$$
+P\left(X \ge t_1 + t_2 |X \ge t_1\right) = \frac{e^{-\lambda(t_1 + t_2)}}{e^{-\lambda t_1}} = e^{-\lambda t_2} = P\left(X \ge t_2\right)
+$$
 
 
 # ガンマ分布
 
-
-
 ## 定義
 
+$a >0,b > 0$ に対し、確率密度関数
 
+$$
+f(x) = \frac{1}{\Gamma(a)b^a}x^{a - 1}e^{-\frac{x}{b}},\:\:x > 0
+$$
+
+をもつ分布を、形状母数 $a$、尺度母数 $b$ の **ガンマ分布** (gamma distribution) といい、  
+$Ga\left(a,b\right)$ で表す
+
+ここで、$\Gamma(a)$ はガンマ関数を表す  
+
+$$
+\Gamma(a) := \int^{\infty}_{0} x^{a -1}e^{-x}dx,\:\:a >0
+$$
+
+特に $a = 1$ の場合のガンマ分布 $Ga(1,b)$ は $\lambda = \frac{1}{b}$ とした指数分布 $Exp\left(\frac{1}{b}\right)$ である
+
+## 期待値と分散･モーメント母関数
+
+$X \sim Ga\left(a,b\right)$ の期待値と分散、モーメント母関数は以下の通り
+
+$$
+E[X] = ab,\:\: V[X] = ab^2 \tag{6.3}
+$$
+
+$$
+M(t) = E\left[e^{tX}\right] = (1 - bt)^{-a} ,\:\: t < \frac{1}{b} \tag{6.4}
+$$
+
+## ガンマ分布の再生性
+
+$X_1 \sim Ga\left(a_1,b \right)$ と $X_2 \sim Ga\left(a_2, b \right)$ が独立ならば、$X_1 + X_2 \sim Ga\left(a_1 + a_2, b \right)$ となる
+
+これはガンマ分布のモーメント母関数 (6.4) の形からわかる
 
 # ベータ分布
 
-
-
 ## 定義
 
+$a > 0,b > 0$ に対し、確率密度関数
 
+$$
+f(x) = \frac{1}{B(a,b)}x^{a - 1}(1 - x)^{b - 1},\:\:0 < x < 1
+$$
+
+をもつ区間 $(0,1)$ 上の分布を **ベータ分布** (beta distribution) といい、  
+$Be\left(a,b\right)$ で表す
+
+ここで、$B(a,b)$ はベータ関数を表す  
+
+$$
+B(a,b) := \int^{1}_{0} x^{a -1}(1 - x)^{b - 1}dx,\:\:a > 0, b > 0
+$$
+
+## 期待値と分散
+
+$X \sim Be\left(a,b\right)$ の期待値と分散は以下の通り
+
+$$
+E[X] = \frac{a}{a + b},\:\: V[X] = \frac{ab}{(a + b)^2(a + b + 1)}
+$$
+
+モーメント母関数は複雑なため省略
+
+## ベータ分布とガンマ分布の関連
+
+$X_1 \sim Ga\left(a_1,b \right)$ と $X_2 \sim Ga\left(a_2, b \right)$ が独立ならば、$\frac{X_1}{X_1 + X_2}$ は $X_1 + X_2$ と独立で、$\frac{X_1}{X_1 + X_2} \sim Be(a_1 ,a_2)$ となる 
 
 # コーシー分布
 
+確率密度関数
+
+$$
+f(x) = \frac{1}{\pi(1 + x^2)}
+$$
+
+をもつ分布を **コーシー分布** (Cauchy distribution) という
 
 
 ## 定義

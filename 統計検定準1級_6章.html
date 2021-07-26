@@ -207,14 +207,20 @@
             <li><a href="#指数分布">指数分布</a>
             <ul>
             <li><a href="#定義-2">定義</a></li>
+            <li><a href="#期待値と分散モーメント母関数-1">期待値と分散･モーメント母関数</a></li>
+            <li><a href="#指数分布の無記憶性">指数分布の無記憶性</a></li>
             </ul></li>
             <li><a href="#ガンマ分布">ガンマ分布</a>
             <ul>
             <li><a href="#定義-3">定義</a></li>
+            <li><a href="#期待値と分散モーメント母関数-2">期待値と分散･モーメント母関数</a></li>
+            <li><a href="#ガンマ分布の再生性">ガンマ分布の再生性</a></li>
             </ul></li>
             <li><a href="#ベータ分布">ベータ分布</a>
             <ul>
             <li><a href="#定義-4">定義</a></li>
+            <li><a href="#期待値と分散">期待値と分散</a></li>
+            <li><a href="#ベータ分布とガンマ分布の関連">ベータ分布とガンマ分布の関連</a></li>
             </ul></li>
             <li><a href="#コーシー分布">コーシー分布</a>
             <ul>
@@ -355,28 +361,118 @@ P(X \le x) = P\left(\frac{X - \mu}{\sigma} \le \frac{x - \mu}{\sigma}\right) = \
 </div>
 <div id="正規分布の再生性" class="section level2">
 <h2>正規分布の再生性</h2>
+<p><span class="math inline">\(X_1 \sim N\left(\mu_1,\sigma^2_1\right)\)</span> と <span class="math inline">\(X_2 \sim N\left(\mu_2,\sigma^2_2\right)\)</span> が独立ならば、<span class="math inline">\(X_1 + X_2 \sim N\left(\mu_1 + \mu_2, \sigma^2_1 + \sigma^2_2\right)\)</span> となる</p>
+<p>(証明) 式 (6.2) より <span class="math inline">\(X_1 + X_2\)</span> のモーメント母関数が<br />
+以下のように <span class="math inline">\(N\left(\mu_1 + \mu_2, \sigma^2_1 + \sigma^2_2\right)\)</span> のモーメント母関数に一致することからわかる</p>
+<p><span class="math display">\[
+E\left[e^{t\left(X_1 + X_2\right)}\right] = E\left[e^{tX_1}e^{tX_2}\right] = E\left[e^{tX_1}\right]E\left[e^{tX_2}\right] = 
+\exp\left(\mu_1 t + \frac{1}{2}\sigma^2_1 t^2 \right) \exp\left(\mu_2 t + \frac{1}{2}\sigma^2_2 t^2 \right)
+\]</span></p>
 </div>
 </div>
 <div id="指数分布" class="section level1">
 <h1>指数分布</h1>
 <div id="定義-2" class="section level2">
 <h2>定義</h2>
+<p><span class="math inline">\(\lambda &gt; 0\)</span> に対し、確率密度関数</p>
+<p><span class="math display">\[
+f(x) = \lambda e^{-\lambda x},\:\:x &gt; 0
+\]</span></p>
+<p>をもつ分布を <strong>指数分布</strong> (exponential distribution) といい、 <span class="math inline">\(Exp\left(\lambda\right)\)</span> で表す</p>
+<p><span class="math inline">\(X \sim Exp\left(\lambda\right)\)</span> の累積分布関数は</p>
+<p><span class="math display">\[
+F(x) = P(X \le x) = 1 - e^{-\lambda x},\:\:x &gt; 0
+\]</span></p>
+</div>
+<div id="期待値と分散モーメント母関数-1" class="section level2">
+<h2>期待値と分散･モーメント母関数</h2>
+<p><span class="math inline">\(X \sim Exp\left(\lambda\right)\)</span> の期待値と分散、モーメント母関数は以下の通り</p>
+<p><span class="math display">\[
+E[X] = \frac{1}{\lambda},\:\: V[X] = \frac{1}{\lambda^2} \\
+M(t) = E\left[e^{tX}\right] = \frac{\lambda}{\lambda - t} = \left(1- \frac{1}{\lambda}t\right)^{-1} ,\:\: t &lt; \lambda
+\]</span></p>
+</div>
+<div id="指数分布の無記憶性" class="section level2">
+<h2>指数分布の無記憶性</h2>
+<p><span class="math inline">\(X \sim Exp\left(\lambda\right)\)</span> のとき、以下が成り立つことを、<br />
+指数分布の <strong>無記憶性</strong> (memoryless property) という</p>
+<p><span class="math display">\[
+P\left(X \ge t_1 + t_2|X \ge t_1 \right) = P\left(X \ge t_2\right),\:\:t_1,t_2 \ge 0
+\]</span></p>
+<p>(証明)</p>
+<p><span class="math inline">\(t \ge 0\)</span> に対して <span class="math inline">\(P\left(X \ge t\right) = 1 -F(t) = e^{-\lambda t}\)</span> となるため、<span class="math inline">\(t_1,t_2 \ge 0\)</span> に対して</p>
+<p><span class="math display">\[
+P\left(X \ge t_1 + t_2 |X \ge t_1\right) = \frac{e^{-\lambda(t_1 + t_2)}}{e^{-\lambda t_1}} = e^{-\lambda t_2} = P\left(X \ge t_2\right)
+\]</span></p>
 </div>
 </div>
 <div id="ガンマ分布" class="section level1">
 <h1>ガンマ分布</h1>
 <div id="定義-3" class="section level2">
 <h2>定義</h2>
+<p><span class="math inline">\(a &gt;0,b &gt; 0\)</span> に対し、確率密度関数</p>
+<p><span class="math display">\[
+f(x) = \frac{1}{\Gamma(a)b^a}x^{a - 1}e^{-\frac{x}{b}},\:\:x &gt; 0
+\]</span></p>
+<p>をもつ分布を、形状母数 <span class="math inline">\(a\)</span>、尺度母数 <span class="math inline">\(b\)</span> の <strong>ガンマ分布</strong> (gamma distribution) といい、<br />
+<span class="math inline">\(Ga\left(a,b\right)\)</span> で表す</p>
+<p>ここで、<span class="math inline">\(\Gamma(a)\)</span> はガンマ関数を表す</p>
+<p><span class="math display">\[
+\Gamma(a) := \int^{\infty}_{0} x^{a -1}e^{-x}dx,\:\:a &gt;0
+\]</span></p>
+<p>特に <span class="math inline">\(a = 1\)</span> の場合のガンマ分布 <span class="math inline">\(Ga(1,b)\)</span> は <span class="math inline">\(\lambda = \frac{1}{b}\)</span> とした指数分布 <span class="math inline">\(Exp\left(\frac{1}{b}\right)\)</span> である</p>
+</div>
+<div id="期待値と分散モーメント母関数-2" class="section level2">
+<h2>期待値と分散･モーメント母関数</h2>
+<p><span class="math inline">\(X \sim Ga\left(a,b\right)\)</span> の期待値と分散、モーメント母関数は以下の通り</p>
+<p><span class="math display">\[
+E[X] = ab,\:\: V[X] = ab^2 \tag{6.3}
+\]</span></p>
+<p><span class="math display">\[
+M(t) = E\left[e^{tX}\right] = (1 - bt)^{-a} ,\:\: t &lt; \frac{1}{b} \tag{6.4}
+\]</span></p>
+</div>
+<div id="ガンマ分布の再生性" class="section level2">
+<h2>ガンマ分布の再生性</h2>
+<p><span class="math inline">\(X_1 \sim Ga\left(a_1,b \right)\)</span> と <span class="math inline">\(X_2 \sim Ga\left(a_2, b \right)\)</span> が独立ならば、<span class="math inline">\(X_1 + X_2 \sim Ga\left(a_1 + a_2, b \right)\)</span> となる</p>
+<p>これはガンマ分布のモーメント母関数 (6.4) の形からわかる</p>
 </div>
 </div>
 <div id="ベータ分布" class="section level1">
 <h1>ベータ分布</h1>
 <div id="定義-4" class="section level2">
 <h2>定義</h2>
+<p><span class="math inline">\(a &gt; 0,b &gt; 0\)</span> に対し、確率密度関数</p>
+<p><span class="math display">\[
+f(x) = \frac{1}{B(a,b)}x^{a - 1}(1 - x)^{b - 1},\:\:0 &lt; x &lt; 1
+\]</span></p>
+<p>をもつ区間 <span class="math inline">\((0,1)\)</span> 上の分布を <strong>ベータ分布</strong> (beta distribution) といい、<br />
+<span class="math inline">\(Be\left(a,b\right)\)</span> で表す</p>
+<p>ここで、<span class="math inline">\(B(a,b)\)</span> はベータ関数を表す</p>
+<p><span class="math display">\[
+B(a,b) := \int^{1}_{0} x^{a -1}(1 - x)^{b - 1}dx,\:\:a &gt; 0, b &gt; 0
+\]</span></p>
+</div>
+<div id="期待値と分散" class="section level2">
+<h2>期待値と分散</h2>
+<p><span class="math inline">\(X \sim Be\left(a,b\right)\)</span> の期待値と分散は以下の通り</p>
+<p><span class="math display">\[
+E[X] = \frac{a}{a + b},\:\: V[X] = \frac{ab}{(a + b)^2(a + b + 1)}
+\]</span></p>
+<p>モーメント母関数は複雑なため省略</p>
+</div>
+<div id="ベータ分布とガンマ分布の関連" class="section level2">
+<h2>ベータ分布とガンマ分布の関連</h2>
+<p><span class="math inline">\(X_1 \sim Ga\left(a_1,b \right)\)</span> と <span class="math inline">\(X_2 \sim Ga\left(a_2, b \right)\)</span> が独立ならば、<span class="math inline">\(\frac{X_1}{X_1 + X_2}\)</span> は <span class="math inline">\(X_1 + X_2\)</span> と独立で、<span class="math inline">\(\frac{X_1}{X_1 + X_2} \sim Be(a_1 ,a_2)\)</span> となる</p>
 </div>
 </div>
 <div id="コーシー分布" class="section level1">
 <h1>コーシー分布</h1>
+<p>確率密度関数</p>
+<p><span class="math display">\[
+f(x) = \frac{1}{\pi(1 + x^2)}
+\]</span></p>
+<p>をもつ分布を <strong>コーシー分布</strong> (Cauchy distribution) という</p>
 <div id="定義-5" class="section level2">
 <h2>定義</h2>
 </div>
