@@ -364,7 +364,7 @@ $N\left(\mu_1,\sigma^2_1\right)$ の確率密度関数と $N\left(\mu_2,\sigma^2
 $X_1$ と $X_2$ の周辺分布は、それぞれ $N\left(\mu_1,\sigma^2_1\right)$ と $N\left(\mu_2,\sigma^2_2\right)$ になる
 
 また、$X_1 = x_1$ が与えられた時の $X_2$ の条件付き分布は正規分布となり、その期待値と分散は以下となる  
-(式(6.7) を $N\left(\mu_1,\sigma^2_1\right)$ の確率密度で割れば良い)
+(式(6.7) を $N\left(\mu_1,\sigma^2_1\right)$ の確率密度で割ればよい)
 
 $$
 E\left[X_2|X_1 = x_1\right] = \mu_2 + \rho \cdot \frac{\sigma_2}{\sigma_1}(x_1 - \mu_1) = \mu_2 + \frac{\sigma_{12}}{\sigma_1^2}(x_1 - \mu_1) \\
