@@ -471,7 +471,7 @@ $Y_1 \sim \chi^2\left(n_1\right)$ と $Y_2 \sim \chi^2\left(n_2\right)$ が独�
 
 正規分布からの標本に基づく標本分散の標本分布を考える際に、以下のようにカイ二乗分布が現れる
 
-$N\left(\mu,\sigma^2\right)$ からの無作為標本 $X_1,\dots,X_n$ に対し、標本平均を $\bar{X}$、不偏分散を $s^2 = \sum^{n}_{i = 1}\frac{\left(X_i - \bar{X}\right)^2}{n-1}$ とすると、
+$N\left(\mu,\sigma^2\right)$ からの無作為標本 $X_1,\dots,X_n$ に対し、標本平均を $\bar{X}$、不偏分散を $s^2 = \sum^{n}_{i = 1}\left(X_i - \bar{X}\right)^2/n-1$ とすると、
 
 $\bar X$ と $s^2$ は独立
 
@@ -659,4 +659,7 @@ $F\left(n_1,n_2,0\right)$ は $F\left(n_1,n_2\right)$ と一致する
 (非心カイ二乗分布、非心 $t$ 分布、非心 $F$ 分布の定義より明らか)
 
 非心 $F$ 分布は回帰モデルや分散分析モデルにおける $F$ 検定の検出力の計算などに現れる
+
+
+
 
