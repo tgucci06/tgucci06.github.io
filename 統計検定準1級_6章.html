@@ -259,11 +259,13 @@
             <li><a href="#定義-9">定義</a></li>
             <li><a href="#平均と分散">平均と分散</a></li>
             <li><a href="#非心t分布の定義">非心t分布の定義</a></li>
+            <li><a href="#正規分布の平均の検定">正規分布の平均の検定</a></li>
             </ul></li>
             <li><a href="#f分布">F分布</a>
             <ul>
             <li><a href="#定義-10">定義</a></li>
-            <li><a href="#非心カイ二乗分布の定義-1">非心カイ二乗分布の定義</a></li>
+            <li><a href="#期待値と分散-2">期待値と分散</a></li>
+            <li><a href="#標本の標本分散の比の標本分布">2標本の標本分散の比の標本分布</a></li>
             <li><a href="#非心f分布の定義">非心F分布の定義</a></li>
             </ul></li>
             </ul>
@@ -576,7 +578,7 @@ E[\boldsymbol X] = \boldsymbol \mu,\:\:V[\boldsymbol X] = \boldsymbol \Sigma
 <h2>周辺分布,条件付き分布 (2変量正規分布)</h2>
 <p><span class="math inline">\(X_1\)</span> と <span class="math inline">\(X_2\)</span> の周辺分布は、それぞれ <span class="math inline">\(N\left(\mu_1,\sigma^2_1\right)\)</span> と <span class="math inline">\(N\left(\mu_2,\sigma^2_2\right)\)</span> になる</p>
 <p>また、<span class="math inline">\(X_1 = x_1\)</span> が与えられた時の <span class="math inline">\(X_2\)</span> の条件付き分布は正規分布となり、その期待値と分散は以下となる<br />
-(式(6.7) を <span class="math inline">\(N\left(\mu_1,\sigma^2_1\right)\)</span> の確率密度で割れば良い)</p>
+(式(6.7) を <span class="math inline">\(N\left(\mu_1,\sigma^2_1\right)\)</span> の確率密度で割ればよい)</p>
 <p><span class="math display">\[
 E\left[X_2|X_1 = x_1\right] = \mu_2 + \rho \cdot \frac{\sigma_2}{\sigma_1}(x_1 - \mu_1) = \mu_2 + \frac{\sigma_{12}}{\sigma_1^2}(x_1 - \mu_1) \\
 V\left[X_2|X_1 = x_1\right] = \sigma_2^2\left(1 - \rho^2\right)
@@ -658,7 +660,7 @@ M(t) = E\left[e^{tY}\right] = \left(1 -2t\right)^{-\frac{n}{2}},\:\: t &lt; \fra
 <div id="標本分散の標本分布" class="section level2">
 <h2>標本分散の標本分布</h2>
 <p>正規分布からの標本に基づく標本分散の標本分布を考える際に、以下のようにカイ二乗分布が現れる</p>
-<p><span class="math inline">\(N\left(\mu,\sigma^2\right)\)</span> からの無作為標本 <span class="math inline">\(X_1,\dots,X_n\)</span> に対し、標本平均を <span class="math inline">\(\bar{X}\)</span>、不偏分散を <span class="math inline">\(s^2 = \sum^{n}_{i = 1}\frac{\left(X_i - \bar{X}\right)^2}{n-1}\)</span> とすると、</p>
+<p><span class="math inline">\(N\left(\mu,\sigma^2\right)\)</span> からの無作為標本 <span class="math inline">\(X_1,\dots,X_n\)</span> に対し、標本平均を <span class="math inline">\(\bar{X}\)</span>、不偏分散を <span class="math inline">\(s^2 = \sum^{n}_{i = 1}\left(X_i - \bar{X}\right)^2/n-1\)</span> とすると、</p>
 <p><span class="math inline">\(\bar X\)</span> と <span class="math inline">\(s^2\)</span> は独立</p>
 <p><span class="math display">\[
 \frac{\bar X - \mu}{\frac{\sigma}{\sqrt{n}}} = \frac{\sqrt{n}(\bar X - \mu)}{\sigma} \sim N(0,1) \tag{6.11}
@@ -712,21 +714,91 @@ f(t) = \frac{\Gamma\left(\frac{n + 1}{2}\right)}{\sqrt{\pi n}\Gamma\left(\frac{n
 </div>
 <div id="平均と分散" class="section level2">
 <h2>平均と分散</h2>
+<p><span class="math inline">\(T \sim t(n)\)</span> の平均と分散は</p>
+<p><span class="math display">\[
+E[T] = 0 \:\:(n&gt;1),\:\: V[T] = \frac{n}{n-2} \:\:(n &gt; 2)
+\]</span></p>
+<p>となる</p>
+<p><span class="math inline">\(n = 1\)</span> のとき平均は存在せず、<span class="math inline">\(n = 1,2\)</span> のとき分散は存在しない</p>
+<p><span class="math inline">\(t\)</span> 分布は正規分布より裾が長い分布</p>
 </div>
 <div id="非心t分布の定義" class="section level2">
 <h2>非心t分布の定義</h2>
+<p><span class="math inline">\(t\)</span> 分布の定義 (6.12)</p>
+<p><span class="math display">\[
+T = \frac{Z}{\sqrt{\frac{Y}{n}}} \tag{6.12}
+\]</span></p>
+<p>において、<span class="math inline">\(Z \sim N(\lambda,1)\)</span> とした場合を考える<br />
+このとき式 (6.12) が従う分布を、<br />
+<strong>自由度 <span class="math inline">\(n\)</span> 、非心度 <span class="math inline">\(\lambda\)</span> の非心 <span class="math inline">\(t\)</span> 分布</strong> (noncentral t-distribution with n degrees of freedom and noncentrality parameter <span class="math inline">\(\lambda\)</span>) といい、<span class="math inline">\(t\left(n,\lambda\right)\)</span> で表す</p>
+<p><span class="math inline">\(t\left(n,0\right)\)</span> は <span class="math inline">\(t\left(n\right)\)</span> と一致する</p>
+</div>
+<div id="正規分布の平均の検定" class="section level2">
+<h2>正規分布の平均の検定</h2>
+<p><span class="math inline">\(t\)</span> 分布と非心 <span class="math inline">\(t\)</span> 分布が現れる例のひとつ</p>
+<p><span class="math inline">\(N\left(\mu,\sigma^2\right)\)</span> からの無作為標本 <span class="math inline">\(X_1,\dots,X_n\)</span> に対し、<br />
+不偏分散 <span class="math inline">\(s^2 = \sum^n_{i = 1}\left(X_i -\bar X\right)^2/(n-1)\)</span> を用いて定義される <strong><span class="math inline">\(t\)</span> 統計量</strong> (t-statistic) がある</p>
+<p><span class="math display">\[
+t = \frac{\bar X}{\frac{s}{\sqrt{n}}} = \frac{\sqrt{n}\bar X}{s}\tag{6.14}
+\]</span></p>
+<p><span class="math inline">\(t\)</span> 統計量 (6.14)は、<span class="math inline">\(\mu = 0\)</span> のとき自由度 <span class="math inline">\(n-1\)</span> の <span class="math inline">\(t\)</span> 分布に従い、<br />
+<span class="math inline">\(\mu \neq 0\)</span> のとき自由度 <span class="math inline">\(n-1\)</span>、非心度 <span class="math inline">\(\sqrt{n}\mu/\sigma\)</span> の非心 <span class="math inline">\(t\)</span> 分布に従う</p>
+<p>これは式 (6.14) を以下のように書き直すことで、式 (6.11) よりわかる</p>
+<p><span class="math display">\[
+t = \frac{\frac{\bar X}{\frac{\sigma}{\sqrt{n}}}}{\frac{\frac{(n -1)s^2}{\sigma^2}}{n-1}} 
+\]</span></p>
+<p><span class="math inline">\(\sigma^2\)</span> が未知の場合の帰無仮説 <span class="math inline">\(\mu = 0\)</span> の <span class="math inline">\(t\)</span> 検定において、<br />
+<span class="math inline">\(t\)</span> 分布は検定統計量としての <span class="math inline">\(t\)</span> 統計量 (6.14) の帰無分布に現れ、非心 <span class="math inline">\(t\)</span> 分布は検出力に現れる</p>
 </div>
 </div>
 <div id="f分布" class="section level1">
 <h1>F分布</h1>
 <div id="定義-10" class="section level2">
 <h2>定義</h2>
+<p><span class="math inline">\(Y_1 \sim \chi^2\left(n_1\right)\)</span> と <span class="math inline">\(Y_2 \sim \chi^2\left(n_2\right)\)</span> が独立なとき</p>
+<p><span class="math display">\[
+X = \frac{Y_1/n_1}{Y_2/n_2} \tag{6.15}
+\]</span></p>
+<p>が従う分布を、<br />
+<strong>自由度 <span class="math inline">\((n_1,n_2)\)</span> 、<span class="math inline">\(F\)</span> 分布</strong> (F-distribution with <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span> degrees of freedom) といい、<span class="math inline">\(F\left(n_1,n_2\right)\)</span> で表す</p>
+<p><span class="math inline">\(F\left(n_1,n_2\right)\)</span> の確率密度関数は</p>
+<p><span class="math display">\[
+f(x) = \frac{n_1^{\frac{n_1}{2}} n_2^\frac{n_2}{2}}{B\left(\frac{n_1}{2},\frac{n_2}{2}\right)} \cdot \frac{x^{\frac{n_1}{2}-1}}{\left(n_2 + n_1x\right)^{\frac{n_1 + n_2}{2}}} = \frac{1}{B\left(\frac{n_1}{2},\frac{n_2}{2}\right)} \cdot \frac{\left(\frac{n_1}{n_2}\right)^{\frac{n_1}{2}} x^{\frac{n_1}{2}-1}}{\left(1 + \frac{n_1}{n_2}x\right)^{\frac{n_1 + n_2}{2}}}, \:\:x &gt; 0
+\]</span></p>
+<p>となる</p>
 </div>
-<div id="非心カイ二乗分布の定義-1" class="section level2">
-<h2>非心カイ二乗分布の定義</h2>
+<div id="期待値と分散-2" class="section level2">
+<h2>期待値と分散</h2>
+<p><span class="math inline">\(X \sim F\left(n_1,n_2\right)\)</span> の平均と分散は</p>
+<p><span class="math display">\[
+E[X] = \frac{n_2}{n_2 - 2} \:\: (n_2 &gt; 2),\:\: V[X] = 2 \left(\frac{n_2}{n_2 - 2}\right)^2 \frac{n_1 + n_2 -2}{n_1(n_2 - 4)} \:\: (n_2 &gt; 4)
+\]</span></p>
+<p>となる</p>
+<p><span class="math inline">\(n_2 \le 2\)</span> のとき平均は存在せず、<span class="math inline">\(n_2 \le 4\)</span> のとき分散は存在しない</p>
+</div>
+<div id="標本の標本分散の比の標本分布" class="section level2">
+<h2>2標本の標本分散の比の標本分布</h2>
+<p><span class="math inline">\(X_1,\dots,X_{n_{1}}\)</span> は <span class="math inline">\(N\left(\mu_1,\sigma^2_1\right)\)</span> からの無作為標本とし、<br />
+<span class="math inline">\(Y_1,\dots,Y_{n_{2}}\)</span> は <span class="math inline">\(N\left(\mu_2,\sigma^2_2\right)\)</span> からの無作為標本とする</p>
+<p>さらに、<span class="math inline">\(X_1,\dots,X_{n_{1}},Y_1,\dots,Y_{n_{2}}\)</span> が全て互いに独立とすると<br />
+<span class="math inline">\(s^2_1 = \sum^{n_1}_{i = 1}\left(X_i - \bar{X}\right)^2/(n_1 - 1), s^2_2 = \sum^{n_2}_{i = 1}\left(Y_i - \bar{Y}\right)^2/(n_2 - 1)\)</span> に対して</p>
+<p><span class="math display">\[
+\frac{s^2_1/\sigma^2_1}{s^2_2/\sigma^2_2} \sim F(n_1-1,n_2 -1)
+\]</span></p>
+<p>となる</p>
 </div>
 <div id="非心f分布の定義" class="section level2">
 <h2>非心F分布の定義</h2>
+<p><span class="math inline">\(F\)</span> 分布の定義 (6.15)</p>
+<p><span class="math display">\[
+X = \frac{Y_1/n_1}{Y_2/n_2} \tag{6.15}
+\]</span></p>
+<p>において、<span class="math inline">\(Y_1 \sim \chi^2\left(n_1,\lambda\right)\)</span> とする</p>
+<p>このとき、式 (6.15) の <span class="math inline">\(X\)</span> が従う分布を <strong>自由度 <span class="math inline">\((n_1,n_2)\)</span> 、非心度 <span class="math inline">\(\lambda\)</span> の非心 <span class="math inline">\(F\)</span> 分布</strong> (noncentral F-distribution with <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span> degrees of freedom and noncentrality parameter <span class="math inline">\(\lambda\)</span>) といい、<span class="math inline">\(F\left(n_1,n_2,\lambda\right)\)</span> で表す</p>
+<p><span class="math inline">\(F\left(n_1,n_2,0\right)\)</span> は <span class="math inline">\(F\left(n_1,n_2\right)\)</span> と一致する</p>
+<p>(非心度がゼロのときも含め) <span class="math inline">\(T \sim t(n,\mu)\)</span> のとき、<span class="math inline">\(T^2 \sim F(1, n,\mu^2)\)</span> となる<br />
+(非心カイ二乗分布、非心 <span class="math inline">\(t\)</span> 分布、非心 <span class="math inline">\(F\)</span> 分布の定義より明らか)</p>
+<p>非心 <span class="math inline">\(F\)</span> 分布は回帰モデルや分散分析モデルにおける <span class="math inline">\(F\)</span> 検定の検出力の計算などに現れる</p>
 </div>
 </div>
 </div>

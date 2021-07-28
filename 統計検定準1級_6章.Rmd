@@ -364,7 +364,7 @@ $N\left(\mu_1,\sigma^2_1\right)$ の確率密度関数と $N\left(\mu_2,\sigma^2
 $X_1$ と $X_2$ の周辺分布は、それぞれ $N\left(\mu_1,\sigma^2_1\right)$ と $N\left(\mu_2,\sigma^2_2\right)$ になる
 
 また、$X_1 = x_1$ が与えられた時の $X_2$ の条件付き分布は正規分布となり、その期待値と分散は以下となる  
-(式(6.7) を $N\left(\mu_1,\sigma^2_1\right)$ の確率密度で割れば良い)
+(式(6.7) を $N\left(\mu_1,\sigma^2_1\right)$ の確率密度で割ればよい)
 
 $$
 E\left[X_2|X_1 = x_1\right] = \mu_2 + \rho \cdot \frac{\sigma_2}{\sigma_1}(x_1 - \mu_1) = \mu_2 + \frac{\sigma_{12}}{\sigma_1^2}(x_1 - \mu_1) \\
@@ -471,7 +471,7 @@ $Y_1 \sim \chi^2\left(n_1\right)$ と $Y_2 \sim \chi^2\left(n_2\right)$ が独�
 
 正規分布からの標本に基づく標本分散の標本分布を考える際に、以下のようにカイ二乗分布が現れる
 
-$N\left(\mu,\sigma^2\right)$ からの無作為標本 $X_1,\dots,X_n$ に対し、標本平均を $\bar{X}$、不偏分散を $s^2 = \sum^{n}_{i = 1}\frac{\left(X_i - \bar{X}\right)^2}{n-1}$ とすると、
+$N\left(\mu,\sigma^2\right)$ からの無作為標本 $X_1,\dots,X_n$ に対し、標本平均を $\bar{X}$、不偏分散を $s^2 = \sum^{n}_{i = 1}\left(X_i - \bar{X}\right)^2/n-1$ とすると、
 
 $\bar X$ と $s^2$ は独立
 
@@ -542,23 +542,124 @@ $n  \rightarrow \infty$ のとき、標準正規分布の確率密度関数 (6.1
 
 ## 平均と分散
 
+$T \sim t(n)$ の平均と分散は
+
+$$
+E[T] = 0 \:\:(n>1),\:\: V[T] = \frac{n}{n-2} \:\:(n > 2)
+$$
+
+となる
+
+$n = 1$ のとき平均は存在せず、$n = 1,2$ のとき分散は存在しない
+
+$t$ 分布は正規分布より裾が長い分布
 
 ## 非心t分布の定義
 
+$t$ 分布の定義 (6.12)
+
+$$
+T = \frac{Z}{\sqrt{\frac{Y}{n}}} \tag{6.12}
+$$
+
+において、$Z \sim N(\lambda,1)$ とした場合を考える  
+このとき式 (6.12) が従う分布を、  
+**自由度 $n$ 、非心度 $\lambda$ の非心 $t$ 分布** (noncentral t-distribution with n degrees of freedom and noncentrality parameter $\lambda$) といい、$t\left(n,\lambda\right)$ で表す
+
+$t\left(n,0\right)$ は $t\left(n\right)$ と一致する
+
+## 正規分布の平均の検定
+
+$t$ 分布と非心 $t$ 分布が現れる例のひとつ
+
+$N\left(\mu,\sigma^2\right)$ からの無作為標本 $X_1,\dots,X_n$ に対し、  
+不偏分散 $s^2 = \sum^n_{i = 1}\left(X_i -\bar X\right)^2/(n-1)$ を用いて定義される **$t$ 統計量** (t-statistic) がある
+
+$$
+t = \frac{\bar X}{\frac{s}{\sqrt{n}}} = \frac{\sqrt{n}\bar X}{s}\tag{6.14}
+$$
+
+$t$ 統計量 (6.14)は、$\mu = 0$ のとき自由度 $n-1$ の $t$ 分布に従い、  
+$\mu \neq 0$ のとき自由度 $n-1$、非心度 $\sqrt{n}\mu/\sigma$ の非心 $t$ 分布に従う
+
+これは式 (6.14) を以下のように書き直すことで、式 (6.11) よりわかる
+
+$$
+t = \frac{\frac{\bar X}{\frac{\sigma}{\sqrt{n}}}}{\frac{\frac{(n -1)s^2}{\sigma^2}}{n-1}} 
+$$
+
+$\sigma^2$ が未知の場合の帰無仮説 $\mu = 0$ の $t$ 検定において、  
+$t$ 分布は検定統計量としての $t$ 統計量 (6.14) の帰無分布に現れ、非心 $t$ 分布は検出力に現れる
 
 # F分布
 
 
 ## 定義
 
+$Y_1 \sim \chi^2\left(n_1\right)$ と $Y_2 \sim \chi^2\left(n_2\right)$ が独立なとき
+
+$$
+X = \frac{Y_1/n_1}{Y_2/n_2} \tag{6.15}
+$$
+
+が従う分布を、  
+**自由度 $(n_1,n_2)$ 、$F$ 分布** (F-distribution with $n_1$ and $n_2$ degrees of freedom) といい、$F\left(n_1,n_2\right)$ で表す
+
+$F\left(n_1,n_2\right)$ の確率密度関数は
+
+$$
+f(x) = \frac{n_1^{\frac{n_1}{2}} n_2^\frac{n_2}{2}}{B\left(\frac{n_1}{2},\frac{n_2}{2}\right)} \cdot \frac{x^{\frac{n_1}{2}-1}}{\left(n_2 + n_1x\right)^{\frac{n_1 + n_2}{2}}} = \frac{1}{B\left(\frac{n_1}{2},\frac{n_2}{2}\right)} \cdot \frac{\left(\frac{n_1}{n_2}\right)^{\frac{n_1}{2}} x^{\frac{n_1}{2}-1}}{\left(1 + \frac{n_1}{n_2}x\right)^{\frac{n_1 + n_2}{2}}}, \:\:x > 0
+$$
+
+となる
+
+## 期待値と分散
+
+$X \sim F\left(n_1,n_2\right)$ の平均と分散は
+
+$$
+E[X] = \frac{n_2}{n_2 - 2} \:\: (n_2 > 2),\:\: V[X] = 2 \left(\frac{n_2}{n_2 - 2}\right)^2 \frac{n_1 + n_2 -2}{n_1(n_2 - 4)} \:\: (n_2 > 4)
+$$
+
+となる  
+
+$n_2 \le 2$ のとき平均は存在せず、$n_2 \le 4$ のとき分散は存在しない
+
+## 2標本の標本分散の比の標本分布
+
+$X_1,\dots,X_{n_{1}}$ は $N\left(\mu_1,\sigma^2_1\right)$ からの無作為標本とし、  
+$Y_1,\dots,Y_{n_{2}}$ は $N\left(\mu_2,\sigma^2_2\right)$ からの無作為標本とする
+
+さらに、$X_1,\dots,X_{n_{1}},Y_1,\dots,Y_{n_{2}}$ が全て互いに独立とすると  
+$s^2_1 = \sum^{n_1}_{i = 1}\left(X_i - \bar{X}\right)^2/(n_1 - 1), s^2_2 = \sum^{n_2}_{i = 1}\left(Y_i - \bar{Y}\right)^2/(n_2 - 1)$ に対して
 
 
+$$
+\frac{s^2_1/\sigma^2_1}{s^2_2/\sigma^2_2} \sim F(n_1-1,n_2 -1)
+$$
 
-## 非心カイ二乗分布の定義
-
+となる
 
 
 ## 非心F分布の定義
+
+$F$ 分布の定義 (6.15) 
+
+$$
+X = \frac{Y_1/n_1}{Y_2/n_2} \tag{6.15}
+$$
+
+において、$Y_1 \sim \chi^2\left(n_1,\lambda\right)$ とする
+
+このとき、式 (6.15) の $X$ が従う分布を **自由度 $(n_1,n_2)$ 、非心度 $\lambda$ の非心 $F$ 分布** (noncentral F-distribution with $n_1$ and $n_2$ degrees of freedom and noncentrality parameter $\lambda$) といい、$F\left(n_1,n_2,\lambda\right)$ で表す
+
+$F\left(n_1,n_2,0\right)$ は $F\left(n_1,n_2\right)$ と一致する
+
+(非心度がゼロのときも含め) $T \sim t(n,\mu)$ のとき、$T^2 \sim F(1, n,\mu^2)$ となる  
+(非心カイ二乗分布、非心 $t$ 分布、非心 $F$ 分布の定義より明らか)
+
+非心 $F$ 分布は回帰モデルや分散分析モデルにおける $F$ 検定の検出力の計算などに現れる
+
 
 
 
