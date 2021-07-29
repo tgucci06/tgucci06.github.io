@@ -7,7 +7,7 @@
 
         <meta name="author" content="谷口友哉" />
     
-        <meta name="date" content="2021-07-28" />
+        <meta name="date" content="2021-07-29" />
     
     <title>連続型分布と標本分布 まとめ</title>
 
@@ -191,7 +191,10 @@
         <div class="Sidebar">
           <div class="SidebarItems" id="toc">
             <ul>
+            <li><a href="#はじめに">はじめに</a>
+            <ul>
             <li><a href="#キーワード">キーワード</a></li>
+            </ul></li>
             <li><a href="#連続一様分布">連続一様分布</a>
             <ul>
             <li><a href="#定義">定義</a></li>
@@ -289,7 +292,7 @@
       <p class="authors">
            <span class="glyphicon glyphicon-user"></span> 谷口友哉
       </p>
-         <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2021-07-28</p>
+         <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2021-07-29</p>
            
 
    
@@ -298,8 +301,13 @@
 <!-- Don't indent these lines or it will mess pre blocks indentation --> 
 <div class="page-content has-page-title">
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
-<div id="キーワード" class="section level1">
-<h1>キーワード</h1>
+<div id="はじめに" class="section level1">
+<h1>はじめに</h1>
+<p>各分布がそれぞれどんな状況を想定しているかがだいたい分かればよい<br />
+また、再生性などの性質については押さえておくと良い<br />
+平均や分散はできれば暗記したいが、最悪確率密度関数が与えられていればモーメント母関数から導出は可能</p>
+<div id="キーワード" class="section level2">
+<h2>キーワード</h2>
 <ul>
 <li>連続一様分布</li>
 <li>正規分布</li>
@@ -318,6 +326,7 @@
 <p>一般に、標本に基づく統計量の分布を標本分布という<br />
 ここでは正規分布からの無作為標本に基づく統計量の標本分布に現れる<br />
 カイ二乗分布、t分布、F分布も扱う</p>
+</div>
 </div>
 <div id="連続一様分布" class="section level1">
 <h1>連続一様分布</h1>
