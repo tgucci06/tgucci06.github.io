@@ -440,6 +440,35 @@ $$
 {}_r \mathrm H_y = {}_{y + r -1} C_y = \frac{(y + r -1)(y + r -2) \cdots (r + 1)r}{y!}
 $$
 
+ここで、$_r \mathrm H_y$ は「1回目の成功より前」、「1回目と2回目の成功の間」、...、「$r-1$ 回目の成功より後」という  
+$r$ 個の中から重複を許して、(失敗が起こる期間として) $y$ 個選ぶ重複組合せの総数  
+(各期間に起こる失敗の回数としての非負整数 $x_1,\dots,x_r\:\:(x_1 + \cdots x_r = y)$ の決め方の総数) 
+
+## 重複組合せの総数と負の二項係数
+
+(補足) 重複組合せの総数 $_r \mathrm H_y$ を **負の二項係数** を用いて表す
+
+負も含めた任意の整数 (実数、複素数などと考えて良い) $a$ と非負整数 $b$ に対し、一般化された二項係数 $\binom{a}{b}$ は
+
+$$
+\binom{a}{b} := \frac{a(a-1) \cdots (a - b +1)}{b!} 
+$$
+
+で定義される  
+($b = 0$ のときは $\binom{a}{0} = 1/0! = 1$)
+
+これを用いると、
+
+$$
+_r \mathrm H_y = {}_{y + r -1} C_y = \frac{(y + r -1)(y + r -2) \cdots (r + 1)r}{y!} = (-1)^y \cdot \frac{(-r)(-r -1) \cdots (-r -y + 1)}{y!} = (-1)^y \binom{-r}{y}
+$$
+
+となる
+
+このように負の二項分布の確率関数 (5.13) の係数に現れる $_r \mathrm H_y$ は、  
+負の $-r$ に対する二項係数 $\binom{-r}{y} = (-r)(-r -1) \cdots (-r -y + 1)/y!$ を用いて表すことができる
+
+
 ## 幾何分布との関連
 
 $X_1,\dots,X_r$ が互いに独立に幾何分布 $Geo(p)$ に従うとき、$X_1 + \dots + X_r$ が $NB(r,p)$ に従う
@@ -456,7 +485,7 @@ $$
 E\left[s^{X_1 + \dots + X_r}\right] = \left(E\left[s^{X_1}\right]\right)^r = \left(\frac{p}{(1 - qs)}\right)^r,\:\:|s| < \frac{1}{q}
 $$
 
-他方、 $Y \sim NB(r,p)$ の確率母関数は以下のように書ける
+他方、 $Y \sim NB(r,p)$ の確率母関数は、負の二項係数を用いて以下のように書ける
 
 $$
 G(s) = E\left[s^{Y}\right] = \sum^{\infty}_{y = 0} s^y(-1)^y \binom{-r}{y} p^r q^y = p^r \sum^{\infty}_{y = 0} \binom{-r}{y} (-qs)^y = p^r (1 -qs)^{-r} = \left(\frac{p}{1 - qs}\right)^r ,\:\:|s| < \frac{1}{q}
