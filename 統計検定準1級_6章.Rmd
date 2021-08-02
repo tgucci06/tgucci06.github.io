@@ -59,7 +59,6 @@ f(x) = \left\{
 0 & (otherwise)
 \end{array}
 \right.
-
 $$
 
 をもつ分布を **連続一様分布** (continuous uniform distribution) といい、$U(a,b)$ で表す
@@ -86,6 +85,18 @@ $$
 
 をもつ分布を **正規分布** (normal distribution) または **ガウス分布** (Gaussian distribution) といい、  
 $N\left(\mu,\sigma^2\right)$ で表す
+
+
+```{r}
+library(ggplot2)
+
+ab <- expand.grid(mu = c(0, 2), sigma = c(.5, 1, 3))
+ggplot(data.frame(X = c(-6, 6)), aes(x = X)) +
+  mapply(
+    function(mu, sigma, co) stat_function(fun = dnorm, args = list(mean = mu, sd = sigma), aes_q(color = co)),
+    ab$mu, ab$sigma, sprintf("mu=%.0f sigma=%.1f", ab$mu, ab$sigma)) + 
+  labs(color = "parameter")
+```
 
 ## 標準正規分布
 
@@ -143,6 +154,17 @@ $$
 
 をもつ分布を **指数分布** (exponential distribution) といい、  $Exp\left(\lambda\right)$ で表す
 
+```{r}
+library(ggplot2)
+
+ab <- expand.grid(lambda = c(0.5, 1, 1.5))
+ggplot(data.frame(X = c(0, 5)), aes(x = X)) +
+  mapply(
+    function(lambda, co) stat_function(fun = dexp, args = list(rate = lambda), aes_q(color = co)),
+    ab$lambda,sprintf("lambda=%.1f", ab$lambda)) + 
+  labs(color = "parameter")
+```
+
 $X \sim Exp\left(\lambda\right)$ の累積分布関数は
 
 $$
@@ -197,6 +219,20 @@ $$
 
 特に $a = 1$ の場合のガンマ分布 $Ga(1,b)$ は $\lambda = \frac{1}{b}$ とした指数分布 $Exp\left(\frac{1}{b}\right)$ である
 
+* ガンマ分布の確率密度関数を描画 (参考:https://qiita.com/hoxo_b/items/a6522a6e6561f8ca7b96)
+
+```{r}
+library(ggplot2)
+
+ab <- expand.grid(a = c(1, 2), b = c(.5, 1, 2))
+ggplot(data.frame(X = c(0, 6)), aes(x = X)) +
+  mapply(
+    function(a, b, co) stat_function(fun = dgamma, args = list(shape = a, rate = b), aes_q(color = co)),
+    ab$a, ab$b, sprintf("a=%.0f b=%.1f", ab$a, ab$b)) + 
+  labs(color = "parameter")
+```
+
+
 ## 期待値と分散･モーメント母関数
 
 $X \sim Ga\left(a,b\right)$ の期待値と分散、モーメント母関数は以下の通り
@@ -227,6 +263,18 @@ $$
 
 をもつ区間 $(0,1)$ 上の分布を **ベータ分布** (beta distribution) といい、  
 $Be\left(a,b\right)$ で表す
+
+```{r}
+library(ggplot2)
+
+ab <- expand.grid(a = c(.5, 1, 2), b = c(.5, 1, 2))
+ggplot(data.frame(X = c(0, 1)), aes(x = X)) +
+  mapply(
+    function(a, b, co) stat_function(fun = dbeta, args = list(shape1 = a, shape2 = b), aes_q(color = co)),
+    ab$a, ab$b, sprintf("a=%.0f b=%.1f", ab$a, ab$b)) + 
+  labs(color = "parameter") + 
+  ylim(0,2)
+```
 
 ここで、$B(a,b)$ はベータ関数を表す  
 
@@ -259,6 +307,18 @@ f(x) = \frac{1}{\pi(1 + x^2)} \tag{6.5}
 $$
 
 をもつ分布を **コーシー分布** (Cauchy distribution) という
+
+
+```{r}
+library(ggplot2)
+
+ab <- expand.grid(x0 = c(0), gamma = c(1))
+ggplot(data.frame(X = c(-5, 5)), aes(x = X)) +
+  mapply(
+    function(x0, gamma, co) stat_function(fun = dcauchy, args = list(location = x0, scale = gamma), aes_q(color = co)),
+    ab$x0, ab$gamma, sprintf("x0=%.0f gamma=%.1f", ab$x0, ab$gamma)) + 
+  labs(color = "parameter")
+```
 
 コーシー分布は裾が重い分布であり、平均やより高次のモーメントが存在しない  
 式 (6.5) より、原点に関して左右対称であることがわかるが、平均が $0$ というわけではない
@@ -666,5 +726,7 @@ $F\left(n_1,n_2,0\right)$ は $F\left(n_1,n_2\right)$ と一致する
 非心 $F$ 分布は回帰モデルや分散分析モデルにおける $F$ 検定の検出力の計算などに現れる
 
 
+### 参考サイト
 
+https://qiita.com/hoxo_b/items/a6522a6e6561f8ca7b96
 
